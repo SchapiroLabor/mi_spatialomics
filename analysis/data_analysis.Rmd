@@ -9,7 +9,7 @@ editor_options:
 
 # Proteomic data processing
 
-1) [Filter proteomic data](../docs/filter_proteomic_data.html)
+1) [Filter proteomic data](./filter_proteomic_data.html)
 
 2) [Data imputation using MissForest]()
 3) []
