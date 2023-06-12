@@ -1,0 +1,127 @@
+---
+title: "Filter proteomics data"
+author: "FloWuenne"
+date: "2023-06-12"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(data.table)
+library(ggpubr)
+library(cowplot)
+library(here)
+```
+
+# Introduction 
+
+Here we will process and analyze the data generated via laser-microdissection coupled with high-sensitiviy proteomics of the endocardial layer from control hearts and hearts one day after myocardial infarction. We have a total of 3 groups in this dataset, all representing laser microdissected regions of endocardium from mouse hearts:
+1) control = Mouse hearts without infarct
+2) MI_IZ = Mouse hearts 1 day post MI. Endocardial region adjacent to the infarct.
+3) MI_remote = Mouse hearts 1 day post MI. Endocardial region remote to the infarct.
+
+# Load data
+
+```{r}
+prot_res <- fread("./data/proteomics_endocardial_layer.tsv")
+metadata <- fread("./data/metadata.proteomics_endocardial_layer.txt")
+```
+
+# Analysis
+
+## Filter out proteins that are identified in < 3 MI samples
+
+```{r}
+## Exclude proteins that are only identified in a subset of samples per group
+## For controls, we expect a protein to be measured in at least 2/3 samples (33% missingness allowed)
+## For MI samples, we expect a protein to be measured in at least 2/4 samples (50% missingness allowed)
+na_mi <- prot_res %>%
+  pivot_longer(control_r1:MI_remote_r4,
+               names_to = "sample",
+               values_to = "protein_exp") %>%
+  mutate("group" = if_else(grepl("control",sample),"control",
+                           if_else(grepl("MI_IZ",sample),"MI_IZ","MI_remote"))) %>%
+  group_by(Protein_Ids,Genes,group) %>%
+  summarise(na_count = sum(is.na(protein_exp))) %>%
+  ungroup() %>%
+  mutate("percent_na" = if_else(group == "control",na_count / 3, na_count / 4)) %>%
+  select(-na_count) %>% ## control: n = 3 and MI: n = 4
+  pivot_wider(names_from = "group",values_from = percent_na) %>%
+  mutate("retain" = if_else(control <= 0.3 | MI_remote <= 0.25 | MI_IZ <= 0.25, "yes","no"))
+
+prot_res_filt <- subset(prot_res,Protein_Ids %in% subset(na_mi,retain == "yes")$Protein_Ids)
+```
+
+
+## Merge metadata with protein counts per sample
+
+```{r}
+## Count number of detected proteins with contaminants
+prot_res_quant_cont <- prot_res_filt %>%
+  select(control_r1:MI_remote_r4) %>%
+  summarise_all(funs(sum(!is.na(.))))
+
+## Count number of detected proteins without contaminants
+prot_res_filt <- prot_res_filt %>%
+  mutate("contaminant" = if_else(grepl("Cont",Protein_Ids),"yes","no"))
+
+prot_res_quant <-  prot_res_filt %>%
+  subset(contaminant == "no") %>%
+  select(control_r1:MI_remote_r4) %>%
+  summarise_all(funs(sum(!is.na(.))))
+
+final_counts <- t(rbind(prot_res_quant_cont,
+                      prot_res_quant))
+colnames(final_counts) <- c("w_cont","wo_cont")
+final_counts <- as.data.frame(final_counts) %>%
+  mutate("sample" = rownames(final_counts))
+
+## Add protein counts to metadata
+metadata_counts <- left_join(metadata,final_counts, by = "sample")
+
+## Add group to counts
+metadata_counts <- metadata_counts %>%
+  mutate("group" = if_else(grepl("control",sample),"control",
+                           if_else(grepl("MI_IZ",sample),"MI_IZ","MI_remote")))
+
+## Set order of groups
+metadata_counts$group <- factor(metadata_counts$group,
+                                levels = c("control","MI_remote","MI_IZ"))
+
+## Plot number of proteins without contaminants per sample
+ggbarplot(metadata_counts,
+          x = "group",
+          y = "wo_cont",
+          fill = "group",
+          add = c("mean_se"),
+          error.plot = "upper_errorbar",
+          color = "black",
+          palette = "npg") +
+  theme_minimal_hgrid()  +
+  labs (x = "Treatment group",
+         y = "# Proteins identified") +
+  font("xlab", size = 16, color = "black", face = "bold") +
+  font("ylab", size = 16, color = "black", face = "bold") +
+  scale_y_continuous(
+    expand = expansion(mult = c(0, 0.05))
+  ) +
+  rremove("legend")
+```
+
+```{r}
+prot_res_final <- subset(prot_res_filt,contaminant == "no") %>%
+  select(-c(contaminant,First_Protein_Description))
+```
+
+
+## Process protein counts
+
+```{r}
+## Impute missing values, similar as to
+```
+
