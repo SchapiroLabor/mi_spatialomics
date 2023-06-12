@@ -1,5 +1,3 @@
-# mi_spatialomics
+# Highly-multiplexed imaging of immune cell infiltration routes in myocardial infarction
 
-A [workflowr][] project.
-
-[workflowr]: https://github.com/workflowr/workflowr
+This repository was created using [workflowR](). The website build for this project can be accessed here: [Test]().
