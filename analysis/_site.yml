@@ -1,10 +1,14 @@
-name: "mi_spatialomics"
+name: "Highly-multiplexed imaging of immune cell infiltration routes in myocardial infarction"
 output_dir: ../docs
 navbar:
   title: "mi_spatialomics"
   left:
   - text: Home
     href: index.html
+  - text: Data processing
+    href: data_processing.html
+  - text: Data analysis
+    href: data_analysis.html
   - text: About
     href: about.html
   - text: License
@@ -13,5 +17,5 @@ output:
   workflowr::wflow_html:
     toc: yes
     toc_float: yes
-    theme: cosmo
+    theme: united
     highlight: textmate
