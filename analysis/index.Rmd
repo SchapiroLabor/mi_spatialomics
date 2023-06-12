@@ -1,11 +1,48 @@
 ---
-title: "Home"
+title: "Highly-multiplexed imaging of immune cell infiltration routes in myocardial infarction"
 site: workflowr::wflow_site
 output:
   workflowr::wflow_html:
-    toc: false
+    toc: true
 editor_options:
   chunk_output_type: console
 ---
 
-Welcome to my research website.
+# Introduction
+
+# Data setup
+
+All scripts in this repository assume that this repository is in the same folder as the `/data` directory, containing all the data on Synapse. Data directory structure can be set up using the Synapse command-line interace with the following command
+
+```         
+`synapse get -r syn51449054 `
+```
+
+For more options to download the data within Synapse, you can select Download Options in the Synapse project and check out Programmatic options. This will allow to also download the data directly using R and Python.
+
+You can then clone this repository alongside the data repository from Synapse:
+
+```         
+git clone https://github.com/SchapiroLabor/MI_infiltration_imaging.git
+```
+
+# Data processing
+
+## Pipelines used to process the imaging data
+
+Imaging data in this study was processed using nextflow based pipelines designed for the specific data type. Links to the original pipeline repositories is provided below. Config files and specifications for running each pipeline to process the data is provided in this repository under : `./`
+
+-   Processing of Molecular Cartography was done using [nf-MolCart]().
+-   Processing of SeqIF (Lunaphore COMET) data was done using [MCMICRO](https://mcmicro.org/).
+
+# Data availability
+
+All raw images and processed data is available from Synapse: [Highly-multiplexed imaging of immune cell infiltration routes in myocardial infarction](https://www.synapse.org/#!Synapse:syn51449054/wiki/622109).
+
+# Citation
+
+Please cite our preprint if using any of the data used in study:
+
+```         
+[Add citation]
+```

@@ -7,4 +7,4 @@ editor_options:
   chunk_output_type: console
 ---
 
-Describe your project.
+This repository contains all code used in the project "Highly-multiplexed imaging of immune cell infiltration routes in myocardial infarction".
