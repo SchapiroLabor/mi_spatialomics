@@ -1,0 +1,12 @@
+n_nuclei	Area_um2	sample
+207	43055	control_r1
+201	34655	control_r2
+220	35634	control_r3
+223	43647	MI_IZ_r1
+176	37099	MI_IZ_r2
+227	36815	MI_IZ_r3
+270	44048	MI_IZ_r4
+80	15724	MI_remote_r1
+145	25241	MI_remote_r2
+162	28807	MI_remote_r3
+163	28543	MI_remote_r4
