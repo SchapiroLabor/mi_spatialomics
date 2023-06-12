@@ -35,6 +35,8 @@ Imaging data in this study was processed using nextflow based pipelines designed
 -   Processing of Molecular Cartography was done using [nf-MolCart]().
 -   Processing of SeqIF (Lunaphore COMET) data was done using [MCMICRO](https://mcmicro.org/).
 
+For more details on data processing, go to [Data processing](./analysis/data_processing.Rmd).
+
 # Data availability
 
 All raw images and processed data is available from Synapse: [Highly-multiplexed imaging of immune cell infiltration routes in myocardial infarction](https://www.synapse.org/#!Synapse:syn51449054/wiki/622109).
@@ -42,7 +44,3 @@ All raw images and processed data is available from Synapse: [Highly-multiplexed
 # Citation
 
 Please cite our preprint if using any of the data used in study:
-
-```         
-[Add citation]
-```
