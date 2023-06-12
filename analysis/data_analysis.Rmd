@@ -1,0 +1,12 @@
+---
+title: "Data analysis"
+author: "Florian Wuennemann"
+date: "2023-06-12"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+Data analysis
