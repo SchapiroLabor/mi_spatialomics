@@ -9,6 +9,8 @@ navbar:
     href: data_processing.html
   - text: Data analysis
     href: data_analysis.html
+  - text: Figures
+    href: figures.html
   - text: About
     href: about.html
   - text: License

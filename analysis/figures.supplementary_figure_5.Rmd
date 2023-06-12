@@ -1,0 +1,92 @@
+---
+title: "figures.supplementary_figure_5"
+author: "FloWuenne"
+date: "2023-06-12"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(vroom)
+library(dplyr, warn.conflicts = FALSE)
+library(tibble, warn.conflicts = FALSE)
+library(tidyverse)
+library(ggpubr)
+library(cowplot)
+library(here)
+library(ggbeeswarm)
+```
+
+```{r}
+# Load data
+qc_dir <- "/Users/florian_wuennemann/1_Projects/MI_project/data/nf_MolCart_results/QC"
+files <- fs::dir_ls(path = qc_dir, glob = "*csv")
+qc_data <- vroom(files)
+qc_data <- qc_data %>%
+  separate(sample_id,
+           into = c("string","time","replicate","slide","segmentation"),
+           remove = TRUE) %>%
+  mutate("sample_ID" = paste(string,time,replicate,slide,sep= "_"))
+
+qc_data$avg_area <- qc_data$avg_area *0.138 * 0.138
+
+qc_data$time  <- factor(qc_data$time,
+                        levels = c("control","4h","2d","4d"))
+qc_data$segmentation_method <- factor(qc_data$segmentation_method,
+                                      levels = c("ilastik_multicut","cellpose",
+                                                 "mesmer_wholecell","mesmer_nuclear"
+                                                 ))
+
+final_samples <- c("sample_control_r1_s1","sample_control_r2_s1",
+                   "sample_4h_r1_s1","sample_4h_r2_s2",
+                   "sample_2d_r1_s1","sample_2d_r2_s1",
+                   "sample_4d_r1_s2","sample_4d_r2_s1")
+
+qc_data <- subset(qc_data,sample_ID %in% final_samples)
+
+qc_data <- qc_data %>%
+  pivot_longer(total_cells:spot_assign_percent,
+               names_to = "group",
+               values_to = "values") %>%
+  subset(group %in% c("avg_area","spot_assign_per_cell","spot_assign_percent","total_cells"))
+
+qc_data$group <- gsub("avg_area","Average area (uM^2)",qc_data$group)
+qc_data$group <- gsub("spot_assign_per_cell","Spots / cell",qc_data$group)
+qc_data$group <- gsub("spot_assign_percent","% spots in cells ",qc_data$group)
+qc_data$group <- gsub("total_cells","Total # cells ",qc_data$group)
+```
+
+
+```{r}
+spots_assigned <- ggplot(qc_data,aes(segmentation_method,values)) +
+  geom_boxplot(aes(fill = segmentation_method)) +
+  coord_flip() +
+  scale_fill_brewer(palette = "Set1") +
+  scale_color_brewer(palette = "Set1") +
+  scale_x_discrete(labels=c("ilastik_multicut" = "Ilastik Multicut",
+                            "cellpose" = "Cellpose",
+                            "mesmer_wholecell" = "Mesmer - Whole cell",
+                            "mesmer_nuclear" = "Mesmer - Nuclear")) +
+  labs(x = "",
+       y = "") +
+  theme(legend.position = "none") +
+  facet_grid(. ~ group, scales = "free") +
+  theme(plot.background = element_rect(fill = "white")) +
+  geom_beeswarm(fill = "white",color= "black",pch = 21) +
+  panel_border()
+
+spots_assigned
+
+save_plot(filename = here("./figures/Supplementary_figure_5.segmentation_metrics.png"),
+          plot = spots_assigned,
+          base_height = 6)
+
+
+save_plot(filename = here("./figures/Supplementary_figure_5.segmentation_metrics.eps"),
+          plot = spots_assigned,
+          base_height = 5,
+          base_width = 10)
+```

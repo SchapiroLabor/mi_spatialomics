@@ -1,0 +1,15 @@
+---
+title: "Figures & Tables"
+author: "FloWuenne"
+date: "2023-06-12"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+# Figures
+
+# Supplementary Figures
+
+- [Supplementary Figure 3](./figures.supplementary_figure_3.html)
+- [Supplementary Figure 5](./figures/supplementary_figure_5.html)
