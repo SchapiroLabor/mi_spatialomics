@@ -12,4 +12,4 @@ editor_options:
 # Supplementary Figures
 
 - [Supplementary Figure 3](./figures.supplementary_figure_3.html)
-- [Supplementary Figure 5](./figures/supplementary_figure_5.html)
+- [Supplementary Figure 5](./figures.supplementary_figure_5.html)
