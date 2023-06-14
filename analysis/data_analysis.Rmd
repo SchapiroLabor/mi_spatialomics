@@ -13,10 +13,10 @@ editor_options:
 2) 
 3) 
 
-# Proteomic data processing
+# Laser-microdissection coupled with high-sensitivity proteomics
 
 1) [Filter proteomic data](./proteomics.filter_proteomic_data.html)
 
-2) [Data imputation using MissForest](./proteomics.imput_proteins.html)
+2) [Data imputation using MissForest](./proteomics.impute_proteins.html)
 3) [BayesPrism deconvolution]()
 

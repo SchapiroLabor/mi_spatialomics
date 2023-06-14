@@ -9,11 +9,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Florian Wuennemann" />
+<meta name="author" content="FloWuenne" />
 
-<meta name="date" content="2023-06-12" />
+<meta name="date" content="2023-06-14" />
 
-<title>Data analysis</title>
+<title>proteomics.bayesPrism_deconv</title>
 
 <script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -360,9 +360,9 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Data analysis</h1>
-<h4 class="author">Florian Wuennemann</h4>
-<h4 class="date">2023-06-12</h4>
+<h1 class="title toc-ignore">proteomics.bayesPrism_deconv</h1>
+<h4 class="author">FloWuenne</h4>
+<h4 class="date">2023-06-14</h4>
 
 </div>
 
@@ -395,7 +395,7 @@ aria-hidden="true"></span> </a>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 1
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span> 1
 </p>
@@ -429,12 +429,96 @@ changes </a>
 <div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of
-the R Markdown file created these results, you’ll want to first commit
-it to the Git repo. If you’re still working on the analysis, you can
-ignore this warning. When you’re finished, you can run
+<p>The R Markdown is untracked by Git. To know which version of the R
+Markdown file created these results, you’ll want to first commit it to
+the Git repo. If you’re still working on the analysis, you can ignore
+this warning. When you’re finished, you can run
 <code>wflow_publish</code> to commit the R Markdown file and build the
 HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20230612code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20230612)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20230612code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20230612)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
 </div>
 </div>
 </div>
@@ -500,317 +584,64 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
-
 <p>
-These are the previous versions of the repository in which changes were
-made to the R Markdown (<code>analysis/data_analysis.Rmd</code>) and
-HTML (<code>docs/data_analysis.html</code>) files. If you’ve configured
-a remote Git repository (see <code>?wflow_git_remote</code>), click on
-the hyperlinks in the table below to view the files as they were in that
-past version.
+There are no past versions. Publish this analysis with
+<code>wflow_publish()</code> to start tracking its development.
 </p>
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-File
-</th>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-<th>
-Message
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/f412578040a52a73c1e7072dd463f20072b409d6/docs/data_analysis.html" target="_blank">f412578</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-06-14
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/FloWuenne/mi_spatialomics/blob/2d015dd6457db41a75484766389597ec8f5f45e3/analysis/data_analysis.Rmd" target="_blank">2d015dd</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-06-14
-</td>
-<td>
-Finalized imputation with RF.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/2d015dd6457db41a75484766389597ec8f5f45e3/docs/data_analysis.html" target="_blank">2d015dd</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-06-14
-</td>
-<td>
-Finalized imputation with RF.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/5816aca1f0626eb9acccca21f51dc1cfbd50dabb/docs/data_analysis.html" target="_blank">5816aca</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-06-12
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/FloWuenne/mi_spatialomics/blob/3b5ca40b321db3a07f9742b5cbed39aa96fbc395/analysis/data_analysis.Rmd" target="_blank">3b5ca40</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-06-12
-</td>
-<td>
-Added code for supplementary Figures.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/3b5ca40b321db3a07f9742b5cbed39aa96fbc395/docs/data_analysis.html" target="_blank">3b5ca40</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-06-12
-</td>
-<td>
-Added code for supplementary Figures.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/e3bbd70102bccdaae2bb23be0f33f6de96b44edf/docs/data_analysis.html" target="_blank">e3bbd70</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-06-12
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/FloWuenne/mi_spatialomics/blob/412d64f9302e1aafd12bf79630a635c9a9f9d71a/analysis/data_analysis.Rmd" target="_blank">412d64f</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-06-12
-</td>
-<td>
-Fixed links in data_analysis
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/9603ecd4c47d1fb35d545d2b8a2a15c58407750d/docs/data_analysis.html" target="_blank">9603ecd</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-06-12
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/FloWuenne/mi_spatialomics/blob/ff0c849793025046e556ea599411f6c5f599d215/analysis/data_analysis.Rmd" target="_blank">ff0c849</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-06-12
-</td>
-<td>
-wflow_publish("*")
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/700ba8cf7926e27b359dcacc7f2a23d72a63a281/docs/data_analysis.html" target="_blank">700ba8c</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-06-12
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/FloWuenne/mi_spatialomics/blob/ebb85a53c1795ad798e68541e0b5daf59306b6d2/analysis/data_analysis.Rmd" target="_blank">ebb85a5</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-06-12
-</td>
-<td>
-Updated organization for proteomics data analysis.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/51754b93c9089c0f6795c26c9c5abb60516de90c/docs/data_analysis.html" target="_blank">51754b9</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-06-12
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/d764fa8a30f961d0f5ebd236168ee2dc313ad1a0/docs/data_analysis.html" target="_blank">d764fa8</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-06-12
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/FloWuenne/mi_spatialomics/blob/62020bfd9eb6c5f352df9b2fd254f33ad21db1fb/analysis/data_analysis.Rmd" target="_blank">62020bf</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-06-12
-</td>
-<td>
-Configure site header.
-</td>
-</tr>
-</tbody>
-</table>
-</div>
 <hr>
 </div>
 </div>
 </div>
-<div id="molecular-cartography" class="section level1">
-<h1>Molecular Cartography</h1>
-<ol style="list-style-type: decimal">
-<li><a href="./molkart.QC_spots.html">QC RNA spots</a></li>
-<li></li>
-<li></li>
-</ol>
+<pre class="r"><code>library(data.table)</code></pre>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>Here we will use BayesPrism to attempt to deconvolute the protomics
+protein matrix using snRNA-seq data from <a
+href="https://www.nature.com/articles/s44161-022-00160-3">Calcagno et
+al. 2022</a>.</p>
 </div>
-<div id="laser-microdissection-coupled-with-high-sensitivity-proteomics"
-class="section level1">
-<h1>Laser-microdissection coupled with high-sensitivity proteomics</h1>
-<ol style="list-style-type: decimal">
-<li><p><a href="./proteomics.filter_proteomic_data.html">Filter
-proteomic data</a></p></li>
-<li><p><a href="./proteomics.impute_proteins.html">Data imputation using
-MissForest</a></p></li>
-<li><p><a href="">BayesPrism deconvolution</a></p></li>
-</ol>
+<div id="load-data" class="section level1">
+<h1>Load data</h1>
+<pre class="r"><code>imp_prot &lt;- fread(file = &quot;./output/proteomics.filt_imputed_proteins.tsv&quot;)</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.2.3 (2023-03-15)
+Platform: aarch64-apple-darwin20 (64-bit)
+Running under: macOS Ventura 13.4
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices datasets  utils     methods   base     
+
+other attached packages:
+[1] data.table_1.14.8 workflowr_1.7.0  
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.10      bslib_0.4.2      compiler_4.2.3   pillar_1.9.0    
+ [5] later_1.3.1      git2r_0.32.0     jquerylib_0.1.4  tools_4.2.3     
+ [9] getPass_0.2-2    digest_0.6.31    jsonlite_1.8.4   evaluate_0.21   
+[13] lifecycle_1.0.3  tibble_3.2.1     pkgconfig_2.0.3  rlang_1.1.1     
+[17] cli_3.6.1        rstudioapi_0.14  yaml_2.3.7       xfun_0.39       
+[21] fastmap_1.1.1    httr_1.4.6       stringr_1.5.0    knitr_1.42      
+[25] sass_0.4.6       fs_1.6.2         vctrs_0.6.2      rprojroot_2.0.3 
+[29] glue_1.6.2       R6_2.5.1         processx_3.8.0   fansi_1.0.4     
+[33] rmarkdown_2.21   callr_3.7.3      magrittr_2.0.3   whisker_0.4.1   
+[37] ps_1.7.4         promises_1.2.0.1 htmltools_0.5.5  renv_0.17.3     
+[41] httpuv_1.6.11    utf8_1.2.3       stringi_1.7.12   cachem_1.0.8    </code></pre>
+</div>
 </div>
 
 

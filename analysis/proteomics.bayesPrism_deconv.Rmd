@@ -1,0 +1,24 @@
+---
+title: "proteomics.bayesPrism_deconv"
+author: "FloWuenne"
+date: "2023-06-14"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+```{r}
+library(data.table)
+```
+
+
+# Introduction
+
+Here we will use BayesPrism to attempt to deconvolute the protomics protein matrix using snRNA-seq data from [Calcagno et al. 2022](https://www.nature.com/articles/s44161-022-00160-3).
+
+# Load data 
+
+```{r}
+imp_prot <- fread(file = "./output/proteomics.filt_imputed_proteins.tsv")
+```
+
