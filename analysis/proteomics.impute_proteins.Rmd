@@ -1,0 +1,270 @@
+---
+title: "proteomics.impute_proteins"
+author: "FloWuenne"
+date: "2023-06-13"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(data.table)
+library(missForest)
+library(here)
+library(ggridges)
+library(patchwork)
+library(pheatmap)
+
+source(here("./code/params_R.R"))
+```
+
+# Introduction
+
+Here we will use the filtered protein list to impute missing proteins using iterated random forests via the [missForest package](https://cran.r-project.org/web/packages/missForest/index.html) as described by [Jin et al 2021](https://www.nature.com/articles/s41598-021-81279-4)
+.
+
+# Load data
+
+First, we load the filtered data table produced in [Filter proteomics data](./proteomics.filter_proteomic_data.Rmd).
+
+```{r}
+prot <- fread("./output/proteomics.filtered_proteins.tsv")
+genes_prot <- prot %>%
+  select(Protein_Ids,Genes)
+
+prot_form <- prot %>%
+  select(-c(Protein_Group,Protein_Ids,Protein_Names,Genes))
+
+rownames(prot_form) <- prot$Protein_Ids
+```
+
+# Impute proteins
+
+No we will use the MissForest package to impute missing value in our protein matrix. We use the doParallel package to parallelize the imputation to speed up the process.
+
+```{r}
+## Logged before imputation
+prot_form_log <- log2(prot_form)
+doParallel::registerDoParallel(cores = 6) # set based on number of CPU cores
+doRNG::registerDoRNG(seed = 123)
+prot_form_RF_log <- missForest(prot_form_log, verbose = TRUE,
+                           parallelize = 'forests')
+```
+
+```{r}
+## Perform imputation using MissForest
+prot_imp_log <- prot_form_RF_log$ximp
+prot_imp_log$Protein_Ids <- rownames(prot_imp_log)
+prot_imp_log <- left_join(prot_imp_log,genes_prot, by = "Protein_Ids")
+
+## Add number of imputed values to table
+imputed_val_rows <- rowSums(is.na(prot))
+imputed_val_df <- data.frame("Genes" = prot$Genes,
+                              "Protein_Ids" = prot$Protein_Ids,
+                              "imputed_values" = imputed_val_rows)
+
+prot_imp_log <- left_join(prot_imp_log,imputed_val_df, by =c("Genes","Protein_Ids"))
+```
+
+```{r}
+## Transform data to long format
+prot_imp_log_long <- prot_imp_log %>%
+    pivot_longer(control_r1:MI_remote_r4,
+               names_to = "sample",
+               values_to = "exp") %>%
+  mutate("group" = if_else(grepl("control",sample),"control",
+                           if_else(grepl("MI_IZ",sample),"MI_IZ","MI_remote")))
+
+## For each protein, add whether the value is imputed or observed
+prot_long <- prot %>%
+    pivot_longer(control_r1:MI_remote_r4,
+               names_to = "sample",
+               values_to = "exp") %>%
+  mutate("imputed" = if_else(is.na(exp),"yes","no")) %>%
+  select(Protein_Ids,Genes,sample,imputed)
+  
+prot_imp_log_long <- left_join(prot_imp_log_long,prot_long,by=c("Protein_Ids","Genes","sample"))
+
+## Set order of groups
+prot_imp_log_long$group <- factor(prot_imp_log_long$group,
+                                levels = c("control","MI_remote","MI_IZ"))
+```
+
+Let's visualize the overall distribution of protein expression values after imputation per sample.
+
+```{r}
+## Plot distribution of all values
+ggplot(prot_imp_log_long,aes(exp,sample,fill = group)) +
+  geom_density_ridges2() +
+  scale_fill_npg()
+```
+
+As we can see, protein expression distributions are very similar across samples and conditions.
+
+Let's plot a sample correlation heatma, to see how samples correlate. We expect controls to correlate strongly with each other and more with remote endocardium then with MI endocardium.
+
+```{r}
+## Plot a correlation matrix of samples
+prot_imp_log_matrix <- prot_imp_log %>%
+  select(-c(Protein_Ids,Genes,imputed_values))
+
+pheatmap(cor(prot_imp_log_matrix),
+         border_color = "black",
+         color = hcl.colors(50, "Inferno"),
+         display_numbers = TRUE,
+         cluster_cols = TRUE,
+         cluster_rows = TRUE)
+```
+
+# Save imputed data
+
+Let's save the imputed protein table for downstream analysis.
+
+```{r}
+write.table(prot_imp_log,
+            file = "./output/proteomics.filt_imputed_proteins.tsv",
+            sep = "\t",
+            col.names = TRUE,
+            row.names = FALSE,
+            quote = FALSE)
+```
+
+
+# Compare to ND imputation
+
+We want to also compare our iterative random forest imputation (RF) with an imputation from the [Perseus package that uses random draws from a normal distribution](http://www.coxdocs.org/doku.php?id=perseus:user:activities:matrixprocessing:imputation:replacemissingfromgaussian) (ND imputation).
+
+First, let's load the Perseus imputed values:
+
+```{r}
+## Compare to Perseus ND imputation
+perseus <- fread("./data/20230614_perseus_imputed.txt")
+
+perseus_merge <- left_join(prot_imp_log,perseus,by=c("Protein_Ids","Genes"), suffix = c("_RF","_perseus"))
+```
+
+We will then reformat the data to be merged with our iterative random forest imputation to be able to compare them.
+
+
+```{r}
+perseus_merge_data <- perseus_merge %>%
+  select(-c(Protein_Ids,Protein_Group,Protein_Names,Genes))
+perseus_merge_data$Genes <- perseus_merge$Genes
+perseus_merge_data$Protein_Ids <- perseus_merge$Protein_Ids
+
+perseus_merge_data <- perseus_merge_data %>% 
+  pivot_longer(control_r1_RF:MI_remote_r4_perseus,
+               names_to = "sample",
+               values_to = "exp") 
+  
+perseus_merge_data_mi <- perseus_merge_data %>%
+  subset(grepl("MI_",sample)) %>%
+  separate(sample,into = c("group","region","replicate","method"), sep = "_") %>%
+  mutate("sample" = paste(group,region,replicate,sep="_")) %>%
+  select(sample,method,exp,Genes,Protein_Ids)
+
+perseus_merge_data_control <-perseus_merge_data %>%
+  subset(grepl("control",sample)) %>%
+  separate(sample,into = c("group","replicate","method"), sep = "_") %>%
+  mutate("sample" = paste(group,replicate,sep="_")) %>%
+  select(sample,method,exp,Genes,Protein_Ids)
+
+perseus_merge_data_long <- rbind(perseus_merge_data_control,perseus_merge_data_mi)
+
+perseus_merge_data_long <- left_join(perseus_merge_data_long,prot_long,by=c("Protein_Ids","Genes","sample"))
+
+perseus_merge_data_wide <- perseus_merge_data_long %>%
+  pivot_wider(names_from = "method", values_from = "exp") %>%
+  mutate("diff" = RF - perseus)
+```
+
+## Estimate average difference per protein
+
+We can then calculate the differences in imputed values between RF and ND imputation.
+
+```{r}
+avg_imp_diff <- perseus_merge_data_wide %>%
+  group_by(Genes,Protein_Ids) %>%
+  subset(imputed == "yes") %>%
+  summarise("count" = n(),
+            "mean" = mean(diff),
+            "sd" = sd(diff)) %>%
+  arrange(desc(mean))
+
+missing_rate_rows <- rowSums(is.na(prot))
+missing_rate_df <- data.frame("Genes" = prot$Genes,
+                              "Protein_Ids" = prot$Protein_Ids,
+                              "missing_rate" = missing_rate_rows)
+
+avg_imp_diff <- left_join(avg_imp_diff,missing_rate_df, by =c("Genes","Protein_Ids"))
+avg_imp_diff$missing_rate <- avg_imp_diff$missing_rate 
+```
+
+## Plot differences between imputation strategies
+
+Let's first visualize the correlation between non-imputed and imputed values from RF and ND.
+
+```{r}
+## Plot correlation between imputed values for all samples
+ggplot(perseus_merge_data_wide,aes(RF,perseus,color = imputed)) +
+  geom_point() +
+  facet_wrap(~sample) +
+  labs(x = "Imputed values Random Forest",
+       y = "Imputed values Perseus (ND)")
+```
+
+As we can see, non-imputed values perfectly correlate, as these are not changed by imputation. For imputed values, ND seems to impute lower values on average then RF. This is also represented by the next plot, looking at the distribution of differences across both methods.
+
+```{r}
+## Plot distribution of differences between imputation methods
+ggplot(perseus_merge_data_wide,aes(diff)) +
+  geom_histogram() +
+  facet_wrap(~sample) +
+  labs(x = "RF - ND imputed values")
+```
+
+Finally, let's plot the correlation between the average imputed values and the average observed values per protein for both methods. A method that imputes values close to the actual observed values should show some linear correlation, while a random method should show no correlation. 
+
+```{r}
+## Plot avg imputed expression values against the avg of the non-imputed per gene
+perseus_merge_data_wide_imp_sum <- perseus_merge_data_wide %>%
+  group_by(Genes,Protein_Ids,imputed) %>%
+  summarise("avg_RF" = mean(RF),
+            "avg_perseus" = mean(perseus))
+
+## RF
+comp_imp_wide_RF <- perseus_merge_data_wide_imp_sum %>%
+  select(-avg_perseus) %>%
+  pivot_wider(names_from = "imputed",
+              values_from = "avg_RF",
+              names_prefix = "RF_imp_")
+
+rf_corr <- ggplot(comp_imp_wide_RF,aes(RF_imp_yes,RF_imp_no)) + 
+  geom_point() +
+  geom_smooth() +
+  labs(x = "Imputed value average",
+       y = "Observed value average",
+       title = "Iterative random forest imputation")
+
+## ND
+comp_imp_wide_RF <- perseus_merge_data_wide_imp_sum %>%
+  select(-avg_RF) %>%
+  pivot_wider(names_from = "imputed",
+              values_from = "avg_perseus",
+              names_prefix = "perseus_imp_")
+
+nd_corr <- ggplot(comp_imp_wide_RF,aes(perseus_imp_yes,perseus_imp_no)) + 
+  geom_point() +
+  geom_smooth() +
+  labs(x = "Imputed value average",
+       y = "Observed value average",
+       title = "Perseus ND imputation")
+
+## Plot correlation between average imputed values and observed values for both imputation methods
+rf_corr + nd_corr
+```
+
+As the plots show, there is a clear linear correlation between the average imputed value from RF and the average observed values per protein, with RF on average imputing lower average values then the observed values, making it likely more conservative. ND imputation on the other hand shows no correlation with observed values at all, highlighting the random nature of the approach and suggesting that imputation using this method might induce more noise into the data.

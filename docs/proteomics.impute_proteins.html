@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="FloWuenne" />
+
+<meta name="date" content="2023-06-13" />
+
+<title>proteomics.impute_proteins</title>
+
+<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">mi_spatialomics</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="data_processing.html">Data processing</a>
+</li>
+<li>
+  <a href="data_analysis.html">Data analysis</a>
+</li>
+<li>
+  <a href="figures.html">Figures</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">proteomics.impute_proteins</h1>
+<h4 class="author">FloWuenne</h4>
+<h4 class="date">2023-06-13</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2023-06-14
+</p>
+<p>
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 1
+</p>
+<p>
+<strong>Knit directory:</strong> <code>mi_spatialomics/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguncommittedchanges"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The R Markdown is untracked by Git. To know which version of the R
+Markdown file created these results, you’ll want to first commit it to
+the Git repo. If you’re still working on the analysis, you can ignore
+this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20230612code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20230612)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20230612code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20230612)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree59f6eae4cf0f3062e3bf4b2d8ff5a67b0fc2128atargetblank59f6eaea">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/59f6eae4cf0f3062e3bf4b2d8ff5a67b0fc2128a" target="_blank">59f6eae</a>
+</a>
+</p>
+</div>
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree59f6eae4cf0f3062e3bf4b2d8ff5a67b0fc2128atargetblank59f6eaea"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/59f6eae4cf0f3062e3bf4b2d8ff5a67b0fc2128a" target="_blank">59f6eae</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+    Ignored:    data/.DS_Store
+    Ignored:    references/
+    Ignored:    renv/library/
+    Ignored:    renv/staging/
+
+Untracked files:
+    Untracked:  analysis/proteomics.filter_proteomic_data.Rmd
+    Untracked:  analysis/proteomics.impute_proteins.Rmd
+    Untracked:  data/20230614_perseus_imputed.txt
+    Untracked:  output/proteomics.filt_imputed_proteins.tsv
+    Untracked:  output/proteomics.filtered_proteins.tsv
+
+Unstaged changes:
+    Modified:   analysis/data_analysis.Rmd
+    Deleted:    analysis/filter_proteomic_data.Rmd
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+<p>
+There are no past versions. Publish this analysis with
+<code>wflow_publish()</code> to start tracking its development.
+</p>
+<hr>
+</div>
+</div>
+</div>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>Here we will use the filtered protein list to impute missing proteins
+using iterated random forests via the <a
+href="https://cran.r-project.org/web/packages/missForest/index.html">missForest
+package</a> as described by <a
+href="https://www.nature.com/articles/s41598-021-81279-4">Jin et al
+2021</a> .</p>
+</div>
+<div id="load-data" class="section level1">
+<h1>Load data</h1>
+<p>First, we load the filtered data table produced in <a
+href="./proteomics.filter_proteomic_data.Rmd">Filter proteomics
+data</a>.</p>
+<pre class="r"><code>prot &lt;- fread(&quot;./output/proteomics.filtered_proteins.tsv&quot;)
+genes_prot &lt;- prot %&gt;%
+  select(Protein_Ids,Genes)
+
+prot_form &lt;- prot %&gt;%
+  select(-c(Protein_Group,Protein_Ids,Protein_Names,Genes))
+
+rownames(prot_form) &lt;- prot$Protein_Ids</code></pre>
+</div>
+<div id="impute-proteins" class="section level1">
+<h1>Impute proteins</h1>
+<p>No we will use the MissForest package to impute missing value in our
+protein matrix. We use the doParallel package to parallelize the
+imputation to speed up the process.</p>
+<pre class="r"><code>## Logged before imputation
+prot_form_log &lt;- log2(prot_form)
+doParallel::registerDoParallel(cores = 6) # set based on number of CPU cores
+doRNG::registerDoRNG(seed = 123)
+prot_form_RF_log &lt;- missForest(prot_form_log, verbose = TRUE,
+                           parallelize = &#39;forests&#39;)</code></pre>
+<pre><code>  parallelizing computation of the random forest model objects
+  missForest iteration 1 in progress...</code></pre>
+<pre><code>randomForest 4.7-1.1</code></pre>
+<pre><code>Type rfNews() to see new features/changes/bug fixes.</code></pre>
+<pre><code>
+Attaching package: &#39;randomForest&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:dplyr&#39;:
+
+    combine</code></pre>
+<pre><code>The following object is masked from &#39;package:ggplot2&#39;:
+
+    margin</code></pre>
+<pre><code>Loading required package: foreach</code></pre>
+<pre><code>
+Attaching package: &#39;foreach&#39;</code></pre>
+<pre><code>The following objects are masked from &#39;package:purrr&#39;:
+
+    accumulate, when</code></pre>
+<pre><code>Loading required package: rngtools</code></pre>
+<pre><code>done!
+    estimated error(s): 0.1855189 
+    difference(s): 0.001685077 
+    time: 4.708 seconds
+
+  missForest iteration 2 in progress...done!
+    estimated error(s): 0.178667 
+    difference(s): 1.011403e-05 
+    time: 4.523 seconds
+
+  missForest iteration 3 in progress...done!
+    estimated error(s): 0.1784553 
+    difference(s): 3.487779e-06 
+    time: 4.24 seconds
+
+  missForest iteration 4 in progress...done!
+    estimated error(s): 0.1789522 
+    difference(s): 2.479728e-06 
+    time: 4.2 seconds
+
+  missForest iteration 5 in progress...done!
+    estimated error(s): 0.1781391 
+    difference(s): 2.320837e-06 
+    time: 4.136 seconds
+
+  missForest iteration 6 in progress...done!
+    estimated error(s): 0.17881 
+    difference(s): 2.068678e-06 
+    time: 4.402 seconds
+
+  missForest iteration 7 in progress...done!
+    estimated error(s): 0.1786566 
+    difference(s): 2.141137e-06 
+    time: 4.998 seconds</code></pre>
+<pre class="r"><code>## Perform imputation using MissForest
+prot_imp_log &lt;- prot_form_RF_log$ximp
+prot_imp_log$Protein_Ids &lt;- rownames(prot_imp_log)
+prot_imp_log &lt;- left_join(prot_imp_log,genes_prot, by = &quot;Protein_Ids&quot;)
+
+## Add number of imputed values to table
+imputed_val_rows &lt;- rowSums(is.na(prot))
+imputed_val_df &lt;- data.frame(&quot;Genes&quot; = prot$Genes,
+                              &quot;Protein_Ids&quot; = prot$Protein_Ids,
+                              &quot;imputed_values&quot; = imputed_val_rows)
+
+prot_imp_log &lt;- left_join(prot_imp_log,imputed_val_df, by =c(&quot;Genes&quot;,&quot;Protein_Ids&quot;))</code></pre>
+<pre class="r"><code>## Transform data to long format
+prot_imp_log_long &lt;- prot_imp_log %&gt;%
+    pivot_longer(control_r1:MI_remote_r4,
+               names_to = &quot;sample&quot;,
+               values_to = &quot;exp&quot;) %&gt;%
+  mutate(&quot;group&quot; = if_else(grepl(&quot;control&quot;,sample),&quot;control&quot;,
+                           if_else(grepl(&quot;MI_IZ&quot;,sample),&quot;MI_IZ&quot;,&quot;MI_remote&quot;)))
+
+## For each protein, add whether the value is imputed or observed
+prot_long &lt;- prot %&gt;%
+    pivot_longer(control_r1:MI_remote_r4,
+               names_to = &quot;sample&quot;,
+               values_to = &quot;exp&quot;) %&gt;%
+  mutate(&quot;imputed&quot; = if_else(is.na(exp),&quot;yes&quot;,&quot;no&quot;)) %&gt;%
+  select(Protein_Ids,Genes,sample,imputed)
+  
+prot_imp_log_long &lt;- left_join(prot_imp_log_long,prot_long,by=c(&quot;Protein_Ids&quot;,&quot;Genes&quot;,&quot;sample&quot;))
+
+## Set order of groups
+prot_imp_log_long$group &lt;- factor(prot_imp_log_long$group,
+                                levels = c(&quot;control&quot;,&quot;MI_remote&quot;,&quot;MI_IZ&quot;))</code></pre>
+<p>Let’s visualize the overall distribution of protein expression values
+after imputation per sample.</p>
+<pre class="r"><code>## Plot distribution of all values
+ggplot(prot_imp_log_long,aes(exp,sample,fill = group)) +
+  geom_density_ridges2() +
+  scale_fill_npg()</code></pre>
+<pre><code>Picking joint bandwidth of 0.284</code></pre>
+<p><img src="figure/proteomics.impute_proteins.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>As we can see, protein expression distributions are very similar
+across samples and conditions.</p>
+<p>Let’s plot a sample correlation heatma, to see how samples correlate.
+We expect controls to correlate strongly with each other and more with
+remote endocardium then with MI endocardium.</p>
+<pre class="r"><code>## Plot a correlation matrix of samples
+prot_imp_log_matrix &lt;- prot_imp_log %&gt;%
+  select(-c(Protein_Ids,Genes,imputed_values))
+
+pheatmap(cor(prot_imp_log_matrix),
+         border_color = &quot;black&quot;,
+         color = hcl.colors(50, &quot;Inferno&quot;),
+         display_numbers = TRUE,
+         cluster_cols = TRUE,
+         cluster_rows = TRUE)</code></pre>
+<p><img src="figure/proteomics.impute_proteins.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="save-imputed-data" class="section level1">
+<h1>Save imputed data</h1>
+<p>Let’s save the imputed protein table for downstream analysis.</p>
+<pre class="r"><code>write.table(prot_imp_log,
+            file = &quot;./output/proteomics.filt_imputed_proteins.tsv&quot;,
+            sep = &quot;\t&quot;,
+            col.names = TRUE,
+            row.names = FALSE,
+            quote = FALSE)</code></pre>
+</div>
+<div id="compare-to-nd-imputation" class="section level1">
+<h1>Compare to ND imputation</h1>
+<p>We want to also compare our iterative random forest imputation (RF)
+with an imputation from the <a
+href="http://www.coxdocs.org/doku.php?id=perseus:user:activities:matrixprocessing:imputation:replacemissingfromgaussian">Perseus
+package that uses random draws from a normal distribution</a> (ND
+imputation).</p>
+<p>First, let’s load the Perseus imputed values:</p>
+<pre class="r"><code>## Compare to Perseus ND imputation
+perseus &lt;- fread(&quot;./data/20230614_perseus_imputed.txt&quot;)
+
+perseus_merge &lt;- left_join(prot_imp_log,perseus,by=c(&quot;Protein_Ids&quot;,&quot;Genes&quot;), suffix = c(&quot;_RF&quot;,&quot;_perseus&quot;))</code></pre>
+<p>We will then reformat the data to be merged with our iterative random
+forest imputation to be able to compare them.</p>
+<pre class="r"><code>perseus_merge_data &lt;- perseus_merge %&gt;%
+  select(-c(Protein_Ids,Protein_Group,Protein_Names,Genes))
+perseus_merge_data$Genes &lt;- perseus_merge$Genes
+perseus_merge_data$Protein_Ids &lt;- perseus_merge$Protein_Ids
+
+perseus_merge_data &lt;- perseus_merge_data %&gt;% 
+  pivot_longer(control_r1_RF:MI_remote_r4_perseus,
+               names_to = &quot;sample&quot;,
+               values_to = &quot;exp&quot;) 
+  
+perseus_merge_data_mi &lt;- perseus_merge_data %&gt;%
+  subset(grepl(&quot;MI_&quot;,sample)) %&gt;%
+  separate(sample,into = c(&quot;group&quot;,&quot;region&quot;,&quot;replicate&quot;,&quot;method&quot;), sep = &quot;_&quot;) %&gt;%
+  mutate(&quot;sample&quot; = paste(group,region,replicate,sep=&quot;_&quot;)) %&gt;%
+  select(sample,method,exp,Genes,Protein_Ids)
+
+perseus_merge_data_control &lt;-perseus_merge_data %&gt;%
+  subset(grepl(&quot;control&quot;,sample)) %&gt;%
+  separate(sample,into = c(&quot;group&quot;,&quot;replicate&quot;,&quot;method&quot;), sep = &quot;_&quot;) %&gt;%
+  mutate(&quot;sample&quot; = paste(group,replicate,sep=&quot;_&quot;)) %&gt;%
+  select(sample,method,exp,Genes,Protein_Ids)
+
+perseus_merge_data_long &lt;- rbind(perseus_merge_data_control,perseus_merge_data_mi)
+
+perseus_merge_data_long &lt;- left_join(perseus_merge_data_long,prot_long,by=c(&quot;Protein_Ids&quot;,&quot;Genes&quot;,&quot;sample&quot;))
+
+perseus_merge_data_wide &lt;- perseus_merge_data_long %&gt;%
+  pivot_wider(names_from = &quot;method&quot;, values_from = &quot;exp&quot;) %&gt;%
+  mutate(&quot;diff&quot; = RF - perseus)</code></pre>
+<div id="estimate-average-difference-per-protein"
+class="section level2">
+<h2>Estimate average difference per protein</h2>
+<p>We can then calculate the differences in imputed values between RF
+and ND imputation.</p>
+<pre class="r"><code>avg_imp_diff &lt;- perseus_merge_data_wide %&gt;%
+  group_by(Genes,Protein_Ids) %&gt;%
+  subset(imputed == &quot;yes&quot;) %&gt;%
+  summarise(&quot;count&quot; = n(),
+            &quot;mean&quot; = mean(diff),
+            &quot;sd&quot; = sd(diff)) %&gt;%
+  arrange(desc(mean))</code></pre>
+<pre><code>`summarise()` has grouped output by &#39;Genes&#39;. You can override using the
+`.groups` argument.</code></pre>
+<pre class="r"><code>missing_rate_rows &lt;- rowSums(is.na(prot))
+missing_rate_df &lt;- data.frame(&quot;Genes&quot; = prot$Genes,
+                              &quot;Protein_Ids&quot; = prot$Protein_Ids,
+                              &quot;missing_rate&quot; = missing_rate_rows)
+
+avg_imp_diff &lt;- left_join(avg_imp_diff,missing_rate_df, by =c(&quot;Genes&quot;,&quot;Protein_Ids&quot;))
+avg_imp_diff$missing_rate &lt;- avg_imp_diff$missing_rate </code></pre>
+</div>
+<div id="plot-differences-between-imputation-strategies"
+class="section level2">
+<h2>Plot differences between imputation strategies</h2>
+<p>Let’s first visualize the correlation between non-imputed and imputed
+values from RF and ND.</p>
+<pre class="r"><code>## Plot correlation between imputed values for all samples
+ggplot(perseus_merge_data_wide,aes(RF,perseus,color = imputed)) +
+  geom_point() +
+  facet_wrap(~sample) +
+  labs(x = &quot;Imputed values Random Forest&quot;,
+       y = &quot;Imputed values Perseus (ND)&quot;)</code></pre>
+<p><img src="figure/proteomics.impute_proteins.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>As we can see, non-imputed values perfectly correlate, as these are
+not changed by imputation. For imputed values, ND seems to impute lower
+values on average then RF. This is also represented by the next plot,
+looking at the distribution of differences across both methods.</p>
+<pre class="r"><code>## Plot distribution of differences between imputation methods
+ggplot(perseus_merge_data_wide,aes(diff)) +
+  geom_histogram() +
+  facet_wrap(~sample) +
+  labs(x = &quot;RF - ND imputed values&quot;)</code></pre>
+<pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="figure/proteomics.impute_proteins.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Finally, let’s plot the correlation between the average imputed
+values and the average observed values per protein for both methods. A
+method that imputes values close to the actual observed values should
+show some linear correlation, while a random method should show no
+correlation.</p>
+<pre class="r"><code>## Plot avg imputed expression values against the avg of the non-imputed per gene
+perseus_merge_data_wide_imp_sum &lt;- perseus_merge_data_wide %&gt;%
+  group_by(Genes,Protein_Ids,imputed) %&gt;%
+  summarise(&quot;avg_RF&quot; = mean(RF),
+            &quot;avg_perseus&quot; = mean(perseus))</code></pre>
+<pre><code>`summarise()` has grouped output by &#39;Genes&#39;, &#39;Protein_Ids&#39;. You can override
+using the `.groups` argument.</code></pre>
+<pre class="r"><code>## RF
+comp_imp_wide_RF &lt;- perseus_merge_data_wide_imp_sum %&gt;%
+  select(-avg_perseus) %&gt;%
+  pivot_wider(names_from = &quot;imputed&quot;,
+              values_from = &quot;avg_RF&quot;,
+              names_prefix = &quot;RF_imp_&quot;)
+
+rf_corr &lt;- ggplot(comp_imp_wide_RF,aes(RF_imp_yes,RF_imp_no)) + 
+  geom_point() +
+  geom_smooth() +
+  labs(x = &quot;Imputed value average&quot;,
+       y = &quot;Observed value average&quot;,
+       title = &quot;Iterative random forest imputation&quot;)
+
+## ND
+comp_imp_wide_RF &lt;- perseus_merge_data_wide_imp_sum %&gt;%
+  select(-avg_RF) %&gt;%
+  pivot_wider(names_from = &quot;imputed&quot;,
+              values_from = &quot;avg_perseus&quot;,
+              names_prefix = &quot;perseus_imp_&quot;)
+
+nd_corr &lt;- ggplot(comp_imp_wide_RF,aes(perseus_imp_yes,perseus_imp_no)) + 
+  geom_point() +
+  geom_smooth() +
+  labs(x = &quot;Imputed value average&quot;,
+       y = &quot;Observed value average&quot;,
+       title = &quot;Perseus ND imputation&quot;)
+
+## Plot correlation between average imputed values and observed values for both imputation methods
+rf_corr + nd_corr</code></pre>
+<pre><code>`geom_smooth()` using method = &#39;gam&#39; and formula = &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</code></pre>
+<pre><code>Warning: Removed 2443 rows containing non-finite values (`stat_smooth()`).</code></pre>
+<pre><code>Warning: Removed 2443 rows containing missing values (`geom_point()`).</code></pre>
+<pre><code>`geom_smooth()` using method = &#39;gam&#39; and formula = &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</code></pre>
+<pre><code>Warning: Removed 2443 rows containing non-finite values (`stat_smooth()`).
+Removed 2443 rows containing missing values (`geom_point()`).</code></pre>
+<p><img src="figure/proteomics.impute_proteins.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>As the plots show, there is a clear linear correlation between the
+average imputed value from RF and the average observed values per
+protein, with RF on average imputing lower average values then the
+observed values, making it likely more conservative. ND imputation on
+the other hand shows no correlation with observed values at all,
+highlighting the random nature of the approach and suggesting that
+imputation using this method might induce more noise into the data.</p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.2.3 (2023-03-15)
+Platform: aarch64-apple-darwin20 (64-bit)
+Running under: macOS Ventura 13.4
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices datasets  utils     methods   base     
+
+other attached packages:
+ [1] doRNG_1.8.6          rngtools_1.5.2       foreach_1.5.2       
+ [4] randomForest_4.7-1.1 ggsci_3.0.0          cowplot_1.1.1       
+ [7] pheatmap_1.0.12      patchwork_1.1.2      ggridges_0.5.4      
+[10] here_1.0.1           missForest_1.5       data.table_1.14.8   
+[13] lubridate_1.9.2      forcats_1.0.0        stringr_1.5.0       
+[16] dplyr_1.1.2          purrr_1.0.1          readr_2.1.4         
+[19] tidyr_1.3.0          tibble_3.2.1         ggplot2_3.4.2       
+[22] tidyverse_2.0.0      workflowr_1.7.0     
+
+loaded via a namespace (and not attached):
+ [1] httr_1.4.6         sass_0.4.6         jsonlite_1.8.4     splines_4.2.3     
+ [5] bslib_0.4.2        getPass_0.2-2      highr_0.10         renv_0.17.3       
+ [9] yaml_2.3.7         lattice_0.20-45    pillar_1.9.0       glue_1.6.2        
+[13] digest_0.6.31      RColorBrewer_1.1-3 promises_1.2.0.1   colorspace_2.1-0  
+[17] Matrix_1.5-3       htmltools_0.5.5    httpuv_1.6.11      pkgconfig_2.0.3   
+[21] scales_1.2.1       itertools_0.1-3    processx_3.8.0     whisker_0.4.1     
+[25] later_1.3.1        tzdb_0.4.0         timechange_0.2.0   git2r_0.32.0      
+[29] mgcv_1.8-42        generics_0.1.3     farver_2.1.1       cachem_1.0.8      
+[33] withr_2.5.0        cli_3.6.1          magrittr_2.0.3     evaluate_0.21     
+[37] ps_1.7.4           fs_1.6.2           fansi_1.0.4        nlme_3.1-162      
+[41] doParallel_1.0.17  tools_4.2.3        hms_1.1.3          lifecycle_1.0.3   
+[45] munsell_0.5.0      callr_3.7.3        compiler_4.2.3     jquerylib_0.1.4   
+[49] rlang_1.1.1        grid_4.2.3         iterators_1.0.14   rstudioapi_0.14   
+[53] labeling_0.4.2     rmarkdown_2.21     gtable_0.3.3       codetools_0.2-19  
+[57] R6_2.5.1           knitr_1.42         fastmap_1.1.1      utf8_1.2.3        
+[61] rprojroot_2.0.3    stringi_1.7.12     parallel_4.2.3     Rcpp_1.0.10       
+[65] vctrs_0.6.2        tidyselect_1.2.0   xfun_0.39         </code></pre>
+</div>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -15,8 +15,8 @@ editor_options:
 
 # Proteomic data processing
 
-1) [Filter proteomic data](./filter_proteomic_data.html)
+1) [Filter proteomic data](./proteomics.filter_proteomic_data.html)
 
-2) [Data imputation using MissForest]()
-3) []
+2) [Data imputation using MissForest](./proteomics.imput_proteins.html)
+3) [BayesPrism deconvolution]()
 
