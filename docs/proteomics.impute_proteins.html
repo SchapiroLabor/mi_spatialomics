@@ -370,7 +370,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+workflowr <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -381,8 +381,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> </a>
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -395,9 +395,9 @@ aria-hidden="true"></span> </a>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>mi_spatialomics/</code> <span
@@ -420,21 +420,18 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
+<div id="strongRMarkdownfilestronguptodate"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R
-Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
@@ -525,15 +522,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree59f6eae4cf0f3062e3bf4b2d8ff5a67b0fc2128atargetblank59f6eaea">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree2d015dd6457db41a75484766389597ec8f5f45e3targetblank2d015dda">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/59f6eae4cf0f3062e3bf4b2d8ff5a67b0fc2128a" target="_blank">59f6eae</a>
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/2d015dd6457db41a75484766389597ec8f5f45e3" target="_blank">2d015dd</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree59f6eae4cf0f3062e3bf4b2d8ff5a67b0fc2128atargetblank59f6eaea"
+id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree2d015dd6457db41a75484766389597ec8f5f45e3targetblank2d015dda"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -543,7 +540,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/59f6eae4cf0f3062e3bf4b2d8ff5a67b0fc2128a" target="_blank">59f6eae</a>.
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/2d015dd6457db41a75484766389597ec8f5f45e3" target="_blank">2d015dd</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -565,17 +562,6 @@ Ignored files:
     Ignored:    renv/library/
     Ignored:    renv/staging/
 
-Untracked files:
-    Untracked:  analysis/proteomics.filter_proteomic_data.Rmd
-    Untracked:  analysis/proteomics.impute_proteins.Rmd
-    Untracked:  data/20230614_perseus_imputed.txt
-    Untracked:  output/proteomics.filt_imputed_proteins.tsv
-    Untracked:  output/proteomics.filtered_proteins.tsv
-
-Unstaged changes:
-    Modified:   analysis/data_analysis.Rmd
-    Deleted:    analysis/filter_proteomic_data.Rmd
-
 </code></pre>
 <p>
 Note that any generated files, e.g. HTML, png, CSS, etc., are not
@@ -589,10 +575,75 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with
-<code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were
+made to the R Markdown
+(<code>analysis/proteomics.impute_proteins.Rmd</code>) and HTML
+(<code>docs/proteomics.impute_proteins.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/2d015dd6457db41a75484766389597ec8f5f45e3/analysis/proteomics.impute_proteins.Rmd" target="_blank">2d015dd</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-06-14
+</td>
+<td>
+Finalized imputation with RF.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/2d015dd6457db41a75484766389597ec8f5f45e3/docs/proteomics.impute_proteins.html" target="_blank">2d015dd</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-06-14
+</td>
+<td>
+Finalized imputation with RF.
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
@@ -653,37 +704,37 @@ Attaching package: &#39;foreach&#39;</code></pre>
 <pre><code>done!
     estimated error(s): 0.1855189 
     difference(s): 0.001685077 
-    time: 4.708 seconds
+    time: 4.388 seconds
 
   missForest iteration 2 in progress...done!
     estimated error(s): 0.178667 
     difference(s): 1.011403e-05 
-    time: 4.523 seconds
+    time: 4.594 seconds
 
   missForest iteration 3 in progress...done!
     estimated error(s): 0.1784553 
     difference(s): 3.487779e-06 
-    time: 4.24 seconds
+    time: 4.616 seconds
 
   missForest iteration 4 in progress...done!
     estimated error(s): 0.1789522 
     difference(s): 2.479728e-06 
-    time: 4.2 seconds
+    time: 4.643 seconds
 
   missForest iteration 5 in progress...done!
     estimated error(s): 0.1781391 
     difference(s): 2.320837e-06 
-    time: 4.136 seconds
+    time: 4.712 seconds
 
   missForest iteration 6 in progress...done!
     estimated error(s): 0.17881 
     difference(s): 2.068678e-06 
-    time: 4.402 seconds
+    time: 4.354 seconds
 
   missForest iteration 7 in progress...done!
     estimated error(s): 0.1786566 
     difference(s): 2.141137e-06 
-    time: 4.998 seconds</code></pre>
+    time: 4.19 seconds</code></pre>
 <pre class="r"><code>## Perform imputation using MissForest
 prot_imp_log &lt;- prot_form_RF_log$ximp
 prot_imp_log$Protein_Ids &lt;- rownames(prot_imp_log)
@@ -725,6 +776,43 @@ ggplot(prot_imp_log_long,aes(exp,sample,fill = group)) +
   scale_fill_npg()</code></pre>
 <pre><code>Picking joint bandwidth of 0.284</code></pre>
 <p><img src="figure/proteomics.impute_proteins.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/2d015dd6457db41a75484766389597ec8f5f45e3/docs/figure/proteomics.impute_proteins.Rmd/unnamed-chunk-5-1.png" target="_blank">2d015dd</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-06-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>As we can see, protein expression distributions are very similar
 across samples and conditions.</p>
 <p>Let’s plot a sample correlation heatma, to see how samples correlate.
@@ -741,6 +829,43 @@ pheatmap(cor(prot_imp_log_matrix),
          cluster_cols = TRUE,
          cluster_rows = TRUE)</code></pre>
 <p><img src="figure/proteomics.impute_proteins.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/2d015dd6457db41a75484766389597ec8f5f45e3/docs/figure/proteomics.impute_proteins.Rmd/unnamed-chunk-6-1.png" target="_blank">2d015dd</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-06-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="save-imputed-data" class="section level1">
 <h1>Save imputed data</h1>
@@ -829,6 +954,43 @@ ggplot(perseus_merge_data_wide,aes(RF,perseus,color = imputed)) +
   labs(x = &quot;Imputed values Random Forest&quot;,
        y = &quot;Imputed values Perseus (ND)&quot;)</code></pre>
 <p><img src="figure/proteomics.impute_proteins.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
+Past versions of unnamed-chunk-11-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/2d015dd6457db41a75484766389597ec8f5f45e3/docs/figure/proteomics.impute_proteins.Rmd/unnamed-chunk-11-1.png" target="_blank">2d015dd</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-06-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>As we can see, non-imputed values perfectly correlate, as these are
 not changed by imputation. For imputed values, ND seems to impute lower
 values on average then RF. This is also represented by the next plot,
@@ -840,6 +1002,43 @@ ggplot(perseus_merge_data_wide,aes(diff)) +
   labs(x = &quot;RF - ND imputed values&quot;)</code></pre>
 <pre><code>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="figure/proteomics.impute_proteins.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/2d015dd6457db41a75484766389597ec8f5f45e3/docs/figure/proteomics.impute_proteins.Rmd/unnamed-chunk-12-1.png" target="_blank">2d015dd</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-06-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Finally, let’s plot the correlation between the average imputed
 values and the average observed values per protein for both methods. A
 method that imputes values close to the actual observed values should
@@ -889,6 +1088,43 @@ rf_corr + nd_corr</code></pre>
 <pre><code>Warning: Removed 2443 rows containing non-finite values (`stat_smooth()`).
 Removed 2443 rows containing missing values (`geom_point()`).</code></pre>
 <p><img src="figure/proteomics.impute_proteins.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
+Past versions of unnamed-chunk-13-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/2d015dd6457db41a75484766389597ec8f5f45e3/docs/figure/proteomics.impute_proteins.Rmd/unnamed-chunk-13-1.png" target="_blank">2d015dd</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-06-14
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>As the plots show, there is a clear linear correlation between the
 average imputed value from RF and the average observed values per
 protein, with RF on average imputing lower average values then the
