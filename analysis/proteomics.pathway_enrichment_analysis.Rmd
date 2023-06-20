@@ -1,0 +1,67 @@
+---
+title: "proteomics.pathway_enrichment_analysis"
+author: "FloWuenne"
+date: "2023-06-19"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(decoupleR)
+library(OmnipathR)
+library(here)
+
+source(here("./code/params_R.R"))
+```
+
+# Introduction
+
+
+# Pathway activity analysis using decoupler
+
+```{r}
+#net <- get_progeny(organism = 'mouse', top = 500)
+#net <- get_dorothea(organism = 'mouse')
+net <- decoupleR::get_resource("KEGG-PC", organism = "mouse")
+```
+
+```{r}
+# net_genes <- unique(net$genesymbol)
+# 
+# decoupler_deg_df <- test_res_iz_remote_uniq %>%
+#   subset(gene != "") %>%
+#   subset(gene %in% net_genes)
+# 
+#   
+# decoupler_deg <- decoupler_deg_df %>%
+#   mutate("t" = t_statistic) %>%
+#   select(t)
+# 
+# rownames(decoupler_deg) <- decoupler_deg_df$gene
+# # contrast_acts <- run_ulm(mat=decoupler_deg, net=net, .source='source', .target='target',
+# #                   .mor='mor', minsize = 5)
+
+```
+
+
+```{r}
+# Plot
+# ggplot(contrast_acts, aes(x = reorder(source, score), y = score)) + 
+#     geom_bar(aes(fill = score), stat = "identity") +
+#     scale_fill_gradient2(low = "darkblue", high = "indianred", 
+#         mid = "whitesmoke", midpoint = 0) + 
+#     theme_minimal() +
+# theme(axis.title = element_text(face = "bold", size = 12),
+#         axis.text.x = 
+#             element_text(angle = 45, hjust = 1, size =10, face= "bold"),
+#         axis.text.y = element_text(size =10, face= "bold"),
+#         panel.grid.major = element_blank(), 
+#         panel.grid.minor = element_blank()) +
+#     xlab("Pathways")
+```
+
+
+

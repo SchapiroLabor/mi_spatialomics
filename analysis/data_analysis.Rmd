@@ -17,6 +17,6 @@ editor_options:
 
 1) [Filter proteomic data](./proteomics.filter_proteomic_data.html)
 
-2) [Data imputation using MissForest](./proteomics.impute_proteins.html)
-3) [BayesPrism deconvolution]()
-
+2) [Differential protein expression (DEPs)](./proteomics.bulk_de_analysis.html)
+3) [Pathway enrichment analysis of DEPs](./proteomics.pathway_enrichment_analysis.html)
+4) [Comparing snRNA-seq with protein expression](./proteomics.scRNAseq_comparison.html)

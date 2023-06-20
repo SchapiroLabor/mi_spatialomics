@@ -1,0 +1,25 @@
+---
+title: "proteomics.scRNAseq_comparison"
+author: "FloWuenne"
+date: "2023-06-19"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(Seurat)
+library(here)
+
+source(here("./code/params_R.R"))
+```
+
+## Introduction
+
+```{r}
+
+```
+

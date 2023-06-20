@@ -1,0 +1,217 @@
+---
+title: "proteomics.bulk_de_analysis"
+author: "FloWuenne"
+date: "2023-06-14"
+output: workflowr::wflow_html
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+library(data.table)
+library(tidyverse)
+library(factoextra)
+library(ggsci)
+library(cowplot)
+library(here)
+library(proDA)
+library(limma)
+library(dplyr)
+library(tibble)
+library(tidyr)
+library(ggplot2)
+library(pheatmap)
+library(ggrepel)
+library(eulerr)
+library(plotly)
+
+source(here("./code/params_R.R"))
+```
+
+# Introduction
+
+# Load data
+
+First, let's load the filtered protein table.
+
+```{r}
+## Import imputed protein table (our "bulk" data)
+clean_proteins <- fread(file = "./output/proteomics.filtered_proteins.tsv")
+```
+
+# Principal component analysis of proteomic samples
+
+As a fist QC, we want to look at a principal component embedding of the samples in the first two principle components. Due to the strong perturbation effect of a myocardial infarction, we expect to find samples distributed by group (control, MI_remote, MI_IZ) in the first principle component.
+
+
+```{r}
+clean_proteins_mat <- clean_proteins %>%
+  select(-c(Protein_Group,Protein_Names,Protein_Ids,Genes))%>%
+  drop_na()
+  
+## Calculate principal components and plot the firs two PCs
+res.pca <- prcomp(t(log2(clean_proteins_mat)), scale = TRUE)
+fviz_eig(res.pca)
+pcs <- as.data.frame(res.pca$x)
+pcs$sample <- colnames(clean_proteins_mat)
+pcs <- pcs %>%
+  mutate("group" = if_else(grepl("control",sample),"control",
+                          if_else(grepl("MI_IZ",sample),"MI_IZ","MI_remote"))
+         )
+
+## Set order of groups
+pcs$group <- factor(pcs$group,
+                    levels = c("control","MI_remote","MI_IZ"))
+
+## Plot PCs
+ggplot(pcs,aes(PC1,PC2)) +
+  geom_point(size = 5,pch = 21,color = "black", aes(fill = group)) +
+  scale_fill_npg(labels = c("Control","MI_remote","MI_IZ")) +
+  labs(color = "Group") +
+  guides(fill=guide_legend(title="Treatment group"))
+```
+
+As we expected, samples separate in PC1, based on their group category, confirming that the strongest effect between samples is whether the heart experienced an infarct and the location of the endocardial cells relative to the infarct zone.
+
+# DEPs using proDA
+
+```{r}
+## First we format the protein matrix for proDA
+protein_ids <- clean_proteins$Protein_Ids
+gene_mapping <- clean_proteins %>%
+  select(Protein_Ids,Genes)
+
+abundance_matrix <- clean_proteins %>%
+  select(-c(Protein_Group,Protein_Ids,Protein_Names,Genes))
+abundance_matrix <- log2(abundance_matrix)
+rownames(abundance_matrix) <- protein_ids
+```
+
+
+```{r}
+barplot(colSums(is.na(abundance_matrix)),
+        ylab = "# missing values",
+        xlab = "Sample 1 to 36")
+```
+
+```{r}
+boxplot(abundance_matrix,
+        ylab = "Intensity Distribution",
+        xlab = "Sample 1 to 36")
+```
+
+
+```{r}
+normalized_abundance_matrix <- median_normalization(as.matrix(abundance_matrix))
+```
+
+```{r}
+da <- dist_approx(normalized_abundance_matrix)
+```
+
+```{r}
+plot_mat <- as.matrix(da$mean)
+pheatmap::pheatmap(plot_mat)
+```
+
+```{r}
+design_matrix <- pcs %>%
+  select(sample,group)
+
+control_mi_cont <- c(0,0,0,1,1,1,1)
+iz_remote_cont <- c(0,0,0,0,1,1,1,1)
+
+## column numbers of different groups
+control_idx <- c(1,2,3)
+mi_iz_idx <- c(4,5,6,7)
+mi_remote_idx <- c(8,9,10,11)
+```
+
+## run proDA model fit
+
+```{r}
+fit_full <- proDA(normalized_abundance_matrix,  design = ~ group, 
+             col_data = design_matrix, reference_level = "control")
+```
+
+## MI_IZ vs control
+
+```{r}
+test_res_miiz <- test_diff(fit_full, "groupMI_IZ", pval_adjust_method = "fdr")
+test_res_miiz$gene <- gene_mapping$Genes
+test_res_miiz$protein_ids <- gene_mapping$Protein_Ids
+test_res_miiz <- test_res_miiz %>% 
+  arrange(adj_pval)
+
+volc_test_miiz <- ggplot(data=test_res_miiz, aes(x=diff, y=-log10(pval), label = gene)) + 
+    geom_point(aes(color = as.factor(n_obs))) + 
+    theme_minimal() +
+  labs(title = "MI_IZ vs control")
+ggplotly(volc_test_miiz)
+```
+
+## MI_remote vs control
+
+```{r}
+test_res_miremote <- test_diff(fit_full, "groupMI_remote", pval_adjust_method = "fdr")
+test_res_miremote$gene <- gene_mapping$Genes
+test_res_miremote$protein_ids <- gene_mapping$Protein_Ids
+test_res_miremote <- test_res_miremote %>% 
+  arrange(adj_pval)
+
+volc_test_miremote <- ggplot(data=test_res_miremote, aes(x=diff, y=-log10(pval), label = gene)) + 
+    geom_point(aes(color = as.factor(n_obs))) + 
+    theme_minimal() +
+  labs(title = "Remote vs control")
+ggplotly(volc_test_miremote)
+```
+
+## IZ vs remote
+
+```{r}
+normalized_abundance_matrix_sub <- normalized_abundance_matrix[,c(mi_iz_idx,mi_remote_idx)]
+fit_iz_remote <- proDA(normalized_abundance_matrix_sub, design = as.factor(c("MI_IZ","MI_IZ","MI_IZ","MI_IZ","MI_remote","MI_remote","MI_remote","MI_remote")))
+```
+
+```{r}
+test_res_iz_remote <- test_diff(fit_iz_remote, MI_IZ - MI_remote, pval_adjust_method = "fdr")
+test_res_iz_remote$gene <- gene_mapping$Genes
+test_res_iz_remote$protein_ids <- gene_mapping$Protein_Ids
+test_res_iz_remote <- test_res_iz_remote %>% 
+  arrange(adj_pval)
+
+volc_test_iz_remote <- ggplot(data=test_res_iz_remote, aes(x=diff, y=-log10(pval), label = gene)) + 
+    geom_point(aes(color = as.factor(n_obs))) + 
+    theme_minimal() +
+  facet_wrap(~ n_obs) +
+  labs(title = "MI_IZ vs remote")
+ggplotly(volc_test_iz_remote)
+```
+
+## Venn Diagram of DE genes
+
+```{r}
+test_res_miiz_genes <- subset(test_res_miiz,adj_pval <= 0.1)$gene
+test_res_miremote_genes <- subset(test_res_miremote,adj_pval <= 0.1)$gene
+test_res_iz_remote_genes <- subset(test_res_iz_remote,adj_pval <= 0.1)$gene
+venn_vec <- test_res_miremote$gene
+venn_df <- data.frame("MI_control" = venn_vec %in% test_res_miiz_genes,
+                      "remote_control" = venn_vec %in% test_res_miremote_genes,
+                      "MI_IZ_MI_remote" = venn_vec %in% test_res_iz_remote_genes)
+venn_df$gene <- venn_vec
+
+## Plot the 3 group Venn diagram
+plot(venn(venn_df[,1:3]))
+
+## get proteins that are deferentially expressed between MI vs control and MI_IZ and MI_remote
+MI_IZ_proteins <- subset(venn_df,MI_control == TRUE & remote_control == FALSE &  MI_IZ_MI_remote == TRUE)$gene
+test_res_iz_remote_uniq <- subset(test_res_iz_remote,gene %in% MI_IZ_proteins)
+```
+
+```{r}
+write.table(test_res_miiz_genes,
+            file = "./output/mi_iz_specific_proteins.tsv",
+            col.names = FALSE,
+            row.names = FALSE,
+            quote = FALSE)
+```

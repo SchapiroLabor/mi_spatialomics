@@ -9,11 +9,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Florian Wuennemann" />
+<meta name="author" content="FloWuenne" />
 
-<meta name="date" content="2023-06-12" />
+<meta name="date" content="2023-06-19" />
 
-<title>Data analysis</title>
+<title>proteomics.scRNAseq_comparison</title>
 
 <script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -360,9 +360,9 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Data analysis</h1>
-<h4 class="author">Florian Wuennemann</h4>
-<h4 class="date">2023-06-12</h4>
+<h1 class="title toc-ignore">proteomics.scRNAseq_comparison</h1>
+<h4 class="author">FloWuenne</h4>
+<h4 class="date">2023-06-19</h4>
 
 </div>
 
@@ -395,7 +395,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span> 0
 </p>
@@ -432,6 +432,90 @@ class="panel-collapse collapse">
 <p>Great! Since the R Markdown file has been committed to the Git
 repository, you know the exact version of the code that produced these
 results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20230612code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20230612)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20230612code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20230612)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
 </div>
 </div>
 </div>
@@ -475,11 +559,13 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    analysis/.DS_Store
-    Ignored:    analysis/figure/
     Ignored:    data/.DS_Store
     Ignored:    references/
     Ignored:    renv/library/
     Ignored:    renv/staging/
+
+Untracked files:
+    Untracked:  omnipathr-log/omnipathr-20230620-0954.log
 
 Unstaged changes:
     Modified:   .gitignore
@@ -500,11 +586,12 @@ have uncommitted changes.
 
 <p>
 These are the previous versions of the repository in which changes were
-made to the R Markdown (<code>analysis/data_analysis.Rmd</code>) and
-HTML (<code>docs/data_analysis.html</code>) files. If you’ve configured
-a remote Git repository (see <code>?wflow_git_remote</code>), click on
-the hyperlinks in the table below to view the files as they were in that
-past version.
+made to the R Markdown
+(<code>analysis/proteomics.scRNAseq_comparison.Rmd</code>) and HTML
+(<code>docs/proteomics.scRNAseq_comparison.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -533,7 +620,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/FloWuenne/mi_spatialomics/blob/8493a79501d8f9fb169f08e048670aa428d6ce1f/analysis/data_analysis.Rmd" target="_blank">8493a79</a>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/8493a79501d8f9fb169f08e048670aa428d6ce1f/analysis/proteomics.scRNAseq_comparison.Rmd" target="_blank">8493a79</a>
 </td>
 <td>
 FloWuenne
@@ -550,7 +637,7 @@ Saving intermediate analysis for proteomics.
 html
 </td>
 <td>
-<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/8493a79501d8f9fb169f08e048670aa428d6ce1f/docs/data_analysis.html" target="_blank">8493a79</a>
+<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/8493a79501d8f9fb169f08e048670aa428d6ce1f/docs/proteomics.scRNAseq_comparison.html" target="_blank">8493a79</a>
 </td>
 <td>
 FloWuenne
@@ -560,312 +647,6 @@ FloWuenne
 </td>
 <td>
 Saving intermediate analysis for proteomics.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/05aec09fd8562f71529c79be1f7bd9257f4e3be8/docs/data_analysis.html" target="_blank">05aec09</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-06-14
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/FloWuenne/mi_spatialomics/blob/0eba3813c390b5870a4e9de742f3544ecc145d8e/analysis/data_analysis.Rmd" target="_blank">0eba381</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-06-14
-</td>
-<td>
-Updating Data analysis links.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/0eba3813c390b5870a4e9de742f3544ecc145d8e/docs/data_analysis.html" target="_blank">0eba381</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-06-14
-</td>
-<td>
-Updating Data analysis links.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/f412578040a52a73c1e7072dd463f20072b409d6/docs/data_analysis.html" target="_blank">f412578</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-06-14
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/FloWuenne/mi_spatialomics/blob/2d015dd6457db41a75484766389597ec8f5f45e3/analysis/data_analysis.Rmd" target="_blank">2d015dd</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-06-14
-</td>
-<td>
-Finalized imputation with RF.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/2d015dd6457db41a75484766389597ec8f5f45e3/docs/data_analysis.html" target="_blank">2d015dd</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-06-14
-</td>
-<td>
-Finalized imputation with RF.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/5816aca1f0626eb9acccca21f51dc1cfbd50dabb/docs/data_analysis.html" target="_blank">5816aca</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-06-12
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/FloWuenne/mi_spatialomics/blob/3b5ca40b321db3a07f9742b5cbed39aa96fbc395/analysis/data_analysis.Rmd" target="_blank">3b5ca40</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-06-12
-</td>
-<td>
-Added code for supplementary Figures.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/3b5ca40b321db3a07f9742b5cbed39aa96fbc395/docs/data_analysis.html" target="_blank">3b5ca40</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-06-12
-</td>
-<td>
-Added code for supplementary Figures.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/e3bbd70102bccdaae2bb23be0f33f6de96b44edf/docs/data_analysis.html" target="_blank">e3bbd70</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-06-12
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/FloWuenne/mi_spatialomics/blob/412d64f9302e1aafd12bf79630a635c9a9f9d71a/analysis/data_analysis.Rmd" target="_blank">412d64f</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-06-12
-</td>
-<td>
-Fixed links in data_analysis
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/9603ecd4c47d1fb35d545d2b8a2a15c58407750d/docs/data_analysis.html" target="_blank">9603ecd</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-06-12
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/FloWuenne/mi_spatialomics/blob/ff0c849793025046e556ea599411f6c5f599d215/analysis/data_analysis.Rmd" target="_blank">ff0c849</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-06-12
-</td>
-<td>
-wflow_publish("*")
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/700ba8cf7926e27b359dcacc7f2a23d72a63a281/docs/data_analysis.html" target="_blank">700ba8c</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-06-12
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/FloWuenne/mi_spatialomics/blob/ebb85a53c1795ad798e68541e0b5daf59306b6d2/analysis/data_analysis.Rmd" target="_blank">ebb85a5</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-06-12
-</td>
-<td>
-Updated organization for proteomics data analysis.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/51754b93c9089c0f6795c26c9c5abb60516de90c/docs/data_analysis.html" target="_blank">51754b9</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-06-12
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/d764fa8a30f961d0f5ebd236168ee2dc313ad1a0/docs/data_analysis.html" target="_blank">d764fa8</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-06-12
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/FloWuenne/mi_spatialomics/blob/62020bfd9eb6c5f352df9b2fd254f33ad21db1fb/analysis/data_analysis.Rmd" target="_blank">62020bf</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-06-12
-</td>
-<td>
-Configure site header.
 </td>
 </tr>
 </tbody>
@@ -875,27 +656,79 @@ Configure site header.
 </div>
 </div>
 </div>
-<div id="molecular-cartography" class="section level1">
-<h1>Molecular Cartography</h1>
-<ol style="list-style-type: decimal">
-<li><a href="./molkart.QC_spots.html">QC RNA spots</a></li>
-<li></li>
-<li></li>
-</ol>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.2.3 (2023-03-15)
+Platform: aarch64-apple-darwin20 (64-bit)
+Running under: macOS Ventura 13.4
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/lib/libRblas.0.dylib
+LAPACK: /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/lib/libRlapack.dylib
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+attached base packages:
+[1] stats     graphics  grDevices datasets  utils     methods   base     
+
+other attached packages:
+ [1] ggsci_3.0.0        cowplot_1.1.1      here_1.0.1         SeuratObject_4.1.3
+ [5] Seurat_4.3.0       lubridate_1.9.2    forcats_1.0.0      stringr_1.5.0     
+ [9] dplyr_1.1.2        purrr_1.0.1        readr_2.1.4        tidyr_1.3.0       
+[13] tibble_3.2.1       ggplot2_3.4.2      tidyverse_2.0.0    workflowr_1.7.0   
+
+loaded via a namespace (and not attached):
+  [1] Rtsne_0.16             colorspace_2.1-0       deldir_1.0-9          
+  [4] ellipsis_0.3.2         ggridges_0.5.4         rprojroot_2.0.3       
+  [7] fs_1.6.2               spatstat.data_3.0-1    rstudioapi_0.14       
+ [10] leiden_0.4.3           listenv_0.9.0          ggrepel_0.9.3         
+ [13] fansi_1.0.4            codetools_0.2-19       splines_4.2.3         
+ [16] cachem_1.0.8           knitr_1.42             polyclip_1.10-4       
+ [19] jsonlite_1.8.4         ica_1.0-3              cluster_2.1.4         
+ [22] png_0.1-8              uwot_0.1.14            spatstat.sparse_3.0-1 
+ [25] sctransform_0.3.5      shiny_1.7.4            BiocManager_1.30.21   
+ [28] compiler_4.2.3         httr_1.4.6             Matrix_1.5-3          
+ [31] fastmap_1.1.1          lazyeval_0.2.2         cli_3.6.1             
+ [34] later_1.3.1            htmltools_0.5.5        tools_4.2.3           
+ [37] igraph_1.4.3           gtable_0.3.3           glue_1.6.2            
+ [40] reshape2_1.4.4         RANN_2.6.1             Rcpp_1.0.10           
+ [43] scattermore_1.2        jquerylib_0.1.4        vctrs_0.6.2           
+ [46] nlme_3.1-162           spatstat.explore_3.2-1 progressr_0.13.0      
+ [49] lmtest_0.9-40          spatstat.random_3.1-5  xfun_0.39             
+ [52] globals_0.16.2         ps_1.7.4               timechange_0.2.0      
+ [55] mime_0.12              miniUI_0.1.1.1         lifecycle_1.0.3       
+ [58] irlba_2.3.5.1          renv_0.17.3            goftest_1.2-3         
+ [61] future_1.32.0          getPass_0.2-2          MASS_7.3-58.2         
+ [64] zoo_1.8-12             scales_1.2.1           spatstat.utils_3.0-3  
+ [67] hms_1.1.3              promises_1.2.0.1       parallel_4.2.3        
+ [70] RColorBrewer_1.1-3     yaml_2.3.7             gridExtra_2.3         
+ [73] reticulate_1.30        pbapply_1.7-0          sass_0.4.6            
+ [76] stringi_1.7.12         rlang_1.1.1            pkgconfig_2.0.3       
+ [79] matrixStats_1.0.0      evaluate_0.21          lattice_0.20-45       
+ [82] tensor_1.5             ROCR_1.0-11            patchwork_1.1.2       
+ [85] htmlwidgets_1.6.2      processx_3.8.0         tidyselect_1.2.0      
+ [88] parallelly_1.36.0      RcppAnnoy_0.0.20       plyr_1.8.8            
+ [91] magrittr_2.0.3         R6_2.5.1               generics_0.1.3        
+ [94] DBI_1.1.3              pillar_1.9.0           whisker_0.4.1         
+ [97] withr_2.5.0            fitdistrplus_1.1-11    abind_1.4-5           
+[100] survival_3.5-3         sp_1.6-1               future.apply_1.11.0   
+[103] KernSmooth_2.23-20     utf8_1.2.3             spatstat.geom_3.2-1   
+[106] plotly_4.10.2          tzdb_0.4.0             rmarkdown_2.21        
+[109] grid_4.2.3             data.table_1.14.8      callr_3.7.3           
+[112] git2r_0.32.0           digest_0.6.31          xtable_1.8-4          
+[115] httpuv_1.6.11          munsell_0.5.0          viridisLite_0.4.2     
+[118] bslib_0.4.2           </code></pre>
 </div>
-<div id="laser-microdissection-coupled-with-high-sensitivity-proteomics"
-class="section level1">
-<h1>Laser-microdissection coupled with high-sensitivity proteomics</h1>
-<ol style="list-style-type: decimal">
-<li><p><a href="./proteomics.filter_proteomic_data.html">Filter
-proteomic data</a></p></li>
-<li><p><a href="./proteomics.bulk_de_analysis.html">Differential protein
-expression (DEPs)</a></p></li>
-<li><p><a href="./proteomics.pathway_enrichment_analysis.html">Pathway
-enrichment analysis of DEPs</a></p></li>
-<li><p><a href="./proteomics.scRNAseq_comparison.html">Comparing
-snRNA-seq with protein expression</a></p></li>
-</ol>
 </div>
 
 

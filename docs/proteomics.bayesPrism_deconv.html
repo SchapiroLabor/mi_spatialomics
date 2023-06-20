@@ -370,7 +370,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -381,8 +381,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -391,13 +391,13 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-06-14
+<strong>Last updated:</strong> 2023-06-20
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>mi_spatialomics/</code> <span
@@ -420,18 +420,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -522,15 +525,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree0eba3813c390b5870a4e9de742f3544ecc145d8etargetblank0eba381a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree05aec09fd8562f71529c79be1f7bd9257f4e3be8targetblank05aec09a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/0eba3813c390b5870a4e9de742f3544ecc145d8e" target="_blank">0eba381</a>
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/05aec09fd8562f71529c79be1f7bd9257f4e3be8" target="_blank">05aec09</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree0eba3813c390b5870a4e9de742f3544ecc145d8etargetblank0eba381a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree05aec09fd8562f71529c79be1f7bd9257f4e3be8targetblank05aec09a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -540,7 +543,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/0eba3813c390b5870a4e9de742f3544ecc145d8e" target="_blank">0eba381</a>.
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/05aec09fd8562f71529c79be1f7bd9257f4e3be8" target="_blank">05aec09</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -555,12 +558,28 @@ were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    .DS_Store
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    data/.DS_Store
     Ignored:    references/
     Ignored:    renv/library/
     Ignored:    renv/staging/
+
+Untracked files:
+    Untracked:  analysis/proteomics.bulk_de_analysis.Rmd
+    Untracked:  analysis/proteomics.pathway_enrichment_analysis.Rmd
+    Untracked:  analysis/proteomics.scRNAseq_comparison.Rmd
+    Untracked:  data/140623.calcagno_et_al.seurat_object.rds
+    Untracked:  data/proteomics.bayesprism.bp_res.rds
+    Untracked:  omnipathr-log/
+    Untracked:  output/mi_iz_specific_proteins.tsv
+
+Unstaged changes:
+    Modified:   .gitignore
+    Modified:   analysis/data_analysis.Rmd
+    Modified:   analysis/proteomics.bayesPrism_deconv.Rmd
+    Modified:   renv.lock
 
 </code></pre>
 <p>
@@ -609,6 +628,23 @@ Message
 <tbody>
 <tr>
 <td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/05aec09fd8562f71529c79be1f7bd9257f4e3be8/docs/proteomics.bayesPrism_deconv.html" target="_blank">05aec09</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-06-14
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
 Rmd
 </td>
 <td>
@@ -648,7 +684,57 @@ Updating Data analysis links.
 </div>
 </div>
 </div>
-<pre class="r"><code>library(data.table)</code></pre>
+<pre class="r"><code>library(data.table)
+library(BayesPrism)</code></pre>
+<pre><code>Loading required package: snowfall</code></pre>
+<pre><code>Loading required package: snow</code></pre>
+<pre><code>Loading required package: NMF</code></pre>
+<pre><code>Loading required package: registry</code></pre>
+<pre><code>Loading required package: rngtools</code></pre>
+<pre><code>Loading required package: cluster</code></pre>
+<pre><code>NMF - BioConductor layer [OK] | Shared memory capabilities [NO: bigmemory] | Cores 2/2</code></pre>
+<pre><code>  To enable shared memory capabilities, try: install.extras(&#39;
+NMF
+&#39;)</code></pre>
+<pre><code>Warning: replacing previous import &#39;gplots::lowess&#39; by &#39;stats::lowess&#39; when
+loading &#39;BayesPrism&#39;</code></pre>
+<pre><code>Warning: replacing previous import &#39;BiocParallel::register&#39; by &#39;NMF::register&#39;
+when loading &#39;BayesPrism&#39;</code></pre>
+<pre class="r"><code>library(Seurat)</code></pre>
+<pre><code>The legacy packages maptools, rgdal, and rgeos, underpinning this package
+will retire shortly. Please refer to R-spatial evolution reports on
+https://r-spatial.org/r/2023/05/15/evolution4.html for details.
+This package is now running under evolution status 0 </code></pre>
+<pre><code>Attaching SeuratObject</code></pre>
+<pre class="r"><code>library(pheatmap)
+library(tidyverse)</code></pre>
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.2     ✔ readr     2.1.4
+✔ forcats   1.0.0     ✔ stringr   1.5.0
+✔ ggplot2   3.4.2     ✔ tibble    3.2.1
+✔ lubridate 1.9.2     ✔ tidyr     1.3.0
+✔ purrr     1.0.1     </code></pre>
+<pre><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::between()     masks data.table::between()
+✖ dplyr::combine()     masks Biobase::combine(), BiocGenerics::combine()
+✖ dplyr::filter()      masks stats::filter()
+✖ dplyr::first()       masks data.table::first()
+✖ lubridate::hour()    masks data.table::hour()
+✖ lubridate::isoweek() masks data.table::isoweek()
+✖ dplyr::lag()         masks stats::lag()
+✖ dplyr::last()        masks data.table::last()
+✖ lubridate::mday()    masks data.table::mday()
+✖ lubridate::minute()  masks data.table::minute()
+✖ lubridate::month()   masks data.table::month()
+✖ ggplot2::Position()  masks BiocGenerics::Position(), base::Position()
+✖ lubridate::quarter() masks data.table::quarter()
+✖ lubridate::second()  masks data.table::second()
+✖ purrr::transpose()   masks data.table::transpose()
+✖ lubridate::wday()    masks data.table::wday()
+✖ lubridate::week()    masks data.table::week()
+✖ lubridate::yday()    masks data.table::yday()
+✖ lubridate::year()    masks data.table::year()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
 <p>Here we will use BayesPrism to attempt to deconvolute the protomics
@@ -656,9 +742,261 @@ protein matrix using snRNA-seq data from <a
 href="https://www.nature.com/articles/s44161-022-00160-3">Calcagno et
 al. 2022</a>.</p>
 </div>
-<div id="load-data" class="section level1">
-<h1>Load data</h1>
-<pre class="r"><code>imp_prot &lt;- fread(file = &quot;./output/proteomics.filt_imputed_proteins.tsv&quot;)</code></pre>
+<div id="load-and-format-data" class="section level1">
+<h1>Load and format data</h1>
+<pre class="r"><code>## Import imputed protein table (our &quot;bulk&quot; data)
+imp_prot &lt;- fread(file = &quot;./output/proteomics.filt_imputed_proteins.tsv&quot;)
+proteins &lt;- imp_prot$Genes
+imp_prot_mat &lt;- imp_prot %&gt;%
+  select(-c(Protein_Ids,imputed_values,Genes))
+samples &lt;- colnames(imp_prot_mat)
+imp_prot_mat &lt;- t(imp_prot_mat)
+imp_prot_mat &lt;- as.matrix(imp_prot_mat)
+imp_prot_mat &lt;- round(2^imp_prot_mat,0)
+rownames(imp_prot_mat) &lt;- samples
+colnames(imp_prot_mat) &lt;- proteins</code></pre>
+<pre class="r"><code>calcagno_et_al_seurat &lt;- readRDS(&quot;./data/140623.calcagno_et_al.seurat_object.rds&quot;)</code></pre>
+<pre class="r"><code>## Filter out lowly abundant cell-types
+calcagno_et_al_seurat &lt;- subset(calcagno_et_al_seurat,final_cluster != &quot;Sigf&quot;)
+
+## Create BayesPrism input data
+sc.dat &lt;- as.matrix(t(calcagno_et_al_seurat@assays$RNA@counts))</code></pre>
+<pre><code>Warning in asMethod(object): sparse-&gt;dense coercion: allocating vector of size
+6.6 GiB</code></pre>
+<pre class="r"><code>cell.type.labels &lt;- as.character(calcagno_et_al_seurat@meta.data$cell_type)
+cell.state.labels &lt;- as.character(calcagno_et_al_seurat@meta.data$final_cluster)</code></pre>
+<pre class="r"><code>## Plot a table showing cell-type and cell state numbers
+table(cbind.data.frame(cell.state.labels, cell.state.labels))</code></pre>
+<pre><code>                 cell.state.labels
+cell.state.labels Ankrd1 Arg1 Ccl21a Cxcl5   DC Dkk3 Fbln5  Gsn Hsd11b1  ISG
+          Ankrd1    1709    0      0     0    0    0     0    0       0    0
+          Arg1         0  430      0     0    0    0     0    0       0    0
+          Ccl21a       0    0    458     0    0    0     0    0       0    0
+          Cxcl5        0    0      0  1128    0    0     0    0       0    0
+          DC           0    0      0     0  170    0     0    0       0    0
+          Dkk3         0    0      0     0    0 1501     0    0       0    0
+          Fbln5        0    0      0     0    0    0  1165    0       0    0
+          Gsn          0    0      0     0    0    0     0 2407       0    0
+          Hsd11b1      0    0      0     0    0    0     0    0    2466    0
+          ISG          0    0      0     0    0    0     0    0       0  341
+          Kit          0    0      0     0    0    0     0    0       0    0
+          Lyve1        0    0      0     0    0    0     0    0       0    0
+          Mono         0    0      0     0    0    0     0    0       0    0
+          Myh11        0    0      0     0    0    0     0    0       0    0
+          Myh6         0    0      0     0    0    0     0    0       0    0
+          Myo1b        0    0      0     0    0    0     0    0       0    0
+          Npr3         0    0      0     0    0    0     0    0       0    0
+          NSG          0    0      0     0    0    0     0    0       0    0
+          Pecam1       0    0      0     0    0    0     0    0       0    0
+          Pi16         0    0      0     0    0    0     0    0       0    0
+          Postn        0    0      0     0    0    0     0    0       0    0
+          Rep          0    0      0     0    0    0     0    0       0    0
+          Retnlg       0    0      0     0    0    0     0    0       0    0
+          Skap1        0    0      0     0    0    0     0    0       0    0
+          Xirp2        0    0      0     0    0    0     0    0       0    0
+                 cell.state.labels
+cell.state.labels  Kit Lyve1 Mono Myh11 Myh6 Myo1b Npr3  NSG Pecam1 Pi16 Postn
+          Ankrd1     0     0    0     0    0     0    0    0      0    0     0
+          Arg1       0     0    0     0    0     0    0    0      0    0     0
+          Ccl21a     0     0    0     0    0     0    0    0      0    0     0
+          Cxcl5      0     0    0     0    0     0    0    0      0    0     0
+          DC         0     0    0     0    0     0    0    0      0    0     0
+          Dkk3       0     0    0     0    0     0    0    0      0    0     0
+          Fbln5      0     0    0     0    0     0    0    0      0    0     0
+          Gsn        0     0    0     0    0     0    0    0      0    0     0
+          Hsd11b1    0     0    0     0    0     0    0    0      0    0     0
+          ISG        0     0    0     0    0     0    0    0      0    0     0
+          Kit     2994     0    0     0    0     0    0    0      0    0     0
+          Lyve1      0  3113    0     0    0     0    0    0      0    0     0
+          Mono       0     0  330     0    0     0    0    0      0    0     0
+          Myh11      0     0    0   421    0     0    0    0      0    0     0
+          Myh6       0     0    0     0 5210     0    0    0      0    0     0
+          Myo1b      0     0    0     0    0  3401    0    0      0    0     0
+          Npr3       0     0    0     0    0     0  876    0      0    0     0
+          NSG        0     0    0     0    0     0    0  221      0    0     0
+          Pecam1     0     0    0     0    0     0    0    0   8591    0     0
+          Pi16       0     0    0     0    0     0    0    0      0  901     0
+          Postn      0     0    0     0    0     0    0    0      0    0  1095
+          Rep        0     0    0     0    0     0    0    0      0    0     0
+          Retnlg     0     0    0     0    0     0    0    0      0    0     0
+          Skap1      0     0    0     0    0     0    0    0      0    0     0
+          Xirp2      0     0    0     0    0     0    0    0      0    0     0
+                 cell.state.labels
+cell.state.labels  Rep Retnlg Skap1 Xirp2
+          Ankrd1     0      0     0     0
+          Arg1       0      0     0     0
+          Ccl21a     0      0     0     0
+          Cxcl5      0      0     0     0
+          DC         0      0     0     0
+          Dkk3       0      0     0     0
+          Fbln5      0      0     0     0
+          Gsn        0      0     0     0
+          Hsd11b1    0      0     0     0
+          ISG        0      0     0     0
+          Kit        0      0     0     0
+          Lyve1      0      0     0     0
+          Mono       0      0     0     0
+          Myh11      0      0     0     0
+          Myh6       0      0     0     0
+          Myo1b      0      0     0     0
+          Npr3       0      0     0     0
+          NSG        0      0     0     0
+          Pecam1     0      0     0     0
+          Pi16       0      0     0     0
+          Postn      0      0     0     0
+          Rep     2051      0     0     0
+          Retnlg     0     59     0     0
+          Skap1      0      0   177     0
+          Xirp2      0      0     0   770</code></pre>
+<pre class="r"><code>## Plot correlation of cell-types
+plot.cor.phi (input=sc.dat, 
+              input.labels=cell.type.labels, 
+              title=&quot;cell type correlation&quot;,
+              #specify pdf.prefix if need to output to pdf
+              #pdf.prefix=&quot;gbm.cor.ct&quot;,
+              cexRow=0.5, cexCol=0.5,
+                         )</code></pre>
+<p><img src="figure/proteomics.bayesPrism_deconv.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="filter-data" class="section level1">
+<h1>Filter data</h1>
+<p>Next, we will filter the data before runnin BayesPrism.</p>
+<div id="filter-outlier-genes" class="section level2">
+<h2>Filter outlier genes</h2>
+<pre class="r"><code>sc.stat &lt;- plot.scRNA.outlier(
+  input=sc.dat,
+  cell.type.labels=cell.type.labels,
+  species=&quot;mm&quot;,
+  return.raw=TRUE
+)</code></pre>
+<pre><code>Gene symbols detected. Recommend to use EMSEMBLE IDs for more unique mapping.</code></pre>
+<p><img src="figure/proteomics.bayesPrism_deconv.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>head(sc.stat)</code></pre>
+<pre><code>        exp.mean.log  max.spec   Mrp other_Rb    Rb  chrM  chrX  chrY   act
+Xkr4       -10.90099 0.5322778 FALSE    FALSE FALSE FALSE FALSE FALSE FALSE
+Gm1992     -15.47522 0.8454570 FALSE    FALSE FALSE FALSE FALSE FALSE FALSE
+Gm37381    -15.93627 0.5760630 FALSE    FALSE FALSE FALSE FALSE FALSE FALSE
+Rp1        -12.99242 0.5751696 FALSE    FALSE FALSE FALSE FALSE FALSE FALSE
+Sox17      -11.36258 0.5755280 FALSE    FALSE FALSE FALSE FALSE FALSE FALSE
+Mrpl15     -10.55364 0.1121948  TRUE    FALSE FALSE FALSE FALSE FALSE FALSE
+           hb
+Xkr4    FALSE
+Gm1992  FALSE
+Gm37381 FALSE
+Rp1     FALSE
+Sox17   FALSE
+Mrpl15  FALSE</code></pre>
+<pre class="r"><code>sc.dat.filtered &lt;- cleanup.genes(input=sc.dat,
+                                  input.type=&quot;count.matrix&quot;,
+                                  species=&quot;mm&quot;, 
+                                  gene.group=c( &quot;Rb&quot;,&quot;Mrp&quot;,&quot;other_Rb&quot;,&quot;chrM&quot;,&quot;chrX&quot;,&quot;chrY&quot;) ,
+                                  exp.cells=5)</code></pre>
+<pre><code>Gene symbols detected. Recommend to use EMSEMBLE IDs for more unique mapping.
+number of genes filtered in each category: 
+      Rb      Mrp other_Rb     chrM     chrX     chrY 
+      77       75      393       13      699       24 
+A total of  1268  genes from Rb Mrp other_Rb chrM chrX chrY  have been excluded 
+A total of  1539  gene expressed in fewer than  5  cells have been excluded </code></pre>
+</div>
+<div id="determine-signature-genes" class="section level2">
+<h2>Determine signature genes</h2>
+<pre class="r"><code>diff.exp.stat &lt;- get.exp.stat(sc.dat=sc.dat.filtered[,colSums(sc.dat.filtered&gt;0)&gt;3],# filter genes to reduce memory use
+                              cell.type.labels=cell.type.labels,
+                              cell.state.labels=cell.state.labels,
+                              psuedo.count=0.1, #a numeric value used for log2 transformation. =0.1 for 10x data, =10 for smart-seq. Default=0.1.
+                              cell.count.cutoff=50, # a numeric value to exclude cell state with number of cells fewer than this value for t test. Default=50.
+                              n.cores=1 #number of threads
+                                          )</code></pre>
+<pre class="r"><code>sc.dat.filtered.sig &lt;- select.marker (sc.dat=sc.dat.filtered,
+                                         stat=diff.exp.stat,
+                                         pval.max=0.01,
+                                         lfc.min=0.1)</code></pre>
+<pre><code>number of markers selected for each cell type: 
+Smooth_muscle :  362 
+Endothelial_cells :  340 
+CMs :  654 
+Cardiac_fibroblasts :  707 
+Macrophages :  469 
+Endocardial_cells :  93 
+Skap1 :  164 
+DC :  71 
+BZ1 :  132 
+Mono :  18 
+BZ2 :  490 
+Neutrophils :  26 </code></pre>
+</div>
+</div>
+<div id="run-bayesprism" class="section level1">
+<h1>Run BayesPrism</h1>
+<pre class="r"><code>myPrism &lt;- new.prism(
+  reference=sc.dat.filtered, 
+  mixture=imp_prot_mat,
+  input.type=&quot;count.matrix&quot;, 
+  cell.type.labels = cell.type.labels, 
+  cell.state.labels = cell.state.labels,
+  key=NULL,
+  outlier.cut=0.01,
+  outlier.fraction=0.1,
+)</code></pre>
+<pre><code>number of cells in each cell state 
+cell.state.labels
+ Retnlg      DC   Skap1     NSG    Mono     ISG   Myh11    Arg1  Ccl21a   Xirp2 
+     59     170     177     221     330     341     421     430     458     770 
+   Npr3    Pi16   Postn   Cxcl5   Fbln5    Dkk3  Ankrd1     Rep     Gsn Hsd11b1 
+    876     901    1095    1128    1165    1501    1709    2051    2407    2466 
+    Kit   Lyve1   Myo1b    Myh6  Pecam1 
+   2994    3113    3401    5210    8591 
+No tumor reference is speficied. Reference cell types are treated equally. 
+Number of outlier genes filtered from mixture = 22 
+Aligning reference and mixture... 
+Normalizing reference... </code></pre>
+<pre class="r"><code>bp.res &lt;- run.prism(prism = myPrism, n.cores=50)</code></pre>
+<pre><code>Run Gibbs sampling... 
+Current time:  2023-06-20 09:29:54 
+Estimated time to complete:  2mins 
+Estimated finishing time:  2023-06-20 09:31:37 
+Start run... 
+R Version:  R version 4.2.3 (2023-03-15) 
+
+Update the reference matrix ... 
+Run Gibbs sampling using updated reference ... 
+Current time:  2023-06-20 09:32:12 
+Estimated time to complete:  1mins 
+Estimated finishing time:  2023-06-20 09:32:42 
+Start run... </code></pre>
+<div id="get-cell-type-fractions" class="section level2">
+<h2>Get cell type fractions</h2>
+<pre class="r"><code>theta &lt;- get.fraction (bp=bp.res,
+            which.theta=&quot;final&quot;,
+            state.or.type=&quot;type&quot;)</code></pre>
+<pre class="r"><code>pheatmap(theta)</code></pre>
+<p><img src="figure/proteomics.bayesPrism_deconv.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="extract-posterior-mean-of-cell-type-specific-gene-expression"
+class="section level2">
+<h2>Extract posterior mean of cell-type specific gene expression</h2>
+<pre class="r"><code>## Endocardial cells
+endocard &lt;- get.exp (bp=bp.res,
+                          state.or.type=&quot;type&quot;,
+                          cell.name=&quot;Endocardial_cells&quot;)
+endocard_df &lt;- t(endocard)
+
+## Macrophages
+macros &lt;- get.exp (bp=bp.res,
+                          state.or.type=&quot;type&quot;,
+                          cell.name=&quot;Macrophages&quot;)
+macros_df &lt;- t(endocard)
+
+## Skap1
+skap1 &lt;- get.exp (bp=bp.res,
+                          state.or.type=&quot;type&quot;,
+                          cell.name=&quot;Skap1&quot;)
+skap1 &lt;- t(endocard)</code></pre>
+</div>
+<div id="save-prism-object-and-results" class="section level2">
+<h2>Save Prism object and results</h2>
+<pre class="r"><code>bp.res &lt;- saveRDS(bp.res,
+                  file = &quot;./data/proteomics.bayesprism.bp_res.rds&quot;)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -683,20 +1021,95 @@ attached base packages:
 [1] stats     graphics  grDevices datasets  utils     methods   base     
 
 other attached packages:
-[1] data.table_1.14.8 workflowr_1.7.0  
+ [1] lubridate_1.9.2     forcats_1.0.0       stringr_1.5.0      
+ [4] dplyr_1.1.2         purrr_1.0.1         readr_2.1.4        
+ [7] tidyr_1.3.0         tibble_3.2.1        ggplot2_3.4.2      
+[10] tidyverse_2.0.0     pheatmap_1.0.12     SeuratObject_4.1.3 
+[13] Seurat_4.3.0        BayesPrism_2.0      NMF_0.26           
+[16] Biobase_2.58.0      BiocGenerics_0.44.0 cluster_2.1.4      
+[19] rngtools_1.5.2      registry_0.5-1      snowfall_1.84-6.2  
+[22] snow_0.4-4          data.table_1.14.8   workflowr_1.7.0    
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.10      bslib_0.4.2      compiler_4.2.3   pillar_1.9.0    
- [5] later_1.3.1      git2r_0.32.0     jquerylib_0.1.4  tools_4.2.3     
- [9] getPass_0.2-2    digest_0.6.31    jsonlite_1.8.4   evaluate_0.21   
-[13] lifecycle_1.0.3  tibble_3.2.1     pkgconfig_2.0.3  rlang_1.1.1     
-[17] cli_3.6.1        rstudioapi_0.14  yaml_2.3.7       xfun_0.39       
-[21] fastmap_1.1.1    httr_1.4.6       stringr_1.5.0    knitr_1.42      
-[25] sass_0.4.6       fs_1.6.2         vctrs_0.6.2      rprojroot_2.0.3 
-[29] glue_1.6.2       R6_2.5.1         processx_3.8.0   fansi_1.0.4     
-[33] rmarkdown_2.21   callr_3.7.3      magrittr_2.0.3   whisker_0.4.1   
-[37] ps_1.7.4         promises_1.2.0.1 htmltools_0.5.5  renv_0.17.3     
-[41] httpuv_1.6.11    utf8_1.2.3       stringi_1.7.12   cachem_1.0.8    </code></pre>
+  [1] utf8_1.2.3                  spatstat.explore_3.2-1     
+  [3] reticulate_1.30             tidyselect_1.2.0           
+  [5] htmlwidgets_1.6.2           grid_4.2.3                 
+  [7] BiocParallel_1.32.6         Rtsne_0.16                 
+  [9] munsell_0.5.0               ScaledMatrix_1.6.0         
+ [11] codetools_0.2-19            ica_1.0-3                  
+ [13] statmod_1.5.0               scran_1.26.2               
+ [15] future_1.32.0               miniUI_0.1.1.1             
+ [17] withr_2.5.0                 spatstat.random_3.1-5      
+ [19] colorspace_2.1-0            progressr_0.13.0           
+ [21] highr_0.10                  knitr_1.42                 
+ [23] rstudioapi_0.14             stats4_4.2.3               
+ [25] SingleCellExperiment_1.20.1 ROCR_1.0-11                
+ [27] tensor_1.5                  listenv_0.9.0              
+ [29] MatrixGenerics_1.10.0       git2r_0.32.0               
+ [31] GenomeInfoDbData_1.2.9      polyclip_1.10-4            
+ [33] rprojroot_2.0.3             parallelly_1.36.0          
+ [35] vctrs_0.6.2                 generics_0.1.3             
+ [37] xfun_0.39                   timechange_0.2.0           
+ [39] R6_2.5.1                    doParallel_1.0.17          
+ [41] GenomeInfoDb_1.34.9         rsvd_1.0.5                 
+ [43] locfit_1.5-9.8              bitops_1.0-7               
+ [45] spatstat.utils_3.0-3        cachem_1.0.8               
+ [47] DelayedArray_0.24.0         promises_1.2.0.1           
+ [49] scales_1.2.1                gtable_0.3.3               
+ [51] beachmat_2.14.2             globals_0.16.2             
+ [53] processx_3.8.0              goftest_1.2-3              
+ [55] rlang_1.1.1                 splines_4.2.3              
+ [57] lazyeval_0.2.2              spatstat.geom_3.2-1        
+ [59] BiocManager_1.30.21         yaml_2.3.7                 
+ [61] reshape2_1.4.4              abind_1.4-5                
+ [63] httpuv_1.6.11               tools_4.2.3                
+ [65] gridBase_0.4-7              ellipsis_0.3.2             
+ [67] gplots_3.1.3                jquerylib_0.1.4            
+ [69] RColorBrewer_1.1-3          ggridges_0.5.4             
+ [71] Rcpp_1.0.10                 plyr_1.8.8                 
+ [73] sparseMatrixStats_1.10.0    zlibbioc_1.44.0            
+ [75] RCurl_1.98-1.12             ps_1.7.4                   
+ [77] deldir_1.0-9                pbapply_1.7-0              
+ [79] cowplot_1.1.1               S4Vectors_0.36.2           
+ [81] zoo_1.8-12                  SummarizedExperiment_1.28.0
+ [83] ggrepel_0.9.3               fs_1.6.2                   
+ [85] magrittr_2.0.3              scattermore_1.2            
+ [87] lmtest_0.9-40               RANN_2.6.1                 
+ [89] whisker_0.4.1               fitdistrplus_1.1-11        
+ [91] matrixStats_1.0.0           hms_1.1.3                  
+ [93] patchwork_1.1.2             mime_0.12                  
+ [95] evaluate_0.21               xtable_1.8-4               
+ [97] IRanges_2.32.0              gridExtra_2.3              
+ [99] compiler_4.2.3              KernSmooth_2.23-20         
+[101] htmltools_0.5.5             tzdb_0.4.0                 
+[103] later_1.3.1                 DBI_1.1.3                  
+[105] MASS_7.3-58.2               Matrix_1.5-3               
+[107] cli_3.6.1                   parallel_4.2.3             
+[109] metapod_1.6.0               igraph_1.4.3               
+[111] GenomicRanges_1.50.2        pkgconfig_2.0.3            
+[113] getPass_0.2-2               sp_1.6-1                   
+[115] plotly_4.10.2               scuttle_1.8.4              
+[117] spatstat.sparse_3.0-1       foreach_1.5.2              
+[119] bslib_0.4.2                 dqrng_0.3.0                
+[121] XVector_0.38.0              callr_3.7.3                
+[123] digest_0.6.31               sctransform_0.3.5          
+[125] RcppAnnoy_0.0.20            spatstat.data_3.0-1        
+[127] rmarkdown_2.21              leiden_0.4.3               
+[129] uwot_0.1.14                 edgeR_3.40.2               
+[131] DelayedMatrixStats_1.20.0   shiny_1.7.4                
+[133] gtools_3.9.4                lifecycle_1.0.3            
+[135] nlme_3.1-162                jsonlite_1.8.4             
+[137] BiocNeighbors_1.16.0        viridisLite_0.4.2          
+[139] limma_3.54.2                fansi_1.0.4                
+[141] pillar_1.9.0                lattice_0.20-45            
+[143] fastmap_1.1.1               httr_1.4.6                 
+[145] survival_3.5-3              glue_1.6.2                 
+[147] png_0.1-8                   iterators_1.0.14           
+[149] bluster_1.8.0               stringi_1.7.12             
+[151] sass_0.4.6                  BiocSingular_1.14.0        
+[153] caTools_1.18.2              renv_0.17.3                
+[155] irlba_2.3.5.1               future.apply_1.11.0        </code></pre>
+</div>
 </div>
 </div>
 
