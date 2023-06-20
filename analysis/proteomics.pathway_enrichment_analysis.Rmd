@@ -25,7 +25,7 @@ source(here("./code/params_R.R"))
 ```{r}
 #net <- get_progeny(organism = 'mouse', top = 500)
 #net <- get_dorothea(organism = 'mouse')
-net <- decoupleR::get_resource("KEGG-PC", organism = "mouse")
+#net <- decoupleR::get_resource("KEGG-PC", organism = "mouse")
 ```
 
 ```{r}
