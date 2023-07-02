@@ -24,36 +24,80 @@ library(pheatmap)
 library(ggrepel)
 library(eulerr)
 library(plotly)
+library(vsn)
+library(limma)
 
-source(here("./code/params_R.R"))
+source(here("./code/functions.R"))
 ```
 
 # Introduction
 
+Here we will perform an analysis to detect differentially expressed proteins (DEPs) between the healthy control endocardial layer (control), the endocardial layer adjacent to the infarct at 1 day post infarction (MI_IZ) and the endocardial layer that is remote to the infarct from the same heart as the MI_IZ.
+
+We will compare two different methods to perform differential expresssion, proDA, which models missing values in it's statistical model and limma, which uses linear models and can handle missing values.
+
 # Load data
 
-First, let's load the filtered protein table.
+First, let's load the filtered protein table from the previous step [Filter proteomic data](./proteomics.filter_proteomic_data.html).
 
 ```{r}
 ## Import imputed protein table (our "bulk" data)
 clean_proteins <- fread(file = "./output/proteomics.filtered_proteins.tsv")
 ```
 
-# Principal component analysis of proteomic samples
+```{r}
+## First we format the protein matrix for DEP analysis
 
-As a fist QC, we want to look at a principal component embedding of the samples in the first two principle components. Due to the strong perturbation effect of a myocardial infarction, we expect to find samples distributed by group (control, MI_remote, MI_IZ) in the first principle component.
+## Remove duplicates
+dups <- clean_proteins[duplicated(clean_proteins$Genes),"Genes"]
+clean_proteins_nd <- subset(clean_proteins,!Genes %in% unique(dups$Genes))
 
+## Store gene and protein IDs
+protein_ids <- clean_proteins_nd$Protein_Ids
+gene_mapping <- clean_proteins_nd %>%
+  select(Protein_Ids,Genes)
+
+## Remove annotation columns
+abundance_matrix <- clean_proteins_nd %>%
+  select(-c(Protein_Group,Protein_Ids,Protein_Names,Genes))
+
+rownames(abundance_matrix) <- protein_ids
+```
+
+# Normalize data
+
+We use the vsn package to normalize our expression data. The vsn normalization function takes non-logged values as input.
 
 ```{r}
-clean_proteins_mat <- clean_proteins %>%
-  select(-c(Protein_Group,Protein_Names,Protein_Ids,Genes))%>%
+## Use vsn normalization on the raw values (non log-transformed)
+vsnMatrix <- normalizeVSN(abundance_matrix)
+meanSdPlot(vsnMatrix)
+```
+
+```{r}
+## Save vsn normalized protein expression values
+vsnMatrix_store <- as.data.frame(vsnMatrix)
+vsnMatrix_store$gene <- gene_mapping$Genes
+write.table(vsnMatrix_store,
+            file = "./output/proteomics.vsn_norm_proteins.tsv",
+            col.names = TRUE,
+            row.names = FALSE,
+            quote = FALSE)
+```
+
+# Principal component analysis of proteomic samples
+
+As a fist QC, we will do a principal component analysis (PCA) of the samples. Due to the strong perturbation effect of myocardial infarction, we expect to find samples distributed by group (control, MI_remote, MI_IZ) in the first principle component.
+
+```{r}
+abundance_matrix_pc <- as.data.frame(vsnMatrix) %>%
   drop_na()
   
 ## Calculate principal components and plot the firs two PCs
-res.pca <- prcomp(t(log2(clean_proteins_mat)), scale = TRUE)
-fviz_eig(res.pca)
+res.pca <- prcomp(t(abundance_matrix_pc), scale = TRUE)
+fviz_eig(res.pca, addlabels = TRUE)
 pcs <- as.data.frame(res.pca$x)
-pcs$sample <- colnames(clean_proteins_mat)
+pcs$sample <- colnames(abundance_matrix_pc)
 pcs <- pcs %>%
   mutate("group" = if_else(grepl("control",sample),"control",
                           if_else(grepl("MI_IZ",sample),"MI_IZ","MI_remote"))
@@ -64,55 +108,24 @@ pcs$group <- factor(pcs$group,
                     levels = c("control","MI_remote","MI_IZ"))
 
 ## Plot PCs
-ggplot(pcs,aes(PC1,PC2)) +
-  geom_point(size = 5,pch = 21,color = "black", aes(fill = group)) +
-  scale_fill_npg(labels = c("Control","MI_remote","MI_IZ")) +
+ggplot(pcs,aes(PC1,PC2, color = group, fill = group)) +
+  geom_point(size = 5,pch = 21,color = "black") +
+  scale_fill_manual(values = proteome_palette,
+                    labels = c("Control","MI_remote","MI_IZ")) +
   labs(color = "Group") +
   guides(fill=guide_legend(title="Treatment group"))
+
+saveRDS(res.pca,
+        file = "./output/proteomics.pca_res.rds")
 ```
 
-As we expected, samples separate in PC1, based on their group category, confirming that the strongest effect between samples is whether the heart experienced an infarct and the location of the endocardial cells relative to the infarct zone.
+As expected, samples separate in PC1, based on their group category, confirming that the strongest effect between samples is whether the heart experienced an infarct and the location of the endocardial cells relative to the infarct zone.
 
-# DEPs using proDA
+# DEPs using limma
 
-```{r}
-## First we format the protein matrix for proDA
-protein_ids <- clean_proteins$Protein_Ids
-gene_mapping <- clean_proteins %>%
-  select(Protein_Ids,Genes)
+Let's use limma to identif differentially expressed proteins
 
-abundance_matrix <- clean_proteins %>%
-  select(-c(Protein_Group,Protein_Ids,Protein_Names,Genes))
-abundance_matrix <- log2(abundance_matrix)
-rownames(abundance_matrix) <- protein_ids
-```
-
-
-```{r}
-barplot(colSums(is.na(abundance_matrix)),
-        ylab = "# missing values",
-        xlab = "Sample 1 to 36")
-```
-
-```{r}
-boxplot(abundance_matrix,
-        ylab = "Intensity Distribution",
-        xlab = "Sample 1 to 36")
-```
-
-
-```{r}
-normalized_abundance_matrix <- median_normalization(as.matrix(abundance_matrix))
-```
-
-```{r}
-da <- dist_approx(normalized_abundance_matrix)
-```
-
-```{r}
-plot_mat <- as.matrix(da$mean)
-pheatmap::pheatmap(plot_mat)
-```
+We will define a design matrix to perform differential expression testing in proDA.
 
 ```{r}
 design_matrix <- pcs %>%
@@ -127,50 +140,195 @@ mi_iz_idx <- c(4,5,6,7)
 mi_remote_idx <- c(8,9,10,11)
 ```
 
-## run proDA model fit
+```{r}
+design <- model.matrix(~ 0 + design_matrix$group)
+rownames(design) <- design_matrix$sample
+colnames(design) <- gsub("design_matrix\\$groupMI_","",colnames(design))
+colnames(design) <- gsub("design_matrix\\$group","",colnames(design))
+```
 
 ```{r}
-fit_full <- proDA(normalized_abundance_matrix,  design = ~ group, 
+fit <- lmFit(vsnMatrix, design)
+contrast.matrix <- makeContrasts(MI_vs_Ctr = IZ - control, 
+                                 remote_vs_Ctr = remote - control,
+                                 MI_vs_remote = IZ - remote,
+                                 levels = design)
+fit_contrast <- contrasts.fit(fit, contrast.matrix)
+fit_contrast <- eBayes(fit_contrast)
+
+## MI_IZ vs control
+limma_mi_ctr <-  topTable(fit_contrast,
+                      n=Inf, adjust.method = 'BH', coef= "MI_vs_Ctr",
+                      sort.by = "none")
+limma_mi_ctr$gene <- gene_mapping$Genes
+limma_mi_ctr$protein_ids <- gene_mapping$Protein_Ids
+limma_mi_ctr <- limma_mi_ctr %>%
+  arrange(adj.P.Val) %>%
+  mutate("pval" = P.Value,
+         "analysis" = "MI_IZ_vs_control")
+
+## MI_remote vs MI_remote
+limma_remote_ctr <-  topTable(fit_contrast,
+                      n=Inf, adjust.method = 'BH', coef= "remote_vs_Ctr",
+                      sort.by = "none")
+limma_remote_ctr$gene <- gene_mapping$Genes
+limma_remote_ctr$protein_ids <- gene_mapping$Protein_Ids
+limma_remote_ctr <- limma_remote_ctr %>%
+  arrange(adj.P.Val) %>%
+  mutate("pval" = P.Value,
+         "analysis" = "MI_remote_vs_control")
+limma_remote_ctr$label_protein <- ""
+
+## MI_IZ vs MI_remote
+limma_mi_remote <-  topTable(fit_contrast,
+                      n=Inf, adjust.method = 'BH', coef= "MI_vs_remote",
+                      sort.by = "none")
+limma_mi_remote$gene <- gene_mapping$Genes
+limma_mi_remote$protein_ids <- gene_mapping$Protein_Ids
+limma_mi_remote <- limma_mi_remote %>%
+  arrange(adj.P.Val) %>%
+  mutate("pval" = P.Value,
+         "analysis" = "MI_IZ_vs_MI_remote")
+```
+
+Let's visualize the differential expression results using Volcano plots and highlighting the top protein hits per group.
+
+## Comparison of MI_IZ with control endocardial region
+
+The first comparison we are interested in is comparing the remote zone from infarcted hearts with controls endocardium. This comparison will highlight programs upregulated mainly due to the systemic inflammatory response to myocardial infarction.
+
+```{r}
+## Volcano plot of IZ_remote vs control
+limma_mi_ctr$label_protein <- ""
+volc_limma_remote_ctr <- plot_pretty_volcano(limma_mi_ctr, 
+                                      pt_size = 2,
+                                      plot_title = "MI_IZ vs control",
+                                      sig_thresh = 0.05,
+                                      col_pos_logFC = "#E64B35FF",
+                                      col_neg_logFC = "#3DA873FF") 
+ggplotly(volc_limma_remote_ctr)
+
+## Plot two targets to check results
+
+```
+
+## Comparison of MI_IZ with MI_remote endocardial region
+
+```{r}
+## Volcano plot of IZ_remote vs control
+limma_mi_remote$label_protein <- ""
+volc_limma_IZ_remote <- plot_pretty_volcano(limma_mi_remote, 
+                                      pt_size = 2,
+                                      plot_title = "MI_IZ vs MI_remote",
+                                      sig_thresh = 0.05,
+                                      col_pos_logFC = "#E64B35FF",
+                                      col_neg_logFC = "#4DBBD5FF") 
+ggplotly(volc_limma_IZ_remote)
+```
+
+## Save results
+
+Let's combine the results from the limma test into one big table and save it for later use.
+
+
+```{r}
+limma_merged_stats <- rbind(limma_mi_ctr,limma_remote_ctr,limma_mi_remote)
+
+write.table(limma_merged_stats,
+            file = "./output/limma.full_statistics.tsv",
+            sep = "\t",
+            col.names = TRUE,
+            row.names = FALSE,
+            quote = FALSE)
+```
+
+## Venn Diagram of DE genes
+
+```{r}
+limma_mi_ctr_genes <- subset(limma_mi_ctr,adj.P.Val <= 0.05)$gene
+limma_remote_ctr_genes <- subset(limma_remote_ctr,adj.P.Val <= 0.05)$gene
+limma_mi_remote_genes <- subset(limma_mi_remote,adj.P.Val <= 0.05)$gene
+limma_venn_vec <- limma_mi_ctr$gene
+limma_venn_df <- data.frame("MI_control" = limma_venn_vec %in% limma_mi_ctr_genes,
+                      "remote_control" = limma_venn_vec %in% limma_remote_ctr_genes,
+                      "MI_IZ_MI_remote" = limma_venn_vec %in% limma_mi_remote_genes)
+limma_venn_df$gene <- limma_venn_vec
+
+## Plot the 3 group Venn diagram
+plot(venn(limma_venn_df[,1:3]))
+```
+
+
+# DEPs using proDA
+
+## Fit proDA full model and apply contrasts to compare to control
+
+We will fit a model on the full vsn matrix and set the control group as the reference level, to compare MI_IZ and MI_remote to the control.
+
+```{r}
+fit_full <- proDA(vsnMatrix,  design = ~ group, 
              col_data = design_matrix, reference_level = "control")
 ```
 
-## MI_IZ vs control
+Let's now look at the approximate sample distance matrix based on the proDA model.
 
 ```{r}
-test_res_miiz <- test_diff(fit_full, "groupMI_IZ", pval_adjust_method = "fdr")
+da <- dist_approx(fit_full)
+```
+
+```{r}
+plot_mat <- as.matrix(da$mean)
+pheatmap::pheatmap(plot_mat)
+```
+
+Now we will extract the test statistics for the different comparisons and visualize them using volcano plots.
+
+### MI_IZ vs control
+
+```{r}
+test_res_miiz <- test_diff(fit_full, "groupMI_IZ", pval_adjust_method = "BH")
 test_res_miiz$gene <- gene_mapping$Genes
 test_res_miiz$protein_ids <- gene_mapping$Protein_Ids
 test_res_miiz <- test_res_miiz %>% 
-  arrange(adj_pval)
+  arrange(adj_pval) %>%
+  mutate("logFC" = diff,
+         "analysis" = "MI_IZ_vs_control")
+test_res_miiz$label_protein <- ""
 
-volc_test_miiz <- ggplot(data=test_res_miiz, aes(x=diff, y=-log10(pval), label = gene)) + 
-    geom_point(aes(color = as.factor(n_obs))) + 
-    theme_minimal() +
-  labs(title = "MI_IZ vs control")
+volc_test_miiz <- plot_pretty_volcano(test_res_miiz, 
+                                      pt_label = "gene", pt_size = 2,
+                                      plot_title = "MI_IZ vs control",
+                                      sig_thresh = 0.05,
+                                      sig_col = "adj_pval") 
 ggplotly(volc_test_miiz)
 ```
 
-## MI_remote vs control
+### MI_remote vs control
 
 ```{r}
 test_res_miremote <- test_diff(fit_full, "groupMI_remote", pval_adjust_method = "fdr")
 test_res_miremote$gene <- gene_mapping$Genes
 test_res_miremote$protein_ids <- gene_mapping$Protein_Ids
 test_res_miremote <- test_res_miremote %>% 
-  arrange(adj_pval)
+  arrange(adj_pval) %>%
+  mutate("logFC" = diff,
+         "analysis" = "MI_remote_vs_control")
+test_res_miremote$label_protein <- ""
 
-volc_test_miremote <- ggplot(data=test_res_miremote, aes(x=diff, y=-log10(pval), label = gene)) + 
-    geom_point(aes(color = as.factor(n_obs))) + 
-    theme_minimal() +
-  labs(title = "Remote vs control")
+volc_test_miremote <- plot_pretty_volcano(test_res_miremote, 
+                                      pt_label = "gene", pt_size = 2,
+                                      plot_title = "MI_remote vs control",
+                                      sig_thresh = 0.05,
+                                      sig_col = "adj_pval") 
 ggplotly(volc_test_miremote)
 ```
 
-## IZ vs remote
+### IZ vs remote
 
 ```{r}
-normalized_abundance_matrix_sub <- normalized_abundance_matrix[,c(mi_iz_idx,mi_remote_idx)]
-fit_iz_remote <- proDA(normalized_abundance_matrix_sub, design = as.factor(c("MI_IZ","MI_IZ","MI_IZ","MI_IZ","MI_remote","MI_remote","MI_remote","MI_remote")))
+vsnMatrix_sub <- vsnMatrix[,c(mi_iz_idx,mi_remote_idx)]
+
+fit_iz_remote <- proDA(vsnMatrix_sub, design = as.factor(c("MI_IZ","MI_IZ","MI_IZ","MI_IZ","MI_remote","MI_remote","MI_remote","MI_remote")))
 ```
 
 ```{r}
@@ -178,40 +336,111 @@ test_res_iz_remote <- test_diff(fit_iz_remote, MI_IZ - MI_remote, pval_adjust_me
 test_res_iz_remote$gene <- gene_mapping$Genes
 test_res_iz_remote$protein_ids <- gene_mapping$Protein_Ids
 test_res_iz_remote <- test_res_iz_remote %>% 
-  arrange(adj_pval)
+  arrange(adj_pval) %>%
+  mutate("logFC" = diff,
+         "analysis" = "MI_IZ_vs_MI_remote")
+test_res_iz_remote$label_protein <- ""
 
-volc_test_iz_remote <- ggplot(data=test_res_iz_remote, aes(x=diff, y=-log10(pval), label = gene)) + 
-    geom_point(aes(color = as.factor(n_obs))) + 
-    theme_minimal() +
-  facet_wrap(~ n_obs) +
-  labs(title = "MI_IZ vs remote")
+volc_test_iz_remote <- plot_pretty_volcano(test_res_iz_remote, 
+                                      pt_label = "gene", pt_size = 2,
+                                      plot_title =  "MI_IZ vs remote",
+                                      sig_thresh = 0.05,
+                                      sig_col = "adj_pval") 
 ggplotly(volc_test_iz_remote)
 ```
 
-## Venn Diagram of DE genes
+### Merge results of proDA analysis
 
 ```{r}
-test_res_miiz_genes <- subset(test_res_miiz,adj_pval <= 0.1)$gene
-test_res_miremote_genes <- subset(test_res_miremote,adj_pval <= 0.1)$gene
-test_res_iz_remote_genes <- subset(test_res_iz_remote,adj_pval <= 0.1)$gene
-venn_vec <- test_res_miremote$gene
-venn_df <- data.frame("MI_control" = venn_vec %in% test_res_miiz_genes,
-                      "remote_control" = venn_vec %in% test_res_miremote_genes,
-                      "MI_IZ_MI_remote" = venn_vec %in% test_res_iz_remote_genes)
-venn_df$gene <- venn_vec
+merged_stats <- rbind(test_res_miiz,test_res_miremote,test_res_iz_remote)
+```
+
+### Venn Diagram of DE genes
+
+```{r}
+test_res_miiz_genes <- subset(test_res_miiz,adj_pval <= 0.05)$gene
+test_res_miremote_genes <- subset(test_res_miremote,adj_pval <= 0.05)$gene
+test_res_iz_remote_genes <- subset(test_res_iz_remote,adj_pval <= 0.05)$gene
+proda_venn_vec <- test_res_miiz$gene
+proda_venn_df <- data.frame("MI_control" = proda_venn_vec %in% test_res_miiz_genes,
+                      "remote_control" = proda_venn_vec %in% test_res_miremote_genes,
+                      "MI_IZ_MI_remote" = proda_venn_vec %in% test_res_iz_remote_genes)
+proda_venn_df$gene <- proda_venn_vec
 
 ## Plot the 3 group Venn diagram
-plot(venn(venn_df[,1:3]))
+plot(venn(proda_venn_df[,1:3]))
 
 ## get proteins that are deferentially expressed between MI vs control and MI_IZ and MI_remote
-MI_IZ_proteins <- subset(venn_df,MI_control == TRUE & remote_control == FALSE &  MI_IZ_MI_remote == TRUE)$gene
-test_res_iz_remote_uniq <- subset(test_res_iz_remote,gene %in% MI_IZ_proteins)
+MI_IZ_proteins <- subset(proda_venn_df,MI_control == TRUE & remote_control == FALSE &  MI_IZ_MI_remote == TRUE)$gene
+
+## Get proteins that are found differentially expressed between MI_IZ vs control as well as MI_IZ vs MI_remote. These proteins represent specific differences in MI_IZ layer due to inflammation
+MI_induced_prots_IZ <- subset(proda_venn_df,MI_control == TRUE & remote_control == FALSE &  MI_IZ_MI_remote == TRUE)
+MI_induced_prots_IZ <- subset(test_res_iz_remote,gene %in% MI_induced_prots_IZ$gene)
 ```
 
 ```{r}
-write.table(test_res_miiz_genes,
+mi_iz_unique_genes <- subset(MI_induced_prots_IZ, adj_pval <= 0.05)
+write.table(unique(mi_iz_unique_genes$gene),
             file = "./output/mi_iz_specific_proteins.tsv",
             col.names = FALSE,
             row.names = FALSE,
             quote = FALSE)
 ```
+
+
+# Compare proDA with limma results
+
+Finally, let's compare the limma results to the proDA results for one comparison (MI_IZ vs control) to see how they differ.
+
+```{r}
+merged_tests_mictr <- full_join(test_res_miiz,limma_mi_ctr, by = c("gene","protein_ids"))
+
+merged_tstat <- ggplot(merged_tests_mictr,aes(t_statistic,t)) +
+  geom_point() +
+  geom_smooth() +
+  labs(x = "proDA t-statistic",
+       y = "limma t-statistic",
+       title = "Comparison of t-statistics")
+merged_tstat
+
+merged_diffs_mictr <- ggplot(merged_tests_mictr,aes(diff,logFC.y,label = gene)) +
+  geom_point() +
+  geom_smooth() +
+  labs(x = "proDA diff",
+       y = "limma logFC",
+       title = "Comparison of diff and log-fold changes")
+
+merged_abundance_mictr <- ggplot(merged_tests_mictr,aes(avg_abundance,AveExpr,
+                                            label = gene)) +
+  geom_point() +
+  geom_smooth() +
+  labs(x = "proDA avg_abundance",
+       y = "limma AveExpr",
+       title = "Comparison of average abundance per protein")
+merged_abundance_mictr
+
+method_corr_mictr <- ggplot(merged_tests_mictr,aes(-log10(pval.x),-log10(P.Value),
+                            label = gene)) +
+  geom_point() +
+  geom_smooth() +
+  geom_vline(xintercept = -log10(0.05), linetype = 2) +
+  geom_hline(yintercept = -log10(0.05), linetype = 2) +
+  labs(x = "proDA -log10(pvalue)",
+       y = "limma -log10(pvalue)",
+       title = "Comparison of adjusted p-values")
+method_corr_mictr
+```
+
+As we can see, the statistics across both proDA and limma correlate very strongly, suggesting that both methods provide similar results in terms of effect sizes and which genes are statistically significant.
+
+The most significant difference between proDA and limma however, is that proDA can handle situations where all values are missing for one of the groups we want to compare. That means, that real proteins that are induced due to inflammation in MI_IZ samples but missing in controls during homeostasis of the tissue will have test statistics in proDA but not in limma results.
+
+Let's find these
+
+```{r}
+## Which proteins could proDA test, that limma couldn't?
+proda_only <- subset(merged_tests_mictr,is.na(adj.P.Val))
+limma_only <- subset(merged_tests_mictr,is.na(adj_pval))
+```
+
+All of the proteins that could not be tested by limma contain fully or mostly missing values in the comparison made between control and MI.

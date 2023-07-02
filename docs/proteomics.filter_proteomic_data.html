@@ -370,7 +370,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -381,8 +381,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -391,13 +391,13 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-06-14
+<strong>Last updated:</strong> 2023-06-26
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>mi_spatialomics/</code> <span
@@ -420,18 +420,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -522,15 +525,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree2d015dd6457db41a75484766389597ec8f5f45e3targetblank2d015dda">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree430aac1313e2f543c35856422d0c647f7828d02ctargetblank430aac1a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/2d015dd6457db41a75484766389597ec8f5f45e3" target="_blank">2d015dd</a>
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/430aac1313e2f543c35856422d0c647f7828d02c" target="_blank">430aac1</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree2d015dd6457db41a75484766389597ec8f5f45e3targetblank2d015dda"
+id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree430aac1313e2f543c35856422d0c647f7828d02ctargetblank430aac1a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -540,7 +543,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/2d015dd6457db41a75484766389597ec8f5f45e3" target="_blank">2d015dd</a>.
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/430aac1313e2f543c35856422d0c647f7828d02c" target="_blank">430aac1</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -555,12 +558,37 @@ were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    .DS_Store
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    analysis/.DS_Store
     Ignored:    data/.DS_Store
-    Ignored:    references/
+    Ignored:    data/.Rapp.history
+    Ignored:    data/140623.calcagno_et_al.seurat_object.rds
     Ignored:    renv/library/
     Ignored:    renv/staging/
+
+Untracked files:
+    Untracked:  analysis/figures.supplementary_figure_X.proteomics_qc.Rmd
+    Untracked:  code/functions.R
+    Untracked:  figures/Supplementary_figure_X.proteomics.eps
+    Untracked:  figures/Supplementary_figure_X.proteomics.png
+    Untracked:  omnipathr-log/
+    Untracked:  output/limma.full_statistics.tsv
+    Untracked:  output/limma.mi_iz_specific_proteins.tsv
+    Untracked:  output/proteomics.protein_missing_stats.tsv
+    Untracked:  output/proteomics.vsn_norm_proteins.tsv
+    Untracked:  references/
+
+Unstaged changes:
+    Modified:   analysis/data_analysis.Rmd
+    Modified:   analysis/proteomics.bulk_de_analysis.Rmd
+    Modified:   analysis/proteomics.filter_proteomic_data.Rmd
+    Modified:   analysis/proteomics.pathway_enrichment_analysis.Rmd
+    Modified:   analysis/proteomics.scRNAseq_comparison.Rmd
+    Modified:   code/params_R.R
+    Modified:   output/mi_iz_specific_proteins.tsv
+    Modified:   renv.lock
 
 </code></pre>
 <p>
@@ -607,6 +635,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/f412578040a52a73c1e7072dd463f20072b409d6/docs/proteomics.filter_proteomic_data.html" target="_blank">f412578</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-06-14
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -678,6 +723,7 @@ values) per sample in the proteomics data.</p>
 non_missing &lt;-colSums(!is.na(prot_res))[6:ncol(prot_res)]
 missingness &lt;- missing / (non_missing + missing)
 missingness &lt;- as.data.frame(missingness)
+missingness$missing_prot &lt;- missing
 missingness$sample &lt;- rownames(missingness)
 
 ## Add group to counts
@@ -686,14 +732,16 @@ missingness &lt;- missingness %&gt;%
                            if_else(grepl(&quot;MI_IZ&quot;,sample),&quot;MI_IZ&quot;,&quot;MI_remote&quot;)))
 ## Set order of groups
 missingness$group &lt;- factor(missingness$group,
-                                levels = c(&quot;control&quot;,&quot;MI_remote&quot;,&quot;MI_IZ&quot;))
+                                levels = rev(c(&quot;control&quot;,&quot;MI_remote&quot;,&quot;MI_IZ&quot;)))
 
 avg_missingness &lt;- mean(missingness$missingness)
 
-ggplot(missingness,aes(sample,missingness,fill = group)) +
-  geom_bar(stat = &quot;identity&quot;) +
+ggplot(missingness,aes(group,missingness,fill = group)) +
+  geom_violin(color = &quot;black&quot;) +
+  geom_point(fill = &quot;white&quot;,pch = 21, color= &quot;black&quot;,size = 4) +
   coord_flip() +
-  scale_fill_npg() +
+  scale_fill_manual(values = proteome_palette,
+                 labels = c(&quot;Control&quot;,&quot;MI_remote&quot;,&quot;MI_IZ&quot;))  +
   labs(x = &quot;Samples&quot;,
        y = &quot;% missing values&quot;) +
   geom_hline(yintercept = avg_missingness, linetype = 2)</code></pre>
@@ -801,14 +849,14 @@ prot_res_quant &lt;-  prot_res_filt %&gt;%
 # Using lambdas list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))
 Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
 generated.</code></pre>
-<pre class="r"><code>final_counts &lt;- t(rbind(prot_res_quant_cont,
-                      prot_res_quant))</code></pre>
 </div>
 <div id="merge-metadata-with-protein-counts-per-sample"
 class="section level2">
 <h2>Merge metadata with protein counts per sample</h2>
 <p>Here, we will plot the number of proteins identified per group.</p>
-<pre class="r"><code>colnames(final_counts) &lt;- c(&quot;w_cont&quot;,&quot;wo_cont&quot;)
+<pre class="r"><code>final_counts &lt;- t(rbind(prot_res_quant_cont,
+                      prot_res_quant))
+colnames(final_counts) &lt;- c(&quot;w_cont&quot;,&quot;wo_cont&quot;)
 final_counts &lt;- as.data.frame(final_counts) %&gt;%
   mutate(&quot;sample&quot; = rownames(final_counts))
 
@@ -820,28 +868,52 @@ metadata_counts &lt;- metadata_counts %&gt;%
   mutate(&quot;group&quot; = if_else(grepl(&quot;control&quot;,sample),&quot;control&quot;,
                            if_else(grepl(&quot;MI_IZ&quot;,sample),&quot;MI_IZ&quot;,&quot;MI_remote&quot;)))
 
+## Add missingness to table
+metadata_counts &lt;- left_join(metadata_counts,missingness, by = c(&quot;sample&quot;,&quot;group&quot;))
+
+
 ## Set order of groups
 metadata_counts$group &lt;- factor(metadata_counts$group,
-                                levels = c(&quot;control&quot;,&quot;MI_remote&quot;,&quot;MI_IZ&quot;))
+                                levels = rev(c(&quot;control&quot;,&quot;MI_remote&quot;,&quot;MI_IZ&quot;)))
 
-## Plot number of proteins without contaminants per sample
-ggbarplot(metadata_counts,
-          x = &quot;group&quot;,
-          y = &quot;wo_cont&quot;,
-          fill = &quot;group&quot;,
-          add = c(&quot;mean_se&quot;),
-          error.plot = &quot;upper_errorbar&quot;,
-          color = &quot;black&quot;,
-          palette = &quot;npg&quot;) +
-  theme_minimal_hgrid()  +
-  labs (x = &quot;Treatment group&quot;,
-         y = &quot;# Proteins identified&quot;) +
-  font(&quot;xlab&quot;, size = 16, color = &quot;black&quot;, face = &quot;bold&quot;) +
-  font(&quot;ylab&quot;, size = 16, color = &quot;black&quot;, face = &quot;bold&quot;) +
-  scale_y_continuous(
-    expand = expansion(mult = c(0, 0.05))
-  ) +
-  rremove(&quot;legend&quot;)</code></pre>
+## Summarize observations across group
+metadata_counts_stat &lt;- data_summary(metadata_counts,
+                                     varname = &quot;wo_cont&quot;, groupnames = c(&quot;group&quot;))</code></pre>
+<pre><code>Loading required package: plyr</code></pre>
+<pre><code>------------------------------------------------------------------------------</code></pre>
+<pre><code>You have loaded plyr after dplyr - this is likely to cause problems.
+If you need functions from both plyr and dplyr, please load plyr first, then dplyr:
+library(plyr); library(dplyr)</code></pre>
+<pre><code>------------------------------------------------------------------------------</code></pre>
+<pre><code>
+Attaching package: &#39;plyr&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:here&#39;:
+
+    here</code></pre>
+<pre><code>The following object is masked from &#39;package:ggpubr&#39;:
+
+    mutate</code></pre>
+<pre><code>The following objects are masked from &#39;package:dplyr&#39;:
+
+    arrange, count, desc, failwith, id, mutate, rename, summarise,
+    summarize</code></pre>
+<pre><code>The following object is masked from &#39;package:purrr&#39;:
+
+    compact</code></pre>
+<pre class="r"><code>## Barplot to show the number of proteins detected per group (excluding contaminants)
+ggplot(metadata_counts_stat,aes(group,wo_cont)) +
+  geom_bar(aes(fill = group),stat=&quot;identity&quot;, color=&quot;black&quot;, 
+           position=position_dodge()) +
+  geom_point(data = metadata_counts, aes(group,wo_cont),
+             fill = &quot;white&quot;,pch = 21, color= &quot;black&quot;,size = 5) +
+  geom_errorbar(aes(ymin=wo_cont, ymax=wo_cont+sd), width=.2,
+                 position=position_dodge(.9)) + 
+  coord_flip() +
+  scale_fill_manual(values = proteome_palette,
+                    labels = c(&quot;Control&quot;,&quot;MI_remote&quot;,&quot;MI_IZ&quot;)) +
+  labs(x = &quot;Samples&quot;,
+       y = &quot;Proteins detected&quot;) +
+  theme(legend.position = &quot;none&quot;)</code></pre>
 <p><img src="figure/proteomics.filter_proteomic_data.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
@@ -881,6 +953,16 @@ FloWuenne
 </div>
 </div>
 </div>
+<div id="save-protein-count-and-missingness-stats-for-figures"
+class="section level2">
+<h2>Save protein count and missingness stats for figures</h2>
+<pre class="r"><code>write.table(metadata_counts,
+            file = &quot;./output/proteomics.protein_missing_stats.tsv&quot;,
+            sep = &quot;\t&quot;,
+            col.names = TRUE,
+            row.names = FALSE,
+            quote =FALSE)</code></pre>
+</div>
 <div id="create-final-filtered-protein-table" class="section level2">
 <h2>Create final filtered protein table</h2>
 <p>Finally, we will create a final filtered protein table, that we will
@@ -905,7 +987,7 @@ Session information
 <pre class="r"><code>sessionInfo()</code></pre>
 <pre><code>R version 4.2.3 (2023-03-15)
 Platform: aarch64-apple-darwin20 (64-bit)
-Running under: macOS Ventura 13.4
+Running under: macOS Ventura 13.4.1
 
 Matrix products: default
 BLAS:   /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/lib/libRblas.0.dylib
@@ -918,28 +1000,35 @@ attached base packages:
 [1] stats     graphics  grDevices datasets  utils     methods   base     
 
 other attached packages:
- [1] ggsci_3.0.0       here_1.0.1        cowplot_1.1.1     ggpubr_0.6.0     
- [5] data.table_1.14.8 lubridate_1.9.2   forcats_1.0.0     stringr_1.5.0    
- [9] dplyr_1.1.2       purrr_1.0.1       readr_2.1.4       tidyr_1.3.0      
-[13] tibble_3.2.1      ggplot2_3.4.2     tidyverse_2.0.0   workflowr_1.7.0  
+ [1] plyr_1.8.8        ggsci_3.0.0       here_1.0.1        cowplot_1.1.1    
+ [5] ggpubr_0.6.0      data.table_1.14.8 lubridate_1.9.2   forcats_1.0.0    
+ [9] stringr_1.5.0     dplyr_1.1.2       purrr_1.0.1       readr_2.1.4      
+[13] tidyr_1.3.0       tibble_3.2.1      ggplot2_3.4.2     tidyverse_2.0.0  
+[17] workflowr_1.7.0  
 
 loaded via a namespace (and not attached):
- [1] Rcpp_1.0.10      getPass_0.2-2    ps_1.7.4         rprojroot_2.0.3 
- [5] digest_0.6.31    utf8_1.2.3       R6_2.5.1         backports_1.4.1 
- [9] evaluate_0.21    highr_0.10       httr_1.4.6       pillar_1.9.0    
-[13] rlang_1.1.1      rstudioapi_0.14  whisker_0.4.1    car_3.1-2       
-[17] callr_3.7.3      jquerylib_0.1.4  rmarkdown_2.21   labeling_0.4.2  
-[21] munsell_0.5.0    broom_1.0.5      compiler_4.2.3   httpuv_1.6.11   
-[25] xfun_0.39        pkgconfig_2.0.3  htmltools_0.5.5  tidyselect_1.2.0
-[29] fansi_1.0.4      crayon_1.5.2     tzdb_0.4.0       withr_2.5.0     
-[33] later_1.3.1      grid_4.2.3       jsonlite_1.8.4   gtable_0.3.3    
-[37] lifecycle_1.0.3  git2r_0.32.0     magrittr_2.0.3   scales_1.2.1    
-[41] cli_3.6.1        stringi_1.7.12   cachem_1.0.8     carData_3.0-5   
-[45] farver_2.1.1     renv_0.17.3      ggsignif_0.6.4   fs_1.6.2        
-[49] promises_1.2.0.1 bslib_0.4.2      generics_0.1.3   vctrs_0.6.2     
-[53] tools_4.2.3      glue_1.6.2       hms_1.1.3        processx_3.8.0  
-[57] abind_1.4-5      fastmap_1.1.1    yaml_2.3.7       timechange_0.2.0
-[61] colorspace_2.1-0 rstatix_0.7.2    knitr_1.42       sass_0.4.6      </code></pre>
+ [1] Rcpp_1.0.10         getPass_0.2-2       ps_1.7.4           
+ [4] rprojroot_2.0.3     digest_0.6.31       utf8_1.2.3         
+ [7] R6_2.5.1            backports_1.4.1     evaluate_0.21      
+[10] highr_0.10          httr_1.4.6          pillar_1.9.0       
+[13] rlang_1.1.1         rstudioapi_0.14     whisker_0.4.1      
+[16] car_3.1-2           callr_3.7.3         jquerylib_0.1.4    
+[19] rmarkdown_2.21      labeling_0.4.2      munsell_0.5.0      
+[22] broom_1.0.5         compiler_4.2.3      httpuv_1.6.11      
+[25] xfun_0.39           pkgconfig_2.0.3     htmltools_0.5.5    
+[28] tidyselect_1.2.0    fansi_1.0.4         crayon_1.5.2       
+[31] tzdb_0.4.0          withr_2.5.0         later_1.3.1        
+[34] grid_4.2.3          jsonlite_1.8.4      gtable_0.3.3       
+[37] lifecycle_1.0.3     git2r_0.32.0        magrittr_2.0.3     
+[40] scales_1.2.1        cli_3.6.1           stringi_1.7.12     
+[43] cachem_1.0.8        carData_3.0-5       farver_2.1.1       
+[46] renv_0.17.3         ggsignif_0.6.4      fs_1.6.2           
+[49] promises_1.2.0.1    bslib_0.4.2         generics_0.1.3     
+[52] vctrs_0.6.2         tools_4.2.3         glue_1.6.2         
+[55] hms_1.1.3           processx_3.8.0      abind_1.4-5        
+[58] fastmap_1.1.1       yaml_2.3.7          timechange_0.2.0   
+[61] colorspace_2.1-0    BiocManager_1.30.21 rstatix_0.7.2      
+[64] knitr_1.42          sass_0.4.6         </code></pre>
 </div>
 </div>
 </div>

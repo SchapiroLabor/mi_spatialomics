@@ -391,7 +391,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-06-13
+<strong>Last updated:</strong> 2023-06-28
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -522,15 +522,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree4b96fde674dad8e1805fe85808a3111ff8ec3228targetblank4b96fdea">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree430aac1313e2f543c35856422d0c647f7828d02ctargetblank430aac1a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/4b96fde674dad8e1805fe85808a3111ff8ec3228" target="_blank">4b96fde</a>
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/430aac1313e2f543c35856422d0c647f7828d02c" target="_blank">430aac1</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree4b96fde674dad8e1805fe85808a3111ff8ec3228targetblank4b96fdea"
+id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree430aac1313e2f543c35856422d0c647f7828d02ctargetblank430aac1a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -540,7 +540,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/4b96fde674dad8e1805fe85808a3111ff8ec3228" target="_blank">4b96fde</a>.
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/430aac1313e2f543c35856422d0c647f7828d02c" target="_blank">430aac1</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -555,13 +555,43 @@ were generated:
 </p>
 <pre><code>
 Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    references/
+    Ignored:    analysis/.DS_Store
+    Ignored:    data/.DS_Store
+    Ignored:    data/.Rapp.history
+    Ignored:    data/140623.calcagno_et_al.seurat_object.rds
+    Ignored:    renv/.DS_Store
     Ignored:    renv/library/
     Ignored:    renv/staging/
 
+Untracked files:
+    Untracked:  analysis/figures.figure_5.Rmd
+    Untracked:  analysis/figures.supplementary_figure_X.proteomics_qc.Rmd
+    Untracked:  code/functions.R
+    Untracked:  figures/Supplementary_figure_X.proteomics.eps
+    Untracked:  figures/Supplementary_figure_X.proteomics.png
+    Untracked:  omnipathr-log/
+    Untracked:  output/limma.full_statistics.tsv
+    Untracked:  output/limma.mi_iz_specific_proteins.tsv
+    Untracked:  output/proteomics.pca_res.rds
+    Untracked:  output/proteomics.protein_missing_stats.tsv
+    Untracked:  output/proteomics.vsn_norm_proteins.tsv
+    Untracked:  references/
+
 Unstaged changes:
-    Modified:   analysis/figures.Rmd
+    Modified:   analysis/data_analysis.Rmd
+    Modified:   analysis/figures.supplementary_Figure_3.Rmd
+    Modified:   analysis/proteomics.bulk_de_analysis.Rmd
+    Modified:   analysis/proteomics.filter_proteomic_data.Rmd
+    Modified:   analysis/proteomics.pathway_enrichment_analysis.Rmd
+    Modified:   analysis/proteomics.scRNAseq_comparison.Rmd
+    Deleted:    code/params_R.R
+    Modified:   figures/Supplementary_figure_3.eps
+    Modified:   figures/Supplementary_figure_3.png
+    Modified:   output/mi_iz_specific_proteins.tsv
+    Modified:   renv.lock
 
 </code></pre>
 <p>
@@ -576,92 +606,10 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
-
 <p>
-These are the previous versions of the repository in which changes were
-made to the R Markdown
-(<code>analysis/figures.supplementary_Figure_3.Rmd</code>) and HTML
-(<code>docs/figures.supplementary_Figure_3.html</code>) files. If you’ve
-configured a remote Git repository (see <code>?wflow_git_remote</code>),
-click on the hyperlinks in the table below to view the files as they
-were in that past version.
+There are no past versions. Publish this analysis with
+<code>wflow_publish()</code> to start tracking its development.
 </p>
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-File
-</th>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-<th>
-Message
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/5816aca1f0626eb9acccca21f51dc1cfbd50dabb/docs/figures.supplementary_Figure_3.html" target="_blank">5816aca</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-06-12
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/FloWuenne/mi_spatialomics/blob/3b5ca40b321db3a07f9742b5cbed39aa96fbc395/analysis/figures.supplementary_Figure_3.Rmd" target="_blank">3b5ca40</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-06-12
-</td>
-<td>
-Added code for supplementary Figures.
-</td>
-</tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/3b5ca40b321db3a07f9742b5cbed39aa96fbc395/docs/figures.supplementary_Figure_3.html" target="_blank">3b5ca40</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-06-12
-</td>
-<td>
-Added code for supplementary Figures.
-</td>
-</tr>
-</tbody>
-</table>
-</div>
 <hr>
 </div>
 </div>
@@ -723,7 +671,7 @@ generated.</code></pre>
 <pre><code>Warning: Removed 9 rows containing non-finite values (`stat_smooth()`).</code></pre>
 <pre><code>Warning: Removed 9 rows containing non-finite values (`stat_cor()`).</code></pre>
 <pre><code>Warning: Removed 9 rows containing missing values (`geom_point()`).</code></pre>
-<p><img src="figure/figures.supplementary_Figure_3.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/figures.supplementary_figure_3.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
 Past versions of unnamed-chunk-2-1.png
@@ -800,7 +748,7 @@ spots_per_um &lt;- ggbarplot(spots_tissue,
  spots_per_um</code></pre>
 <pre><code>Bin width defaults to 1/30 of the range of the data. Pick better value with
 `binwidth`.</code></pre>
-<p><img src="figure/figures.supplementary_Figure_3.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/figures.supplementary_figure_3.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
 Past versions of unnamed-chunk-3-1.png
@@ -859,13 +807,12 @@ dbl (16): PC1, PC2, PC3, PC4, PC5, PC6, PC7, PC8, PC9, PC10, PC11, PC12, PC1...
 <pre class="r"><code>pcs$time &lt;- factor(pcs$time,
                    levels = c(&quot;control&quot;,&quot;4h&quot;,&quot;2d&quot;,&quot;4d&quot;))</code></pre>
 <pre class="r"><code>pca_plot &lt;- ggplot(pcs,aes(PC1,PC2,label = label)) +
-  geom_point(size = 4, aes(color = time, shape = slide)) +
+  geom_point(size = 5, aes(color = time, shape = slide)) +
   scale_color_brewer(palette = &quot;Dark2&quot;,labels = c(&quot;control&quot;,&quot;4 hours&quot;,&quot;2 days&quot;,&quot;4 days&quot;)) +
   labs(color = &quot;Time&quot;,
-       shape = &quot;Slide&quot;) + 
-  background_grid()
+       shape = &quot;Slide&quot;)
 pca_plot</code></pre>
-<p><img src="figure/figures.supplementary_Figure_3.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/figures.supplementary_figure_3.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
 Past versions of unnamed-chunk-5-1.png
@@ -921,7 +868,7 @@ supp_figure_2</code></pre>
 <pre><code>Warning: Removed 9 rows containing missing values (`geom_point()`).</code></pre>
 <pre><code>Bin width defaults to 1/30 of the range of the data. Pick better value with
 `binwidth`.</code></pre>
-<p><img src="figure/figures.supplementary_Figure_3.Rmd/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><img src="figure/figures.supplementary_figure_3.Rmd/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
 Past versions of unnamed-chunk-6-1.png
@@ -990,7 +937,7 @@ Session information
 <pre class="r"><code>sessionInfo()</code></pre>
 <pre><code>R version 4.2.3 (2023-03-15)
 Platform: aarch64-apple-darwin20 (64-bit)
-Running under: macOS Ventura 13.4
+Running under: macOS Ventura 13.4.1
 
 Matrix products: default
 BLAS:   /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/lib/libRblas.0.dylib
@@ -1010,25 +957,32 @@ other attached packages:
 [17] here_1.0.1         workflowr_1.7.0   
 
 loaded via a namespace (and not attached):
- [1] httr_1.4.6        sass_0.4.6        bit64_4.0.5       jsonlite_1.8.4   
- [5] splines_4.2.3     carData_3.0-5     bslib_0.4.2       getPass_0.2-2    
- [9] highr_0.10        renv_0.17.3       yaml_2.3.7        pillar_1.9.0     
-[13] backports_1.4.1   lattice_0.20-45   glue_1.6.2        digest_0.6.31    
-[17] promises_1.2.0.1  ggsignif_0.6.4    colorspace_2.1-0  htmltools_0.5.5  
-[21] httpuv_1.6.11     Matrix_1.5-3      pkgconfig_2.0.3   broom_1.0.5      
-[25] scales_1.2.1      processx_3.8.0    whisker_0.4.1     later_1.3.1      
-[29] tzdb_0.4.0        timechange_0.2.0  git2r_0.32.0      mgcv_1.8-42      
-[33] farver_2.1.1      generics_0.1.3    car_3.1-2         cachem_1.0.8     
-[37] withr_2.5.0       cli_3.6.1         magrittr_2.0.3    crayon_1.5.2     
-[41] evaluate_0.21     ps_1.7.4          fs_1.6.2          fansi_1.0.4      
-[45] nlme_3.1-162      rstatix_0.7.2     textshaping_0.3.6 tools_4.2.3      
-[49] hms_1.1.3         lifecycle_1.0.3   munsell_0.5.0     callr_3.7.3      
-[53] compiler_4.2.3    jquerylib_0.1.4   systemfonts_1.0.4 rlang_1.1.1      
-[57] grid_4.2.3        rstudioapi_0.14   labeling_0.4.2    rmarkdown_2.21   
-[61] gtable_0.3.3      abind_1.4-5       R6_2.5.1          knitr_1.42       
-[65] fastmap_1.1.1     bit_4.0.5         utf8_1.2.3        rprojroot_2.0.3  
-[69] ragg_1.2.5        stringi_1.7.12    parallel_4.2.3    Rcpp_1.0.10      
-[73] vctrs_0.6.2       tidyselect_1.2.0  xfun_0.39        </code></pre>
+ [1] nlme_3.1-162        fs_1.6.2            bit64_4.0.5        
+ [4] httr_1.4.6          rprojroot_2.0.3     tools_4.2.3        
+ [7] backports_1.4.1     bslib_0.4.2         utf8_1.2.3         
+[10] R6_2.5.1            mgcv_1.8-42         colorspace_2.1-0   
+[13] withr_2.5.0         tidyselect_1.2.0    processx_3.8.0     
+[16] bit_4.0.5           compiler_4.2.3      git2r_0.32.0       
+[19] textshaping_0.3.6   cli_3.6.1           labeling_0.4.2     
+[22] sass_0.4.6          scales_1.2.1        callr_3.7.3        
+[25] systemfonts_1.0.4   digest_0.6.31       rmarkdown_2.21     
+[28] pkgconfig_2.0.3     htmltools_0.5.5     fastmap_1.1.1      
+[31] highr_0.10          rlang_1.1.1         rstudioapi_0.14    
+[34] jquerylib_0.1.4     generics_0.1.3      farver_2.1.1       
+[37] jsonlite_1.8.4      car_3.1-2           magrittr_2.0.3     
+[40] Matrix_1.5-3        Rcpp_1.0.10         munsell_0.5.0      
+[43] fansi_1.0.4         abind_1.4-5         lifecycle_1.0.3    
+[46] stringi_1.7.12      whisker_0.4.1       yaml_2.3.7         
+[49] carData_3.0-5       grid_4.2.3          parallel_4.2.3     
+[52] promises_1.2.0.1    crayon_1.5.2        lattice_0.20-45    
+[55] splines_4.2.3       hms_1.1.3           knitr_1.42         
+[58] ps_1.7.4            pillar_1.9.0        ggsignif_0.6.4     
+[61] glue_1.6.2          evaluate_0.21       getPass_0.2-2      
+[64] renv_0.17.3         BiocManager_1.30.21 vctrs_0.6.2        
+[67] tzdb_0.4.0          httpuv_1.6.11       gtable_0.3.3       
+[70] cachem_1.0.8        xfun_0.39           broom_1.0.5        
+[73] rstatix_0.7.2       later_1.3.1         ragg_1.2.5         
+[76] timechange_0.2.0   </code></pre>
 </div>
 </div>
 

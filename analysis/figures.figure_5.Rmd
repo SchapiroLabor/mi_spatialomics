@@ -1,0 +1,272 @@
+---
+title: "figures.figure_5"
+author: "FloWuenne"
+date: "2023-06-27"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(data.table)
+library(here)
+library(ggrepel)
+library(ggbeeswarm)
+library(ggsignif)
+library(patchwork)
+library(ggforce)
+
+source("./code/functions.R")
+```
+
+
+# Load data
+
+```{r}
+pca_res <- readRDS("./output/proteomics.pca_res.rds")
+vsn_mat <- fread("./output/proteomics.vsn_norm_proteins.tsv")
+limma_res <- fread("./output/limma.full_statistics.tsv")
+mi_pathways <- fread("./output/proteomics.pathway_results.MIiz_MIremote.tsv")
+snrna_prot <- fread("./output/proteomics.snRNAseq_comp.tsv")
+```
+
+
+# Subfigure A
+
+
+# Subfigure B - Principal component analysis
+
+```{r}
+pcs <- as.data.frame(pca_res$x)
+pcs$sample <- colnames(vsn_mat[,1:11])
+pcs <- pcs %>%
+  mutate("group" = if_else(grepl("control",sample),"control",
+                          if_else(grepl("MI_IZ",sample),"MI_IZ","MI_remote"))
+         )
+
+## Set order of groups
+pcs$group <- factor(pcs$group,
+                    levels = c("control","MI_remote","MI_IZ"))
+
+## Plot PCs
+pca_plot <- ggplot(pcs,aes(PC1,PC2, fill = group)) +
+  geom_point(size = 5,pch = 21,color = "black") +
+  ggforce::geom_mark_ellipse(color = "white") +
+  expand_limits(y = c(-50, 40),
+                x = c(-40,80)) +
+  scale_fill_manual(values = proteome_palette,
+                    labels = c("Control","MI_remote","MI_IZ")) +
+  labs(color = "Group") +
+  guides(fill=guide_legend(title="Group")) +
+  theme(legend.position = "right")
+
+
+pca_plot
+```
+
+# Subfigure C - Volcano plot: Remote vs control
+
+```{r}
+limma_mi_remote <- subset(limma_res,analysis == "MI_IZ_vs_MI_remote")
+
+## Get proteins from Coagulation pathway from pathway analysis results to highlight on volcano plot
+mh_gsea_net <- readRDS("references/mh.all.v2023.1.Mm.symbols.sets.rds")
+
+pathway <- 'HALLMARK_COAGULATION'
+
+df <- mh_gsea_net %>%
+  filter(source == pathway) %>%
+  arrange(target)
+
+path_de_inter <- sort(intersect(limma_mi_remote$gene,df$target))
+```
+
+
+```{r}
+top_10_genes <- limma_mi_remote %>%
+  arrange(desc(logFC)) %>%
+  top_n(wt = logFC, 10)
+top_10_genes <- top_10_genes$gene
+bottom_10_genes <- limma_mi_remote %>% arrange(desc(logFC))
+bottom_10_genes <- tail(bottom_10_genes,n=10)
+
+limma_mi_remote <- limma_mi_remote %>%
+  mutate("label_protein" = if_else(gene %in% path_de_inter & adj.P.Val < 0.05 & (logFC > 1.5
+                                                                                 | logFC < 0),gene, ""))
+  # mutate("label_protein" = if_else(-log10(adj.P.Val) > 3 & logFC > 2,gene,""))
+
+volc_limma_IZ_remote <- plot_pretty_volcano(limma_mi_remote, 
+                                      pt_size = 2,
+                                      plot_title = "",
+                                      sig_thresh = 0.05,
+                                      col_pos_logFC = proteome_palette[['MI_IZ']],
+                                      col_neg_logFC = proteome_palette[['MI_remote']]) +
+    geom_point(data = subset(limma_mi_remote, gene %in% path_de_inter),pch = 21, color = "black", size = 4) +
+  geom_label_repel(box.padding = 0.5, max.overlaps = Inf, size = 3)
+
+
+volc_limma_IZ_remote
+```
+
+# Subfigure D - Pathway enrichment for MI_IZ vs MI_remote
+
+```{r}
+sig_pathways_mi <- subset(mi_pathways,p_value <= 0.05) %>%
+  arrange(desc(score)) %>%
+  dplyr::select(-statistic,-condition) %>%
+  subset(score > 3 | score < -3)
+
+sig_pathways_mi$source <- gsub("HALLMARK_","",sig_pathways_mi$source)
+
+path_plot <- ggplot(sig_pathways_mi, aes(x = reorder(source, score), y = score)) + 
+    geom_bar(aes(fill = score), stat = "identity") +
+    scale_fill_gradient2(low = proteome_palette[['MI_remote']], high = proteome_palette[['MI_IZ']], 
+        mid = "white", midpoint = 0) + 
+    theme(axis.title = element_text(face = "bold", size = 12),
+          axis.text.x = element_text(hjust = 1, size =10, face= "bold"),
+        axis.text.y = element_text(size =10),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank()) +
+    xlab("Pathways") +
+  coord_flip()
+
+path_plot
+```
+
+# Subfigure E - Vwf specificity for Endocardial cells
+
+```{r}
+snrna_prot <- snrna_prot %>%
+  mutate("label_gene" = if_else(gene %in% c("Vwf","Npr3","Cdh11"),gene,""))
+
+endo_proteomic_corr <- ggplot(snrna_prot,aes(avg_log2FC,logFC,
+                              label = label_gene)) +
+  geom_point(data =subset(snrna_prot,gene != "Vwf"), size =3, fill = "darkgrey", pch = 21) +
+  geom_point(data = subset(snrna_prot,gene == "Vwf"),size = 4, fill = proteome_palette[['MI_IZ']], pch = 21) +
+  geom_label_repel() +
+  labs(x = "Specificity endocard. cells (snRNA-seq)",
+       y = "Log2 fold-change (Proteomics)")
+
+endo_proteomic_corr
+```
+
+
+# Subfigure F - Vwf is upregulated in MI_IZ
+
+```{r}
+vsn_matrix <- fread("./output/proteomics.vsn_norm_proteins.tsv")
+colnames(vsn_matrix)[1:11] <- paste("s",1:11,colnames(vsn_matrix)[1:11],sep="_")
+protein_sub <- vsn_matrix  %>%
+    dplyr::select(1:11,gene) %>%
+    pivot_longer(1:11,names_to = "sample", values_to = "exp") %>%
+    mutate("group" = if_else(grepl("control",sample),"control",
+                                   if_else(grepl("MI_IZ",sample),
+                                           "MI_IZ","MI_remote"))
+    )
+
+protein_sub$group <- factor(protein_sub$group,
+                              levels = c("control","MI_remote","MI_IZ"))
+
+## Barplot with points as alternative.
+goi <- "Vwf"
+vwf_plot_bar <- plot_proteomics_boxplot(norm_table = protein_sub,
+                                    protein = goi,
+                                    style = "bar") +
+  geom_signif(comparisons = list(c("MI_IZ","MI_remote")),
+              tip_length = 0, annotation = "0.0057", y_position = 15.5) +
+  geom_signif(comparisons = list(c("MI_IZ","control")),
+              tip_length = 0, annotation = "0.0022", y_position = 16.5) +
+   expand_limits(y = c(13, 17)) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1)) +
+  labs(x = "")
+
+## Median plot with points
+yaxis_limits <- c(11,17)
+goi <- "Vwf"
+vwf_plot <- plot_proteomics_boxplot(norm_table = protein_sub,
+                                    protein = goi,
+                                    style = "mean") +
+  geom_signif(comparisons = list(c("MI_IZ","MI_remote")),
+              tip_length = 0, annotation = "0.0057", y_position = 15.5,) +
+  geom_signif(comparisons = list(c("MI_IZ","control")),
+              tip_length = 0, annotation = "0.0022", y_position = 16.25) +
+   expand_limits(y = c(13, 16)) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1)) +
+  labs(x = "") +
+  ylim(yaxis_limits)
+
+vwf_plot
+```
+
+```{r}
+## Median plot with points
+goi <- "Npr3"
+npr3_plot <- plot_proteomics_boxplot(norm_table = protein_sub,
+                                    protein = goi,
+                                    style = "mean") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1)) +
+  labs(x = "") +
+  ylim(yaxis_limits) +
+  labs(y = "")
+
+npr3_plot
+
+## Median plot with points
+goi <- "Cdh11"
+cd11_plot <- plot_proteomics_boxplot(norm_table = protein_sub,
+                                    protein = goi,
+                                    style = "mean") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1)) +
+  labs(x = "") +
+  ylim(yaxis_limits) + 
+  labs(y = "")
+
+cd11_plot
+```
+
+```{r}
+combined_prot_plot <- vwf_plot + cd11_plot + npr3_plot
+```
+
+
+
+# Assemble final figure
+
+```{r}
+final_fig5_top <- plot_spacer()  + pca_plot  + plot_layout(widths = c(1.5, 1))
+final_fig5_mid <- volc_limma_IZ_remote + plot_spacer() + path_plot  + 
+  plot_layout(widths = c(1.5, 0.2, 1))
+final_fig5_bottom <- endo_proteomic_corr + plot_spacer() + combined_prot_plot + plot_layout(widths = c(1, 0.2, 1))
+
+final_fig5 <- final_fig5_top / final_fig5_mid / final_fig5_bottom +plot_layout(heights= c(1, 1, 0.7)) 
+
+final_fig5 <- final_fig5 + 
+  #plot_annotation(tag_levels = 'A') & 
+  #theme(plot.tag = element_text(size = 25)) +
+  theme(plot.background = element_rect(fill = "white"))
+
+final_fig5
+
+#plot_width  <- 8.5 
+plot_height <- 11
+plot_asp <- 1.3
+
+save_plot(filename = "./figures/Figure_5.png",
+          plot = final_fig5,
+          base_asp = plot_asp,
+          base_height = plot_height)
+
+
+save_plot(filename = "./figures/Figure_5.eps",
+          plot = final_fig5,
+          base_asp = plot_asp,
+          base_height = plot_height)
+
+save_plot(filename = "./figures/Figure_5.svg",
+          plot = final_fig5,
+          base_asp = plot_asp,
+          base_height = plot_height)
+```

@@ -370,7 +370,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -381,8 +381,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -391,13 +391,13 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-06-20
+<strong>Last updated:</strong> 2023-06-29
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>mi_spatialomics/</code> <span
@@ -420,18 +420,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -522,15 +525,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree236130c306124d35e3cf074cec0c78c955623855targetblank236130ca">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree430aac1313e2f543c35856422d0c647f7828d02ctargetblank430aac1a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/236130c306124d35e3cf074cec0c78c955623855" target="_blank">236130c</a>
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/430aac1313e2f543c35856422d0c647f7828d02c" target="_blank">430aac1</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree236130c306124d35e3cf074cec0c78c955623855targetblank236130ca"
+id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree430aac1313e2f543c35856422d0c647f7828d02ctargetblank430aac1a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -540,7 +543,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/236130c306124d35e3cf074cec0c78c955623855" target="_blank">236130c</a>.
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/430aac1313e2f543c35856422d0c647f7828d02c" target="_blank">430aac1</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -560,16 +563,40 @@ Ignored files:
     Ignored:    .Rproj.user/
     Ignored:    analysis/.DS_Store
     Ignored:    data/.DS_Store
+    Ignored:    data/.Rapp.history
     Ignored:    data/140623.calcagno_et_al.seurat_object.rds
-    Ignored:    references/
+    Ignored:    renv/.DS_Store
     Ignored:    renv/library/
     Ignored:    renv/staging/
 
 Untracked files:
+    Untracked:  analysis/figures.figure_5.Rmd
+    Untracked:  analysis/figures.supplementary_figure_X.proteomics_qc.Rmd
+    Untracked:  code/functions.R
+    Untracked:  figures/Supplementary_figure_X.proteomics.eps
+    Untracked:  figures/Supplementary_figure_X.proteomics.png
     Untracked:  omnipathr-log/
+    Untracked:  output/limma.full_statistics.tsv
+    Untracked:  output/limma.mi_iz_specific_proteins.tsv
+    Untracked:  output/proteomics.pathway_results.MIiz_MIremote.tsv
+    Untracked:  output/proteomics.pca_res.rds
+    Untracked:  output/proteomics.protein_missing_stats.tsv
+    Untracked:  output/proteomics.snRNAseq_comp.tsv
+    Untracked:  output/proteomics.vsn_norm_proteins.tsv
+    Untracked:  references/
 
 Unstaged changes:
-    Modified:   .gitignore
+    Modified:   analysis/data_analysis.Rmd
+    Modified:   analysis/figures.supplementary_Figure_3.Rmd
+    Modified:   analysis/proteomics.bulk_de_analysis.Rmd
+    Modified:   analysis/proteomics.filter_proteomic_data.Rmd
+    Modified:   analysis/proteomics.pathway_enrichment_analysis.Rmd
+    Modified:   analysis/proteomics.scRNAseq_comparison.Rmd
+    Deleted:    code/params_R.R
+    Modified:   figures/Supplementary_figure_3.eps
+    Modified:   figures/Supplementary_figure_3.png
+    Modified:   output/mi_iz_specific_proteins.tsv
+    Modified:   renv.lock
 
 </code></pre>
 <p>
@@ -618,6 +645,23 @@ Message
 <tbody>
 <tr>
 <td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/c1395e6d499b82aeae23bc70d4d7622466876c31/docs/proteomics.scRNAseq_comparison.html" target="_blank">c1395e6</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-06-20
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
 Rmd
 </td>
 <td>
@@ -659,6 +703,292 @@ Updating proteomic analysis.
 </div>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
+</div>
+<div id="load-data" class="section level1">
+<h1>Load data</h1>
+<p>We reprocessed the data from Calcagno et al, using the original
+cell-type annotations from the paper and will load this dataset as a
+seurat object.</p>
+<pre class="r"><code>## Load reprocessed Calcagno et al seurat object
+calcagno_et_al &lt;- readRDS(&quot;./data/140623.calcagno_et_al.seurat_object.rds&quot;)</code></pre>
+<pre class="r"><code>## Get only control cells for marker calculation
+calcagno_et_al_d0 &lt;- subset(calcagno_et_al,time == &quot;d0&quot;)
+calcagno_et_al_d1 &lt;- subset(calcagno_et_al,time == &quot;d1&quot;)</code></pre>
+<p>Let’s check the UMAP embedding from our reprocessed object.</p>
+<pre class="r"><code>## UMAP plot
+DimPlot(calcagno_et_al,label = TRUE) + theme(legend.position = &quot;none&quot;)</code></pre>
+<p><img src="figure/proteomics.scRNAseq_comparison.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Next, let’s quickly verify, that Endocardial cells are expressing the
+proper markers before we compare them to our proteomic data.</p>
+<pre class="r"><code>plot_density(calcagno_et_al_d0, features = &quot;Npr3&quot;)</code></pre>
+<p><img src="figure/proteomics.scRNAseq_comparison.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>VlnPlot(calcagno_et_al_d0, features = &quot;Npr3&quot;)</code></pre>
+<p><img src="figure/proteomics.scRNAseq_comparison.Rmd/unnamed-chunk-4-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Expression of the endocardial specific marker Npr3 in this dataset
+fits with the original authors annotation, suggesting that we can use
+these endocardial single-cell signature to identify endocardial specific
+genes in our proteomics data.</p>
+</div>
+<div id="analyze-cell-type-specific-proteins-in-proteomic-data"
+class="section level1">
+<h1>Analyze cell-type specific proteins in proteomic data</h1>
+<p>We will use the snRNAseq data to identify proteins likely
+differentially expressed in endocardial cells. For this, we will first
+identify genes specifically expressed in endocardial cells.</p>
+<div id="check-subclustering-of-endocard-cells-at-d1"
+class="section level2">
+<h2>Check subclustering of endocard cells at d1</h2>
+<pre class="r"><code>endocard_d1 &lt;- subset(calcagno_et_al, cell_type == &quot;Endocardial_cells&quot; &amp; time == &quot;d1&quot;)</code></pre>
+<pre class="r"><code>endocard_d1 &lt;- SCTransform(endocard_d1)</code></pre>
+<pre><code>Calculating cell attributes from input UMI matrix: log_umi</code></pre>
+<pre><code>Variance stabilizing transformation of count matrix of size 9652 by 389</code></pre>
+<pre><code>Model formula is y ~ log_umi</code></pre>
+<pre><code>Get Negative Binomial regression parameters per gene</code></pre>
+<pre><code>Using 2000 genes, 389 cells</code></pre>
+<pre><code>
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |==================                                                    |  25%
+  |                                                                            
+  |===================================                                   |  50%
+  |                                                                            
+  |====================================================                  |  75%
+  |                                                                            
+  |======================================================================| 100%</code></pre>
+<pre><code>Found 88 outliers - those will be ignored in fitting/regularization step</code></pre>
+<pre><code>Second step: Get residuals using fitted parameters for 9652 genes</code></pre>
+<pre><code>
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |====                                                                  |   5%
+  |                                                                            
+  |=======                                                               |  10%
+  |                                                                            
+  |==========                                                            |  15%
+  |                                                                            
+  |==============                                                        |  20%
+  |                                                                            
+  |==================                                                    |  25%
+  |                                                                            
+  |=====================                                                 |  30%
+  |                                                                            
+  |========================                                              |  35%
+  |                                                                            
+  |============================                                          |  40%
+  |                                                                            
+  |================================                                      |  45%
+  |                                                                            
+  |===================================                                   |  50%
+  |                                                                            
+  |======================================                                |  55%
+  |                                                                            
+  |==========================================                            |  60%
+  |                                                                            
+  |==============================================                        |  65%
+  |                                                                            
+  |=================================================                     |  70%
+  |                                                                            
+  |====================================================                  |  75%
+  |                                                                            
+  |========================================================              |  80%
+  |                                                                            
+  |============================================================          |  85%
+  |                                                                            
+  |===============================================================       |  90%
+  |                                                                            
+  |==================================================================    |  95%
+  |                                                                            
+  |======================================================================| 100%</code></pre>
+<pre><code>Computing corrected count matrix for 9652 genes</code></pre>
+<pre><code>
+  |                                                                            
+  |                                                                      |   0%
+  |                                                                            
+  |====                                                                  |   5%
+  |                                                                            
+  |=======                                                               |  10%
+  |                                                                            
+  |==========                                                            |  15%
+  |                                                                            
+  |==============                                                        |  20%
+  |                                                                            
+  |==================                                                    |  25%
+  |                                                                            
+  |=====================                                                 |  30%
+  |                                                                            
+  |========================                                              |  35%
+  |                                                                            
+  |============================                                          |  40%
+  |                                                                            
+  |================================                                      |  45%
+  |                                                                            
+  |===================================                                   |  50%
+  |                                                                            
+  |======================================                                |  55%
+  |                                                                            
+  |==========================================                            |  60%
+  |                                                                            
+  |==============================================                        |  65%
+  |                                                                            
+  |=================================================                     |  70%
+  |                                                                            
+  |====================================================                  |  75%
+  |                                                                            
+  |========================================================              |  80%
+  |                                                                            
+  |============================================================          |  85%
+  |                                                                            
+  |===============================================================       |  90%
+  |                                                                            
+  |==================================================================    |  95%
+  |                                                                            
+  |======================================================================| 100%</code></pre>
+<pre><code>Calculating gene attributes</code></pre>
+<pre><code>Wall clock passed: Time difference of 3.287078 secs</code></pre>
+<pre><code>Determine variable features</code></pre>
+<pre><code>Place corrected count matrix in counts slot</code></pre>
+<pre><code>Centering data matrix</code></pre>
+<pre><code>Set default assay to SCT</code></pre>
+<pre class="r"><code>endocard_d1 &lt;- RunPCA(endocard_d1, verbose = FALSE)
+endocard_d1 &lt;- RunUMAP(endocard_d1, dims = 1:10, verbose = FALSE)</code></pre>
+<pre><code>Warning: The default method for RunUMAP has changed from calling Python UMAP via reticulate to the R-native UWOT using the cosine metric
+To use Python UMAP via reticulate, set umap.method to &#39;umap-learn&#39; and metric to &#39;correlation&#39;
+This message will be shown once per session</code></pre>
+<pre class="r"><code>endocard_d1 &lt;- FindNeighbors(endocard_d1, dims = 1:10, verbose = FALSE)
+endocard_d1 &lt;- FindClusters(endocard_d1, verbose = FALSE, resolution = 0.2)</code></pre>
+<pre class="r"><code>DimPlot(endocard_d1, label = TRUE) + NoLegend()</code></pre>
+<p><img src="figure/proteomics.scRNAseq_comparison.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>DimPlot(endocard_d1, label = FALSE, group.by = &quot;rep&quot;)</code></pre>
+<p><img src="figure/proteomics.scRNAseq_comparison.Rmd/unnamed-chunk-7-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>endo_diff_marker &lt;- FindAllMarkers(endocard_d1, only.pos = TRUE)</code></pre>
+<pre><code>Calculating cluster 0</code></pre>
+<pre><code>Calculating cluster 1</code></pre>
+<pre><code>Calculating cluster 2</code></pre>
+<pre><code>Calculating cluster 3</code></pre>
+<pre class="r"><code>endo_diff_marker_top &lt;- endo_diff_marker %&gt;%
+  subset(p_val_adj &lt; 0.05)</code></pre>
+<pre class="r"><code>VlnPlot(endocard_d1, features = c(&quot;Selp&quot;,&quot;Taco1&quot;,&quot;Serpine1&quot;,&quot;Prkg1&quot;,&quot;Nrg1&quot;))</code></pre>
+<p><img src="figure/proteomics.scRNAseq_comparison.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div
+id="correlate-pseudobulk-snrna-seq-expression-in-endocardial-cells-with-proteomic-measurements"
+class="section level2">
+<h2>Correlate pseudobulk snRNA-seq expression in endocardial cells with
+proteomic measurements</h2>
+<p>Let’s load the proteomic data now:</p>
+<pre class="r"><code>limma_res &lt;- fread(&quot;./output/limma.full_statistics.tsv&quot;)
+
+## Extract statistics for different contrasts
+miiz_vs_control_signature &lt;- subset(limma_res,analysis == &quot;MI_IZ_vs_control&quot;)
+miiz_vs_remote_signature &lt;- subset(limma_res,analysis == &quot;MI_IZ_vs_MI_remote&quot;)
+
+## Load the normalized protein matrix as well
+protein_mat &lt;- fread(file = &quot;./output/proteomics.vsn_norm_proteins.tsv&quot;)
+protein_mat_avg &lt;- protein_mat %&gt;%
+  mutate(avg_control=rowMeans(.[ , c(&quot;control_r1&quot;,&quot;control_r2&quot;,&quot;control_r3&quot;)], na.rm=TRUE)) %&gt;%
+  mutate(avg_MI_IZ=rowMeans(.[ , c(&quot;MI_IZ_r1&quot;,&quot;MI_IZ_r2&quot;,&quot;MI_IZ_r3&quot;,&quot;MI_IZ_r4&quot;)], na.rm=TRUE)) %&gt;%
+  mutate(avg_MI_remote=rowMeans(.[ , c(&quot;MI_remote_r1&quot;,&quot;MI_remote_r2&quot;,&quot;MI_remote_r3&quot;,&quot;MI_remote_r4&quot;)], na.rm=TRUE)) %&gt;%
+  dplyr::select(gene,avg_control,avg_MI_IZ,avg_MI_remote)</code></pre>
+<pre class="r"><code>## Calculate pseudobulk expression profiles for endocardial cells
+endocard_seurat &lt;- subset(calcagno_et_al, cell_type == &quot;Endocardial_cells&quot;)
+sn_endo_bulk &lt;- AverageExpression(endocard_seurat, group.by = c(&quot;time&quot;))
+sn_endo_bulk_df &lt;- as.data.frame(sn_endo_bulk$RNA)
+sn_endo_bulk_df$gene &lt;- rownames(sn_endo_bulk_df)</code></pre>
+<pre class="r"><code>## Merge average protein expression values with average RNA expression
+rna_protein_avg &lt;- left_join(protein_mat_avg,sn_endo_bulk_df, by = &quot;gene&quot;) %&gt;%
+  drop_na()
+
+corrplot_rna_protein &lt;- ggplot(rna_protein_avg,aes(avg_control,log10(d0), label = gene)) +
+  geom_point() +
+  geom_point(data = subset(rna_protein_avg, gene == &quot;Vwf&quot;),color = &quot;red&quot;, size =3) 
+corrplot_rna_protein</code></pre>
+<p><img src="figure/proteomics.scRNAseq_comparison.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="get-endocard-specific-genes" class="section level2">
+<h2>Get endocard specific genes</h2>
+<pre class="r"><code>endo_marker &lt;- FindMarkers(calcagno_et_al,ident.1 = &quot;Endocardial_cells&quot;,
+                           only.pos = TRUE)</code></pre>
+<pre class="r"><code>endo_marker$gene &lt;- rownames(endo_marker)
+endo_marker &lt;- endo_marker %&gt;%
+  mutate(&quot;pct_diff&quot; = pct.1 - pct.2) %&gt;% # Only 
+  subset(pct.2 &lt; 0.1)                         </code></pre>
+</div>
+<div
+id="calculate-differentially-expressed-genes-in-endocardial-cells-in-snrna-seq"
+class="section level2">
+<h2>Calculate differentially expressed genes in endocardial cells in
+snRNA-seq</h2>
+<pre class="r"><code>DE &lt;- run_de(calcagno_et_al,
+            replicate_col = &quot;rep&quot;,
+            cell_type_col = &quot;cell_type&quot;,
+            label_col = &quot;time&quot;,
+            de_family = &quot;pseudobulk&quot;,
+            de_method = &quot;limma&quot;,
+            de_type = &quot;trend&quot;)</code></pre>
+<pre><code>[1] &quot;BZ1&quot;
+[1] &quot;BZ2&quot;
+[1] &quot;CMs&quot;
+[1] &quot;Cardiac_fibroblasts&quot;
+[1] &quot;DC&quot;
+[1] &quot;Endocardial_cells&quot;
+[1] &quot;Endothelial_cells&quot;
+[1] &quot;Macrophages&quot;
+[1] &quot;Mono&quot;
+[1] &quot;Neutrophils&quot;
+[1] &quot;Skap1&quot;
+[1] &quot;Smooth_muscle&quot;</code></pre>
+<pre><code>Warning: 3886 very small variances detected, have been offset away from zero</code></pre>
+<pre><code>Warning: 5067 very small variances detected, have been offset away from zero</code></pre>
+<pre><code>Warning: 1972 very small variances detected, have been offset away from zero</code></pre>
+<pre><code>Warning: 1514 very small variances detected, have been offset away from zero</code></pre>
+<pre><code>Warning: 8291 very small variances detected, have been offset away from zero</code></pre>
+<pre><code>Warning: 5202 very small variances detected, have been offset away from zero</code></pre>
+<pre><code>Warning: 1870 very small variances detected, have been offset away from zero</code></pre>
+<pre><code>Warning: 3134 very small variances detected, have been offset away from zero</code></pre>
+<pre><code>Warning: 8135 very small variances detected, have been offset away from zero</code></pre>
+<pre><code>Warning: 7590 very small variances detected, have been offset away from zero</code></pre>
+<pre><code>Warning: 3208 very small variances detected, have been offset away from zero</code></pre>
+<pre class="r"><code>calcagno_et_al$cell_type_time &lt;- paste(calcagno_et_al$cell_type, calcagno_et_al$time,
+    sep = &quot;_&quot;)
+Idents(calcagno_et_al) &lt;- &quot;cell_type_time&quot;
+
+endocard_de &lt;- FindMarkers(calcagno_et_al, 
+                           ident.1 = &quot;Endocardial_cells_d1&quot;, 
+                           ident.2 = &quot;Endocardial_cells_d0&quot;,
+                           min.diff.pct = 0.1,
+                           logfc.threshold = 0,
+                           verbose = FALSE)
+
+colnames(endocard_de) &lt;- gsub(&quot;\\.&quot;,&quot;_&quot;,colnames(endocard_de))
+endocard_de &lt;- endocard_de %&gt;% 
+  mutate(&quot;gene&quot; = rownames(endocard_de)) %&gt;%
+  mutate(&quot;pct_ratio&quot; = pct_2 /pct_1,
+         &quot;pct_diff&quot; = pct_2 -pct_1) %&gt;%
+  arrange(desc(avg_log2FC))</code></pre>
+<pre class="r"><code>merged_protein_rna &lt;- left_join(endo_marker,miiz_vs_remote_signature, by = &quot;gene&quot;)</code></pre>
+<pre class="r"><code>merged_protein_rna &lt;- merged_protein_rna %&gt;%
+  mutate(&quot;label_gene&quot; = if_else(gene == &quot;Vwf&quot;,gene,&quot;&quot;))
+
+endo_proteomic_corr &lt;- ggplot(merged_protein_rna,aes(avg_log2FC,logFC,
+                              label = label_gene)) +
+  geom_point(data =subset(merged_protein_rna,gene != &quot;Vwf&quot;), size =3, fill = &quot;darkgrey&quot;, pch = 21) +
+  geom_point(data = subset(merged_protein_rna,gene == &quot;Vwf&quot;),size = 4, fill = &quot;red&quot;, pch = 21) +
+  geom_label_repel() +
+  labs(x = &quot;Average expression in Endocardial cells (snRNA-seq)&quot;,
+       y = &quot;Log-fold change MI_IZ vs control(proteomics)&quot;)
+
+endo_proteomic_corr</code></pre>
+<pre><code>Warning: Removed 156 rows containing missing values (`geom_point()`).</code></pre>
+<pre><code>Warning: Removed 156 rows containing missing values (`geom_label_repel()`).</code></pre>
+<p><img src="figure/proteomics.scRNAseq_comparison.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>write.table(merged_protein_rna,
+            file = &quot;./output/proteomics.snRNAseq_comp.tsv&quot;,
+            sep = &quot;\t&quot;,
+            col.names = TRUE,
+            row.names = FALSE,
+            quote = FALSE)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -670,7 +1000,7 @@ Session information
 <pre class="r"><code>sessionInfo()</code></pre>
 <pre><code>R version 4.2.3 (2023-03-15)
 Platform: aarch64-apple-darwin20 (64-bit)
-Running under: macOS Ventura 13.4
+Running under: macOS Ventura 13.4.1
 
 Matrix products: default
 BLAS:   /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/lib/libRblas.0.dylib
@@ -683,52 +1013,99 @@ attached base packages:
 [1] stats     graphics  grDevices datasets  utils     methods   base     
 
 other attached packages:
- [1] ggsci_3.0.0        cowplot_1.1.1      here_1.0.1         SeuratObject_4.1.3
- [5] Seurat_4.3.0       lubridate_1.9.2    forcats_1.0.0      stringr_1.5.0     
- [9] dplyr_1.1.2        purrr_1.0.1        readr_2.1.4        tidyr_1.3.0       
-[13] tibble_3.2.1       ggplot2_3.4.2      tidyverse_2.0.0    workflowr_1.7.0   
+ [1] ggsci_3.0.0        cowplot_1.1.1      plotly_4.10.2      ggrepel_0.9.3     
+ [5] data.table_1.14.8  Nebulosa_1.8.0     patchwork_1.1.2    Libra_1.0.0       
+ [9] here_1.0.1         SeuratObject_4.1.3 Seurat_4.3.0       lubridate_1.9.2   
+[13] forcats_1.0.0      stringr_1.5.0      dplyr_1.1.2        purrr_1.0.1       
+[17] readr_2.1.4        tidyr_1.3.0        tibble_3.2.1       ggplot2_3.4.2     
+[21] tidyverse_2.0.0    workflowr_1.7.0   
 
 loaded via a namespace (and not attached):
-  [1] Rtsne_0.16             colorspace_2.1-0       deldir_1.0-9          
-  [4] ellipsis_0.3.2         ggridges_0.5.4         rprojroot_2.0.3       
-  [7] fs_1.6.2               spatstat.data_3.0-1    rstudioapi_0.14       
- [10] leiden_0.4.3           listenv_0.9.0          ggrepel_0.9.3         
- [13] fansi_1.0.4            codetools_0.2-19       splines_4.2.3         
- [16] cachem_1.0.8           knitr_1.42             polyclip_1.10-4       
- [19] jsonlite_1.8.4         ica_1.0-3              cluster_2.1.4         
- [22] png_0.1-8              uwot_0.1.14            spatstat.sparse_3.0-1 
- [25] sctransform_0.3.5      shiny_1.7.4            BiocManager_1.30.21   
- [28] compiler_4.2.3         httr_1.4.6             Matrix_1.5-3          
- [31] fastmap_1.1.1          lazyeval_0.2.2         cli_3.6.1             
- [34] later_1.3.1            htmltools_0.5.5        tools_4.2.3           
- [37] igraph_1.4.3           gtable_0.3.3           glue_1.6.2            
- [40] reshape2_1.4.4         RANN_2.6.1             Rcpp_1.0.10           
- [43] scattermore_1.2        jquerylib_0.1.4        vctrs_0.6.2           
- [46] nlme_3.1-162           spatstat.explore_3.2-1 progressr_0.13.0      
- [49] lmtest_0.9-40          spatstat.random_3.1-5  xfun_0.39             
- [52] globals_0.16.2         ps_1.7.4               timechange_0.2.0      
- [55] mime_0.12              miniUI_0.1.1.1         lifecycle_1.0.3       
- [58] irlba_2.3.5.1          renv_0.17.3            goftest_1.2-3         
- [61] future_1.32.0          getPass_0.2-2          MASS_7.3-58.2         
- [64] zoo_1.8-12             scales_1.2.1           spatstat.utils_3.0-3  
- [67] hms_1.1.3              promises_1.2.0.1       parallel_4.2.3        
- [70] RColorBrewer_1.1-3     yaml_2.3.7             gridExtra_2.3         
- [73] reticulate_1.30        pbapply_1.7-0          sass_0.4.6            
- [76] stringi_1.7.12         rlang_1.1.1            pkgconfig_2.0.3       
- [79] matrixStats_1.0.0      evaluate_0.21          lattice_0.20-45       
- [82] tensor_1.5             ROCR_1.0-11            patchwork_1.1.2       
- [85] htmlwidgets_1.6.2      processx_3.8.0         tidyselect_1.2.0      
- [88] parallelly_1.36.0      RcppAnnoy_0.0.20       plyr_1.8.8            
- [91] magrittr_2.0.3         R6_2.5.1               generics_0.1.3        
- [94] DBI_1.1.3              pillar_1.9.0           whisker_0.4.1         
- [97] withr_2.5.0            fitdistrplus_1.1-11    abind_1.4-5           
-[100] survival_3.5-3         sp_1.6-1               future.apply_1.11.0   
-[103] KernSmooth_2.23-20     utf8_1.2.3             spatstat.geom_3.2-1   
-[106] plotly_4.10.2          tzdb_0.4.0             rmarkdown_2.21        
-[109] grid_4.2.3             data.table_1.14.8      callr_3.7.3           
-[112] git2r_0.32.0           digest_0.6.31          xtable_1.8-4          
-[115] httpuv_1.6.11          munsell_0.5.0          viridisLite_0.4.2     
-[118] bslib_0.4.2           </code></pre>
+  [1] utf8_1.2.3                  ks_1.14.0                  
+  [3] spatstat.explore_3.2-1      reticulate_1.30            
+  [5] tidyselect_1.2.0            lme4_1.1-33                
+  [7] RSQLite_2.3.1               AnnotationDbi_1.60.2       
+  [9] htmlwidgets_1.6.2           grid_4.2.3                 
+ [11] BiocParallel_1.32.6         Rtsne_0.16                 
+ [13] munsell_0.5.0               codetools_0.2-19           
+ [15] ica_1.0-3                   statmod_1.5.0              
+ [17] future_1.32.0               miniUI_0.1.1.1             
+ [19] tester_0.1.7                withr_2.5.0                
+ [21] spatstat.random_3.1-5       colorspace_2.1-0           
+ [23] progressr_0.13.0            Biobase_2.58.0             
+ [25] highr_0.10                  knitr_1.42                 
+ [27] rstudioapi_0.14             SingleCellExperiment_1.20.1
+ [29] stats4_4.2.3                ROCR_1.0-11                
+ [31] tensor_1.5                  pbmcapply_1.5.1            
+ [33] listenv_0.9.0               labeling_0.4.2             
+ [35] emmeans_1.8.6               MatrixGenerics_1.10.0      
+ [37] git2r_0.32.0                GenomeInfoDbData_1.2.9     
+ [39] polyclip_1.10-4             farver_2.1.1               
+ [41] bit64_4.0.5                 glmmTMB_1.1.7              
+ [43] rprojroot_2.0.3             parallelly_1.36.0          
+ [45] vctrs_0.6.2                 generics_0.1.3             
+ [47] xfun_0.39                   timechange_0.2.0           
+ [49] R6_2.5.1                    GenomeInfoDb_1.34.9        
+ [51] locfit_1.5-9.8              bitops_1.0-7               
+ [53] spatstat.utils_3.0-3        cachem_1.0.8               
+ [55] DelayedArray_0.24.0         promises_1.2.0.1           
+ [57] scales_1.2.1                gtable_0.3.3               
+ [59] globals_0.16.2              processx_3.8.0             
+ [61] goftest_1.2-3               rlang_1.1.1                
+ [63] splines_4.2.3               TMB_1.9.4                  
+ [65] lazyeval_0.2.2              spatstat.geom_3.2-1        
+ [67] BiocManager_1.30.21         yaml_2.3.7                 
+ [69] reshape2_1.4.4              abind_1.4-5                
+ [71] httpuv_1.6.11               tools_4.2.3                
+ [73] ellipsis_0.3.2              jquerylib_0.1.4            
+ [75] RColorBrewer_1.1-3          BiocGenerics_0.44.0        
+ [77] ggridges_0.5.4              Rcpp_1.0.10                
+ [79] plyr_1.8.8                  zlibbioc_1.44.0            
+ [81] RCurl_1.98-1.12             ps_1.7.4                   
+ [83] deldir_1.0-9                pbapply_1.7-0              
+ [85] S4Vectors_0.36.2            zoo_1.8-12                 
+ [87] SummarizedExperiment_1.28.0 cluster_2.1.4              
+ [89] fs_1.6.2                    magrittr_2.0.3             
+ [91] scattermore_1.2             lmerTest_3.1-3             
+ [93] lmtest_0.9-40               RANN_2.6.1                 
+ [95] mvtnorm_1.2-2               whisker_0.4.1              
+ [97] fitdistrplus_1.1-11         matrixStats_1.0.0          
+ [99] hms_1.1.3                   mime_0.12                  
+[101] evaluate_0.21               xtable_1.8-4               
+[103] XML_3.99-0.14               mclust_6.0.0               
+[105] IRanges_2.32.0              gridExtra_2.3              
+[107] compiler_4.2.3              KernSmooth_2.23-20         
+[109] crayon_1.5.2                minqa_1.2.5                
+[111] htmltools_0.5.5             later_1.3.1                
+[113] tzdb_0.4.0                  geneplotter_1.76.0         
+[115] DBI_1.1.3                   MASS_7.3-58.2              
+[117] boot_1.3-28.1               Matrix_1.5-3               
+[119] cli_3.6.1                   parallel_4.2.3             
+[121] igraph_1.4.3                GenomicRanges_1.50.2       
+[123] pkgconfig_2.0.3             getPass_0.2-2              
+[125] numDeriv_2016.8-1.1         sp_1.6-1                   
+[127] spatstat.sparse_3.0-1       annotate_1.76.0            
+[129] bslib_0.4.2                 blme_1.0-5                 
+[131] XVector_0.38.0              estimability_1.4.1         
+[133] callr_3.7.3                 digest_0.6.31              
+[135] pracma_2.4.2                sctransform_0.3.5          
+[137] RcppAnnoy_0.0.20            spatstat.data_3.0-1        
+[139] Biostrings_2.66.0           rmarkdown_2.21             
+[141] leiden_0.4.3                edgeR_3.40.2               
+[143] uwot_0.1.14                 shiny_1.7.4                
+[145] nloptr_2.0.3                lifecycle_1.0.3            
+[147] nlme_3.1-162                jsonlite_1.8.4             
+[149] limma_3.54.2                viridisLite_0.4.2          
+[151] fansi_1.0.4                 pillar_1.9.0               
+[153] lattice_0.20-45             KEGGREST_1.38.0            
+[155] fastmap_1.1.1               httr_1.4.6                 
+[157] survival_3.5-3              glue_1.6.2                 
+[159] png_0.1-8                   bit_4.0.5                  
+[161] stringi_1.7.12              sass_0.4.6                 
+[163] blob_1.2.4                  DESeq2_1.38.3              
+[165] memoise_2.0.1               renv_0.17.3                
+[167] irlba_2.3.5.1               future.apply_1.11.0        </code></pre>
+</div>
 </div>
 </div>
 

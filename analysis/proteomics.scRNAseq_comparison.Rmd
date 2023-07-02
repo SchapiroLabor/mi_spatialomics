@@ -13,13 +13,199 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(Seurat)
 library(here)
+library(Libra)
+library(Nebulosa)
+library(data.table)
+library(ggrepel)
+library(plotly)
 
-source(here("./code/params_R.R"))
+source(here("./code/functions.R"))
 ```
 
 ## Introduction
 
-```{r}
+# Load data
 
+We reprocessed the data from Calcagno et al, using the original cell-type annotations from the paper and will load this dataset as a seurat object.
+
+
+```{r}
+## Load reprocessed Calcagno et al seurat object
+calcagno_et_al <- readRDS("./data/140623.calcagno_et_al.seurat_object.rds")
+```
+
+```{r}
+## Get only control cells for marker calculation
+calcagno_et_al_d0 <- subset(calcagno_et_al,time == "d0")
+calcagno_et_al_d1 <- subset(calcagno_et_al,time == "d1")
+```
+
+
+Let's check the UMAP embedding from our reprocessed object.
+
+```{r}
+## UMAP plot
+DimPlot(calcagno_et_al,label = TRUE) + theme(legend.position = "none")
+```
+
+Next, let's quickly verify, that Endocardial cells are expressing the proper markers before we compare them to our proteomic data.
+
+```{r}
+plot_density(calcagno_et_al_d0, features = "Npr3")
+VlnPlot(calcagno_et_al_d0, features = "Npr3")
+```
+
+Expression of the endocardial specific marker Npr3 in this dataset fits with the original authors annotation, suggesting that we can use these endocardial single-cell signature to identify endocardial specific genes in our proteomics data.
+
+
+# Analyze cell-type specific proteins in proteomic data
+
+We will use the snRNAseq data to identify proteins likely differentially expressed in endocardial cells. For this, we will first identify genes specifically expressed in endocardial cells.
+
+## Check subclustering of endocard cells at d1
+
+```{r}
+endocard_d1 <- subset(calcagno_et_al, cell_type == "Endocardial_cells" & time == "d1")
+```
+
+```{r}
+endocard_d1 <- SCTransform(endocard_d1)
+endocard_d1 <- RunPCA(endocard_d1, verbose = FALSE)
+endocard_d1 <- RunUMAP(endocard_d1, dims = 1:10, verbose = FALSE)
+
+endocard_d1 <- FindNeighbors(endocard_d1, dims = 1:10, verbose = FALSE)
+endocard_d1 <- FindClusters(endocard_d1, verbose = FALSE, resolution = 0.2)
+```
+
+```{r}
+DimPlot(endocard_d1, label = TRUE) + NoLegend()
+DimPlot(endocard_d1, label = FALSE, group.by = "rep")
+```
+
+```{r}
+endo_diff_marker <- FindAllMarkers(endocard_d1, only.pos = TRUE)
+endo_diff_marker_top <- endo_diff_marker %>%
+  subset(p_val_adj < 0.05)
+```
+
+```{r}
+VlnPlot(endocard_d1, features = c("Selp","Taco1","Serpine1","Prkg1","Nrg1"))
+```
+
+## Correlate pseudobulk snRNA-seq expression in endocardial cells with proteomic measurements
+
+Let's load the proteomic data now: 
+
+```{r}
+limma_res <- fread("./output/limma.full_statistics.tsv")
+
+## Extract statistics for different contrasts
+miiz_vs_control_signature <- subset(limma_res,analysis == "MI_IZ_vs_control")
+miiz_vs_remote_signature <- subset(limma_res,analysis == "MI_IZ_vs_MI_remote")
+
+## Load the normalized protein matrix as well
+protein_mat <- fread(file = "./output/proteomics.vsn_norm_proteins.tsv")
+protein_mat_avg <- protein_mat %>%
+  mutate(avg_control=rowMeans(.[ , c("control_r1","control_r2","control_r3")], na.rm=TRUE)) %>%
+  mutate(avg_MI_IZ=rowMeans(.[ , c("MI_IZ_r1","MI_IZ_r2","MI_IZ_r3","MI_IZ_r4")], na.rm=TRUE)) %>%
+  mutate(avg_MI_remote=rowMeans(.[ , c("MI_remote_r1","MI_remote_r2","MI_remote_r3","MI_remote_r4")], na.rm=TRUE)) %>%
+  dplyr::select(gene,avg_control,avg_MI_IZ,avg_MI_remote)
+```
+
+
+```{r}
+## Calculate pseudobulk expression profiles for endocardial cells
+endocard_seurat <- subset(calcagno_et_al, cell_type == "Endocardial_cells")
+sn_endo_bulk <- AverageExpression(endocard_seurat, group.by = c("time"))
+sn_endo_bulk_df <- as.data.frame(sn_endo_bulk$RNA)
+sn_endo_bulk_df$gene <- rownames(sn_endo_bulk_df)
+```
+
+
+```{r}
+## Merge average protein expression values with average RNA expression
+rna_protein_avg <- left_join(protein_mat_avg,sn_endo_bulk_df, by = "gene") %>%
+  drop_na()
+
+corrplot_rna_protein <- ggplot(rna_protein_avg,aes(avg_control,log10(d0), label = gene)) +
+  geom_point() +
+  geom_point(data = subset(rna_protein_avg, gene == "Vwf"),color = "red", size =3) 
+corrplot_rna_protein
+```
+
+
+## Get endocard specific genes
+
+```{r}
+endo_marker <- FindMarkers(calcagno_et_al,ident.1 = "Endocardial_cells",
+                           only.pos = TRUE)
+```
+
+```{r}
+endo_marker$gene <- rownames(endo_marker)
+endo_marker <- endo_marker %>%
+  mutate("pct_diff" = pct.1 - pct.2) %>% # Only 
+  subset(pct.2 < 0.1)                         
+```
+
+## Calculate differentially expressed genes in endocardial cells in snRNA-seq
+
+```{r}
+DE <- run_de(calcagno_et_al,
+            replicate_col = "rep",
+            cell_type_col = "cell_type",
+            label_col = "time",
+            de_family = "pseudobulk",
+            de_method = "limma",
+            de_type = "trend")
+```
+
+```{r}
+calcagno_et_al$cell_type_time <- paste(calcagno_et_al$cell_type, calcagno_et_al$time,
+    sep = "_")
+Idents(calcagno_et_al) <- "cell_type_time"
+
+endocard_de <- FindMarkers(calcagno_et_al, 
+                           ident.1 = "Endocardial_cells_d1", 
+                           ident.2 = "Endocardial_cells_d0",
+                           min.diff.pct = 0.1,
+                           logfc.threshold = 0,
+                           verbose = FALSE)
+
+colnames(endocard_de) <- gsub("\\.","_",colnames(endocard_de))
+endocard_de <- endocard_de %>% 
+  mutate("gene" = rownames(endocard_de)) %>%
+  mutate("pct_ratio" = pct_2 /pct_1,
+         "pct_diff" = pct_2 -pct_1) %>%
+  arrange(desc(avg_log2FC))
+```
+
+
+```{r}
+merged_protein_rna <- left_join(endo_marker,miiz_vs_remote_signature, by = "gene")
+```
+
+```{r}
+merged_protein_rna <- merged_protein_rna %>%
+  mutate("label_gene" = if_else(gene == "Vwf",gene,""))
+
+endo_proteomic_corr <- ggplot(merged_protein_rna,aes(avg_log2FC,logFC,
+                              label = label_gene)) +
+  geom_point(data =subset(merged_protein_rna,gene != "Vwf"), size =3, fill = "darkgrey", pch = 21) +
+  geom_point(data = subset(merged_protein_rna,gene == "Vwf"),size = 4, fill = "red", pch = 21) +
+  geom_label_repel() +
+  labs(x = "Average expression in Endocardial cells (snRNA-seq)",
+       y = "Log-fold change MI_IZ vs control(proteomics)")
+
+endo_proteomic_corr
+```
+
+```{r}
+write.table(merged_protein_rna,
+            file = "./output/proteomics.snRNAseq_comp.tsv",
+            sep = "\t",
+            col.names = TRUE,
+            row.names = FALSE,
+            quote = FALSE)
 ```
 

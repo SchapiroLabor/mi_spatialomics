@@ -16,7 +16,7 @@ library(patchwork)
 library(vroom)
 library(ggpubr)
 
-source(here("./code/params_R.R"))
+source(here("./code/functions.R"))
 ```
 
 # Supplementary Figure 2 - Quality control (QC) of Molecular Cartography data
@@ -109,11 +109,10 @@ pcs$time <- factor(pcs$time,
 
 ```{r}
 pca_plot <- ggplot(pcs,aes(PC1,PC2,label = label)) +
-  geom_point(size = 4, aes(color = time, shape = slide)) +
+  geom_point(size = 5, aes(color = time, shape = slide)) +
   scale_color_brewer(palette = "Dark2",labels = c("control","4 hours","2 days","4 days")) +
   labs(color = "Time",
-       shape = "Slide") + 
-  background_grid()
+       shape = "Slide")
 pca_plot
 ```
 

@@ -13,55 +13,99 @@ knitr::opts_chunk$set(echo = TRUE)
 library(decoupleR)
 library(OmnipathR)
 library(here)
+library(GSEABase)
+library(data.table)
+library(pheatmap)
 
-source(here("./code/params_R.R"))
+source(here("./code/functions.R"))
 ```
 
 # Introduction
 
+Here, we are going to perform pathway analysis on the limma results from the proteomic analysis.
+
+# Load limma DE results
+
+First, we load our results from the limma differential expression analysis that we calculated in [DEP analysis](./proteomics.bulk_de_analysis.html).
+
+```{r}
+limma_res <- fread("./output/limma.full_statistics.tsv")
+
+## groups : "MI_IZ_vs_control"     "MI_remote_vs_control" "MI_IZ_vs_MI_remote"
+
+## MI_IZ vs MI_remote
+mi_signature <- subset(limma_res,analysis == "MI_IZ_vs_MI_remote")
+mi_signature <- mi_signature %>%
+  dplyr::select(t,gene) %>%
+  filter(!is.na(t)) %>% 
+  arrange(desc(t)) %>%
+  column_to_rownames(var = "gene") %>%
+  as.matrix()
+
+```
 
 # Pathway activity analysis using decoupler
 
+## Load sigmd get sets
+
+We will use Msigdb databases to perform pathway analysis
+
 ```{r}
-#net <- get_progeny(organism = 'mouse', top = 500)
-#net <- get_dorothea(organism = 'mouse')
-#net <- decoupleR::get_resource("KEGG-PC", organism = "mouse")
+mh_gsea <- import_gmt(gmtfile = "./references/mh.all.v2023.1.Mm.symbols.gmt")
+m2_all_gsea <- import_gmt(gmtfile = "./references/m2.all.v2023.1.Mm.symbols.gmt")
 ```
 
 ```{r}
-# net_genes <- unique(net$genesymbol)
-# 
-# decoupler_deg_df <- test_res_iz_remote_uniq %>%
-#   subset(gene != "") %>%
-#   subset(gene %in% net_genes)
-# 
-#   
-# decoupler_deg <- decoupler_deg_df %>%
-#   mutate("t" = t_statistic) %>%
-#   select(t)
-# 
-# rownames(decoupler_deg) <- decoupler_deg_df$gene
-# # contrast_acts <- run_ulm(mat=decoupler_deg, net=net, .source='source', .target='target',
-# #                   .mor='mor', minsize = 5)
-
+mh_gsea_net <- rename_net(mh_gsea, term, gene, .mor= NULL)
+saveRDS(mh_gsea_net,"references/mh.all.v2023.1.Mm.symbols.sets.rds")
+mh_gsea_sets <- extract_sets(mh_gsea_net)
 ```
 
+## MI_IZ vs MI_remote pathways
+
+We will focus on the comparison between the MI_IZ region versus the MI_remote region, as this comparison should capture the local differences of the endocardial layer close to the infarct versus those far away. As we have seen in the PCA and differential expression analysis, there are also not a lot of strong differences between MI_remote and MI_control, meaning that most changes we would identify comparing to the control, will also be captured in the MI_IZ vs MI_remote comparison.
+
+### Msigdb
+
+```{r}
+## Run decoupler based on limma statistics
+mi_ulm <- run_ulm(mat=mi_signature, .target = gene , .source = term, .mor= NULL,
+                         net=mh_gsea, minsize = 3)
+sig_pathways_mi <- subset(mi_ulm,p_value <= 0.05) %>%
+  arrange(desc(score)) %>%
+  dplyr::select(-statistic,-condition)
+
+write.table(mi_ulm,
+            file = "./output/proteomics.pathway_results.MIiz_MIremote.tsv",
+            sep = "\t",
+            col.names = TRUE,
+            row.names = FALSE,
+            quote = FALSE)
+```
 
 ```{r}
 # Plot
-# ggplot(contrast_acts, aes(x = reorder(source, score), y = score)) + 
-#     geom_bar(aes(fill = score), stat = "identity") +
-#     scale_fill_gradient2(low = "darkblue", high = "indianred", 
-#         mid = "whitesmoke", midpoint = 0) + 
-#     theme_minimal() +
-# theme(axis.title = element_text(face = "bold", size = 12),
-#         axis.text.x = 
-#             element_text(angle = 45, hjust = 1, size =10, face= "bold"),
-#         axis.text.y = element_text(size =10, face= "bold"),
-#         panel.grid.major = element_blank(), 
-#         panel.grid.minor = element_blank()) +
-#     xlab("Pathways")
+ggplot(sig_pathways_mi, aes(x = reorder(source, score), y = score)) + 
+    geom_bar(aes(fill = score), stat = "identity") +
+    scale_fill_gradient2(low = proteome_palette[['MI_remote']], high = proteome_palette[['MI_IZ']], 
+        mid = "whitesmoke", midpoint = 0) + 
+    theme_minimal() +
+    theme(axis.title = element_text(face = "bold", size = 12),
+        axis.text.x = 
+            element_text(angle = 45, hjust = 1, size =10, face= "bold"),
+        axis.text.y = element_text(size =10, face= "bold"),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank()) +
+    xlab("Pathways") +
+    coord_flip()
 ```
 
+```{r}
+pathway <- 'HALLMARK_COAGULATION'
 
+df <- mh_gsea_net %>%
+  filter(source == pathway) %>%
+  arrange(target)
 
+inter <- sort(intersect(rownames(mi_signature),df$target))
+```

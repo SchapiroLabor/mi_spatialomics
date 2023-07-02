@@ -16,7 +16,6 @@ editor_options:
 # Laser-microdissection coupled with high-sensitivity proteomics
 
 1) [Filter proteomic data](./proteomics.filter_proteomic_data.html)
-
 2) [Differential protein expression (DEPs)](./proteomics.bulk_de_analysis.html)
 3) [Pathway enrichment analysis of DEPs](./proteomics.pathway_enrichment_analysis.html)
-4) [Comparing snRNA-seq with protein expression](./proteomics.scRNAseq_comparison.html)
+4) [Comparing snRNA-seq data with proteomic data](./proteomics.scRNAseq_comparison.html)

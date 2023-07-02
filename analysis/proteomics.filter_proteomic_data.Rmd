@@ -18,6 +18,7 @@ library(cowplot)
 library(here)
 
 source(here("./code/params_R.R"))
+source(here("./code/functions.R"))
 ```
 
 # Introduction 
@@ -47,6 +48,7 @@ missing <- colSums(is.na(prot_res))[6:ncol(prot_res)]
 non_missing <-colSums(!is.na(prot_res))[6:ncol(prot_res)]
 missingness <- missing / (non_missing + missing)
 missingness <- as.data.frame(missingness)
+missingness$missing_prot <- missing
 missingness$sample <- rownames(missingness)
 
 ## Add group to counts
@@ -55,14 +57,16 @@ missingness <- missingness %>%
                            if_else(grepl("MI_IZ",sample),"MI_IZ","MI_remote")))
 ## Set order of groups
 missingness$group <- factor(missingness$group,
-                                levels = c("control","MI_remote","MI_IZ"))
+                                levels = rev(c("control","MI_remote","MI_IZ")))
 
 avg_missingness <- mean(missingness$missingness)
 
-ggplot(missingness,aes(sample,missingness,fill = group)) +
-  geom_bar(stat = "identity") +
+ggplot(missingness,aes(group,missingness,fill = group)) +
+  geom_violin(color = "black") +
+  geom_point(fill = "white",pch = 21, color= "black",size = 4) +
   coord_flip() +
-  scale_fill_npg() +
+  scale_fill_manual(values = proteome_palette,
+                 labels = c("Control","MI_remote","MI_IZ"))  +
   labs(x = "Samples",
        y = "% missing values") +
   geom_hline(yintercept = avg_missingness, linetype = 2)
@@ -111,9 +115,6 @@ prot_res_quant <-  prot_res_filt %>%
   subset(contaminant == "no") %>%
   select(control_r1:MI_remote_r4) %>%
   summarise_all(funs(sum(!is.na(.))))
-
-final_counts <- t(rbind(prot_res_quant_cont,
-                      prot_res_quant))
 ```
 
 
@@ -122,6 +123,8 @@ final_counts <- t(rbind(prot_res_quant_cont,
 Here, we will plot the number of proteins identified per group.
 
 ```{r}
+final_counts <- t(rbind(prot_res_quant_cont,
+                      prot_res_quant))
 colnames(final_counts) <- c("w_cont","wo_cont")
 final_counts <- as.data.frame(final_counts) %>%
   mutate("sample" = rownames(final_counts))
@@ -134,29 +137,45 @@ metadata_counts <- metadata_counts %>%
   mutate("group" = if_else(grepl("control",sample),"control",
                            if_else(grepl("MI_IZ",sample),"MI_IZ","MI_remote")))
 
+## Add missingness to table
+metadata_counts <- left_join(metadata_counts,missingness, by = c("sample","group"))
+
+
 ## Set order of groups
 metadata_counts$group <- factor(metadata_counts$group,
-                                levels = c("control","MI_remote","MI_IZ"))
+                                levels = rev(c("control","MI_remote","MI_IZ")))
 
-## Plot number of proteins without contaminants per sample
-ggbarplot(metadata_counts,
-          x = "group",
-          y = "wo_cont",
-          fill = "group",
-          add = c("mean_se"),
-          error.plot = "upper_errorbar",
-          color = "black",
-          palette = "npg") +
-  theme_minimal_hgrid()  +
-  labs (x = "Treatment group",
-         y = "# Proteins identified") +
-  font("xlab", size = 16, color = "black", face = "bold") +
-  font("ylab", size = 16, color = "black", face = "bold") +
-  scale_y_continuous(
-    expand = expansion(mult = c(0, 0.05))
-  ) +
-  rremove("legend")
+## Summarize observations across group
+metadata_counts_stat <- data_summary(metadata_counts,
+                                     varname = "wo_cont", groupnames = c("group"))
+
+## Barplot to show the number of proteins detected per group (excluding contaminants)
+ggplot(metadata_counts_stat,aes(group,wo_cont)) +
+  geom_bar(aes(fill = group),stat="identity", color="black", 
+           position=position_dodge()) +
+  geom_point(data = metadata_counts, aes(group,wo_cont),
+             fill = "white",pch = 21, color= "black",size = 5) +
+  geom_errorbar(aes(ymin=wo_cont, ymax=wo_cont+sd), width=.2,
+                 position=position_dodge(.9)) + 
+  coord_flip() +
+  scale_fill_manual(values = proteome_palette,
+                    labels = c("Control","MI_remote","MI_IZ")) +
+  labs(x = "Samples",
+       y = "Proteins detected") +
+  theme(legend.position = "none")
 ```
+
+## Save protein count and missingness stats for figures
+
+```{r}
+write.table(metadata_counts,
+            file = "./output/proteomics.protein_missing_stats.tsv",
+            sep = "\t",
+            col.names = TRUE,
+            row.names = FALSE,
+            quote =FALSE)
+```
+
 
 ## Create final filtered protein table
 

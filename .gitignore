@@ -1,9 +1,12 @@
+omnipathr-log/**
 .Rproj.user
 .Rhistory
+**.Rhistory
 .RData
 .Ruserdata
 .Rapp.history
 .DS_Store
+**.DS_Store
 analysis/figure
 analysis/*png
 analysis/*html
