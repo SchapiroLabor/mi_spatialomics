@@ -17,7 +17,6 @@ library(ggpubr)
 library(cowplot)
 library(here)
 
-source(here("./code/params_R.R"))
 source(here("./code/functions.R"))
 ```
 

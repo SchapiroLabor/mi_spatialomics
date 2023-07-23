@@ -18,6 +18,8 @@ library(ggpubr)
 library(cowplot)
 library(here)
 library(ggbeeswarm)
+
+source("./code/functions.R")
 ```
 
 ```{r}
@@ -35,8 +37,9 @@ qc_data$avg_area <- qc_data$avg_area *0.138 * 0.138
 
 qc_data$time  <- factor(qc_data$time,
                         levels = c("control","4h","2d","4d"))
+
 qc_data$segmentation_method <- factor(qc_data$segmentation_method,
-                                      levels = c("ilastik_multicut","cellpose",
+                                      levels = c("cellpose","ilastik_multicut",
                                                  "mesmer_wholecell","mesmer_nuclear"
                                                  ))
 
@@ -52,15 +55,15 @@ qc_data <- qc_data %>%
                names_to = "group",
                values_to = "values") %>%
   subset(group %in% c("avg_area","spot_assign_per_cell","spot_assign_percent","total_cells"))
-
-qc_data$group <- gsub("avg_area","Average area (uM^2)",qc_data$group)
-qc_data$group <- gsub("spot_assign_per_cell","Spots / cell",qc_data$group)
-qc_data$group <- gsub("spot_assign_percent","% spots in cells ",qc_data$group)
-qc_data$group <- gsub("total_cells","Total # cells ",qc_data$group)
 ```
 
 
 ```{r}
+# qc_data$group <- gsub("avg_area","Average area (uM^2)",qc_data$group)
+# qc_data$group <- gsub("spot_assign_per_cell","Spots / cell",qc_data$group)
+# qc_data$group <- gsub("spot_assign_percent","% spots in cells ",qc_data$group)
+# qc_data$group <- gsub("total_cells","Total # cells ",qc_data$group)
+
 spots_assigned <- ggplot(qc_data,aes(segmentation_method,values)) +
   geom_boxplot(aes(fill = segmentation_method)) +
   coord_flip() +
@@ -90,3 +93,44 @@ save_plot(filename = here("./figures/Supplementary_figure_5.segmentation_metrics
           base_height = 5,
           base_width = 10)
 ```
+
+
+```{r}
+## Plot for Poster
+
+## Subset for only mesmer whole-cell and Cellpose
+qc_data_sub <- subset(qc_data,segmentation_method %in% c("cellpose","mesmer_wholecell"))
+
+qc_data_sub$group <- gsub("avg_area","Avg. area (\u00B5m\u00B2)",qc_data_sub$group)
+qc_data_sub$group <- gsub("spot_assign_per_cell","Spots / cell",qc_data_sub$group)
+qc_data_sub$group <- gsub("spot_assign_percent","Spots assigned (%)",qc_data_sub$group)
+qc_data_sub$group <- gsub("total_cells","Total # cells ",qc_data_sub$group)
+
+qc_data_sub$segmentation_method <- factor(qc_data_sub$segmentation_method,
+                                          levels = c("mesmer_wholecell","cellpose"))
+
+spots_assigned_poster <- ggplot(qc_data_sub,aes(values,segmentation_method)) +
+  geom_boxplot(aes(fill = segmentation_method)) +
+  coord_flip() +
+  scale_fill_manual(values = c("#E18727","#24B064")) +
+  scale_color_brewer(palette = "Set1") +
+  scale_y_discrete(labels=c("cellpose" = "Cellpose",
+                            "mesmer_wholecell" = "Mesmer")) +
+  labs(x = "",
+       y = "") +
+  theme(legend.position = "none") +
+  facet_wrap(. ~ group , scales = "free") +
+  theme(plot.background = element_rect(fill = "white"),
+        strip.text.x = element_text(size = 20),
+        axis.text = element_text(size = 18)) +
+  geom_beeswarm(fill = "white",color= "black",pch = 21, size =4)
+  #theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=1))
+
+spots_assigned_poster
+
+save_plot(filename = here("./figures/Supplementary_figure_5.segmentation_metrics.poster.eps"),
+          plot = spots_assigned_poster,
+          base_height = 7,
+          base_width = 7)
+```
+

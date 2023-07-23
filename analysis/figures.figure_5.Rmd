@@ -94,9 +94,8 @@ bottom_10_genes <- limma_mi_remote %>% arrange(desc(logFC))
 bottom_10_genes <- tail(bottom_10_genes,n=10)
 
 limma_mi_remote <- limma_mi_remote %>%
-  mutate("label_protein" = if_else(gene %in% path_de_inter & adj.P.Val < 0.05 & (logFC > 1.5
-                                                                                 | logFC < 0),gene, ""))
-  # mutate("label_protein" = if_else(-log10(adj.P.Val) > 3 & logFC > 2,gene,""))
+  mutate("label_protein" = if_else(gene %in% path_de_inter & adj.P.Val < 0.05 & (logFC > 1.25 | logFC < 0), gene, ""))
+limma_mi_remote$label_protein <- gsub("Vwf","vWF",limma_mi_remote$label_protein)
 
 volc_limma_IZ_remote <- plot_pretty_volcano(limma_mi_remote, 
                                       pt_size = 2,
@@ -140,7 +139,8 @@ path_plot
 
 ```{r}
 snrna_prot <- snrna_prot %>%
-  mutate("label_gene" = if_else(gene %in% c("Vwf","Npr3","Cdh11"),gene,""))
+  mutate("label_gene" = if_else(gene %in% c("Npr3","Cdh11"),gene,
+                                if_else(gene == "Vwf","vWF","")))
 
 endo_proteomic_corr <- ggplot(snrna_prot,aes(avg_log2FC,logFC,
                               label = label_gene)) +
@@ -167,8 +167,12 @@ protein_sub <- vsn_matrix  %>%
                                            "MI_IZ","MI_remote"))
     )
 
+protein_sub$group <- gsub("control","Control",protein_sub$group)
+
 protein_sub$group <- factor(protein_sub$group,
-                              levels = c("control","MI_remote","MI_IZ"))
+                              levels = c("Control","MI_remote","MI_IZ"))
+
+
 
 ## Barplot with points as alternative.
 goi <- "Vwf"
@@ -177,7 +181,7 @@ vwf_plot_bar <- plot_proteomics_boxplot(norm_table = protein_sub,
                                     style = "bar") +
   geom_signif(comparisons = list(c("MI_IZ","MI_remote")),
               tip_length = 0, annotation = "0.0057", y_position = 15.5) +
-  geom_signif(comparisons = list(c("MI_IZ","control")),
+  geom_signif(comparisons = list(c("MI_IZ","Control")),
               tip_length = 0, annotation = "0.0022", y_position = 16.5) +
    expand_limits(y = c(13, 17)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1)) +
@@ -191,7 +195,7 @@ vwf_plot <- plot_proteomics_boxplot(norm_table = protein_sub,
                                     style = "mean") +
   geom_signif(comparisons = list(c("MI_IZ","MI_remote")),
               tip_length = 0, annotation = "0.0057", y_position = 15.5,) +
-  geom_signif(comparisons = list(c("MI_IZ","control")),
+  geom_signif(comparisons = list(c("MI_IZ","Control")),
               tip_length = 0, annotation = "0.0022", y_position = 16.25) +
    expand_limits(y = c(13, 16)) +
   theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1)) +
@@ -227,18 +231,13 @@ cd11_plot <- plot_proteomics_boxplot(norm_table = protein_sub,
 cd11_plot
 ```
 
-```{r}
-combined_prot_plot <- vwf_plot + cd11_plot + npr3_plot
-```
-
-
-
 # Assemble final figure
 
 ```{r}
 final_fig5_top <- plot_spacer()  + pca_plot  + plot_layout(widths = c(1.5, 1))
 final_fig5_mid <- volc_limma_IZ_remote + plot_spacer() + path_plot  + 
   plot_layout(widths = c(1.5, 0.2, 1))
+combined_prot_plot <- vwf_plot + cd11_plot + npr3_plot
 final_fig5_bottom <- endo_proteomic_corr + plot_spacer() + combined_prot_plot + plot_layout(widths = c(1, 0.2, 1))
 
 final_fig5 <- final_fig5_top / final_fig5_mid / final_fig5_bottom +plot_layout(heights= c(1, 1, 0.7)) 
@@ -265,8 +264,43 @@ save_plot(filename = "./figures/Figure_5.eps",
           base_asp = plot_asp,
           base_height = plot_height)
 
+save_plot(filename = "./figures/Figure_5.pdf",
+          plot = final_fig5,
+          base_asp = plot_asp,
+          base_height = plot_height)
+
 save_plot(filename = "./figures/Figure_5.svg",
           plot = final_fig5,
           base_asp = plot_asp,
           base_height = plot_height)
 ```
+
+## Figures for poster
+
+```{r}
+final_fig5_top <- plot_spacer()  + pca_plot  + plot_layout(widths = c(1.5, 1))
+post_middle <- path_plot + plot_spacer() + endo_proteomic_corr + plot_layout(widths = c(1, 0.2, 1))
+combined_prot_plot <- vwf_plot + npr3_plot
+final_fig5_bottom <- combined_prot_plot + plot_spacer()  + plot_layout(widths = c(1, 1, 3))
+
+final_fig5_poster1 <- final_fig5_top / post_middle / post_middle +plot_layout(heights= c(1, 1, 1)) 
+
+
+plot_height <- 11
+plot_asp <- 1.3
+save_plot(filename = "../results/Rotterdam_poster_proteomics.middle.eps",
+          plot = final_fig5_poster1,
+          base_asp = plot_asp,
+          base_height = plot_height)
+
+final_fig5_poster_2<- final_fig5_top / final_fig5_bottom / final_fig5_bottom +plot_layout(heights= c(1, 1, 1)) 
+
+
+plot_height <- 11
+plot_asp <- 1.3
+save_plot(filename = "../results/Rotterdam_poster_proteomics.version2.eps",
+          plot = final_fig5_poster_2,
+          base_asp = plot_asp,
+          base_height = plot_height)
+```
+
