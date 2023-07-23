@@ -47,7 +47,7 @@ plot_proteomics_boxplot <- function(norm_table,protein, style = "mean"){
     mean_geom +
     labs(x = "Group",
          y = "Normalized protein expression",
-         title = protein) +
+         title = if_else(protein == "Vwf","vWF",protein)) +
     scale_fill_manual(values = c(proteome_palette[["control"]],
                                  proteome_palette[["MI_remote"]],
                                  proteome_palette[["MI_IZ"]])) +

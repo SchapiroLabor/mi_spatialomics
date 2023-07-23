@@ -391,7 +391,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-06-28
+<strong>Last updated:</strong> 2023-07-23
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -522,15 +522,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree430aac1313e2f543c35856422d0c647f7828d02ctargetblank430aac1a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree67e546d5865fdd50e7218ad805ecec53dce079f7targetblank67e546da">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/430aac1313e2f543c35856422d0c647f7828d02c" target="_blank">430aac1</a>
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/67e546d5865fdd50e7218ad805ecec53dce079f7" target="_blank">67e546d</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree430aac1313e2f543c35856422d0c647f7828d02ctargetblank430aac1a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree67e546d5865fdd50e7218ad805ecec53dce079f7targetblank67e546da"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -540,7 +540,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/430aac1313e2f543c35856422d0c647f7828d02c" target="_blank">430aac1</a>.
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/67e546d5865fdd50e7218ad805ecec53dce079f7" target="_blank">67e546d</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -562,36 +562,26 @@ Ignored files:
     Ignored:    data/.DS_Store
     Ignored:    data/.Rapp.history
     Ignored:    data/140623.calcagno_et_al.seurat_object.rds
+    Ignored:    omnipathr-log/
+    Ignored:    plots/
+    Ignored:    references/.DS_Store
     Ignored:    renv/.DS_Store
     Ignored:    renv/library/
     Ignored:    renv/staging/
 
 Untracked files:
-    Untracked:  analysis/figures.figure_5.Rmd
-    Untracked:  analysis/figures.supplementary_figure_X.proteomics_qc.Rmd
-    Untracked:  code/functions.R
-    Untracked:  figures/Supplementary_figure_X.proteomics.eps
-    Untracked:  figures/Supplementary_figure_X.proteomics.png
-    Untracked:  omnipathr-log/
-    Untracked:  output/limma.full_statistics.tsv
-    Untracked:  output/limma.mi_iz_specific_proteins.tsv
-    Untracked:  output/proteomics.pca_res.rds
-    Untracked:  output/proteomics.protein_missing_stats.tsv
-    Untracked:  output/proteomics.vsn_norm_proteins.tsv
-    Untracked:  references/
+    Untracked:  data/cells_per_region.tsv
+    Untracked:  figures/Supplementary_figure_5.segmentation_metrics.poster.eps
 
 Unstaged changes:
-    Modified:   analysis/data_analysis.Rmd
     Modified:   analysis/figures.supplementary_Figure_3.Rmd
-    Modified:   analysis/proteomics.bulk_de_analysis.Rmd
-    Modified:   analysis/proteomics.filter_proteomic_data.Rmd
-    Modified:   analysis/proteomics.pathway_enrichment_analysis.Rmd
-    Modified:   analysis/proteomics.scRNAseq_comparison.Rmd
-    Deleted:    code/params_R.R
-    Modified:   figures/Supplementary_figure_3.eps
-    Modified:   figures/Supplementary_figure_3.png
-    Modified:   output/mi_iz_specific_proteins.tsv
-    Modified:   renv.lock
+    Modified:   code/functions.R
+    Modified:   figures/Figure_5.eps
+    Modified:   figures/Figure_5.pdf
+    Modified:   figures/Figure_5.png
+    Modified:   figures/Figure_5.svg
+    Modified:   figures/Supplementary_figure_5.segmentation_metrics.eps
+    Modified:   figures/Supplementary_figure_5.segmentation_metrics.png
 
 </code></pre>
 <p>
@@ -622,8 +612,8 @@ Cartography data</h1>
 <div id="correlation-between-technical-replicates"
 class="section level2">
 <h2>Correlation between technical replicates</h2>
-<p>The data used in this plot was calculated here:
-{1_QC_spots.Rmd}(../analysis/1_QC_spots.Rmd)</p>
+<p>The data used in this plot was calculated here:<a
+href="../analysis/1_QC_spots.Rmd">1_QC_spots.Rmd</a></p>
 <pre class="r"><code>merge_tx_sums &lt;- vroom(&quot;./output/tx_abundances_per_slide.tsv&quot;)</code></pre>
 <pre><code>Rows: 799 Columns: 5
 ── Column specification ────────────────────────────────────────────────────────
@@ -837,6 +827,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/ed31d8122236ad8d000508580dcbeb6c25acc4fd/docs/figure/figures.supplementary_Figure_3.Rmd/unnamed-chunk-5-1.png" target="_blank">ed31d81</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-07-02
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/FloWuenne/mi_spatialomics/blob/3b5ca40b321db3a07f9742b5cbed39aa96fbc395/docs/figure/figures.supplementary_Figure_3.Rmd/unnamed-chunk-5-1.png" target="_blank">3b5ca40</a>
 </td>
 <td>
@@ -891,6 +892,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/ed31d8122236ad8d000508580dcbeb6c25acc4fd/docs/figure/figures.supplementary_Figure_3.Rmd/unnamed-chunk-6-1.png" target="_blank">ed31d81</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-07-02
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/FloWuenne/mi_spatialomics/blob/3b5ca40b321db3a07f9742b5cbed39aa96fbc395/docs/figure/figures.supplementary_Figure_3.Rmd/unnamed-chunk-6-1.png" target="_blank">3b5ca40</a>

@@ -16,14 +16,14 @@ library(patchwork)
 library(vroom)
 library(ggpubr)
 
-source(here("./code/functions.R"))
+source("./code/functions.R")
 ```
 
 # Supplementary Figure 2 - Quality control (QC) of Molecular Cartography data
 
 ## Correlation between technical replicates
 
-The data used in this plot was calculated here: {1_QC_spots.Rmd}(../analysis/1_QC_spots.Rmd)
+The data used in this plot was calculated here:[1_QC_spots.Rmd](../analysis/1_QC_spots.Rmd)
 
 ```{r}
 merge_tx_sums <- vroom("./output/tx_abundances_per_slide.tsv")
