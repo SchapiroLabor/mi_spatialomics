@@ -9,9 +9,23 @@ editor_options:
 
 # Molecular Cartography
 
+## Processing of raw data
+
+
+
+## R
+
 1) [QC RNA spots](./molkart.QC_spots.html)
 2) 
 3) 
+
+## Python
+
+1) 
+
+# Lunaphore
+
+## Python
 
 # Laser-microdissection coupled with high-sensitivity proteomics
 

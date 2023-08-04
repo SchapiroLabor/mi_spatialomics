@@ -11,6 +11,54 @@ theme_cowplot_custom <- theme_cowplot() +
 
 theme_set(theme_cowplot_custom)
 
+
+################
+## Seurat analysis
+################
+create_seurat_sctransform_mcquant <- function(mcquant,sample_ID){
+  cell_ids <- mcquant$CellID
+  exp_matrix <- mcquant %>%
+    select(-c(CellID,X_centroid,Y_centroid,Area,MajorAxisLength,MinorAxisLength,Eccentricity,Solidity,Extent,Orientation))
+
+  cell_features <- mcquant %>%
+    select(c(X_centroid,Y_centroid,Area,MajorAxisLength,MinorAxisLength,Eccentricity,Solidity,Extent,Orientation))
+
+  colnames(exp_matrix) <- gsub("_intensity_sum","",colnames(exp_matrix))
+  gene_names <- colnames(exp_matrix)
+  exp_matrix_t <- t(exp_matrix)
+  rownames(exp_matrix_t) <- gene_names
+  sample_split <- strsplit(sample_ID, "_")[[1]]
+  colnames(exp_matrix_t) <- paste(sample_ID,cell_ids,sep="-cell_")
+  metadata <- data.frame("cell_ID" = colnames(exp_matrix_t),
+                         "sample_ID" = sample_ID,
+                         "timepoint" = sample_split[2],
+                         "replicate" = sample_split[3],
+                         "slide" = gsub(".mcquant","",sample_split[4]),
+                         "X_centroid" = mcquant$X_centroid,
+                         "Y_centroid" = mcquant$Y_centroid
+  ) %>%
+    mutate("Y_centroid" = abs(Y_centroid - max(Y_centroid))) %>% ## Orient cells same as image (y,x)
+    select(- cell_ID)
+  metadata <- cbind(metadata,cell_features)
+  rownames(metadata) <- colnames(exp_matrix_t)
+
+  resolve_object <- CreateSeuratObject(counts = exp_matrix_t,
+                                       project = sample,
+                                       meta.data = metadata,
+                                       min.cells = 10,
+                                       min.features = 10)
+
+  return(resolve_object)
+}
+
+
+
+################
+## Deep visual proteomics analysis
+################
+
+
+
 ## Color palette for proteomics analysis
 proteome_palette <- c("control" = "#3DA873FF",
                       "MI_remote" = "#4DBBD5FF",

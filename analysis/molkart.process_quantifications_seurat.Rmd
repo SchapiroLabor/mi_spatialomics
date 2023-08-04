@@ -1,0 +1,312 @@
+---
+title: "molecular_cartography.process_quantifications_seurat"
+author: "FloWuenne"
+date: "2023-07-26"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+```{r}
+library(Seurat)
+library(SeuratData)
+library(SeuratDisk)
+#options(Seurat.object.assay.version = "v5")
+library(data.table)
+library(harmony)
+library(here)
+library(Nebulosa)
+library(tidyverse)
+library(GGally)
+
+source("./code/functions.R")
+```
+
+# Introduction
+
+In this analysis, we will process the single-cell quantifications from Molkart (produced by the mcquant module). These tables are basically the output from the regionprops command from scikit and contain properties from the segmentation masks, as well as the count of RNA molecules per gene. We will parse these tables to extract the transcript counts and put these in the expression matrix slots from Seurat and extract the metadata for samples and segemntation masks and put these into the metadata slot of seurat objects.
+
+# Read data
+
+# Process mcquant tables to seurat object list
+
+```{r}
+final_samples <- c("sample_control_r1_s1","sample_control_r2_s1",
+                   "sample_4h_r1_s1","sample_4h_r2_s2",
+                   "sample_2d_r1_s1","sample_2d_r2_s1",
+                   "sample_4d_r1_s1","sample_4d_r2_s1")
+
+
+seurat_objects <- list()
+
+## SCTransform based clustering across all samples
+sample_dir <- here("../data/nf_molkart_results/quantification/cellpose")
+seurat_list <- list()
+segmethod_samples <- list.files(sample_dir)
+for(sample in segmethod_samples){
+    sample_ID <- strsplit(sample,"\\.")[[1]][1]
+    if(endsWith(sample,".mcquant_fix.csv") & sample_ID %in% final_samples){
+      print(sample_ID)
+      sample_quant <- fread(paste(sample_dir,sample,sep="/"))
+      seurat_object <- create_seurat_sctransform_mcquant(sample_quant,sample_ID)
+      seurat_list[[sample_ID]] <- seurat_object
+  }
+}
+
+resolve_object <- merge(seurat_list[[1]], y = c(seurat_list[-1]), project = "Molecular_Cartography")
+```
+
+# Check mask property distributions
+
+```{r}
+mask_att <- resolve_object@meta.data %>%
+  dplyr::select(sample_ID,Area,MajorAxisLength,MinorAxisLength,Eccentricity,Solidity,Extent,Orientation,nCount_RNA,nFeature_RNA)
+```
+
+```{r}
+## Calculate average number of RNA spots and genes detect and filter out outliers
+mean_spots <- mean(resolve_object@meta.data$nCount_RNA)
+mean_features <- mean(resolve_object@meta.data$nFeature_RNA)
+
+resolve_object <- subset(resolve_object, nCount_RNA > 10)
+resolve_object <- subset(resolve_object, Area < 30000)
+```
+
+# Integrate samples using Harmony
+
+
+```{r}
+resolve_object <- SCTransform(resolve_object, assay = "RNA", clip.range = c(-10, 10))
+```
+
+```{r}
+npcs_to_use <- 20
+resolve_object <- RunPCA(resolve_object, npcs = npcs_to_use, verbose = FALSE, approx=FALSE)
+```
+
+```{r}
+ElbowPlot(resolve_object)
+```
+
+```{r}
+harmony_object <- RunHarmony(resolve_object, 
+                             group.by.vars = c("timepoint"), 
+                             plot_convergence = TRUE,
+                             assay = "SCT",
+                             dims.use = 1:npcs_to_use)
+```
+
+
+```{r}
+harmony_object <- RunUMAP(harmony_object, reduction = "harmony", dims = 1:npcs_to_use)
+harmony_object <- FindNeighbors(harmony_object, reduction = "harmony", dims = 1:npcs_to_use) %>% FindClusters(resolution = 0.4)
+DimPlot(harmony_object, raster = FALSE)
+```
+
+```{r}
+p1 <- DimPlot(harmony_object, reduction = "umap", group.by = "timepoint",raster=FALSE)
+p2 <- DimPlot(harmony_object, reduction = "umap", label = TRUE, repel = TRUE,raster=FALSE)
+p1+p2
+```
+
+```{r}
+plot_density(harmony_object, features= c("Area","nCount_RNA","Eccentricity","Solidity"))
+```
+
+```{r}
+plot_density(harmony_object, features= c("Mt1","Clu","Tagln", "Sell","Colec11"))
+```
+
+```{r}
+DotPlot(harmony_object, features = c("Nppa","Nppb","Pln","Mybpc3","Vegfa",
+                                     "Aqp1","Pecam1","Col1a1",
+                                     "Ccr2","Ccl2","Cd68",
+                                     "Cd74","Csf1r",
+                                     "C1qa","Trem2",
+                                     "Pdgfra","Dcn",
+                                     "Mmp14",
+                                     "Mki67","Arg1",
+                                     "Colec11","Pdgfrb",
+                                     "Clu","Tagln","Npr3","Sell")) +
+  coord_flip()
+```
+
+
+```{r}
+## Check mixing of clusters
+meta_time <- harmony_object@meta.data %>%
+  group_by(seurat_clusters, timepoint) %>%
+  tally() %>%
+  mutate("frac" = n / sum(n))
+
+time_bar <- ggplot(meta_time,aes(seurat_clusters,frac, fill = timepoint)) +
+  geom_bar(stat = "identity", position = "stack")
+
+p2 + time_bar
+```
+
+
+```{r}
+harmony_object <- PrepSCTFindMarkers(harmony_object, assay = "SCT", verbose = TRUE)
+harmony_markers <- FindAllMarkers(harmony_object, logfc.threshold = 0.5, only.pos = TRUE)
+```
+
+```{r}
+test <- FindMarkers(harmony_object, ident.1 = 15, ident.2 = 8, only.pos = TRUE)
+```
+
+
+## Assign cell-type names to clusters
+
+```{r}
+# seurat_clusters <- harmony_object@active.ident
+# 
+# ## Cluster level 1
+# new.cluster.ids <- c("Cardiomyocytes",  #0
+#                      "Endothelial_cells",  #1
+#                      "Endothelial_cells", #2
+#                      "Cardiomyocytes", #3 
+#                      "Monocytes_Macrophages", #4
+#                      "Cardiomyocytes_Nppa", #5
+#                      "Cardiac_fibroblasts", #6
+#                      "Cardiomyocytes_Nppb", #7
+#                      "Cardiac_fibroblasts", #8
+#                      "", #9
+#                      "", #10
+#                      "Cardiac_fibroblasts" , #11
+#                      "Pericytes", #12
+#                      "Monocytes_Macrophages", #13
+#                      "Cardiomyocytes_Vegfa", #14
+#                      "Smooth_muscle_cells", #15
+#                      "Endocardial_cells", #16
+#                      "Doublets?",#17
+#                      "Cardiomyocytes_Nppa", #18
+#                      "Cardiac_fibroblasts", #19
+#                      "Monocytes_Macrophages_Sell", #20
+#                      "Cardiomyocytes_Nppa" #21
+#                      ) 
+# names(new.cluster.ids) <- levels(resolve_object)
+# resolve_object <- RenameIdents(resolve_object, new.cluster.ids)
+# resolve_object@meta.data$cell_type_level_1 <- resolve_object@active.ident
+# 
+# ## Reset cluster to seurat ID
+# Idents(object = resolve_object) <- "seurat_clusters"
+```
+
+
+## Plot cell-type on spatial plot
+
+```{r}
+expression_plot_list <- list()
+
+samples <- c("sample_control_r1_s1","sample_4h_r1_s1",
+             "sample_2d_r1_s1","sample_4d_r1_s1",
+             "sample_control_r2_s1","sample_4h_r2_s2",
+             "sample_2d_r2_s1","sample_4d_r2_s1")
+
+for(this_sample in samples){
+  print(this_sample)
+  pt_size <- 0.6
+  cluster_of_int <- c(20)
+  sample_object <- subset(harmony_object,sample_ID == this_sample)
+  meta <- sample_object@meta.data
+  
+  highlight_plot <- ggplot(meta,aes(Y_centroid,X_centroid)) +
+    geom_point(data = subset(meta,!seurat_clusters %in% cluster_of_int),color = "darkgrey", size = pt_size) +
+    geom_point(data = subset(meta,seurat_clusters %in% cluster_of_int),aes(color = seurat_clusters), size = pt_size) +
+    theme_classic() +
+    labs(x = "Spatial 1",
+         y = "Spatial 2") +
+    theme(axis.ticks = element_blank(),
+          axis.text = element_blank(),
+          legend.position = "right")
+  
+  expression_plot_list[[this_sample]] <- highlight_plot
+  
+}
+
+wrap_plots(expression_plot_list, nrow = 2, ncol = 4)  + plot_layout(guides = 'collect')
+```
+
+
+# Transfer labels from snRNA-seq (Calcagno et al. 2020)
+
+```{r}
+calcagno_et_al <- LoadH5Seurat("../public_data/Calcagno_et_al_NatCardioVasc_2022/reprocessed_data/Calcagno2022_int_logNorm_annot.h5Seurat")
+```
+
+```{r}
+calcagno_et_al <- SCTransform(calcagno_et_al, assay = "RNA")
+```
+
+```{r}
+anchors <- FindTransferAnchors(reference = calcagno_et_al, query = harmony_object, normalization.method = "SCT", npcs = 50, recompute.residuals = FALSE)
+predictions.assay_lvl1 <- TransferData(anchorset = anchors, refdata = calcagno_et_al$level_1, prediction.assay = FALSE, weight.reduction = "pcaproject", dims = NULL)
+predictions.assay_lvl2 <- TransferData(anchorset = anchors, refdata = calcagno_et_al$level_2, prediction.assay = FALSE, weight.reduction = "pcaproject", dims = NULL)
+predictions.assay_lvl3 <- TransferData(anchorset = anchors, refdata = calcagno_et_al$level_3, prediction.assay = FALSE, weight.reduction = "pcaproject", dims = NULL)
+```
+
+```{r}
+## Add labels to Harmony object and plot Umap
+harmony_object@meta.data$predicted_ct_lvl1 <- predictions.assay_lvl1$predicted.id
+harmony_object@meta.data$predicted_ct_lvl2 <- predictions.assay_lvl2$predicted.id
+harmony_object@meta.data$predicted_ct_lvl3 <- predictions.assay_lvl3$predicted.id
+
+DimPlot(harmony_object, reduction = "umap", group.by = "predicted_ct_lvl1",raster=FALSE, label = TRUE)
+DimPlot(harmony_object, reduction = "umap", group.by = "predicted_ct_lvl2",raster=FALSE, label = TRUE)
+DimPlot(harmony_object, reduction = "umap", group.by = "predicted_ct_lvl3",raster=FALSE, label = TRUE)
+```
+
+```{r}
+## Estimate approximate cell numbers
+cell_counts <- harmony_object@meta.data %>%
+  group_by(predicted_ct,timepoint) %>%
+  tally()
+```
+
+
+```{r}
+meta <- subset(harmony_object@meta.data)
+
+## Correlation between area and RNA spots
+ggplot(meta,aes(Area,nCount_RNA)) +
+  geom_point(aes(color = predicted_ct)) +
+  facet_wrap(~ sample_ID)
+
+## Distribution of RNA molecules per cell-type
+ggplot(meta,aes(predicted_ct,nCount_RNA)) +
+  geom_boxplot(aes(fill = predicted_ct)) +
+  coord_flip()
+
+## Distribution of RNA molecules per cell-type
+ggplot(meta,aes(predicted_ct,Area)) +
+  geom_boxplot(aes(fill = predicted_ct)) +
+  coord_flip()
+```
+
+```{r}
+## Plot correlation between spot counts and size features
+mask_att <- harmony_object@meta.data %>%
+  dplyr::select(sample_ID,Area,MajorAxisLength,MinorAxisLength,Eccentricity,Solidity,Extent,Orientation,nCount_RNA,nFeature_RNA)
+
+ggpairs(mask_att)
+```
+
+# Save object as seurat RDS
+
+```{r}
+# saveRDS(harmony_object,
+#         file = "./output/molkart.harmony_seurat_object.rds")
+```
+
+
+# Save Seurat object as anndata
+
+```{r}
+# SaveH5Seurat(harmony_object, filename = "./output/harmony.molkart.h5Seurat", overwrite = TRUE)
+# Convert("./output/harmony.molkart.h5Seurat", dest = "h5ad")
+```
+
+

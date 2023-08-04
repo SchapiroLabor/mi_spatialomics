@@ -1,3 +1,6 @@
+output/molkart_figure1_images/**
+output/molkart_spot_imgs/**
+output/harmony.molkart.h5Seurat
 omnipathr-log/**
 .Rproj.user
 .Rhistory
