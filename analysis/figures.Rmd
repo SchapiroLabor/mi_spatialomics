@@ -11,5 +11,8 @@ editor_options:
 
 # Supplementary Figures
 
-- [Supplementary Figure 3](./figures.supplementary_figure_3.html)
+- [Supplementary Figure 1](../figures/Supplementary_Figure_1_Molecular_Cartography_ROIs.png)
+- [Supplementary Figure 2](./figures.supplementary_figure_3.html)
+- Supplementary Figure 3
+- Supplementary Figure 4
 - [Supplementary Figure 5](./figures.supplementary_figure_5.html)

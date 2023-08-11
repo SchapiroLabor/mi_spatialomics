@@ -11,12 +11,13 @@ editor_options:
 
 ## Processing of raw data
 
+These scripts were used to process raw Molecular Cartography data using the nf-Molkart pipeline. The
 
 
 ## R
 
 1) [QC RNA spots](./molkart.QC_spots.html)
-2) 
+2) [Seurat analysis of Molkart output](./molkart.process_quantifications_seurat.Rmd)
 3) 
 
 ## Python
