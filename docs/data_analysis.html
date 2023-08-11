@@ -15,7 +15,7 @@
 
 <title>Data analysis</title>
 
-<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
@@ -31,7 +31,7 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
@@ -391,7 +391,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-07-23
+<strong>Last updated:</strong> 2023-08-11
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -438,15 +438,15 @@ results.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstreed6085a28841baf3d83d41260bdb95685234c038atargetblankd6085a2a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree64318a3a0ffde557d727f95203b89ce8a743c63atargetblank64318a3a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/d6085a28841baf3d83d41260bdb95685234c038a" target="_blank">d6085a2</a>
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/64318a3a0ffde557d727f95203b89ce8a743c63a" target="_blank">64318a3</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstreed6085a28841baf3d83d41260bdb95685234c038atargetblankd6085a2a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree64318a3a0ffde557d727f95203b89ce8a743c63atargetblank64318a3a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -456,7 +456,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/d6085a28841baf3d83d41260bdb95685234c038a" target="_blank">d6085a2</a>.
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/64318a3a0ffde557d727f95203b89ce8a743c63a" target="_blank">64318a3</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -475,30 +475,39 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    analysis/.DS_Store
+    Ignored:    analysis/deprecated/.DS_Store
+    Ignored:    analysis/python/.DS_Store
     Ignored:    data/.DS_Store
-    Ignored:    data/.Rapp.history
     Ignored:    data/140623.calcagno_et_al.seurat_object.rds
-    Ignored:    omnipathr-log/
-    Ignored:    plots/
+    Ignored:    data/molkart_tissue_regions_rois/.DS_Store
+    Ignored:    figures/.DS_Store
+    Ignored:    output/.DS_Store
+    Ignored:    output/harmony.molkart.h5Seurat
+    Ignored:    output/molkart_figure1_images/
+    Ignored:    output/molkart_spot_imgs/
     Ignored:    references/.DS_Store
     Ignored:    renv/.DS_Store
     Ignored:    renv/library/
     Ignored:    renv/staging/
 
 Untracked files:
-    Untracked:  data/cells_per_region.tsv
-    Untracked:  figures.supplementary_figure_3.Rmd
-    Untracked:  figures/Supplementary_figure_5.segmentation_metrics.poster.eps
+    Untracked:  analysis/python/__pycache__/
+    Untracked:  analysis/python/spatialMI_functions.py
+    Untracked:  data/molkart_tissue_regions_rois/sample_control_r1_s1.segmentation_figure_1_roi.csv
+    Untracked:  figures/Supplementary_Figure_1_Molecular_Cartography_ROIs.png
+    Untracked:  figures/Supplementary_figure_2.eps
+    Untracked:  figures/Supplementary_figure_2.png
+    Untracked:  output/molkart.harmony_seurat_object.rds
+    Untracked:  output/molkart_segmentation_images/
+    Untracked:  plots/
 
 Unstaged changes:
-    Deleted:    analysis/figures.supplementary_Figure_3.Rmd
+    Deleted:    analysis/deprecated/figures.supplementary_figure_3.Rmd
+    Modified:   analysis/python/molkart.plot_spots_figure1.ipynb
     Modified:   code/functions.R
-    Modified:   figures/Figure_5.eps
-    Modified:   figures/Figure_5.pdf
-    Modified:   figures/Figure_5.png
-    Modified:   figures/Figure_5.svg
-    Modified:   figures/Supplementary_figure_5.segmentation_metrics.eps
-    Modified:   figures/Supplementary_figure_5.segmentation_metrics.png
+    Deleted:    figures/Supplementary_figure_3.eps
+    Deleted:    figures/Supplementary_figure_3.png
+    Modified:   renv.lock
 
 </code></pre>
 <p>
@@ -544,6 +553,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/64318a3a0ffde557d727f95203b89ce8a743c63a/analysis/data_analysis.Rmd" target="_blank">64318a3</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-08-11
+</td>
+<td>
+wflow_publish(c("analysis/molkart.process_quantifications_seurat.Rmd",
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/9b98d64b2bc2cc2260bc8cb08bb6dcac68bd4c10/analysis/data_analysis.Rmd" target="_blank">9b98d64</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-08-04
+</td>
+<td>
+Updated python and R scripts for Molkart.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/67e546d5865fdd50e7218ad805ecec53dce079f7/docs/data_analysis.html" target="_blank">67e546d</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-07-23
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -944,11 +1004,32 @@ Configure site header.
 </div>
 <div id="molecular-cartography" class="section level1">
 <h1>Molecular Cartography</h1>
+<div id="processing-of-raw-data" class="section level2">
+<h2>Processing of raw data</h2>
+<p>These scripts were used to process raw Molecular Cartography data
+using the nf-Molkart pipeline. The</p>
+</div>
+<div id="r" class="section level2">
+<h2>R</h2>
 <ol style="list-style-type: decimal">
 <li><a href="./molkart.QC_spots.html">QC RNA spots</a></li>
-<li></li>
+<li><a href="./molkart.process_quantifications_seurat.Rmd">Seurat
+analysis of Molkart output</a></li>
 <li></li>
 </ol>
+</div>
+<div id="python" class="section level2">
+<h2>Python</h2>
+<ol style="list-style-type: decimal">
+<li></li>
+</ol>
+</div>
+</div>
+<div id="lunaphore" class="section level1">
+<h1>Lunaphore</h1>
+<div id="python-1" class="section level2">
+<h2>Python</h2>
+</div>
 </div>
 <div id="laser-microdissection-coupled-with-high-sensitivity-proteomics"
 class="section level1">
