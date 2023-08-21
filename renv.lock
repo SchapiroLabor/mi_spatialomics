@@ -864,6 +864,22 @@
       ],
       "Hash": "8f371bac4b09106b66aeff10b85bd933"
     },
+    "SCpubr": {
+      "Package": "SCpubr",
+      "Version": "2.0.0.9000",
+      "Source": "GitHub",
+      "Remotes": "saezlab/liana",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "SCpubr",
+      "RemoteUsername": "enblacar",
+      "RemoteRef": "v2.0.0-dev-stable",
+      "RemoteSha": "b2357dc7dffceaacaed14cdc7daf164bfad28a2a",
+      "Requirements": [
+        "R"
+      ],
+      "Hash": "c3fad1db96a4424136123f4c87127cc5"
+    },
     "ScaledMatrix": {
       "Package": "ScaledMatrix",
       "Version": "1.6.0",
@@ -1774,6 +1790,17 @@
         "utils"
       ],
       "Hash": "6b9602c7ebbe87101a9c8edb6e8b6d21"
+    },
+    "dichromat": {
+      "Package": "dichromat",
+      "Version": "2.0-0.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "stats"
+      ],
+      "Hash": "16e66f2a483e124af5fc6582d26005f7"
     },
     "diffobj": {
       "Package": "diffobj",
@@ -3188,6 +3215,31 @@
       ],
       "Hash": "7ce2733a9826b3aeb1775d56fd305472"
     },
+    "mapproj": {
+      "Package": "mapproj",
+      "Version": "1.2.11",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "graphics",
+        "maps",
+        "stats"
+      ],
+      "Hash": "37090866afbdb09e6437ba0b25c307a2"
+    },
+    "maps": {
+      "Package": "maps",
+      "Version": "3.4.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "graphics",
+        "utils"
+      ],
+      "Hash": "644a88fb036ab50cee0b715394eefa1a"
+    },
     "matrixStats": {
       "Package": "matrixStats",
       "Version": "1.0.0",
@@ -3431,6 +3483,24 @@
         "askpass"
       ],
       "Hash": "273a6bb4a9844c296a459d2176673270"
+    },
+    "pals": {
+      "Package": "pals",
+      "Version": "1.7",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "colorspace",
+        "dichromat",
+        "grDevices",
+        "graphics",
+        "mapproj",
+        "maps",
+        "methods",
+        "stats"
+      ],
+      "Hash": "3b059988394323a280ad6f82f9cef7a7"
     },
     "parallelly": {
       "Package": "parallelly",

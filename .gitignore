@@ -1,3 +1,6 @@
+output/harmony.molkart.h5Seurat
+output/molkart.harmony_seurat_object.rds
+plots/Figure1.umap_plot.pdf
 output/molkart_figure1_images/**
 output/molkart_spot_imgs/**
 output/harmony.molkart.h5Seurat

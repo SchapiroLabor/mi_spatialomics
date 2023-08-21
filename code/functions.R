@@ -4,6 +4,7 @@ library(cowplot)
 library(ggsci)
 library(here)
 library(cowplot)
+library(RColorBrewer)
 
 ## Define theme for all ggplots
 theme_cowplot_custom <- theme_cowplot() +
@@ -11,9 +12,11 @@ theme_cowplot_custom <- theme_cowplot() +
 
 theme_set(theme_cowplot_custom)
 
+time_palette <- brewer.pal(4, "Dark2")
+
 
 ################
-## Seurat analysis
+## Seurat analysis for Molkart data
 ################
 create_seurat_sctransform_mcquant <- function(mcquant,sample_ID){
   cell_ids <- mcquant$CellID
@@ -46,7 +49,7 @@ create_seurat_sctransform_mcquant <- function(mcquant,sample_ID){
                                        project = sample,
                                        meta.data = metadata,
                                        min.cells = 10,
-                                       min.features = 10)
+                                       min.features = 3)
 
   return(resolve_object)
 }
@@ -56,8 +59,6 @@ create_seurat_sctransform_mcquant <- function(mcquant,sample_ID){
 ################
 ## Deep visual proteomics analysis
 ################
-
-
 
 ## Color palette for proteomics analysis
 proteome_palette <- c("control" = "#3DA873FF",
