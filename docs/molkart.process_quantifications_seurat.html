@@ -391,7 +391,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-08-11
+<strong>Last updated:</strong> 2023-08-21
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -522,15 +522,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree64318a3a0ffde557d727f95203b89ce8a743c63atargetblank64318a3a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstreeddc434fb7285784232461ad117616cf5efcabd57targetblankddc434fa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/64318a3a0ffde557d727f95203b89ce8a743c63a" target="_blank">64318a3</a>
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/ddc434fb7285784232461ad117616cf5efcabd57" target="_blank">ddc434f</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree64318a3a0ffde557d727f95203b89ce8a743c63atargetblank64318a3a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstreeddc434fb7285784232461ad117616cf5efcabd57targetblankddc434fa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -540,7 +540,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/64318a3a0ffde557d727f95203b89ce8a743c63a" target="_blank">64318a3</a>.
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/ddc434fb7285784232461ad117616cf5efcabd57" target="_blank">ddc434f</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -561,6 +561,8 @@ Ignored files:
     Ignored:    analysis/.DS_Store
     Ignored:    analysis/deprecated/.DS_Store
     Ignored:    analysis/python/.DS_Store
+    Ignored:    analysis/python/overlays_pxCellClusterIDs_colored_pixelComposition/
+    Ignored:    analysis/python/overlays_pxCellClusterIDs_pixelComposition/
     Ignored:    data/.DS_Store
     Ignored:    data/140623.calcagno_et_al.seurat_object.rds
     Ignored:    data/molkart_tissue_regions_rois/.DS_Store
@@ -576,11 +578,14 @@ Ignored files:
 
 Untracked files:
     Untracked:  analysis/python/__pycache__/
+    Untracked:  analysis/python/lunaphore.figure_3.create_pixie_images.ipynb
+    Untracked:  analysis/python/lunaphore.figure_3.pixie_heatmaps.ipynb
     Untracked:  analysis/python/spatialMI_functions.py
     Untracked:  data/molkart_tissue_regions_rois/sample_control_r1_s1.segmentation_figure_1_roi.csv
     Untracked:  figures/Supplementary_Figure_1_Molecular_Cartography_ROIs.png
     Untracked:  figures/Supplementary_figure_2.eps
     Untracked:  figures/Supplementary_figure_2.png
+    Untracked:  output/molcart.misty_celltype_table.tsv
     Untracked:  output/molkart.harmony_seurat_object.rds
     Untracked:  output/molkart_segmentation_images/
     Untracked:  plots/
@@ -638,6 +643,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/ddc434fb7285784232461ad117616cf5efcabd57/analysis/molkart.process_quantifications_seurat.Rmd" target="_blank">ddc434f</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-08-21
+</td>
+<td>
+Update Seurat analysis.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/d7ea71edd6940e58c6cc1b7dcc7b9555215c4f2c/docs/molkart.process_quantifications_seurat.html" target="_blank">d7ea71e</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-08-11
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -814,6 +853,43 @@ resolve_object@meta.data$timepoint &lt;- factor(resolve_object@meta.data$timepoi
 VlnPlot(resolve_object, features = c(&quot;nCount_RNA&quot;,&quot;nFeature_RNA&quot;,&quot;Area&quot;,&quot;Eccentricity&quot;,&quot;Solidity&quot;),
         group.by = &quot;timepoint&quot;, pt.size = 0, cols = time_palette)</code></pre>
 <p><img src="figure/molkart.process_quantifications_seurat.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
+Past versions of unnamed-chunk-3-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/d7ea71edd6940e58c6cc1b7dcc7b9555215c4f2c/docs/figure/molkart.process_quantifications_seurat.Rmd/unnamed-chunk-3-1.png" target="_blank">d7ea71e</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-08-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="filter-outlier-cells" class="section level1">
 <h1>Filter outlier cells</h1>
@@ -822,6 +898,43 @@ VlnPlot(resolve_object, features = c(&quot;nCount_RNA&quot;,&quot;nFeature_RNA&q
 VlnPlot(resolve_object, features = c(&quot;nCount_RNA&quot;,&quot;nFeature_RNA&quot;,&quot;Area&quot;,&quot;Eccentricity&quot;,&quot;Solidity&quot;),
         group.by = &quot;timepoint&quot;, pt.size = 0, cols = time_palette)</code></pre>
 <p><img src="figure/molkart.process_quantifications_seurat.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
+Past versions of unnamed-chunk-5-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-5-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/d7ea71edd6940e58c6cc1b7dcc7b9555215c4f2c/docs/figure/molkart.process_quantifications_seurat.Rmd/unnamed-chunk-5-1.png" target="_blank">d7ea71e</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-08-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="integrate-samples-using-harmony" class="section level1">
 <h1>Integrate samples using Harmony</h1>
@@ -1041,24 +1154,24 @@ harmony_object &lt;- RunHarmony(resolve_object,
 <pre><code>Warning: The default method for RunUMAP has changed from calling Python UMAP via reticulate to the R-native UWOT using the cosine metric
 To use Python UMAP via reticulate, set umap.method to &#39;umap-learn&#39; and metric to &#39;correlation&#39;
 This message will be shown once per session</code></pre>
-<pre><code>17:47:29 UMAP embedding parameters a = 0.9922 b = 1.112</code></pre>
+<pre><code>10:14:15 UMAP embedding parameters a = 0.9922 b = 1.112</code></pre>
 <pre><code>Found more than one class &quot;dist&quot; in cache; using the first, from namespace &#39;spam&#39;</code></pre>
 <pre><code>Also defined by &#39;BiocGenerics&#39;</code></pre>
-<pre><code>17:47:29 Read 95030 rows and found 20 numeric columns</code></pre>
-<pre><code>17:47:29 Using Annoy for neighbor search, n_neighbors = 30</code></pre>
+<pre><code>10:14:15 Read 95030 rows and found 20 numeric columns</code></pre>
+<pre><code>10:14:15 Using Annoy for neighbor search, n_neighbors = 30</code></pre>
 <pre><code>Found more than one class &quot;dist&quot; in cache; using the first, from namespace &#39;spam&#39;</code></pre>
 <pre><code>Also defined by &#39;BiocGenerics&#39;</code></pre>
-<pre><code>17:47:29 Building Annoy index with metric = cosine, n_trees = 50</code></pre>
+<pre><code>10:14:15 Building Annoy index with metric = cosine, n_trees = 50</code></pre>
 <pre><code>0%   10   20   30   40   50   60   70   80   90   100%</code></pre>
 <pre><code>[----|----|----|----|----|----|----|----|----|----|</code></pre>
 <pre><code>**************************************************|
-17:47:39 Writing NN index file to temp file /var/folders/ph/m6mhj3s541799cykzbp3dx0m0000gn/T//Rtmpz253Ed/file3a2a336044ee
-17:47:39 Searching Annoy index using 1 thread, search_k = 3000
-17:48:07 Annoy recall = 99.17%
-17:48:08 Commencing smooth kNN distance calibration using 1 thread with target n_neighbors = 30
-17:48:10 Initializing from normalized Laplacian + noise (using RSpectra)
-17:48:13 Commencing optimization for 200 epochs, with 4371298 positive edges
-17:48:46 Optimization finished</code></pre>
+10:14:25 Writing NN index file to temp file /var/folders/ph/m6mhj3s541799cykzbp3dx0m0000gn/T//Rtmpuzfc0J/file8b7b3c6b399f
+10:14:25 Searching Annoy index using 1 thread, search_k = 3000
+10:14:57 Annoy recall = 99.17%
+10:14:57 Commencing smooth kNN distance calibration using 1 thread with target n_neighbors = 30
+10:14:59 Initializing from normalized Laplacian + noise (using RSpectra)
+10:15:02 Commencing optimization for 200 epochs, with 4371298 positive edges
+10:15:37 Optimization finished</code></pre>
 <pre class="r"><code>harmony_object &lt;- FindNeighbors(harmony_object, reduction = &quot;harmony&quot;, dims = 1:npcs_to_use) %&gt;% FindClusters(resolution = 0.3)</code></pre>
 <pre><code>Computing nearest neighbor graph
 Computing SNN</code></pre>
@@ -1070,9 +1183,46 @@ Number of edges: 3365264
 Running Louvain algorithm...
 Maximum modularity in 10 random starts: 0.9581
 Number of communities: 20
-Elapsed time: 22 seconds</code></pre>
+Elapsed time: 25 seconds</code></pre>
 <pre class="r"><code>DimPlot(harmony_object, raster = FALSE)</code></pre>
 <p><img src="figure/molkart.process_quantifications_seurat.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/d7ea71edd6940e58c6cc1b7dcc7b9555215c4f2c/docs/figure/molkart.process_quantifications_seurat.Rmd/unnamed-chunk-9-1.png" target="_blank">d7ea71e</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-08-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <div id="plot-harmony-integration-results" class="section level2">
 <h2>Plot Harmony integration results</h2>
 <pre class="r"><code>## Plot UMAP with cells labeled by sampled time point and by cluster assigned using nearest-neighbor analysis
@@ -1081,6 +1231,43 @@ p1 &lt;- DimPlot(harmony_object, reduction = &quot;umap&quot;, group.by = &quot;
 p2 &lt;- DimPlot(harmony_object, reduction = &quot;umap&quot;, label = TRUE, repel = TRUE,raster=FALSE)
 p1+p2</code></pre>
 <p><img src="figure/molkart.process_quantifications_seurat.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
+Past versions of unnamed-chunk-10-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-10-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/d7ea71edd6940e58c6cc1b7dcc7b9555215c4f2c/docs/figure/molkart.process_quantifications_seurat.Rmd/unnamed-chunk-10-1.png" target="_blank">d7ea71e</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-08-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>## Plot UMAP next to a barplot
 meta_time &lt;- harmony_object@meta.data %&gt;%
   group_by(seurat_clusters, timepoint) %&gt;%
@@ -1102,6 +1289,43 @@ save_plot(combined_time_plot,
 <pre class="r"><code>## Plot Nebulosa plots for QC measures to highlight cell clusters with high number of transcripts
 plot_density(harmony_object, features= c(&quot;Area&quot;,&quot;nCount_RNA&quot;,&quot;nFeature_RNA&quot;))</code></pre>
 <p><img src="figure/molkart.process_quantifications_seurat.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/d7ea71edd6940e58c6cc1b7dcc7b9555215c4f2c/docs/figure/molkart.process_quantifications_seurat.Rmd/unnamed-chunk-12-1.png" target="_blank">d7ea71e</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-08-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>## Plot the number of cells per cluster and color by cluster ID
 cell_numbers &lt;- harmony_object@meta.data %&gt;%
   group_by(seurat_clusters) %&gt;%
@@ -1111,6 +1335,43 @@ ggplot(cell_numbers,aes(seurat_clusters,n)) +
   geom_bar(stat = &quot;identity&quot;,aes(fill = seurat_clusters)) +
   theme(legend.position = &quot;None&quot;)</code></pre>
 <p><img src="figure/molkart.process_quantifications_seurat.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
+Past versions of unnamed-chunk-13-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-13-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/d7ea71edd6940e58c6cc1b7dcc7b9555215c4f2c/docs/figure/molkart.process_quantifications_seurat.Rmd/unnamed-chunk-13-1.png" target="_blank">d7ea71e</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-08-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="identify-marker-genes-for-cell-clusters"
 class="section level2">
@@ -1444,7 +1705,7 @@ or useNames = TRUE.</code></pre>
   |                                                                            
   |======================================================================| 100%</code></pre>
 <pre><code>Calculating gene attributes</code></pre>
-<pre><code>Wall clock passed: Time difference of 3.958332 mins</code></pre>
+<pre><code>Wall clock passed: Time difference of 5.092136 mins</code></pre>
 <pre><code>Determine variable features</code></pre>
 <pre><code>Centering data matrix</code></pre>
 <pre><code>Place corrected count matrix in counts slot</code></pre>
@@ -1481,12 +1742,160 @@ harmony_object@meta.data$orig_label_calcagno &lt;- predictions.orig_label$predic
 
 DimPlot(harmony_object, reduction = &quot;umap&quot;, group.by = &quot;predicted_ct_lvl1&quot;,raster=FALSE, label = TRUE)</code></pre>
 <p><img src="figure/molkart.process_quantifications_seurat.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-1">
+Past versions of unnamed-chunk-18-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-18-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/d7ea71edd6940e58c6cc1b7dcc7b9555215c4f2c/docs/figure/molkart.process_quantifications_seurat.Rmd/unnamed-chunk-18-1.png" target="_blank">d7ea71e</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-08-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>DimPlot(harmony_object, reduction = &quot;umap&quot;, group.by = &quot;predicted_ct_lvl2&quot;,raster=FALSE, label = TRUE)</code></pre>
 <p><img src="figure/molkart.process_quantifications_seurat.Rmd/unnamed-chunk-18-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-2">
+Past versions of unnamed-chunk-18-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-18-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/d7ea71edd6940e58c6cc1b7dcc7b9555215c4f2c/docs/figure/molkart.process_quantifications_seurat.Rmd/unnamed-chunk-18-2.png" target="_blank">d7ea71e</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-08-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>DimPlot(harmony_object, reduction = &quot;umap&quot;, group.by = &quot;predicted_ct_lvl3&quot;,raster=FALSE, label = TRUE)</code></pre>
 <p><img src="figure/molkart.process_quantifications_seurat.Rmd/unnamed-chunk-18-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-3">
+Past versions of unnamed-chunk-18-3.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-18-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/d7ea71edd6940e58c6cc1b7dcc7b9555215c4f2c/docs/figure/molkart.process_quantifications_seurat.Rmd/unnamed-chunk-18-3.png" target="_blank">d7ea71e</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-08-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>DimPlot(harmony_object, reduction = &quot;umap&quot;, group.by = &quot;orig_label_calcagno&quot;,raster=FALSE, label = TRUE)</code></pre>
 <p><img src="figure/molkart.process_quantifications_seurat.Rmd/unnamed-chunk-18-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-4">
+Past versions of unnamed-chunk-18-4.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-18-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/d7ea71edd6940e58c6cc1b7dcc7b9555215c4f2c/docs/figure/molkart.process_quantifications_seurat.Rmd/unnamed-chunk-18-4.png" target="_blank">d7ea71e</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-08-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="assign-cell-type-names-to-clusters" class="section level1">
 <h1>Assign cell-type names to clusters</h1>
@@ -1508,7 +1917,7 @@ new.cluster.ids &lt;- c(&quot;Endothelial_cells&quot;,  #0
                      &quot;Immune_cells&quot;, #10
                      &quot;Pericytes&quot; , #11
                      &quot;Cardiomyocytes&quot;, #12
-                     &quot;Monocytes_Macrophages&quot;, #13
+                     &quot;Immune_cells&quot;, #13
                      &quot;Smooth_muscle_cells&quot;, #14
                      &quot;Cardiomyocytes&quot;, #15
                      &quot;Endothelial_cells&quot;, #16
@@ -1537,17 +1946,17 @@ new.cluster.ids &lt;- c(&quot;Vascular_endothelium&quot;,  #0 - Kdr
                      &quot;Cardiomyocytes_Nppa+&quot;, #5 Nppa
                      &quot;Cardiac_fibroblasts&quot;, #6 Dcn, Pdgfra
                      &quot;Cardiomyocytes_Nppb+&quot;, #7 Nppb
-                     &quot;Monocytes_Macrophages&quot;, #8 Cs1f1r
+                     &quot;Myeloid_cells&quot;, #8 Cs1f1r
                      &quot;EndMA+&quot;, #9 Fn1, Mmp14
-                     &quot;Monocytes_Macrophages&quot;, #10 
+                     &quot;Myeloid_cells&quot;, #10 
                      &quot;Pericytes&quot; , #11
                      &quot;Cardiomyocytes_Nppa+&quot;, #12
-                     &quot;Monocytes_Macrophages&quot;, #13
+                     &quot;Myeloid_cells&quot;, #13
                      &quot;Smooth_muscle_cells&quot;, #14
                      &quot;Cardiomyocytes&quot;, #15
                      &quot;Vascular_endothelium&quot;, #16
                      &quot;Endocardial_cell&quot;,#17
-                     &quot;B-cells&quot;, #18
+                     &quot;Lymphoid cells&quot;, #18
                      &quot;Vascular_endothelium&quot; #19
                      )
 
@@ -1594,6 +2003,43 @@ Idents(object = harmony_object) &lt;- &quot;seurat_clusters&quot;</code></pre>
 <pre class="r"><code>## Additionally, we will label all cells that express Ccr2 over a threshold
 ccr2_exp &lt;- hist(harmony_object@assays$SCT@scale.data[&quot;Ccr2&quot;,])</code></pre>
 <p><img src="figure/molkart.process_quantifications_seurat.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-22-1">
+Past versions of unnamed-chunk-22-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-22-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/d7ea71edd6940e58c6cc1b7dcc7b9555215c4f2c/docs/figure/molkart.process_quantifications_seurat.Rmd/unnamed-chunk-22-1.png" target="_blank">d7ea71e</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-08-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ccr2_cells &lt;- harmony_object@assays$SCT@data[&quot;Ccr2&quot;,] &gt; 0
 harmony_object@meta.data$ccr2_pos &lt;- if_else(harmony_object@assays$SCT@data[&quot;Ccr2&quot;,] &gt; 0,&quot;yes&quot;,&quot;no&quot;)</code></pre>
 <pre class="r"><code>Idents(object = harmony_object) &lt;- &quot;anno_cell_type_lv2&quot;
@@ -1605,12 +2051,12 @@ harmony_object &lt;- PrepSCTFindMarkers(harmony_object, assay = &quot;SCT&quot;,
 <pre><code>Calculating cluster Cardiac_fibroblasts</code></pre>
 <pre><code>Calculating cluster Cardiomyocytes_Nppa+</code></pre>
 <pre><code>Calculating cluster Cardiomyocytes_Nppb+</code></pre>
-<pre><code>Calculating cluster Monocytes_Macrophages</code></pre>
+<pre><code>Calculating cluster Myeloid_cells</code></pre>
 <pre><code>Calculating cluster EndMA+</code></pre>
 <pre><code>Calculating cluster Pericytes</code></pre>
 <pre><code>Calculating cluster Smooth_muscle_cells</code></pre>
 <pre><code>Calculating cluster Endocardial_cell</code></pre>
-<pre><code>Calculating cluster B-cells</code></pre>
+<pre><code>Calculating cluster Lymphoid cells</code></pre>
 <pre class="r"><code>library(viridis)</code></pre>
 <pre><code>Loading required package: viridisLite</code></pre>
 <pre class="r"><code>genes &lt;- c(&quot;Ighm&quot;,&quot;Npr3&quot;,&quot;Acta2&quot;,&quot;Colec11&quot;,&quot;Fn1&quot;,&quot;Lyz2&quot;,&quot;Clu&quot;,&quot;Nppa&quot;,&quot;Dcn&quot;,&quot;Ryr2&quot;,&quot;Aqp1&quot;)
@@ -1622,11 +2068,85 @@ DotPlot(harmony_object, group.by = &quot;anno_cell_type_lv2&quot;,
 <pre><code>Scale for colour is already present.
 Adding another scale for colour, which will replace the existing scale.</code></pre>
 <p><img src="figure/molkart.process_quantifications_seurat.Rmd/unnamed-chunk-24-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-24-1">
+Past versions of unnamed-chunk-24-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-24-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/d7ea71edd6940e58c6cc1b7dcc7b9555215c4f2c/docs/figure/molkart.process_quantifications_seurat.Rmd/unnamed-chunk-24-1.png" target="_blank">d7ea71e</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-08-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>library(pheatmap)
 ## Instead of a dotplot, let&#39;s look at a pseudbulk heatmap
 pseudobulk &lt;- AverageExpression(harmony_object, assay = &quot;SCT&quot;,group.by = &quot;anno_cell_type_lv2&quot;,slot = &quot;data&quot;)
 pheatmap(pseudobulk$SCT[genes,])</code></pre>
 <p><img src="figure/molkart.process_quantifications_seurat.Rmd/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-25-1">
+Past versions of unnamed-chunk-25-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-25-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/d7ea71edd6940e58c6cc1b7dcc7b9555215c4f2c/docs/figure/molkart.process_quantifications_seurat.Rmd/unnamed-chunk-25-1.png" target="_blank">d7ea71e</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-08-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <div id="plot-cell-type-on-spatial-plot" class="section level2">
 <h2>Plot cell-type on spatial plot</h2>
 <pre class="r"><code>expression_plot_list &lt;- list()
@@ -1666,6 +2186,43 @@ for(this_sample in samples){
 [1] &quot;sample_4d_r2_s1&quot;</code></pre>
 <pre class="r"><code>wrap_plots(expression_plot_list, nrow = 2, ncol = 4)  + plot_layout(guides = &#39;collect&#39;)</code></pre>
 <p><img src="figure/molkart.process_quantifications_seurat.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-26-1">
+Past versions of unnamed-chunk-26-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-26-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/d7ea71edd6940e58c6cc1b7dcc7b9555215c4f2c/docs/figure/molkart.process_quantifications_seurat.Rmd/unnamed-chunk-26-1.png" target="_blank">d7ea71e</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-08-11
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div id="save-object-as-seurat-rds" class="section level1">
@@ -1673,7 +2230,48 @@ for(this_sample in samples){
 <pre class="r"><code>saveRDS(harmony_object,
         file = &quot;./output/molkart.harmony_seurat_object.rds&quot;)</code></pre>
 <pre class="r"><code>## If the object has already been computed
-#harmony_object &lt;- readRDS(file = &quot;./output/molkart.harmony_seurat_object.rds&quot;)</code></pre>
+harmony_object &lt;- readRDS(file = &quot;./output/molkart.harmony_seurat_object.rds&quot;)</code></pre>
+</div>
+<div id="generate-misty-input" class="section level1">
+<h1>Generate Misty input</h1>
+<pre class="r"><code>misty_in &lt;- harmony_object@meta.data %&gt;%
+  dplyr::select(sample_ID,timepoint,replicate,X_centroid,Y_centroid,Area,anno_cell_type_lvl1,anno_cell_type_lv2,anno_cell_type_lvl3,ccr2_pos,nCount_RNA) 
+misty_in$cell_ID &lt;- rownames(misty_in)</code></pre>
+<pre class="r"><code>expression_plot_list &lt;- list()
+
+samples &lt;- c(&quot;sample_control_r1_s1&quot;,&quot;sample_4h_r1_s1&quot;,
+             &quot;sample_2d_r1_s1&quot;,&quot;sample_4d_r1_s1&quot;,
+             &quot;sample_control_r2_s1&quot;,&quot;sample_4h_r2_s2&quot;,
+             &quot;sample_2d_r2_s1&quot;,&quot;sample_4d_r2_s1&quot;)
+
+for(this_sample in samples){
+  pt_size &lt;- 0.2
+  cluster_of_int &lt;- c(16,19)
+  sample_object &lt;- subset(misty_in,sample_ID == this_sample)
+  
+  highlight_plot &lt;- ggplot(sample_object,aes(X_centroid,Y_centroid)) +
+    geom_point(aes(color = anno_cell_type_lv2),size = pt_size) +
+    theme_classic() +
+    labs(x = &quot;Spatial 1&quot;,
+         y = &quot;Spatial 2&quot;,
+         title = this_sample) +
+    theme(axis.ticks = element_blank(),
+            axis.text = element_blank(),
+            legend.position = &quot;right&quot;) +
+    scale_color_brewer(palette = &quot;Set3&quot;)
+  
+      expression_plot_list[[this_sample]] &lt;- highlight_plot
+  
+}
+
+wrap_plots(expression_plot_list, nrow = 2, ncol = 4)  + plot_layout(guides = &#39;collect&#39;)</code></pre>
+<p><img src="figure/molkart.process_quantifications_seurat.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>write.table(misty_in,
+            file = &quot;./output/molcart.misty_celltype_table.tsv&quot;,
+            sep=&quot;/t&quot;,
+            col.names = TRUE,
+            row.names = FALSE,
+            quote = FALSE)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1685,7 +2283,7 @@ Session information
 <pre class="r"><code>sessionInfo()</code></pre>
 <pre><code>R version 4.2.3 (2023-03-15)
 Platform: aarch64-apple-darwin20 (64-bit)
-Running under: macOS Ventura 13.4.1
+Running under: macOS Ventura 13.5
 
 Matrix products: default
 BLAS:   /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/lib/libRblas.0.dylib
