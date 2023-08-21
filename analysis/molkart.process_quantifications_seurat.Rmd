@@ -221,7 +221,7 @@ new.cluster.ids <- c("Endothelial_cells",  #0
                      "Immune_cells", #10
                      "Pericytes" , #11
                      "Cardiomyocytes", #12
-                     "Monocytes_Macrophages", #13
+                     "Immune_cells", #13
                      "Smooth_muscle_cells", #14
                      "Cardiomyocytes", #15
                      "Endothelial_cells", #16
@@ -254,17 +254,17 @@ new.cluster.ids <- c("Vascular_endothelium",  #0 - Kdr
                      "Cardiomyocytes_Nppa+", #5 Nppa
                      "Cardiac_fibroblasts", #6 Dcn, Pdgfra
                      "Cardiomyocytes_Nppb+", #7 Nppb
-                     "Monocytes_Macrophages", #8 Cs1f1r
+                     "Myeloid_cells", #8 Cs1f1r
                      "EndMA+", #9 Fn1, Mmp14
-                     "Monocytes_Macrophages", #10 
+                     "Myeloid_cells", #10 
                      "Pericytes" , #11
                      "Cardiomyocytes_Nppa+", #12
-                     "Monocytes_Macrophages", #13
+                     "Myeloid_cells", #13
                      "Smooth_muscle_cells", #14
                      "Cardiomyocytes", #15
                      "Vascular_endothelium", #16
                      "Endocardial_cell",#17
-                     "B-cells", #18
+                     "Lymphoid cells", #18
                      "Vascular_endothelium" #19
                      )
 
@@ -389,6 +389,54 @@ saveRDS(harmony_object,
 
 ```{r}
 ## If the object has already been computed
-#harmony_object <- readRDS(file = "./output/molkart.harmony_seurat_object.rds")
+harmony_object <- readRDS(file = "./output/molkart.harmony_seurat_object.rds")
+```
+
+# Generate Misty input
+
+```{r}
+misty_in <- harmony_object@meta.data %>%
+  dplyr::select(sample_ID,timepoint,replicate,X_centroid,Y_centroid,Area,anno_cell_type_lvl1,anno_cell_type_lv2,anno_cell_type_lvl3,ccr2_pos,nCount_RNA) 
+misty_in$cell_ID <- rownames(misty_in)
+```
+
+```{r}
+expression_plot_list <- list()
+
+samples <- c("sample_control_r1_s1","sample_4h_r1_s1",
+             "sample_2d_r1_s1","sample_4d_r1_s1",
+             "sample_control_r2_s1","sample_4h_r2_s2",
+             "sample_2d_r2_s1","sample_4d_r2_s1")
+
+for(this_sample in samples){
+  pt_size <- 0.2
+  cluster_of_int <- c(16,19)
+  sample_object <- subset(misty_in,sample_ID == this_sample)
+  
+  highlight_plot <- ggplot(sample_object,aes(X_centroid,Y_centroid)) +
+    geom_point(aes(color = anno_cell_type_lv2),size = pt_size) +
+    theme_classic() +
+    labs(x = "Spatial 1",
+         y = "Spatial 2",
+         title = this_sample) +
+    theme(axis.ticks = element_blank(),
+            axis.text = element_blank(),
+            legend.position = "right") +
+    scale_color_brewer(palette = "Set3")
+  
+      expression_plot_list[[this_sample]] <- highlight_plot
+  
+}
+
+wrap_plots(expression_plot_list, nrow = 2, ncol = 4)  + plot_layout(guides = 'collect')
+```
+
+```{r}
+write.table(misty_in,
+            file = "./output/molcart.misty_celltype_table.tsv",
+            sep="/t",
+            col.names = TRUE,
+            row.names = FALSE,
+            quote = FALSE)
 ```
 
