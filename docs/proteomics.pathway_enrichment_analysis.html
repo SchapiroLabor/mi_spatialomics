@@ -15,7 +15,7 @@
 
 <title>proteomics.pathway_enrichment_analysis</title>
 
-<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.23/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
@@ -31,7 +31,7 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
@@ -370,7 +370,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -381,8 +381,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -391,13 +391,13 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-07-23
+<strong>Last updated:</strong> 2023-08-24
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>mi_spatialomics/</code> <span
@@ -420,18 +420,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -522,15 +525,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstreed6085a28841baf3d83d41260bdb95685234c038atargetblankd6085a2a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstreee8204f0f7affd3e57c428cc8708d1de9623632d1targetblanke8204f0a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/d6085a28841baf3d83d41260bdb95685234c038a" target="_blank">d6085a2</a>
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/e8204f0f7affd3e57c428cc8708d1de9623632d1" target="_blank">e8204f0</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstreed6085a28841baf3d83d41260bdb95685234c038atargetblankd6085a2a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstreee8204f0f7affd3e57c428cc8708d1de9623632d1targetblanke8204f0a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -540,7 +543,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/d6085a28841baf3d83d41260bdb95685234c038a" target="_blank">d6085a2</a>.
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/e8204f0f7affd3e57c428cc8708d1de9623632d1" target="_blank">e8204f0</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -559,29 +562,101 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    analysis/.DS_Store
+    Ignored:    analysis/deprecated/.DS_Store
     Ignored:    data/.DS_Store
-    Ignored:    data/.Rapp.history
     Ignored:    data/140623.calcagno_et_al.seurat_object.rds
+    Ignored:    data/molkart_tissue_regions_rois/.DS_Store
+    Ignored:    figures/.DS_Store
     Ignored:    omnipathr-log/
-    Ignored:    plots/
+    Ignored:    output/.DS_Store
+    Ignored:    output/figure3.pixie_cell_cluster_heatmap.png
+    Ignored:    output/figure3.pixie_pixel_cluster_heatmap.png
+    Ignored:    output/figure3.pixie_pixel_cluster_heatmap.tiff
+    Ignored:    output/harmony.molkart.h5Seurat
+    Ignored:    output/lunaphore_images/
+    Ignored:    output/mol_cart/
+    Ignored:    output/molkart_cell_types/
+    Ignored:    output/proteomics/
+    Ignored:    output/seqIF/
+    Ignored:    plots/.DS_Store
+    Ignored:    plots/Figure1.umap_plot.pdf
     Ignored:    references/.DS_Store
     Ignored:    renv/.DS_Store
     Ignored:    renv/library/
     Ignored:    renv/staging/
 
 Untracked files:
-    Untracked:  data/cells_per_region.tsv
-    Untracked:  figures/Supplementary_figure_5.segmentation_metrics.poster.eps
+    Untracked:  analysis/__pycache__/
+    Untracked:  analysis/deprecated/molkart.quantify_cells_in_regions.ipynb
+    Untracked:  analysis/deprecated/napari_points.ipynb
+    Untracked:  analysis/deprecated/roi.csv
+    Untracked:  analysis/deprecated/roi2.csv
+    Untracked:  analysis/deprecated/test_construct_spatialdata.ipynb
+    Untracked:  analysis/figures.deep_visual_proteomics.Rmd
+    Untracked:  analysis/mol_cart.QC_spots.Rmd
+    Untracked:  analysis/mol_cart.molkart.Figure1.Rmd
+    Untracked:  analysis/mol_cart.molkart.process_quantifications_seurat.Rmd
+    Untracked:  analysis/molecular_cartography_python/
+    Untracked:  analysis/seqIF.heatmaps_pixie.figure3.Rmd
+    Untracked:  analysis/seqIF_python/
+    Untracked:  analysis/spatialMI_functions.py
+    Untracked:  data/Calcagno2022_int_logNorm_annot.h5Seurat
+    Untracked:  data/pixie.cell_table_size_normalized_cell_labels.csv
+    Untracked:  plots/Figure3.cell_types_overtimes.pdf
+    Untracked:  plots/Figure3.pixel_clusters_overtimes.pdf
+    Untracked:  references/mol_cart.heart_regions/
 
 Unstaged changes:
-    Modified:   analysis/figures.supplementary_Figure_3.Rmd
-    Modified:   code/functions.R
+    Modified:   .gitignore
+    Modified:   analysis/data_analysis.Rmd
+    Modified:   analysis/data_processing.Rmd
+    Modified:   analysis/figures.Rmd
+    Deleted:    analysis/figures.figure_5.Rmd
+    Modified:   analysis/figures.supplementary_figure_X.proteomics_qc.Rmd
+    Deleted:    analysis/molkart.Figure1.Rmd
+    Deleted:    analysis/molkart.QC_spots.Rmd
+    Deleted:    analysis/molkart.process_quantifications_seurat.Rmd
+    Modified:   analysis/proteomics.bulk_de_analysis.Rmd
+    Modified:   analysis/proteomics.filter_proteomic_data.Rmd
+    Modified:   analysis/proteomics.pathway_enrichment_analysis.Rmd
+    Modified:   analysis/proteomics.scRNAseq_comparison.Rmd
+    Deleted:    analysis/python/lunaphore.figure_3.create_pixie_images.ipynb
+    Deleted:    analysis/python/lunaphore.figure_3.pixie_heatmaps.ipynb
+    Deleted:    analysis/python/molkart.count_spots_on_tissue.ipynb
+    Deleted:    analysis/python/molkart.plot_MC_spots.ipynb
+    Deleted:    analysis/python/molkart.plot_spots_figure1.ipynb
+    Deleted:    analysis/python/molkart.quantify_cells_in_regions.ipynb
+    Deleted:    analysis/python/napari_points.ipynb
+    Deleted:    analysis/python/roi.csv
+    Deleted:    analysis/python/roi2.csv
+    Deleted:    analysis/python/spatialMI_functions.py
+    Deleted:    analysis/python/test_construct_spatialdata.ipynb
+    Deleted:    data/molkart.spots_per_tissue.tsv
     Modified:   figures/Figure_5.eps
     Modified:   figures/Figure_5.pdf
     Modified:   figures/Figure_5.png
     Modified:   figures/Figure_5.svg
-    Modified:   figures/Supplementary_figure_5.segmentation_metrics.eps
-    Modified:   figures/Supplementary_figure_5.segmentation_metrics.png
+    Modified:   output/molcart.misty_celltype_table.tsv
+    Deleted:    output/molkart_segmentation_images/sample_control_r1_s1.DAPI_WGA.crop.png
+    Deleted:    output/molkart_segmentation_images/sample_control_r1_s1.DAPI_WGA.crop.scale.png
+    Deleted:    output/molkart_segmentation_images/sample_control_r1_s1.DAPI_WGA.roi.tif
+    Deleted:    output/molkart_segmentation_images/sample_control_r1_s1.DAPI_WGA.tif
+    Deleted:    output/molkart_segmentation_images/sample_control_r1_s1.DAPI_WGA_roi.crop.png
+    Deleted:    output/molkart_segmentation_images/sample_control_r1_s1.DAPI_WGA_roi.crop.scale.png
+    Deleted:    output/molkart_segmentation_images/sample_control_r1_s1.cellpose_full_image.outline.tif
+    Deleted:    output/molkart_segmentation_images/sample_control_r1_s1.cellpose_full_image.roi.outline.tif
+    Deleted:    output/molkart_segmentation_images/sample_control_r1_s1.cellpose_full_image.roi.tif
+    Deleted:    output/molkart_segmentation_images/sample_control_r1_s1.cellpose_full_image.tif
+    Deleted:    output/molkart_segmentation_images/sample_control_r1_s1.cellpose_mask.crop.png
+    Deleted:    output/molkart_segmentation_images/sample_control_r1_s1.cellpose_mask.crop.scale.png
+    Deleted:    output/molkart_segmentation_images/sample_control_r1_s1.cellpose_mask_roi.crop.png
+    Deleted:    output/molkart_segmentation_images/sample_control_r1_s1.cellpose_mask_roi.crop.scale.png
+    Deleted:    output/proteomics.filt_imputed_proteins.tsv
+    Deleted:    output/proteomics.filtered_proteins.tsv
+    Deleted:    output/proteomics.pca_res.rds
+    Deleted:    output/proteomics.protein_missing_stats.tsv
+    Deleted:    output/proteomics.vsn_norm_proteins.tsv
+    Modified:   plots/Figure1.dotplot.pdf
 
 </code></pre>
 <p>
@@ -628,6 +703,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/67e546d5865fdd50e7218ad805ecec53dce079f7/docs/proteomics.pathway_enrichment_analysis.html" target="_blank">67e546d</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-07-23
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -764,7 +856,7 @@ from the proteomic analysis.</p>
 <p>First, we load our results from the limma differential expression
 analysis that we calculated in <a
 href="./proteomics.bulk_de_analysis.html">DEP analysis</a>.</p>
-<pre class="r"><code>limma_res &lt;- fread(&quot;./output/limma.full_statistics.tsv&quot;)
+<pre class="r"><code>limma_res &lt;- fread(&quot;./output/proteomics/proteomics.limma.full_statistics.tsv&quot;)
 
 ## groups : &quot;MI_IZ_vs_control&quot;     &quot;MI_remote_vs_control&quot; &quot;MI_IZ_vs_MI_remote&quot;
 
@@ -1255,7 +1347,7 @@ sig_pathways_mi &lt;- subset(mi_ulm,p_value &lt;= 0.05) %&gt;%
   dplyr::select(-statistic,-condition)
 
 write.table(mi_ulm,
-            file = &quot;./output/proteomics.pathway_results.MIiz_MIremote.tsv&quot;,
+            file = &quot;./output/proteomics/proteomics.pathway_results.MIiz_MIremote.tsv&quot;,
             sep = &quot;\t&quot;,
             col.names = TRUE,
             row.names = FALSE,
@@ -1330,7 +1422,7 @@ Session information
 <pre class="r"><code>sessionInfo()</code></pre>
 <pre><code>R version 4.2.3 (2023-03-15)
 Platform: aarch64-apple-darwin20 (64-bit)
-Running under: macOS Ventura 13.4.1
+Running under: macOS Ventura 13.5
 
 Matrix products: default
 BLAS:   /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/lib/libRblas.0.dylib
@@ -1344,48 +1436,49 @@ attached base packages:
 [8] base     
 
 other attached packages:
- [1] ggsci_3.0.0          cowplot_1.1.1        lubridate_1.9.2     
- [4] forcats_1.0.0        stringr_1.5.0        dplyr_1.1.2         
- [7] purrr_1.0.1          readr_2.1.4          tidyr_1.3.0         
-[10] tibble_3.2.1         ggplot2_3.4.2        tidyverse_2.0.0     
-[13] pheatmap_1.0.12      data.table_1.14.8    GSEABase_1.60.0     
-[16] graph_1.76.0         annotate_1.76.0      XML_3.99-0.14       
-[19] AnnotationDbi_1.60.2 IRanges_2.32.0       S4Vectors_0.36.2    
-[22] Biobase_2.58.0       BiocGenerics_0.44.0  here_1.0.1          
-[25] OmnipathR_3.9.6      decoupleR_2.5.2      workflowr_1.7.0     
+ [1] RColorBrewer_1.1-3   ggsci_3.0.0          cowplot_1.1.1       
+ [4] lubridate_1.9.2      forcats_1.0.0        stringr_1.5.0       
+ [7] dplyr_1.1.2          purrr_1.0.1          readr_2.1.4         
+[10] tidyr_1.3.0          tibble_3.2.1         ggplot2_3.4.2       
+[13] tidyverse_2.0.0      pheatmap_1.0.12      data.table_1.14.8   
+[16] GSEABase_1.60.0      graph_1.76.0         annotate_1.76.0     
+[19] XML_3.99-0.14        AnnotationDbi_1.60.2 IRanges_2.32.0      
+[22] S4Vectors_0.36.2     Biobase_2.58.0       BiocGenerics_0.44.0 
+[25] here_1.0.1           OmnipathR_3.9.6      decoupleR_2.5.2     
+[28] workflowr_1.7.0     
 
 loaded via a namespace (and not attached):
  [1] colorspace_2.1-0       rprojroot_2.0.3        XVector_0.38.0        
- [4] fs_1.6.2               rstudioapi_0.14        farver_2.1.1          
- [7] bit64_4.0.5            fansi_1.0.4            xml2_1.3.4            
-[10] cachem_1.0.8           knitr_1.42             jsonlite_1.8.4        
-[13] png_0.1-8              BiocManager_1.30.21    compiler_4.2.3        
+ [4] fs_1.6.3               rstudioapi_0.15.0      farver_2.1.1          
+ [7] bit64_4.0.5            fansi_1.0.4            xml2_1.3.5            
+[10] cachem_1.0.8           knitr_1.43             jsonlite_1.8.7        
+[13] png_0.1-8              BiocManager_1.30.21.1  compiler_4.2.3        
 [16] httr_1.4.6             backports_1.4.1        Matrix_1.5-3          
 [19] fastmap_1.1.1          cli_3.6.1              later_1.3.1           
 [22] htmltools_0.5.5        prettyunits_1.1.1      tools_4.2.3           
-[25] igraph_1.4.3           gtable_0.3.3           glue_1.6.2            
+[25] igraph_1.5.0.1         gtable_0.3.3           glue_1.6.2            
 [28] GenomeInfoDbData_1.2.9 reshape2_1.4.4         rappdirs_0.3.3        
-[31] Rcpp_1.0.10            cellranger_1.1.0       jquerylib_0.1.4       
-[34] vctrs_0.6.2            Biostrings_2.66.0      xfun_0.39             
-[37] ps_1.7.4               rvest_1.0.3            timechange_0.2.0      
-[40] lifecycle_1.0.3        renv_0.17.3            getPass_0.2-2         
+[31] Rcpp_1.0.11            cellranger_1.1.0       jquerylib_0.1.4       
+[34] vctrs_0.6.3            Biostrings_2.66.0      xfun_0.39             
+[37] ps_1.7.5               rvest_1.0.3            timechange_0.2.0      
+[40] lifecycle_1.0.3        renv_1.0.0             getPass_0.2-2         
 [43] zlibbioc_1.44.0        scales_1.2.1           hms_1.1.3             
-[46] promises_1.2.0.1       parallel_4.2.3         RColorBrewer_1.1-3    
-[49] yaml_2.3.7             curl_5.0.0             memoise_2.0.1         
-[52] sass_0.4.6             stringi_1.7.12         RSQLite_2.3.1         
-[55] highr_0.10             checkmate_2.2.0        GenomeInfoDb_1.34.9   
-[58] rlang_1.1.1            pkgconfig_2.0.3        bitops_1.0-7          
-[61] evaluate_0.21          lattice_0.20-45        labeling_0.4.2        
-[64] bit_4.0.5              processx_3.8.0         tidyselect_1.2.0      
-[67] parallelly_1.36.0      plyr_1.8.8             logger_0.2.2          
-[70] magrittr_2.0.3         R6_2.5.1               generics_0.1.3        
-[73] DBI_1.1.3              pillar_1.9.0           whisker_0.4.1         
-[76] withr_2.5.0            KEGGREST_1.38.0        RCurl_1.98-1.12       
-[79] crayon_1.5.2           utf8_1.2.3             tzdb_0.4.0            
-[82] rmarkdown_2.21         progress_1.2.2         grid_4.2.3            
-[85] readxl_1.4.2           blob_1.2.4             callr_3.7.3           
-[88] git2r_0.32.0           digest_0.6.31          xtable_1.8-4          
-[91] httpuv_1.6.11          munsell_0.5.0          bslib_0.4.2           </code></pre>
+[46] promises_1.2.0.1       parallel_4.2.3         yaml_2.3.7            
+[49] curl_5.0.1             memoise_2.0.1          sass_0.4.7            
+[52] stringi_1.7.12         RSQLite_2.3.1          highr_0.10            
+[55] checkmate_2.2.0        GenomeInfoDb_1.34.9    rlang_1.1.1           
+[58] pkgconfig_2.0.3        bitops_1.0-7           evaluate_0.21         
+[61] lattice_0.20-45        labeling_0.4.2         bit_4.0.5             
+[64] processx_3.8.2         tidyselect_1.2.0       parallelly_1.36.0     
+[67] plyr_1.8.8             logger_0.2.2           magrittr_2.0.3        
+[70] R6_2.5.1               generics_0.1.3         DBI_1.1.3             
+[73] pillar_1.9.0           whisker_0.4.1          withr_2.5.0           
+[76] KEGGREST_1.38.0        RCurl_1.98-1.12        crayon_1.5.2          
+[79] utf8_1.2.3             tzdb_0.4.0             rmarkdown_2.23        
+[82] progress_1.2.2         grid_4.2.3             readxl_1.4.3          
+[85] blob_1.2.4             callr_3.7.3            git2r_0.32.0          
+[88] digest_0.6.33          xtable_1.8-4           httpuv_1.6.11         
+[91] munsell_0.5.0          bslib_0.5.0           </code></pre>
 </div>
 </div>
 </div>

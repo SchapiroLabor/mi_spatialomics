@@ -27,7 +27,7 @@ library(plotly)
 library(vsn)
 library(limma)
 
-source(here("./code/functions.R"))
+source("./code/functions.R")
 ```
 
 # Introduction
@@ -42,7 +42,7 @@ First, let's load the filtered protein table from the previous step [Filter prot
 
 ```{r}
 ## Import imputed protein table (our "bulk" data)
-clean_proteins <- fread(file = "./output/proteomics.filtered_proteins.tsv")
+clean_proteins <- fread(file = "./output/proteomics/proteomics.filtered_proteins.tsv")
 ```
 
 ```{r}
@@ -79,7 +79,7 @@ meanSdPlot(vsnMatrix)
 vsnMatrix_store <- as.data.frame(vsnMatrix)
 vsnMatrix_store$gene <- gene_mapping$Genes
 write.table(vsnMatrix_store,
-            file = "./output/proteomics.vsn_norm_proteins.tsv",
+            file = "./output/proteomics/proteomics.vsn_norm_proteins.tsv",
             col.names = TRUE,
             row.names = FALSE,
             quote = FALSE)
@@ -116,7 +116,7 @@ ggplot(pcs,aes(PC1,PC2, color = group, fill = group)) +
   guides(fill=guide_legend(title="Treatment group"))
 
 saveRDS(res.pca,
-        file = "./output/proteomics.pca_res.rds")
+        file = "./output/proteomics/proteomics.pca_res.rds")
 ```
 
 As expected, samples separate in PC1, based on their group category, confirming that the strongest effect between samples is whether the heart experienced an infarct and the location of the endocardial cells relative to the infarct zone.
@@ -207,9 +207,6 @@ volc_limma_remote_ctr <- plot_pretty_volcano(limma_mi_ctr,
                                       col_pos_logFC = "#E64B35FF",
                                       col_neg_logFC = "#3DA873FF") 
 ggplotly(volc_limma_remote_ctr)
-
-## Plot two targets to check results
-
 ```
 
 ## Comparison of MI_IZ with MI_remote endocardial region
@@ -235,7 +232,7 @@ Let's combine the results from the limma test into one big table and save it for
 limma_merged_stats <- rbind(limma_mi_ctr,limma_remote_ctr,limma_mi_remote)
 
 write.table(limma_merged_stats,
-            file = "./output/limma.full_statistics.tsv",
+            file = "./output/proteomics/proteomics.limma.full_statistics.tsv",
             sep = "\t",
             col.names = TRUE,
             row.names = FALSE,
@@ -381,7 +378,7 @@ MI_induced_prots_IZ <- subset(test_res_iz_remote,gene %in% MI_induced_prots_IZ$g
 ```{r}
 mi_iz_unique_genes <- subset(MI_induced_prots_IZ, adj_pval <= 0.05)
 write.table(unique(mi_iz_unique_genes$gene),
-            file = "./output/mi_iz_specific_proteins.tsv",
+            file = "./output/proteomics/proteomics.mi_iz_specific_proteins.tsv",
             col.names = FALSE,
             row.names = FALSE,
             quote = FALSE)

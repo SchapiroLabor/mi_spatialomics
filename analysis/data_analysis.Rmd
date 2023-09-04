@@ -9,28 +9,25 @@ editor_options:
 
 # Molecular Cartography
 
-## Processing of raw data
-
-These scripts were used to process raw Molecular Cartography data using the nf-Molkart pipeline. The
-
-
-## R
+These scripts were used to analyze Molecular Cartography data from the nf-Molkart pipeline.
 
 1) [QC RNA spots](./molkart.QC_spots.html)
 2) [Seurat analysis of Molkart output](./molkart.process_quantifications_seurat.Rmd)
-3) 
-
-## Python
-
-1) 
+3) [Misty and abundance analysis](./molkart.misty_neighbourhood_analysis.Rmd)
 
 # Lunaphore
 
-## Python
+These scripts were used to analyze SeqIF data from the Lunaphore COMET platform processed using MCMICRO.
+
+1) [Pixie : Marker images, pixel and cell clusters using Napari](./seqIF_python/seqIF.figure_3.create_pixie_images.ipynb)
+2) [Pixie : Heatmaps for pixel and cell clustering and cell cluster changes over time](./seqIF.heatmaps_pixie.figure3.Rmd)
+3) [SeqIF region quantifications for Figure 3](./seqIF.region_quantification.Rmd)
+4) [SeqIF Jupyter notebook to create image views](./seqIF.figure_3.infiltration_screenshots.ipynb)
+
 
 # Laser-microdissection coupled with high-sensitivity proteomics
 
 1) [Filter proteomic data](./proteomics.filter_proteomic_data.html)
-2) [Differential protein expression (DEPs)](./proteomics.bulk_de_analysis.html)
+2) [Identification of differentially expressed proteins (DEPs)](./proteomics.bulk_de_analysis.html)
 3) [Pathway enrichment analysis of DEPs](./proteomics.pathway_enrichment_analysis.html)
 4) [Comparing snRNA-seq data with proteomic data](./proteomics.scRNAseq_comparison.html)

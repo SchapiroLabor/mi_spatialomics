@@ -14,7 +14,6 @@ theme_set(theme_cowplot_custom)
 
 time_palette <- brewer.pal(4, "Dark2")
 
-
 ################
 ## Seurat analysis for Molkart data
 ################

@@ -17,7 +17,7 @@ library(GSEABase)
 library(data.table)
 library(pheatmap)
 
-source(here("./code/functions.R"))
+source("./code/functions.R")
 ```
 
 # Introduction
@@ -29,7 +29,7 @@ Here, we are going to perform pathway analysis on the limma results from the pro
 First, we load our results from the limma differential expression analysis that we calculated in [DEP analysis](./proteomics.bulk_de_analysis.html).
 
 ```{r}
-limma_res <- fread("./output/limma.full_statistics.tsv")
+limma_res <- fread("./output/proteomics/proteomics.limma.full_statistics.tsv")
 
 ## groups : "MI_IZ_vs_control"     "MI_remote_vs_control" "MI_IZ_vs_MI_remote"
 
@@ -42,6 +42,13 @@ mi_signature <- mi_signature %>%
   column_to_rownames(var = "gene") %>%
   as.matrix()
 
+missing_stats <- subset(limma_res,is.na(t))$gene
+write.table(missing_stats,
+            file = "./output/proteomics/proteomics.missing_stats_proteinnames.tsv",
+            sep= "\t",
+            col.names = FALSE,
+            row.names = FALSE,
+            quote = FALSE)
 ```
 
 # Pathway activity analysis using decoupler
@@ -76,7 +83,7 @@ sig_pathways_mi <- subset(mi_ulm,p_value <= 0.05) %>%
   dplyr::select(-statistic,-condition)
 
 write.table(mi_ulm,
-            file = "./output/proteomics.pathway_results.MIiz_MIremote.tsv",
+            file = "./output/proteomics/proteomics.pathway_results.MIiz_MIremote.tsv",
             sep = "\t",
             col.names = TRUE,
             row.names = FALSE,

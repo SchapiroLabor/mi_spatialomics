@@ -10,7 +10,6 @@ editor_options:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-library(here)
 library(RColorBrewer)
 library(patchwork)
 library(vroom)
@@ -26,7 +25,7 @@ source("./code/functions.R")
 The data used in this plot was calculated here:[1_QC_spots.Rmd](../analysis/1_QC_spots.Rmd)
 
 ```{r}
-merge_tx_sums <- vroom("./output/tx_abundances_per_slide.tsv")
+merge_tx_sums <- vroom("./output/mol_cart/tx_abundances_per_slide.tsv")
 ```
 
 ```{r}
@@ -67,20 +66,22 @@ tx_correlation_plot
 The data used in this plot was calculated here: {1_QC_spots.Rmd}(../analysis/1_count_spots_on_tissue.ipynb)
 
 ```{r}
-spots_tissue <- vroom(here("./output/spots_per_tissue.tsv"))
+spots_tissue <- vroom("./output/mol_cart/spots_per_tissue.tsv")
 spots_tissue <- spots_tissue %>%
   separate(sample, into =c("sample","time","replicate","slide"), sep = "_")
 
 spots_tissue$time <- factor(spots_tissue$time,levels = c("control","4h","2d","4d"))
+spots_tissue <- spots_tissue %>%
+  mutate("spots_per_mm2" = spots_per_um2 * 100)
 
 spots_per_um <- ggbarplot(spots_tissue, 
                           x = "time", 
-                          y = "spots_per_um2",
+                          y = "spots_per_mm2",
                           add = c("mean", "dotplot"), 
                           fill = "time", color = "black",
                           palette = "Dark2") +
    labs (x = "Time",
-         y = expression(bold(paste("Spots / ",mu,m^2, sep="")))) +
+         y = expression(bold(paste("10 000 Spots / ",m,m^2, sep="")))) +
   font("xlab", size = 16, color = "black", face = "bold") +
   font("ylab", size = 16, color = "black", face = "bold") +
     scale_y_continuous(
@@ -88,11 +89,12 @@ spots_per_um <- ggbarplot(spots_tissue,
     expand = expansion(mult = c(0, 0.05))
   ) +
   theme_minimal_hgrid() +
+  theme(axis.title = element_text(face="bold")) +
   rremove("legend")
 
  spots_per_um
  
- avg_spots_per_um = mean(spots_tissue$spots_per_um2)
+ avg_spots_per_um = mean(spots_tissue$spots_per_mm2)
  avg_spots_per_um
 ```
 
@@ -101,7 +103,7 @@ spots_per_um <- ggbarplot(spots_tissue,
 The data used in this plot was calculated here: {1_QC_spots.Rmd}(../analysis/1_QC_spots.Rmd)
 
 ```{r} 
-pcs <- vroom(here("./output/pca_spots.tsv"))
+pcs <- vroom("./output/mol_cart/pca_spots.tsv")
 pcs$time <- factor(pcs$time,
                    levels = c("control","4h","2d","4d"))
 ```
@@ -116,7 +118,6 @@ pca_plot <- ggplot(pcs,aes(PC1,PC2,label = label)) +
 pca_plot
 ```
 
-
 # Assemble final figure
 
 ```{r,fig.height = 8, fig.width = 10}
@@ -129,12 +130,12 @@ supp_figure_2 <- supp_figure_2 +
 
 supp_figure_2
 
-save_plot(filename = here("./figures/Supplementary_figure_2.png"),
+save_plot(filename = "./figures/Supplementary_figure_2.png",
           plot = supp_figure_2,
           base_height = 8)
 
 
-save_plot(filename = here("./figures/Supplementary_figure_2.eps"),
+save_plot(filename = "./figures/Supplementary_figure_2.eps",
           plot = supp_figure_2,
           base_height = 8)
 ```

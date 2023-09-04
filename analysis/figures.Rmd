@@ -9,6 +9,12 @@ editor_options:
 
 # Figures
 
+- [Figure 1](./mol_cart.molkart.Figure1.Rmd)
+- [Figure 2]()
+- [Figure 3]()
+- [Figure 4]()
+- [Figure 5]()
+
 # Supplementary Figures
 
 - [Supplementary Figure 1](../figures/Supplementary_Figure_1_Molecular_Cartography_ROIs.png)

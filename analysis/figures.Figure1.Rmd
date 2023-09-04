@@ -1,0 +1,93 @@
+---
+title: "molkart.Figure1"
+author: "FloWuenne"
+date: "2023-08-11"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+```{r}
+library(tidyverse)
+library(cowplot)
+library(Seurat)
+library(SCpubr)
+library(pals)
+
+source("./code/functions.R")
+```
+
+```{r}
+## If the object has already been computed
+seurat_object <- readRDS(file = "./output/mol_cart/molkart.harmony_seurat_object.rds")
+```
+
+```{r}
+## How many cells did we recover per sample?
+cells_per_sample <- seurat_object@meta.data %>%
+  group_by(sample_ID) %>%
+  tally() %>%
+  ungroup()
+
+mean(cells_per_sample$n)
+```
+
+# Umap plot
+
+```{r}
+pal.bands(alphabet, alphabet2, cols25, glasbey, kelly, polychrome, 
+  stepped, tol, watlington,
+  show.names=FALSE)
+```
+
+
+```{r}
+seurat_object@meta.data$anno_cell_type_lv2 <- gsub("_"," ",seurat_object@meta.data$anno_cell_type_lv2)
+
+## Set color palette
+arr <- list(x = -10, y = -15, x_len = 5, y_len = 5)
+cell_types <- unique(seurat_object@meta.data$anno_cell_type_lv2)
+colors <- cols25(n=length(cell_types))
+named_colors <- colors
+names(named_colors) <- cell_types
+
+umap_plot <- SCpubr::do_DimPlot(sample = seurat_object, 
+                                label = TRUE, label.box = TRUE,
+                                group.by = "anno_cell_type_lv2",
+                   repel = TRUE,legend.position = "none", colors.use = named_colors, plot_cell_borders = TRUE,
+                   plot_density_contour = FALSE, plot.axes = FALSE, raster.dpi = 300, 
+                   label.size = 6)
+
+
+umap_plot
+
+save_plot(umap_plot,
+          file = "./plots/Figure1.umap_plot.pdf",
+          base_height = 6,
+          base_width = 8)
+```
+
+
+# Marker Dotplot
+
+```{r}
+library(viridis)
+genes <- c("Ighm","Npr3","Acta2","Colec11","Fn1","Lyz2","Clu","Nppa","Dcn","Ryr2","Aqp1")
+dotplot <- DotPlot(seurat_object, group.by = "anno_cell_type_lv2",
+        features = c("Ighm","Npr3","Acta2","Colec11","Fn1","Lyz2","Clu","Nppa","Dcn","Ryr2","Aqp1")) +
+  geom_point(aes(size=pct.exp), shape = 21, colour="black", stroke=0.5) +
+  scale_colour_viridis(option="magma", direction = -1) +
+  guides(size=guide_legend(override.aes=list(shape=21, colour="black", fill="white"))) +
+  theme(axis.title =  element_blank(),
+        axis.text.x = element_text(size = 18, angle = 90, vjust = 0.5, hjust=1),
+        axis.text.y = element_text(size = 18),
+        legend.position = "top", legend.text = element_text(size = 18))
+dotplot
+
+save_plot(dotplot,
+          file = "./plots/Figure1.dotplot.pdf",
+          base_height = 8,
+          base_width = 9)
+```

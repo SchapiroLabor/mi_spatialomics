@@ -168,7 +168,7 @@ ggplot(metadata_counts_stat,aes(group,wo_cont)) +
 
 ```{r}
 write.table(metadata_counts,
-            file = "./output/proteomics.protein_missing_stats.tsv",
+            file = "./output/proteomics/proteomics.protein_missing_stats.tsv",
             sep = "\t",
             col.names = TRUE,
             row.names = FALSE,
@@ -185,7 +185,7 @@ prot_res_final <- subset(prot_res_filt,contaminant == "no") %>%
   select(-c(contaminant,First_Protein_Description))
 
 write.table(prot_res_final,
-            file = "./output/proteomics.filtered_proteins.tsv",
+            file = "./output/proteomics/proteomics.filtered_proteins.tsv",
             sep = "\t",
             col.names = TRUE,
             row.names = FALSE,

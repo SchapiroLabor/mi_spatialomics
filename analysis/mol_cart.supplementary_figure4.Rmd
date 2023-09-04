@@ -1,0 +1,114 @@
+---
+title: "mol_cart.supplementary_figure4"
+author: "FloWuenne"
+date: "2023-08-31"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+```{r}
+library(Seurat)
+library(pals)
+```
+
+
+# Load data
+
+```{r}
+seurat_object <- readRDS(file = "./output/mol_cart/molkart.harmony_seurat_object.rds")
+```
+
+# Plot cell types across slides
+
+
+```{r}
+# meta <- seurat_object_sub@meta.data
+# ggplot(meta,aes(Y_centroid,X_centroid, color = anno_cell_type_lv2)) +
+#   geom_point() +
+#   facet_grid(. ~ timepoint, scales = "free_x") +
+#   scale_color_manual(values = named_colors)
+# 
+# expression_plot_list <- list()
+
+samples <- c("sample_control_r1_s1","sample_4h_r1_s1",
+             "sample_2d_r1_s1","sample_4d_r1_s1")
+
+## Set color palette
+arr <- list(x = -10, y = -15, x_len = 5, y_len = 5)
+cell_types <- unique(seurat_object@meta.data$anno_cell_type_lv2)
+colors <- cols25(n=length(cell_types))
+named_colors <- colors
+names(named_colors) <- cell_types
+
+
+expression_plot_list <- list()
+
+cell_x <- 0
+for(cell_type in unique(seurat_object$anno_cell_type_lv2)){
+  print(cell_type)
+  cell_type_plots <- list()
+  sample_x <- 0
+  cell_x <- cell_x + 1
+  for(this_sample in samples){
+    sample_x <- sample_x +1
+    pt_size <- 0.4
+    sample_object <- subset(seurat_object,sample_ID == this_sample)
+    meta <- sample_object@meta.data
+    time <- unique(sample_object$timepoint)
+    
+    highlight_plot <- ggplot(meta,aes(Y_centroid,X_centroid)) +
+      geom_point(data = subset(meta,anno_cell_type_lv2 != cell_type),color = "darkgrey", size = pt_size) +
+      geom_point(data = subset(meta,anno_cell_type_lv2 == cell_type),
+                 fill = named_colors[cell_type], color = named_colors[cell_type],
+                 size = 2* pt_size, pch = 21) +
+      theme_classic() +
+      labs(x = "Spatial 1",
+           y = "Spatial 2") +
+      theme(axis.ticks = element_blank(),
+            axis.text = element_blank(),
+            axis.line = element_blank(),
+            legend.position = "right")
+    
+    if(cell_x == 1){
+      highlight_plot <- highlight_plot + 
+        theme(plot.title=element_text(hjust=0.5, face = "bold")) +
+        labs(title = time,
+             size = 16)
+    }
+    cell_type_plots[[sample_x]] <- highlight_plot
+  
+    if(sample_x == 4){
+          cell_type_label <- gsub("_"," ",cell_type)
+          label_plot <- ggplot() +
+            annotate("text",
+                     x = 1,
+                     y = 1,
+                     size = 4.5,
+                     label = cell_type_label,
+                     fontface = "bold") + 
+            theme_void() +
+            theme(plot.background = element_rect(fill = "white", color = "white"),
+                  panel.background = element_rect(fill = "white", color = "white"))
+      cell_type_plots[["label"]] <- label_plot
+    }
+  }
+  wrapped_ct_plot <- wrap_plots(cell_type_plots, nrow = 1, ncol = 5)
+  
+  expression_plot_list[[cell_type]] <- wrapped_ct_plot
+}
+  
+time_plot <- wrap_plots(expression_plot_list, nrow = length(names(expression_plot_list)), ncol = 1)
+  
+save_plot(time_plot,
+            filename = "./figures/supplementary_figure4.cell_type_distributions.png",
+            base_height = 14,
+            base_width = 12)
+
+save_plot(time_plot,
+            filename = "./figures/supplementary_figure4.cell_type_distributions.eps",
+            base_height = 14,
+            base_width = 12)
+
+```
+

@@ -31,7 +31,7 @@ This supplementary figure contains QC plots for the proteomic data analysis.
 
 ```{r}
 ## load data
-metadata_counts <- fread("./output/proteomics.protein_missing_stats.tsv")
+metadata_counts <- fread("./output/proteomics/proteomics.protein_missing_stats.tsv")
 ```
 
 
@@ -91,7 +91,7 @@ missingness_plot
 # Subfigure C - % variance explained by PCs
 
 ```{r}
-pca_res <- readRDS("./output/proteomics.pca_res.rds")
+pca_res <- readRDS("./output/proteomics/proteomics.pca_res.rds")
 
 sdev <- pca_res$sdev[1:5]
 var_explained <- data.frame(PC = paste0("PC",1:5),
@@ -224,7 +224,7 @@ remote_control_volc
 # Plot candidate protein expressions
 
 ```{r}
-vsn_matrix <- fread("./output/proteomics.vsn_norm_proteins.tsv")
+vsn_matrix <- fread("./output/proteomics/proteomics.vsn_norm_proteins.tsv")
 #colnames(vsn_matrix)[1:11] <- paste("s",1:11,colnames(vsn_matrix)[1:11],sep="_")
 protein_sub <- vsn_matrix  %>%
     dplyr::select(1:11,gene) %>%
@@ -265,9 +265,9 @@ vsn_matrix_t <- vsn_matrix_t %>%
   dplyr::select(strongest_proteins[1:40,]$gene)
 
 
-library(heatmaply)
-exp_heatmap <- heatmaply(vsn_matrix_t, plot_method = "ggplot")
-exp_heatmap
+# library(heatmaply)
+# exp_heatmap <- heatmaply(vsn_matrix_t, plot_method = "ggplot")
+# exp_heatmap
 ```
 
 

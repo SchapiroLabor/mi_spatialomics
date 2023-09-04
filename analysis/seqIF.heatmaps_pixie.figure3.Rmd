@@ -1,0 +1,334 @@
+---
+title: "lunaphore.heatmaps_pixie.figure3"
+author: "FloWuenne"
+date: "2023-08-21"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+```{r}
+library(pheatmap)
+library(data.table)
+library(viridis)
+library(RColorBrewer)
+library(tidyverse)
+library(pals)
+library(vroom)
+library(plotly)
+
+pixel_map_color <- c("#0173B2", "#DE8F05", "#029E73", "#D55E00", "#CC78BC",
+                "#CA9161", "#FBAFE4", "#949494", "#ECE133", "#56B4E9")
+
+cell_cluster_colors <- c("#6b004f","#ff7ed1",
+                         "#018700","#d60000",
+                         "#97ff00","#ffa52f",
+                         "#d55e00","#8c3bff",
+                         "#0000dd","#ff00ff")
+
+names(cell_cluster_colors) <- c("Fibroblasts","Neutrophils",
+                                "Mono / Macros Ccr2+","Smooth muscle cells",
+                                "Macrophages Trem2+","Cardiomyocytes Ankrd1+",
+                                "Endothelial cells","Other Leukocytes",
+                                "Cardiomyocytes","Macrophages Trem2-")
+
+source("./code/functions.R")
+```
+
+# Pixel cluster 
+
+## Pixel cluster maps
+
+```{r}
+avg_pixel_cluster <- fread("/Users/florian_wuennemann/1_Projects/MI_project/Lunaphore/pixie/masked_subset/subset_0.05_wseg/pixel_channel_avg_meta_cluster.csv")
+avg_pixel_cluster <- avg_pixel_cluster %>%
+  subset(pixel_meta_cluster_rename != "background")
+```
+
+
+```{r}
+mat_rownames <- avg_pixel_cluster$pixel_meta_cluster_rename
+mat_rownames <- gsub("_","+ ",mat_rownames)
+mat_rownames <- paste(mat_rownames,"pixels", sep = " ")
+mat_dat <- avg_pixel_cluster %>%
+  dplyr::select(-c(pixel_meta_cluster,count,pixel_meta_cluster_rename))
+```
+
+
+```{r}
+cap = 3 #hierarchical clustering cap
+hclust_coln = "pixel_meta_cluster_rename"
+rwb_cols = colorRampPalette(c("royalblue4","white","red4"))(99)
+
+mat_dat = scale(mat_dat)
+mat_dat = pmin(mat_dat, cap)
+rownames(mat_dat) <- mat_rownames
+
+# Determine breaks
+range = max(abs(mat_dat))
+breaks = seq(-range, range, length.out=100)
+
+mat_col = data.frame(pixel_cluster = as.factor(mat_rownames))
+rownames(mat_col) <- mat_rownames
+mat_colors = pixel_map_color[1:length(mat_rownames)]
+names(mat_colors) = mat_rownames
+mat_colors = list(pixel_cluster = mat_colors)
+
+# Make heatmap
+pheatmap(mat_dat,
+         color = rwb_cols,
+         border_color = "black",
+         breaks = breaks,
+         cluster_rows = TRUE,
+         cluster_cols = TRUE,
+         treeheight_col = 25,
+         treeheight_row = 25,
+         #treeheight_col = 0,
+         show_rownames = TRUE,
+         annotation_row = mat_col,
+         annotation_colors = mat_colors,
+         annotation_names_row = FALSE,
+         annotation_legend = FALSE,
+         legend = TRUE,
+         #legend_breaks = c(-3,-2,-1,0,1,2,3),
+         #legend_labels = c("-3","-2","-1","0","1","2","3"),
+         main = "",
+         filename = "./output/seqIF/figure3.pixie_pixel_cluster_heatmap.png",
+         fontsize = 20,
+         width = 8,
+         height = 6)
+dev.off()
+```
+
+## Pixel cluster changes over time
+
+```{r}
+## read in pixel cluster counts
+pixel_counts = fread("/Users/florian_wuennemann/1_Projects/MI_project/Lunaphore/pixie/masked_subset/subset_0.05_wseg/pixel_counts.all_samples.csv")
+```
+
+```{r}
+pixel_cluster_counts_stats <- pixel_counts %>%
+  subset(Pixel_cluster != "background") %>%
+  separate("Sample_ID", into = c("time","sample")) %>%
+  group_by(time,Pixel_cluster) %>%
+  summarise("n_pixel" = sum(Count)) %>%
+  mutate("percent" = n_pixel / sum(n_pixel)) %>%
+  ungroup()
+```
+
+```{r}
+pixel_cluster_counts_stats$time <-factor(pixel_cluster_counts_stats$time,
+                              levels = c("Control","4h","24h","48h"))
+
+pixel_cluster_counts_stats$time_cont <- as.numeric(pixel_cluster_counts_stats$time)
+```
+
+
+```{r}
+#ggplot(cells_over_time, aes(x=time, y=percent, fill=cell_meta_cluster)) +
+  #geom_bar(stat = "identity", position = "stack",color = "black")
+
+pixel_number_distribution <- ggplot(pixel_cluster_counts_stats, 
+                                    aes(x=time_cont, y=percent)) +
+  geom_area(aes(fill = Pixel_cluster), color = "black") +
+  theme(legend.position = "none",
+        axis.line = element_blank()) +
+  scale_fill_manual(values = pixel_map_color) +
+  scale_x_discrete(expand = c(0,0.1),
+                   name ="Time", 
+                   limits=c("Control","4h","24h","48h")) +
+  labs(y = "% cells")
+
+pixel_number_distribution
+
+save_plot(pixel_number_distribution,
+          file = "./plots/Figure3.pixel_clusters_overtimes.pdf",
+          base_height = 3.5,
+          base_asp = 1)
+```
+
+
+# Cell cluster map
+
+## Cell cluster tissue maps
+
+```{r}
+avg_cell_cluster <- fread("/Users/florian_wuennemann/1_Projects/MI_project/Lunaphore/pixie/masked_subset/cell_masks_0.05/cell_meta_cluster_count_avg.csv")
+colnames(avg_cell_cluster) <- gsub("pixel_meta_cluster_rename_","",colnames(avg_cell_cluster))
+avg_cell_cluster <- avg_cell_cluster %>%
+  subset(cell_meta_cluster_rename != "background") %>%
+  subset(cell_meta_cluster_rename != "out_of_mask") %>%
+  dplyr::select(-c(background,count))
+```
+
+```{r}
+mat_rownames <- avg_cell_cluster$cell_meta_cluster_rename
+mat_rownames <- gsub("_","+ ",mat_rownames)
+mat_dat <- avg_cell_cluster %>%
+  dplyr::select(-c(cell_meta_cluster,cell_meta_cluster_rename))
+```
+
+
+```{r}
+cap = 3 #hierarchical clustering cap
+hclust_coln = "pixel_meta_cluster_rename"
+rwb_cols = colorRampPalette(c("royalblue4","white","red4"))(99)
+
+mat_dat = scale(mat_dat)
+mat_dat = pmin(mat_dat, cap)
+rownames(mat_dat) <- mat_rownames
+
+# Determine breaks
+range = max(abs(mat_dat))
+breaks = seq(-range, range, length.out=100)
+
+## Set color palette
+mat_col = data.frame(cell_cluster = as.factor(mat_rownames))
+rownames(mat_col) <- mat_rownames
+mat_colors = cell_cluster_color[1:length(mat_rownames)]
+names(mat_colors) = mat_rownames
+#mat_colors = list(pixel_cluster = mat_colors)
+mat_colors = list(cell_cluster = cell_cluster_colors)
+
+# Make heatmap
+pheatmap(mat_dat,
+         color = rwb_cols,
+         border_color = "black",
+         breaks = breaks,
+         cluster_rows = TRUE,
+         cluster_cols = TRUE,
+         treeheight_col = 25,
+         treeheight_row = 25,
+         #treeheight_col = 0,
+         show_rownames = TRUE,
+         annotation_row = mat_col,
+         annotation_colors = mat_colors,
+         annotation_names_row = FALSE,
+         annotation_legend = FALSE,
+         legend = TRUE,
+         #legend_breaks = c(-3,-2,-1,0,1,2,3),
+         #legend_labels = c("-3","-2","-1","0","1","2","3"),
+         main = "",
+         filename = "./output/seqIF/figure3.pixie_cell_cluster_heatmap.pdf",
+         fontsize = 20,
+         width = 8,
+         height = 6)
+```
+
+## Cell cluster changes over time
+
+```{r}
+cells_over_time <- fread("/Users/florian_wuennemann/1_Projects/MI_project/Lunaphore/pixie/masked_subset/cell_masks_0.05/cell_table_size_normalized_cell_labels.csv")
+cell_groups_sample <- cells_over_time %>%
+  separate("fov", into = c("time","sample"), remove = FALSE) %>%
+  group_by(fov,time,cell_meta_cluster) %>%
+  tally()
+
+n_cell_plot <- ggplot(cell_groups_sample,aes(cell_meta_cluster,log10(n),color = fov,
+                              label = fov)) +
+  geom_point(size = 3,aes(shape = time)) +
+  coord_flip()
+
+ggplotly(n_cell_plot)
+```
+
+```{r}
+## Plot distribution of all cell types for a given sample
+unique(cells_over_time$cell_meta_cluster)
+unique(cells_over_time$fov)
+cells_over_time_sub <- subset(cells_over_time,fov == "48h_79")
+spatial_plot <- ggplot(cells_over_time_sub,aes(X_centroid,Y_centroid,color = cell_meta_cluster)) +
+  geom_point(size = 0.01) +
+  facet_wrap(~ cell_meta_cluster) +
+  labs(title= unique(cells_over_time_sub$fov))
+
+spatial_plot
+```
+
+```{r}
+## Plot distribution of 1 cell type over time
+# cells_over_time_sub <- subset(cells_over_time,fov %in% c("Control_14","4h_97","24h_86","48h_76"))
+cells_over_time_sub <- cells_over_time
+pt_size = 0.001
+
+# cells_over_time_sub$fov <- factor(cells_over_time_sub$fov, 
+#                                   levels = c("Control_14","4h_97","24h_86","48h_76"))
+
+spatial_plot_monos_macros_ccr2 <- ggplot(cells_over_time_sub,aes(X_centroid,Y_centroid)) +
+    geom_point(data = subset(cells_over_time_sub,cell_meta_cluster == "Cardiomyocytes"),size = pt_size,
+             color = "darkgrey") +
+  geom_point(data = subset(cells_over_time_sub,cell_meta_cluster == "Cardiomyocytes Ankrd1+"),size = pt_size,
+             color = "blue") +
+  geom_point(data = subset(cells_over_time_sub,cell_meta_cluster == "Neutrophils" | cell_meta_cluster ==  "Mono / Macros Ccr2+"),size = pt_size,
+             color = "magenta", alpha = 0.5) +
+    # geom_point(data = subset(cells_over_time_sub,cell_meta_cluster == "Mono / Macros Ccr2+"),size = pt_size,
+    #          color = "yellow") +
+  facet_wrap(~ fov)
+
+spatial_plot_monos_macros_ccr2
+```
+
+
+
+```{r}
+## Color palette
+cells_over_time_sub <-  cells_over_time %>%
+#  mutate("cell_type_labels" = if_else(grepl("Macro|Neutro",cell_meta_cluster),"Myeloid cells",cell_meta_cluster))
+  mutate("cell_type_labels" = cell_meta_cluster)
+
+cells_over_time_sub <- cells_over_time_sub %>%
+  subset(!cell_type_labels %in% c("background","out_of_mask")) %>%
+  separate("fov", into = c("time","sample")) %>%
+  group_by(time,cell_type_labels) %>%
+  tally() %>%
+  ungroup()
+
+cells_over_time_sub <- cells_over_time_sub %>%
+  group_by(time) %>%
+  mutate("percent" = n / sum(n)) %>%
+  ungroup()
+```
+
+
+```{r}
+cells_over_time_sub$time <-factor(cells_over_time_sub$time,
+                              levels = c("Control","4h","24h","48h"))
+
+cells_over_time_sub$time_cont <- as.numeric(cells_over_time_sub$time)
+
+cell_number_distribution_bar <- ggplot(cells_over_time_sub, aes(x=time_cont, y=percent, fill= cell_type_labels)) +
+  #geom_area(aes(fill = cell_type_labels), color = "black") +
+  geom_bar(stat = "identity", position = "fill", color = "black") +
+  theme(legend.position = "right",
+        legend.title = element_blank(),
+        axis.line = element_blank(),
+        legend.text=element_text(size=18),
+        axis.text = element_text(size=18)) +
+  labs(y = "% cells") +
+  scale_fill_manual(values = cell_cluster_colors) +
+  scale_x_discrete(expand = c(0,0.1),
+                   name ="Time",
+                    limits=c("Control","4h","24h","48h")) +
+  guides(fill=guide_legend(nrow=10,byrow=TRUE))
+
+cell_number_distribution_bar
+
+## Continuous plot
+# mat_colors = cell_cluster_color[1:length(mat_rownames)]
+# cell_number_distribution <- ggplot(cells_over_time_sub, aes(x=time_cont, y=percent)) +
+#   geom_area(aes(fill = cell_type_labels), color = "black") +
+#   theme(legend.position = "none",
+#         axis.line = element_blank()) +
+#   #scale_fill_manual(values = mat_colors) +
+#   scale_x_discrete(expand = c(0,0.1),
+#                    name ="Time", 
+#                     limits=c("Control","4h","24h","48h")) +
+#   labs(y = "% cells")
+# cell_number_distribution
+
+save_plot(cell_number_distribution_bar,
+          file = "./plots/Figure3.cell_types_overtimes.pdf",
+          base_height = 6,
+          base_asp = 1.3)
+```

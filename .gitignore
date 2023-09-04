@@ -1,10 +1,7 @@
-output/harmony.molkart.h5Seurat
-output/molkart.harmony_seurat_object.rds
-plots/Figure1.umap_plot.pdf
-output/molkart_figure1_images/**
-output/molkart_segmentation_images/**
-output/molkart_spot_imgs/**
-output/harmony.molkart.h5Seurat
+data/**
+output/**
+plots/**
+figures/**
 omnipathr-log/**
 .Rproj.user
 .Rhistory

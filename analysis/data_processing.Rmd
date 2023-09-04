@@ -7,7 +7,15 @@ editor_options:
   chunk_output_type: console
 ---
 
-## Introduction
+# Molecular Cartography
 
-Test
+## Processing of raw data
+
+These scripts were used to process raw Molecular Cartography data using the nf-Molkart pipeline. The configurations, parameters and models used to process the data can be found in the following files:
+
+
+
+# Lunaphore
+
+Raw Lunaphore images were processed using [MCMICRO](). The configurations, parameters and commands used can be found in the following files:
 

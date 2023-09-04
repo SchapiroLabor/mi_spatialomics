@@ -18,8 +18,9 @@ library(Nebulosa)
 library(data.table)
 library(ggrepel)
 library(plotly)
+library(SeuratDisk)
 
-source(here("./code/functions.R"))
+source("./code/functions.R")
 ```
 
 ## Introduction
@@ -31,13 +32,13 @@ We reprocessed the data from Calcagno et al, using the original cell-type annota
 
 ```{r}
 ## Load reprocessed Calcagno et al seurat object
-calcagno_et_al <- readRDS("./data/140623.calcagno_et_al.seurat_object.rds")
+calcagno_et_al <- LoadH5Seurat("./data/Calcagno2022_int_logNorm_annot.h5Seurat")
 ```
 
 ```{r}
 ## Get only control cells for marker calculation
-calcagno_et_al_d0 <- subset(calcagno_et_al,time == "d0")
-calcagno_et_al_d1 <- subset(calcagno_et_al,time == "d1")
+calcagno_et_al_d0 <- subset(calcagno_et_al,time == "D0")
+calcagno_et_al_d1 <- subset(calcagno_et_al,time == "D1")
 ```
 
 
@@ -65,7 +66,7 @@ We will use the snRNAseq data to identify proteins likely differentially express
 ## Check subclustering of endocard cells at d1
 
 ```{r}
-endocard_d1 <- subset(calcagno_et_al, cell_type == "Endocardial_cells" & time == "d1")
+endocard_d1 <- subset(calcagno_et_al, level_2 == "Endocardial" & time == "D1")
 ```
 
 ```{r}
@@ -79,7 +80,6 @@ endocard_d1 <- FindClusters(endocard_d1, verbose = FALSE, resolution = 0.2)
 
 ```{r}
 DimPlot(endocard_d1, label = TRUE) + NoLegend()
-DimPlot(endocard_d1, label = FALSE, group.by = "rep")
 ```
 
 ```{r}
@@ -89,7 +89,7 @@ endo_diff_marker_top <- endo_diff_marker %>%
 ```
 
 ```{r}
-VlnPlot(endocard_d1, features = c("Selp","Taco1","Serpine1","Prkg1","Nrg1"))
+VlnPlot(endocard_d1, features = c("Npr3","Selp","Taco1","Serpine1","Prkg1","Nrg1"))
 ```
 
 ## Correlate pseudobulk snRNA-seq expression in endocardial cells with proteomic measurements
@@ -97,14 +97,14 @@ VlnPlot(endocard_d1, features = c("Selp","Taco1","Serpine1","Prkg1","Nrg1"))
 Let's load the proteomic data now: 
 
 ```{r}
-limma_res <- fread("./output/limma.full_statistics.tsv")
+limma_res <- fread("./output/proteomics/proteomics.limma.full_statistics.tsv")
 
 ## Extract statistics for different contrasts
 miiz_vs_control_signature <- subset(limma_res,analysis == "MI_IZ_vs_control")
 miiz_vs_remote_signature <- subset(limma_res,analysis == "MI_IZ_vs_MI_remote")
 
 ## Load the normalized protein matrix as well
-protein_mat <- fread(file = "./output/proteomics.vsn_norm_proteins.tsv")
+protein_mat <- fread(file = "./output/proteomics/proteomics.vsn_norm_proteins.tsv")
 protein_mat_avg <- protein_mat %>%
   mutate(avg_control=rowMeans(.[ , c("control_r1","control_r2","control_r3")], na.rm=TRUE)) %>%
   mutate(avg_MI_IZ=rowMeans(.[ , c("MI_IZ_r1","MI_IZ_r2","MI_IZ_r3","MI_IZ_r4")], na.rm=TRUE)) %>%
@@ -115,8 +115,8 @@ protein_mat_avg <- protein_mat %>%
 
 ```{r}
 ## Calculate pseudobulk expression profiles for endocardial cells
-endocard_seurat <- subset(calcagno_et_al, cell_type == "Endocardial_cells")
-sn_endo_bulk <- AverageExpression(endocard_seurat, group.by = c("time"))
+endocard_seurat <- subset(calcagno_et_al, level_2 == "Endocardial")
+sn_endo_bulk <- AverageExpression(endocard_seurat, group.by = c("time"),slot= "data")
 sn_endo_bulk_df <- as.data.frame(sn_endo_bulk$RNA)
 sn_endo_bulk_df$gene <- rownames(sn_endo_bulk_df)
 ```
@@ -127,47 +127,26 @@ sn_endo_bulk_df$gene <- rownames(sn_endo_bulk_df)
 rna_protein_avg <- left_join(protein_mat_avg,sn_endo_bulk_df, by = "gene") %>%
   drop_na()
 
-corrplot_rna_protein <- ggplot(rna_protein_avg,aes(avg_control,log10(d0), label = gene)) +
+corrplot_rna_protein <- ggplot(rna_protein_avg,aes(avg_control,D0, label = gene)) +
   geom_point() +
-  geom_point(data = subset(rna_protein_avg, gene == "Vwf"),color = "red", size =3) 
+  geom_point(data = subset(rna_protein_avg, gene == "Vwf"),color = "red", size =3) +
+  labs(x = "Average protein expression (Control)",
+       y = "Average snRNA-seq expression Control)")
 corrplot_rna_protein
 ```
 
 
-## Get endocard specific genes
-
-```{r}
-endo_marker <- FindMarkers(calcagno_et_al,ident.1 = "Endocardial_cells",
-                           only.pos = TRUE)
-```
-
-```{r}
-endo_marker$gene <- rownames(endo_marker)
-endo_marker <- endo_marker %>%
-  mutate("pct_diff" = pct.1 - pct.2) %>% # Only 
-  subset(pct.2 < 0.1)                         
-```
-
 ## Calculate differentially expressed genes in endocardial cells in snRNA-seq
 
-```{r}
-DE <- run_de(calcagno_et_al,
-            replicate_col = "rep",
-            cell_type_col = "cell_type",
-            label_col = "time",
-            de_family = "pseudobulk",
-            de_method = "limma",
-            de_type = "trend")
-```
 
 ```{r}
-calcagno_et_al$cell_type_time <- paste(calcagno_et_al$cell_type, calcagno_et_al$time,
+calcagno_et_al$cell_type_time <- paste(calcagno_et_al$level_2, calcagno_et_al$time,
     sep = "_")
 Idents(calcagno_et_al) <- "cell_type_time"
 
 endocard_de <- FindMarkers(calcagno_et_al, 
-                           ident.1 = "Endocardial_cells_d1", 
-                           ident.2 = "Endocardial_cells_d0",
+                           ident.1 = "Endocardial_D1", 
+                           ident.2 = "Endocardial_D0",
                            min.diff.pct = 0.1,
                            logfc.threshold = 0,
                            verbose = FALSE)
@@ -180,21 +159,36 @@ endocard_de <- endocard_de %>%
   arrange(desc(avg_log2FC))
 ```
 
+## Get endocardial specific genes
 
 ```{r}
-merged_protein_rna <- left_join(endo_marker,miiz_vs_remote_signature, by = "gene")
+endo_marker <- FindMarkers(calcagno_et_al,ident.1 = "Endocardial_D0",
+                           only.pos = TRUE)
 ```
 
 ```{r}
+endo_marker$gene <- rownames(endo_marker)
+endo_marker <- endo_marker %>%
+  mutate("pct_diff" = pct.1 - pct.2) %>% # Only 
+  mutate("pct_ratio" = pct.1 / pct.2) %>%
+  subset(pct.2 < 0.1)                         
+```
+
+## Compare endocardial specific genes with differentially expressed proteins (DEPs)
+
+```{r}
+merged_protein_rna <- left_join(endo_marker,miiz_vs_remote_signature, by = "gene")
+
 merged_protein_rna <- merged_protein_rna %>%
-  mutate("label_gene" = if_else(gene == "Vwf",gene,""))
+  mutate("label_gene" = if_else(gene %in% c("Vwf","Npr3"),gene,""))
 
 endo_proteomic_corr <- ggplot(merged_protein_rna,aes(avg_log2FC,logFC,
                               label = label_gene)) +
   geom_point(data =subset(merged_protein_rna,gene != "Vwf"), size =3, fill = "darkgrey", pch = 21) +
   geom_point(data = subset(merged_protein_rna,gene == "Vwf"),size = 4, fill = "red", pch = 21) +
+  geom_point(data = subset(merged_protein_rna,gene == "Npr3"),size = 4, fill = "purple", pch = 21) +
   geom_label_repel() +
-  labs(x = "Average expression in Endocardial cells (snRNA-seq)",
+  labs(x = "Specificity for endocardial cells (snRNA-seq)",
        y = "Log-fold change MI_IZ vs control(proteomics)")
 
 endo_proteomic_corr
@@ -202,10 +196,32 @@ endo_proteomic_corr
 
 ```{r}
 write.table(merged_protein_rna,
-            file = "./output/proteomics.snRNAseq_comp.tsv",
+            file = "./output/proteomics/proteomics.snRNAseq_comp.tsv",
             sep = "\t",
             col.names = TRUE,
             row.names = FALSE,
             quote = FALSE)
 ```
+
+## Check coagulation pathway gene expression in all cell-types in snRNA-seq
+
+```{r}
+coagulation_mgsea <- readRDS("./references/mh.all.v2023.1.Mm.symbols.sets.rds") %>%
+  subset(source == "HALLMARK_COAGULATION")
+
+coagulation_genes_proteomics <- miiz_vs_remote_signature %>%
+  subset(gene %in% unique(coagulation_mgsea$target)) %>%
+  arrange(desc(logFC)) %>%
+  subset(logFC >1)
+
+miiz_vs_remote_signature <- miiz_vs_remote_signature %>%
+  arrange(desc(logFC)) %>%
+  mutate("rank" = 1:nrow(miiz_vs_remote_signature))
+
+library(scCustomize)
+Idents(calcagno_et_al) <- "level_2"
+
+Clustered_DotPlot(calcagno_et_al,features = coagulation_genes_proteomics$gene, x_lab_rotate = TRUE, cluster_ident = FALSE)
+```
+
 

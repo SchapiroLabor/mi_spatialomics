@@ -1,0 +1,149 @@
+---
+title: "molkart.QC_spots"
+author: "FloWuenne"
+date: "2023-06-12"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(here)
+library(vroom)
+library(tidyverse)
+library(ggpubr)
+library(patchwork)
+library(tidyverse)
+library(ggrepel)
+
+source("./code/functions.R")
+```
+
+# Introduction
+
+
+
+# Correlation between technical replicates
+
+### Read data
+
+```{r}
+## This script will take the Molecular Cartography spot count tables transform them from tsv
+data_dir <- "../data/nf_molkart_results/dedup_spots"
+
+all_samples <- list()
+
+all_files <- list.files(data_dir)
+for(this_file in all_files){
+  if(grepl("txt",this_file)){
+    print(this_file)
+    sample_tx <- vroom(paste(data_dir,this_file,sep="/"),col_names = c("x","y","z","gene"),col_select = c(x,y,z,gene))
+    sample_tx$sample <- this_file
+    
+    sample_tx_sums <- sample_tx %>%
+      subset(gene != "Duplicated") %>%
+      count(gene) %>%
+      mutate("sample" = this_file) %>%
+      separate(sample, into = c("x","time","replicate","slide","spots"),
+               remove = FALSE) %>%
+      select(-c(x,spots)) %>%
+      mutate("sample_ID" = paste("sample",time,replicate,sep="_"),
+             "total_tx" = n) %>%
+      select(-n) %>%
+      arrange(desc(total_tx))
+    
+    all_samples[[this_file]] <- sample_tx_sums
+  }
+}
+```
+
+### Merge data per biological replicate by slide
+
+```{r}
+all_samples_df <- bind_rows(all_samples, .id = "column_label")
+all_samples_df <- all_samples_df %>%
+  select(total_tx, gene, sample_ID, slide,time)
+
+slide1 <- subset(all_samples_df,slide == "s1") %>% select(-slide)
+slide2 <- subset(all_samples_df,slide == "s2") %>% select(-slide)
+merge_tx_sums <- full_join(slide1,slide2, by = c("gene","sample_ID","time"), suffix = c("_rep1","_rep2"))
+```
+
+### Write data for plotting
+
+```{r}
+vroom_write(merge_tx_sums,
+            file = here("./output/tx_abundances_per_slide.tsv"))
+```
+
+
+# Principal component analysis of spot counts
+
+```{r}
+all_samples_df <- bind_rows(all_samples, .id = "column_label")
+all_samples_df <- all_samples_df %>%mutate("sample_ID" = paste("sample",time,replicate,slide,sep="_"))
+
+metadata <- all_samples_df %>%
+  select(sample_ID,replicate,slide,time)
+
+exp_mat <- all_samples_df %>%
+  select(sample_ID,total_tx,gene) %>%
+  pivot_wider(names_from = "gene",
+             values_from = "total_tx")
+
+samples <- exp_mat$sample_ID
+exp_mat <- exp_mat %>% select(-sample_ID)
+
+exp_mat <- as.matrix(exp_mat)
+#colnames(exp_mat) <- samples
+rownames(samples)
+exp_mat[is.na(exp_mat)] <- 0
+```
+
+```{r}
+## Perform PCA
+library(factoextra)
+res.pca <- prcomp(exp_mat, scale = TRUE)
+
+fviz_eig(res.pca)
+```
+
+```{r}
+## Plot PCAs
+pcs <- as.data.frame(res.pca$x)
+pcs$sample <- samples
+pcs <- pcs %>%
+  mutate("time" = if_else(grepl("control",sample),"control",
+                          if_else(grepl("4h",sample),"4h",
+                                  if_else(grepl("2d",sample),"2d","4d")))
+         )
+
+pcs$time <- factor(pcs$time,levels= c("control","4h","2d","4d"))
+pcs$label <- gsub(".spots.txt","",pcs$sample)
+pcs <- pcs %>%
+  separate("sample", into = c("string","time","replicate","slide"))
+pcs <- pcs %>%
+  select(-c(string))
+pcs$slide <- gsub("s1","Slide 1",pcs$slide)
+pcs$slide <- gsub("s2","Slide 2",pcs$slide)
+pcs$time <- factor(pcs$time,
+                   levels = c("control","4h","2d","4d"))
+
+pca_plot <- ggplot(pcs,aes(PC1,PC2,label = label)) +
+  geom_point(size = 4, aes(color = time, shape = slide)) +
+  scale_color_brewer(palette = "Dark2",labels = c("control","4 hours","2 days","4 days")) +
+  labs(color = "Time",
+       shape = "Slide") + 
+  background_grid()
+pca_plot
+
+write.table(pcs,
+            file = "./output/mol_cart/pca_spots.tsv",
+            sep = "\t",
+            col.names = TRUE,
+            row.names = FALSE,
+            quote = FALSE)
+```
+
