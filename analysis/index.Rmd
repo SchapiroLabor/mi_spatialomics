@@ -12,7 +12,7 @@ editor_options:
 
 # Data setup
 
-All scripts in this repository assume that this repository is in the same folder as the `/data` directory, containing all the data on Synapse. Data directory structure can be set up using the Synapse command-line interace with the following command
+All scripts in this repository assume that this repository is in the same folder as the `/data` directory, containing all the data on Synapse. Data directory structure can be set up using the Synapse command-line interface with the following command, which will download all of the raw data.
 
 ```         
 `synapse get -r syn51449054 `
@@ -30,9 +30,9 @@ git clone https://github.com/SchapiroLabor/MI_infiltration_imaging.git
 
 ## Pipelines used to process the imaging data
 
-Imaging data in this study was processed using nextflow based pipelines designed for the specific data type. Links to the original pipeline repositories is provided below. Config files and specifications for running each pipeline to process the data is provided in this repository under : `./`
+Imaging data in this study was processed using nextflow based pipelines designed for the specific data type. Links to the original pipeline repositories is provided below. Config files and specifications for running each pipeline to process the data is provided in this repository under : `./pipeline_configs`
 
--   Processing of Molecular Cartography was done using [nf-MolCart]().
+-   Processing of Molecular Cartography was done using [nf-core/molkart](https://nf-co.re/molkart).
 -   Processing of SeqIF (Lunaphore COMET) data was done using [MCMICRO](https://mcmicro.org/).
 
 For more details on data processing, go to [Data processing](./analysis/data_processing.Rmd).

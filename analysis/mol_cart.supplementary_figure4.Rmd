@@ -10,6 +10,9 @@ editor_options:
 ```{r}
 library(Seurat)
 library(pals)
+library(tidyverse)
+library(patchwork)
+library(cowplot)
 ```
 
 

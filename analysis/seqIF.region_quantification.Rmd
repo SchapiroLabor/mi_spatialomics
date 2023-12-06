@@ -11,8 +11,9 @@ editor_options:
 library(tidyverse)
 library(data.table)
 library(ggbeeswarm)
+library(here)
 
-source("./code/functions.R")
+source(here("./code/functions.R"))
 ```
 
 
@@ -86,13 +87,23 @@ print(paste("Total number of cells in the dataset:",nrow(annotated_cells),sep=" 
 ## Let's plot the number of cells per cell-type per sample
 cells_per_sample <- annotated_cells %>%
   group_by(fov,time,cell_meta_cluster) %>%
-  tally()
+  tally() %>%
+  ungroup() %>%
+  group_by(time,cell_meta_cluster) %>%
+  summarise("n" = sum(n)) %>%
+  ungroup() %>%
+  group_by(time) %>%
+  mutate("frac" = n / sum(n))
+  
 
-ggplot(cells_per_sample,aes(fov,n,fill = cell_meta_cluster)) +
+ggplot(cells_per_sample,aes(time,frac,fill = cell_meta_cluster)) +
   geom_bar(stat="identity", color = "black") +
-  coord_flip() +
-  facet_grid(time ~ .) +
   scale_fill_brewer(palette = "Set1")
+
+# ggplot(cells_per_sample,aes(fov,n,fill = cell_meta_cluster)) +
+#   geom_bar(stat="identity", color = "black") +
+#   coord_flip() +
+#   scale_fill_brewer(palette = "Set1")
 ```
 
 ## All immune cell types per region
@@ -176,5 +187,22 @@ save_plot(ccr2_mono_regions,
           file = "./plots/Figure3.ccr2_monomacro_regions.pdf",
           base_height = 3.5,
           base_asp = 1.3)
+```
+
+
+
+```{r}
+subdata <- annotated_cells %>%
+  subset(fov == "24h_86")
+```
+
+```{r}
+ggplot(subdata,aes(X_centroid,Y_centroid)) +
+  geom_point(data = subset(subdata,cell_meta_cluster != "Mono / Macros Ccr2+"),color = "darkgrey") +
+  geom_point(data = subset(subdata,cell_meta_cluster == "Cardiomyocytes Ankrd1+"),color = "#EFCC00") +
+  geom_point(data = subset(subdata,cell_meta_cluster == "Mono / Macros Ccr2+"),color = "purple")
+  #geom_hex(data = subset(subdata,cell_meta_cluster == "Mono / Macros Ccr2+"),bins = 100) +
+  scale_fill_viridis_c()
+
 ```
 

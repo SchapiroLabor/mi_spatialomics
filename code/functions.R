@@ -60,9 +60,12 @@ create_seurat_sctransform_mcquant <- function(mcquant,sample_ID){
 ################
 
 ## Color palette for proteomics analysis
-proteome_palette <- c("control" = "#3DA873FF",
-                      "MI_remote" = "#4DBBD5FF",
-                      "MI_IZ" = "#E64B35FF")
+proteome_palette <- c("control" = "#4D9221",
+                      "MI_remote" = "#FDE0EF",
+                      "MI_IZ" = "#C51B7D")
+
+# [1] "#8E0152" "#C51B7D" "#DE77AE" "#F1B6DA" "#FDE0EF" "#F7F7F7"
+# [7] "#E6F5D0" "#B8E186" "#7FBC41" "#4D9221" "#276419"
 
 
 ## Plot relative protein abundance for a protein of interest
@@ -88,13 +91,11 @@ plot_proteomics_boxplot <- function(norm_table,protein, style = "mean"){
       size = 1)
   }
 
-
-
   protein_boxplot <- ggplot(norm_table,aes(x = group,y = exp, fill = group)) +
     geom_beeswarm(size =2.5, pch = 21, color = "black", aes(fill = group)) +
     mean_geom +
     labs(x = "Group",
-         y = "Normalized protein expression",
+         y = "Normalized protein level",
          title = if_else(protein == "Vwf","vWF",protein)) +
     scale_fill_manual(values = c(proteome_palette[["control"]],
                                  proteome_palette[["MI_remote"]],
@@ -125,11 +126,11 @@ plot_pretty_volcano <- function(de_table,
 
   volcano_plot <- ggplot(data=de_table, aes(x= logFC, y= -log10(pval), label = label_protein)) +
     geom_point(data = subset(de_table, get(sig_col) > sig_thresh),
-               size = pt_size, color = "darkgrey") +
+               size = pt_size, fill = "darkgrey",pch = 21, color = "black", stroke = 0.5) +
     geom_point(data = subset(de_table, get(sig_col) <= sig_thresh  & logFC > 0),
-               size = pt_size, color = col_pos_logFC) +
+               size = pt_size, fill = col_pos_logFC,pch = 21, color = "black") +
     geom_point(data = subset(de_table, get(sig_col) <= sig_thresh  & logFC < 0),
-               size = pt_size, color = col_neg_logFC) +
+               size = pt_size, fill = col_neg_logFC,pch = 21, color = "black") +
     labs(title = plot_title)
 
   return(volcano_plot)

@@ -85,53 +85,53 @@ save_plot(ct_time_barplot_v2,filename = here("./plots/mol_cart.Figure_2.ct_perce
           base_asp = 2)
 ```
 
-# Figure 2B: Misty gains
+<!-- # Figure 2B: Misty gains -->
 
-```{r}
-misty.results <- collect_results(db.file = "./data/results_cts_100.sqm")
-```
+<!-- ```{r} -->
+<!-- misty.results <- collect_results("./data/results_cts_100.sqm") -->
+<!-- ``` -->
 
-```{r}
-gains <- misty.results$improvements %>%
-  subset(measure == "gain.R2") %>%
-  separate(sample, into = c("smpl","time","replicate","slide") , sep="_", remove = FALSE)
+<!-- ```{r} -->
+<!-- gains <- misty.results$improvements %>% -->
+<!--   subset(measure == "gain.R2") %>% -->
+<!--   separate(sample, into = c("smpl","time","replicate","slide") , sep="_", remove = FALSE) -->
 
-gains$time <- factor(gains$time,
-                     levels = c("control","4h","2d","4d"))
+<!-- gains$time <- factor(gains$time, -->
+<!--                      levels = c("control","4h","2d","4d")) -->
 
-gains <- subset(gains,target %in% c("Cardiomyocytes.Nppa.","Myeloid.cells"))
+<!-- gains <- subset(gains,target %in% c("Cardiomyocytes.Nppa.","Myeloid.cells")) -->
 
-gains$target <- gsub("\\."," ",gains$target)
-gains$target <- factor(gains$target,
-                       levels = c("Cardiomyocytes Nppa ","Myeloid cells"))
+<!-- gains$target <- gsub("\\."," ",gains$target) -->
+<!-- gains$target <- factor(gains$target, -->
+<!--                        levels = c("Cardiomyocytes Nppa ","Myeloid cells")) -->
 
-gains_plot <-  ggplot(gains,aes(time,value, fill = time)) +
-  stat_summary(
-      fun.y = mean,
-      geom = "errorbar",
-      aes(ymax = ..y.., ymin = ..y..),
-      width = 0.6,
-      size = 1,
-      color = "black") +
-  geom_beeswarm(size = 3, pch = 21, color = "black", aes(fill = time)) +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  labs(x = "Target",
-       y = "Gains R2") + 
-  facet_grid(.~ target) +
-  scale_fill_brewer(palette = "Dark2") +
-  theme(legend.position = "none")
+<!-- gains_plot <-  ggplot(gains,aes(time,value, fill = time)) + -->
+<!--   stat_summary( -->
+<!--       fun.y = mean, -->
+<!--       geom = "errorbar", -->
+<!--       aes(ymax = ..y.., ymin = ..y..), -->
+<!--       width = 0.6, -->
+<!--       size = 1, -->
+<!--       color = "black") + -->
+<!--   geom_beeswarm(size = 3, pch = 21, color = "black", aes(fill = time)) + -->
+<!--   theme(axis.text.x = element_text(angle = 45, hjust = 1)) + -->
+<!--   labs(x = "Target", -->
+<!--        y = "Gains R2") +  -->
+<!--   facet_grid(.~ target) + -->
+<!--   scale_fill_brewer(palette = "Dark2") + -->
+<!--   theme(legend.position = "none") -->
 
-gains_plot
+<!-- gains_plot -->
 
-save_plot(gains_plot,filename = here("./figures/mol_cart.Figure_2.misty_gains.pdf"),
-          base_height = 4.5,
-          base_asp = 2)
-```
+<!-- save_plot(gains_plot,filename = here("./figures/mol_cart.Figure_2.misty_gains.pdf"), -->
+<!--           base_height = 4.5, -->
+<!--           base_asp = 2) -->
+<!-- ``` -->
 
 
-```{r}
-dbDisconnect(misty.results)
-```
+<!-- ```{r} -->
+<!-- dbDisconnect(misty.results) -->
+<!-- ``` -->
 
 
 # Figure 2C: Nppa distribution across tissue

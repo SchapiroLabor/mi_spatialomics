@@ -111,7 +111,7 @@ pca_var
 
 ```{r}
 ## Load limma results and subset for significantly differential proteins between conditions
-limma_res <- fread("./output/limma.full_statistics.tsv")
+limma_res <- fread("./output/proteomics/proteomics.limma.full_statistics.tsv")
 limma_res_sig <- subset(limma_res,adj.P.Val <= 0.05)
 
 limma_mi_ctr_genes <- subset(limma_res_sig,analysis == "MI_IZ_vs_control")$gene

@@ -52,16 +52,16 @@ pcs$group <- factor(pcs$group,
                     levels = c("control","MI_remote","MI_IZ"))
 
 ## Plot PCs
-pca_plot <- ggplot(pcs,aes(PC1,PC2, fill = group)) +
-  geom_point(size = 5,pch = 21,color = "black") +
-  ggforce::geom_mark_ellipse(color = "white") +
+pca_plot <- ggplot(pcs,aes(PC1,PC2)) +
+  geom_point(size = 5,pch = 21,color = "black", aes(fill = group)) +
+  ggforce::geom_mark_ellipse(color = "white",aes(fill = group, label = group)) +
   expand_limits(y = c(-50, 40),
                 x = c(-40,80)) +
   scale_fill_manual(values = proteome_palette,
                     labels = c("Control","MI_remote","MI_IZ")) +
   labs(color = "Group") +
   guides(fill=guide_legend(title="Group")) +
-  theme(legend.position = "right")
+  theme(legend.position = "none")
 
 
 pca_plot
@@ -108,7 +108,7 @@ volc_limma_IZ_remote <- plot_pretty_volcano(limma_mi_remote,
                                       sig_thresh = 0.05,
                                       col_pos_logFC = proteome_palette[['MI_IZ']],
                                       col_neg_logFC = proteome_palette[['MI_remote']]) +
-    geom_point(data = subset(limma_mi_remote, gene %in% path_de_inter),pch = 21, color = "black", size = 4) +
+    # geom_point(data = subset(limma_mi_remote, gene %in% path_de_inter),pch = 21, color = "black", size = 4) +
   geom_label_repel(box.padding = 0.5, max.overlaps = Inf, size = 3)
 
 
@@ -132,9 +132,10 @@ sig_pathways_mi$source <- gsub("HALLMARK_","",sig_pathways_mi$source)
 
 sig_pathways_mi$source <- gsub("_"," ",sig_pathways_mi$source)
 path_plot <- ggplot(sig_pathways_mi, aes(x = reorder(source, score), y = score)) + 
-    geom_bar(aes(fill = score), stat = "identity") +
-    scale_fill_gradient2(low = proteome_palette[['MI_remote']], high = proteome_palette[['MI_IZ']], 
-        mid = "white", midpoint = 0) + 
+    geom_bar(aes(fill = score),color = "black", stat = "identity") +
+    scale_fill_gradient2(low = "darkblue", high = "darkred",
+        mid = "white", midpoint = 0) +
+  # scale_fill_viridis(option = "F", direction = 1) +
     theme(axis.title = element_text(face = "bold", size = 12),
           axis.text.x = element_text(hjust = 1, size =10, face= "bold"),
         axis.text.y = element_text(size =10),
@@ -142,6 +143,8 @@ path_plot <- ggplot(sig_pathways_mi, aes(x = reorder(source, score), y = score))
         panel.grid.minor = element_blank()) +
     xlab("Pathways") +
   coord_flip()
+
+path_plot
 
 
 save_plot(filename = "./figures/Figure_5.pathway_plot.pdf",
@@ -161,7 +164,7 @@ endo_proteomic_corr <- ggplot(snrna_prot,aes(avg_log2FC,logFC,
                               label = label_gene)) +
   geom_point(data =subset(snrna_prot,gene != "Vwf"), size =3, fill = "darkgrey", pch = 21) +
   geom_point(data = subset(snrna_prot,gene == "Vwf"),size = 4, fill = proteome_palette[['MI_IZ']], pch = 21) +
-  geom_point(data = subset(merged_protein_rna,gene %in% c("Npr3","Cdh11")),size = 4, fill = "purple", pch = 21) +
+  geom_point(data = subset(snrna_prot,gene %in% c("Npr3","Cdh11")),size = 4, fill = "#EFCC00", pch = 21) +
   geom_label_repel() +
   labs(x = "Specificity endocard. cells (snRNA-seq)",
        y = "Log2 fold-change (Proteomics)") +

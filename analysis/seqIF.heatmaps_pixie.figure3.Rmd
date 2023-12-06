@@ -186,7 +186,7 @@ breaks = seq(-range, range, length.out=100)
 ## Set color palette
 mat_col = data.frame(cell_cluster = as.factor(mat_rownames))
 rownames(mat_col) <- mat_rownames
-mat_colors = cell_cluster_color[1:length(mat_rownames)]
+mat_colors = cell_cluster_colors[1:length(mat_rownames)]
 names(mat_colors) = mat_rownames
 #mat_colors = list(pixel_cluster = mat_colors)
 mat_colors = list(cell_cluster = cell_cluster_colors)

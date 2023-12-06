@@ -82,7 +82,7 @@ def crop_mask(roi_df, mask):
     return mask[int(bbox[0, 0]):int(bbox[2, 0]), int(bbox[0, 1]): int(bbox[2, 1])]
 
 
-def crop_coords(roi_df, points):
+def crop_coords(roi, points):
     """
     Adjust the coordinates of points based on the coordinates of a region of interest (ROI).
 
