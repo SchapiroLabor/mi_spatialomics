@@ -370,7 +370,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+workflowr <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -381,8 +381,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> </a>
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -395,9 +395,9 @@ aria-hidden="true"></span> </a>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>mi_spatialomics/</code> <span
@@ -420,21 +420,18 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
+<div id="strongRMarkdownfilestronguptodate"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of
-the R Markdown file created these results, you’ll want to first commit
-it to the Git repo. If you’re still working on the analysis, you can
-ignore this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
@@ -525,15 +522,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree5dee03d1f3791ef02f4b04f3ffcef6dca79a876btargetblank5dee03da">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510targetblank2dcd178a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/5dee03d1f3791ef02f4b04f3ffcef6dca79a876b" target="_blank">5dee03d</a>
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510" target="_blank">2dcd178</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree5dee03d1f3791ef02f4b04f3ffcef6dca79a876btargetblank5dee03da"
+id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510targetblank2dcd178a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -543,7 +540,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/5dee03d1f3791ef02f4b04f3ffcef6dca79a876b" target="_blank">5dee03d</a>.
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510" target="_blank">2dcd178</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -564,7 +561,6 @@ Ignored files:
     Ignored:    analysis/.DS_Store
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/deprecated/.DS_Store
-    Ignored:    analysis/figure/
     Ignored:    analysis/molecular_cartography_python/.DS_Store
     Ignored:    analysis/molecular_cartography_python/figures/
     Ignored:    analysis/seqIF_python/.DS_Store
@@ -594,6 +590,7 @@ Ignored files:
     Ignored:    figures/mol_cart.Nppa_distribution.png
     Ignored:    figures/supplementary_figure4.cell_type_distributions.eps
     Ignored:    figures/supplementary_figure4.cell_type_distributions.png
+    Ignored:    omnipathr-log/
     Ignored:    output/.DS_Store
     Ignored:    output/mol_cart.harmony_object.h5Seurat
     Ignored:    output/mol_cart/
@@ -626,43 +623,12 @@ Ignored files:
     Ignored:    renv/library/
     Ignored:    renv/staging/
 
-Untracked files:
-    Untracked:  analysis/deprecated/mol_cart.misty_neighbourhood_analysis.Rmd
-    Untracked:  analysis/deprecated/mol_cart.molkart.process_quantifications_seurat.Rmd
-    Untracked:  analysis/molecular_cartography_python/animation.gif
-    Untracked:  analysis/molecular_cartography_python/kuppe_heart19.h5ad
-    Untracked:  analysis/molecular_cartography_python/mol_cart.plot_points_on_mask.ipynb
-    Untracked:  analysis/molecular_cartography_python/mol_cart.spot_animation.ipynb
-    Untracked:  analysis/molecular_cartography_python/molkart.local_analysis_lianaplus.ipynb
-    Untracked:  analysis/plots/
-    Untracked:  pipeline_configs/
-
 Unstaged changes:
-    Modified:   analysis/data_processing.Rmd
-    Modified:   analysis/figures.Figure1.Rmd
-    Modified:   analysis/figures.Figure2.Rmd
-    Modified:   analysis/figures.deep_visual_proteomics.Rmd
-    Modified:   analysis/figures.supplementary_figure_X.proteomics_qc.Rmd
-    Modified:   analysis/index.Rmd
-    Deleted:    analysis/mol_cart.misty_neighbourhood_analysis.Rmd
-    Deleted:    analysis/mol_cart.molkart.process_quantifications_seurat.Rmd
-    Modified:   analysis/mol_cart.supplementary_figure4.Rmd
-    Modified:   analysis/seqIF.region_quantification.Rmd
-    Modified:   analysis/spatialMI_functions.py
-    Modified:   code/functions.R
     Modified:   figures/Figure_5.eps
     Modified:   figures/Figure_5.pdf
     Modified:   figures/Figure_5.png
     Modified:   figures/Figure_5.svg
-    Modified:   figures/Supplementary_figure_2.png
-    Modified:   figures/Supplementary_figure_5.segmentation_metrics.poster.eps
-    Modified:   figures/Supplementary_figure_X.proteomics.eps
-    Modified:   figures/Supplementary_figure_X.proteomics.png
     Modified:   plots/Figure1.dotplot.pdf
-    Modified:   plots/molkart.umap_time.png
-    Modified:   renv.lock
-    Modified:   renv/activate.R
-    Modified:   renv/settings.json
 
 </code></pre>
 <p>
@@ -709,6 +675,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510/analysis/mol_cart.supplementary_figure4.Rmd" target="_blank">2dcd178</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-12-06
+</td>
+<td>
+wflow_publish("*")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510/docs/mol_cart.supplementary_figure4.html" target="_blank">2dcd178</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-12-06
+</td>
+<td>
+wflow_publish("*")
+</td>
+</tr>
 <tr>
 <td>
 Rmd

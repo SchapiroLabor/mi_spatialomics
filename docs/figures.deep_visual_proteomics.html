@@ -370,7 +370,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+workflowr <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -381,8 +381,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> </a>
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -391,13 +391,13 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-12-05
+<strong>Last updated:</strong> 2023-12-06
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>mi_spatialomics/</code> <span
@@ -420,21 +420,18 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
+<div id="strongRMarkdownfilestronguptodate"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of
-the R Markdown file created these results, you’ll want to first commit
-it to the Git repo. If you’re still working on the analysis, you can
-ignore this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
@@ -525,15 +522,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree5dee03d1f3791ef02f4b04f3ffcef6dca79a876btargetblank5dee03da">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510targetblank2dcd178a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/5dee03d1f3791ef02f4b04f3ffcef6dca79a876b" target="_blank">5dee03d</a>
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510" target="_blank">2dcd178</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree5dee03d1f3791ef02f4b04f3ffcef6dca79a876btargetblank5dee03da"
+id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510targetblank2dcd178a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -543,7 +540,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/5dee03d1f3791ef02f4b04f3ffcef6dca79a876b" target="_blank">5dee03d</a>.
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510" target="_blank">2dcd178</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -564,7 +561,6 @@ Ignored files:
     Ignored:    analysis/.DS_Store
     Ignored:    analysis/.Rhistory
     Ignored:    analysis/deprecated/.DS_Store
-    Ignored:    analysis/figure/
     Ignored:    analysis/molecular_cartography_python/.DS_Store
     Ignored:    analysis/molecular_cartography_python/figures/
     Ignored:    analysis/seqIF_python/.DS_Store
@@ -594,6 +590,7 @@ Ignored files:
     Ignored:    figures/mol_cart.Nppa_distribution.png
     Ignored:    figures/supplementary_figure4.cell_type_distributions.eps
     Ignored:    figures/supplementary_figure4.cell_type_distributions.png
+    Ignored:    omnipathr-log/
     Ignored:    output/.DS_Store
     Ignored:    output/mol_cart.harmony_object.h5Seurat
     Ignored:    output/mol_cart/
@@ -626,35 +623,8 @@ Ignored files:
     Ignored:    renv/library/
     Ignored:    renv/staging/
 
-Untracked files:
-    Untracked:  analysis/molecular_cartography_python/animation.gif
-    Untracked:  analysis/molecular_cartography_python/kuppe_heart19.h5ad
-    Untracked:  analysis/molecular_cartography_python/mol_cart.plot_points_on_mask.ipynb
-    Untracked:  analysis/molecular_cartography_python/mol_cart.spot_animation.ipynb
-    Untracked:  analysis/molecular_cartography_python/molkart.local_analysis_lianaplus.ipynb
-    Untracked:  analysis/plots/
-    Untracked:  pipeline_configs/
-
 Unstaged changes:
-    Modified:   analysis/data_processing.Rmd
-    Modified:   analysis/figures.Figure1.Rmd
-    Modified:   analysis/figures.deep_visual_proteomics.Rmd
-    Modified:   analysis/figures.supplementary_figure_X.proteomics_qc.Rmd
-    Modified:   analysis/index.Rmd
-    Modified:   analysis/mol_cart.molkart.process_quantifications_seurat.Rmd
-    Modified:   analysis/seqIF.region_quantification.Rmd
-    Modified:   analysis/spatialMI_functions.py
-    Modified:   code/functions.R
-    Modified:   figures/Figure_5.eps
-    Modified:   figures/Figure_5.pdf
-    Modified:   figures/Figure_5.png
-    Modified:   figures/Figure_5.svg
-    Modified:   figures/Supplementary_figure_5.segmentation_metrics.poster.eps
-    Modified:   figures/Supplementary_figure_X.proteomics.eps
-    Modified:   figures/Supplementary_figure_X.proteomics.png
-    Modified:   renv.lock
-    Modified:   renv/activate.R
-    Modified:   renv/settings.json
+    Modified:   plots/Figure1.dotplot.pdf
 
 </code></pre>
 <p>
@@ -701,6 +671,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510/analysis/figures.deep_visual_proteomics.Rmd" target="_blank">2dcd178</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-12-06
+</td>
+<td>
+wflow_publish("*")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510/docs/figures.deep_visual_proteomics.html" target="_blank">2dcd178</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-12-06
+</td>
+<td>
+wflow_publish("*")
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -806,6 +810,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510/docs/figure/figures.deep_visual_proteomics.Rmd/unnamed-chunk-2-1.png" target="_blank">2dcd178</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-12-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/FloWuenne/mi_spatialomics/blob/5dee03d1f3791ef02f4b04f3ffcef6dca79a876b/docs/figure/figures.deep_visual_proteomics.Rmd/unnamed-chunk-2-1.png" target="_blank">5dee03d</a>
 </td>
 <td>
@@ -887,6 +902,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510/docs/figure/figures.deep_visual_proteomics.Rmd/unnamed-chunk-4-1.png" target="_blank">2dcd178</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-12-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/FloWuenne/mi_spatialomics/blob/5dee03d1f3791ef02f4b04f3ffcef6dca79a876b/docs/figure/figures.deep_visual_proteomics.Rmd/unnamed-chunk-4-1.png" target="_blank">5dee03d</a>
 </td>
 <td>
@@ -956,6 +982,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510/docs/figure/figures.deep_visual_proteomics.Rmd/unnamed-chunk-5-1.png" target="_blank">2dcd178</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-12-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/FloWuenne/mi_spatialomics/blob/5dee03d1f3791ef02f4b04f3ffcef6dca79a876b/docs/figure/figures.deep_visual_proteomics.Rmd/unnamed-chunk-5-1.png" target="_blank">5dee03d</a>
 </td>
 <td>
@@ -992,8 +1029,8 @@ endo_proteomic_corr &lt;- ggplot(snrna_prot,aes(avg_log2FC,logFC,
   geom_hline(yintercept = 0, linetype = 2)
 
 endo_proteomic_corr</code></pre>
-<pre><code>Warning: Removed 582 rows containing missing values (`geom_point()`).</code></pre>
-<pre><code>Warning: Removed 582 rows containing missing values (`geom_label_repel()`).</code></pre>
+<pre><code>Warning: Removed 3236 rows containing missing values (`geom_point()`).</code></pre>
+<pre><code>Warning: Removed 3236 rows containing missing values (`geom_label_repel()`).</code></pre>
 <p><img src="figure/figures.deep_visual_proteomics.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
@@ -1019,6 +1056,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510/docs/figure/figures.deep_visual_proteomics.Rmd/unnamed-chunk-6-1.png" target="_blank">2dcd178</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-12-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/FloWuenne/mi_spatialomics/blob/5dee03d1f3791ef02f4b04f3ffcef6dca79a876b/docs/figure/figures.deep_visual_proteomics.Rmd/unnamed-chunk-6-1.png" target="_blank">5dee03d</a>
 </td>
 <td>
@@ -1036,8 +1084,8 @@ FloWuenne
           plot = endo_proteomic_corr,
           base_asp = 1.3,
           base_height = 4.5)</code></pre>
-<pre><code>Warning: Removed 582 rows containing missing values (`geom_point()`).
-Removed 582 rows containing missing values (`geom_label_repel()`).</code></pre>
+<pre><code>Warning: Removed 3236 rows containing missing values (`geom_point()`).
+Removed 3236 rows containing missing values (`geom_label_repel()`).</code></pre>
 </div>
 <div id="subfigure-f---vwf-is-upregulated-in-mi_iz"
 class="section level1">
@@ -1129,6 +1177,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510/docs/figure/figures.deep_visual_proteomics.Rmd/unnamed-chunk-7-1.png" target="_blank">2dcd178</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-12-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/FloWuenne/mi_spatialomics/blob/5dee03d1f3791ef02f4b04f3ffcef6dca79a876b/docs/figure/figures.deep_visual_proteomics.Rmd/unnamed-chunk-7-1.png" target="_blank">5dee03d</a>
 </td>
 <td>
@@ -1182,6 +1241,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510/docs/figure/figures.deep_visual_proteomics.Rmd/unnamed-chunk-8-1.png" target="_blank">2dcd178</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-12-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/FloWuenne/mi_spatialomics/blob/5dee03d1f3791ef02f4b04f3ffcef6dca79a876b/docs/figure/figures.deep_visual_proteomics.Rmd/unnamed-chunk-8-1.png" target="_blank">5dee03d</a>
 </td>
 <td>
@@ -1231,6 +1301,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510/docs/figure/figures.deep_visual_proteomics.Rmd/unnamed-chunk-8-2.png" target="_blank">2dcd178</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-12-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/FloWuenne/mi_spatialomics/blob/5dee03d1f3791ef02f4b04f3ffcef6dca79a876b/docs/figure/figures.deep_visual_proteomics.Rmd/unnamed-chunk-8-2.png" target="_blank">5dee03d</a>
 </td>
 <td>
@@ -1262,8 +1343,10 @@ final_fig5 &lt;- final_fig5 +
 
 final_fig5</code></pre>
 <pre><code>Warning: Removed 58 rows containing missing values (`geom_label_repel()`).</code></pre>
-<pre><code>Warning: Removed 582 rows containing missing values (`geom_point()`).</code></pre>
-<pre><code>Warning: Removed 582 rows containing missing values (`geom_label_repel()`).</code></pre>
+<pre><code>Warning: Removed 3236 rows containing missing values (`geom_point()`).</code></pre>
+<pre><code>Warning: Removed 3236 rows containing missing values (`geom_label_repel()`).</code></pre>
+<pre><code>Warning: ggrepel: 2 unlabeled data points (too many overlaps). Consider
+increasing max.overlaps</code></pre>
 <p><img src="figure/figures.deep_visual_proteomics.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
@@ -1289,6 +1372,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510/docs/figure/figures.deep_visual_proteomics.Rmd/unnamed-chunk-9-1.png" target="_blank">2dcd178</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-12-06
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/FloWuenne/mi_spatialomics/blob/5dee03d1f3791ef02f4b04f3ffcef6dca79a876b/docs/figure/figures.deep_visual_proteomics.Rmd/unnamed-chunk-9-1.png" target="_blank">5dee03d</a>
 </td>
 <td>
@@ -1311,15 +1405,15 @@ save_plot(filename = &quot;./figures/Figure_5.png&quot;,
           base_asp = plot_asp,
           base_height = plot_height)</code></pre>
 <pre><code>Warning: Removed 58 rows containing missing values (`geom_label_repel()`).</code></pre>
-<pre><code>Warning: Removed 582 rows containing missing values (`geom_point()`).</code></pre>
-<pre><code>Warning: Removed 582 rows containing missing values (`geom_label_repel()`).</code></pre>
+<pre><code>Warning: Removed 3236 rows containing missing values (`geom_point()`).</code></pre>
+<pre><code>Warning: Removed 3236 rows containing missing values (`geom_label_repel()`).</code></pre>
 <pre class="r"><code>save_plot(filename = &quot;./figures/Figure_5.eps&quot;,
           plot = final_fig5,
           base_asp = plot_asp,
           base_height = plot_height)</code></pre>
 <pre><code>Warning: Removed 58 rows containing missing values (`geom_label_repel()`).</code></pre>
-<pre><code>Warning: Removed 582 rows containing missing values (`geom_point()`).</code></pre>
-<pre><code>Warning: Removed 582 rows containing missing values (`geom_label_repel()`).</code></pre>
+<pre><code>Warning: Removed 3236 rows containing missing values (`geom_point()`).</code></pre>
+<pre><code>Warning: Removed 3236 rows containing missing values (`geom_label_repel()`).</code></pre>
 <pre><code>Warning in grid.Call.graphics(C_polygon, x$x, x$y, index): semi-transparency is
 not supported on this device: reported only once per page</code></pre>
 <pre class="r"><code>save_plot(filename = &quot;./figures/Figure_5.pdf&quot;,
@@ -1327,15 +1421,15 @@ not supported on this device: reported only once per page</code></pre>
           base_asp = plot_asp,
           base_height = plot_height)</code></pre>
 <pre><code>Warning: Removed 58 rows containing missing values (`geom_label_repel()`).</code></pre>
-<pre><code>Warning: Removed 582 rows containing missing values (`geom_point()`).</code></pre>
-<pre><code>Warning: Removed 582 rows containing missing values (`geom_label_repel()`).</code></pre>
+<pre><code>Warning: Removed 3236 rows containing missing values (`geom_point()`).</code></pre>
+<pre><code>Warning: Removed 3236 rows containing missing values (`geom_label_repel()`).</code></pre>
 <pre class="r"><code>save_plot(filename = &quot;./figures/Figure_5.svg&quot;,
           plot = final_fig5,
           base_asp = plot_asp,
           base_height = plot_height)</code></pre>
 <pre><code>Warning: Removed 58 rows containing missing values (`geom_label_repel()`).</code></pre>
-<pre><code>Warning: Removed 582 rows containing missing values (`geom_point()`).</code></pre>
-<pre><code>Warning: Removed 582 rows containing missing values (`geom_label_repel()`).</code></pre>
+<pre><code>Warning: Removed 3236 rows containing missing values (`geom_point()`).</code></pre>
+<pre><code>Warning: Removed 3236 rows containing missing values (`geom_label_repel()`).</code></pre>
 <div id="figures-for-poster" class="section level2">
 <h2>Figures for poster</h2>
 <pre class="r"><code>final_fig5_top &lt;- plot_spacer()  + pca_plot  + plot_layout(widths = c(1.5, 1))
@@ -1352,10 +1446,10 @@ save_plot(filename = &quot;../results/Rotterdam_poster_proteomics.middle.eps&quo
           plot = final_fig5_poster1,
           base_asp = plot_asp,
           base_height = plot_height)</code></pre>
-<pre><code>Warning: Removed 582 rows containing missing values (`geom_point()`).</code></pre>
-<pre><code>Warning: Removed 582 rows containing missing values (`geom_label_repel()`).</code></pre>
-<pre><code>Warning: Removed 582 rows containing missing values (`geom_point()`).</code></pre>
-<pre><code>Warning: Removed 582 rows containing missing values (`geom_label_repel()`).</code></pre>
+<pre><code>Warning: Removed 3236 rows containing missing values (`geom_point()`).</code></pre>
+<pre><code>Warning: Removed 3236 rows containing missing values (`geom_label_repel()`).</code></pre>
+<pre><code>Warning: Removed 3236 rows containing missing values (`geom_point()`).</code></pre>
+<pre><code>Warning: Removed 3236 rows containing missing values (`geom_label_repel()`).</code></pre>
 <pre><code>Warning in grid.Call.graphics(C_polygon, x$x, x$y, index): semi-transparency is
 not supported on this device: reported only once per page</code></pre>
 <pre class="r"><code>final_fig5_poster_2&lt;- final_fig5_top / final_fig5_bottom / final_fig5_bottom +plot_layout(heights= c(1, 1, 1)) 

@@ -371,7 +371,7 @@ different</h1>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+workflowr <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -382,8 +382,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> </a>
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -396,9 +396,9 @@ aria-hidden="true"></span> </a>
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>mi_spatialomics/</code> <span
@@ -421,21 +421,18 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
+<div id="strongRMarkdownfilestronguptodate"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of
-the R Markdown file created these results, you’ll want to first commit
-it to the Git repo. If you’re still working on the analysis, you can
-ignore this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
@@ -526,15 +523,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree5dee03d1f3791ef02f4b04f3ffcef6dca79a876btargetblank5dee03da">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510targetblank2dcd178a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/5dee03d1f3791ef02f4b04f3ffcef6dca79a876b" target="_blank">5dee03d</a>
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510" target="_blank">2dcd178</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree5dee03d1f3791ef02f4b04f3ffcef6dca79a876btargetblank5dee03da"
+id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510targetblank2dcd178a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -544,7 +541,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/5dee03d1f3791ef02f4b04f3ffcef6dca79a876b" target="_blank">5dee03d</a>.
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510" target="_blank">2dcd178</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -627,45 +624,12 @@ Ignored files:
     Ignored:    renv/library/
     Ignored:    renv/staging/
 
-Untracked files:
-    Untracked:  analysis/deprecated/mol_cart.misty_neighbourhood_analysis.Rmd
-    Untracked:  analysis/deprecated/mol_cart.molkart.process_quantifications_seurat.Rmd
-    Untracked:  analysis/molecular_cartography_python/animation.gif
-    Untracked:  analysis/molecular_cartography_python/kuppe_heart19.h5ad
-    Untracked:  analysis/molecular_cartography_python/mol_cart.plot_points_on_mask.ipynb
-    Untracked:  analysis/molecular_cartography_python/mol_cart.spot_animation.ipynb
-    Untracked:  analysis/molecular_cartography_python/molkart.local_analysis_lianaplus.ipynb
-    Untracked:  analysis/plots/
-    Untracked:  pipeline_configs/
-
 Unstaged changes:
-    Modified:   analysis/data_processing.Rmd
-    Modified:   analysis/figures.Figure1.Rmd
-    Modified:   analysis/figures.Figure2.Rmd
-    Modified:   analysis/figures.deep_visual_proteomics.Rmd
-    Modified:   analysis/figures.supplementary_figure_X.proteomics_qc.Rmd
-    Modified:   analysis/index.Rmd
-    Deleted:    analysis/mol_cart.misty_neighbourhood_analysis.Rmd
-    Deleted:    analysis/mol_cart.molkart.process_quantifications_seurat.Rmd
-    Modified:   analysis/mol_cart.supplementary_figure4.Rmd
-    Modified:   analysis/seqIF.heatmaps_pixie.figure3.Rmd
-    Modified:   analysis/seqIF.region_quantification.Rmd
-    Modified:   analysis/spatialMI_functions.py
-    Modified:   code/functions.R
     Modified:   figures/Figure_5.eps
     Modified:   figures/Figure_5.pdf
     Modified:   figures/Figure_5.png
     Modified:   figures/Figure_5.svg
-    Modified:   figures/Supplementary_figure_2.png
-    Modified:   figures/Supplementary_figure_5.segmentation_metrics.poster.eps
-    Modified:   figures/Supplementary_figure_X.proteomics.eps
-    Modified:   figures/Supplementary_figure_X.proteomics.png
     Modified:   plots/Figure1.dotplot.pdf
-    Modified:   plots/molkart.umap_time.png
-    Modified:   references/mh.all.v2023.1.Mm.symbols.sets.rds
-    Modified:   renv.lock
-    Modified:   renv/activate.R
-    Modified:   renv/settings.json
 
 </code></pre>
 <p>
@@ -712,6 +676,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510/analysis/seqIF.region_quantification.Rmd" target="_blank">2dcd178</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-12-06
+</td>
+<td>
+wflow_publish("*")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510/docs/seqIF.region_quantification.html" target="_blank">2dcd178</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-12-06
+</td>
+<td>
+wflow_publish("*")
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -855,6 +853,43 @@ cells_per_sample &lt;- annotated_cells %&gt;%
 <pre><code>Warning in RColorBrewer::brewer.pal(n, pal): n too large, allowed maximum for palette Set1 is 9
 Returning the palette you asked for with that many colors</code></pre>
 <p><img src="figure/seqIF.region_quantification.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
+Past versions of unnamed-chunk-6-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-6-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510/docs/figure/seqIF.region_quantification.Rmd/unnamed-chunk-6-1.png" target="_blank">2dcd178</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-12-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code># ggplot(cells_per_sample,aes(fov,n,fill = cell_meta_cluster)) +
 #   geom_bar(stat=&quot;identity&quot;, color = &quot;black&quot;) +
 #   coord_flip() +
@@ -883,6 +918,43 @@ ggplot(region_measurements,aes(fov,total_area_um2)) +
   geom_bar(stat=&quot;identity&quot;)</code></pre>
 <pre><code>Warning: Removed 1 rows containing missing values (`position_stack()`).</code></pre>
 <p><img src="figure/seqIF.region_quantification.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510/docs/figure/seqIF.region_quantification.Rmd/unnamed-chunk-7-1.png" target="_blank">2dcd178</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-12-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ggplot(cells_per_region_norm,aes(time,cells_per_mm2,fill = time)) +
   #geom_bar(stat=&quot;identity&quot;,position = &quot;dodge&quot;, color = &quot;black&quot;) +
   #geom_point(size = 3) +
@@ -892,6 +964,43 @@ ggplot(region_measurements,aes(fov,total_area_um2)) +
              scales = &quot;free_y&quot;) +
   scale_fill_brewer(palette = &quot;Dark2&quot;)</code></pre>
 <p><img src="figure/seqIF.region_quantification.Rmd/unnamed-chunk-7-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-2">
+Past versions of unnamed-chunk-7-2.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510/docs/figure/seqIF.region_quantification.Rmd/unnamed-chunk-7-2.png" target="_blank">2dcd178</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-12-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="ccr2-monomacros-per-region" class="section level2">
 <h2>Ccr2+ mono/macros per region</h2>
@@ -949,6 +1058,43 @@ This warning is displayed once every 8 hours.
 Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
 generated.</code></pre>
 <p><img src="figure/seqIF.region_quantification.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510/docs/figure/seqIF.region_quantification.Rmd/unnamed-chunk-8-1.png" target="_blank">2dcd178</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-12-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>save_plot(ccr2_mono_regions,
           file = &quot;./plots/Figure3.ccr2_monomacro_regions.pdf&quot;,
           base_height = 3.5,
@@ -960,6 +1106,43 @@ generated.</code></pre>
   geom_point(data = subset(subdata,cell_meta_cluster == &quot;Cardiomyocytes Ankrd1+&quot;),color = &quot;#EFCC00&quot;) +
   geom_point(data = subset(subdata,cell_meta_cluster == &quot;Mono / Macros Ccr2+&quot;),color = &quot;purple&quot;)</code></pre>
 <p><img src="figure/seqIF.region_quantification.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-10-1">
+Past versions of unnamed-chunk-10-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-10-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510/docs/figure/seqIF.region_quantification.Rmd/unnamed-chunk-10-1.png" target="_blank">2dcd178</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-12-06
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>  #geom_hex(data = subset(subdata,cell_meta_cluster == &quot;Mono / Macros Ccr2+&quot;),bins = 100) +
   scale_fill_viridis_c()</code></pre>
 <pre><code>&lt;ScaleContinuous&gt;
