@@ -15,7 +15,7 @@
 
 <title>Data analysis</title>
 
-<script src="site_libs/header-attrs-2.24/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
@@ -370,7 +370,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -381,8 +381,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -391,13 +391,13 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-09-04
+<strong>Last updated:</strong> 2024-01-09
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 1
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>mi_spatialomics/</code> <span
@@ -420,33 +420,36 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree5dee03d1f3791ef02f4b04f3ffcef6dca79a876btargetblank5dee03da">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree60d835ca4f4425597bb5fc2b34e87ecb10868ba7targetblank60d835ca">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/5dee03d1f3791ef02f4b04f3ffcef6dca79a876b" target="_blank">5dee03d</a>
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/60d835ca4f4425597bb5fc2b34e87ecb10868ba7" target="_blank">60d835c</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree5dee03d1f3791ef02f4b04f3ffcef6dca79a876btargetblank5dee03da"
+id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree60d835ca4f4425597bb5fc2b34e87ecb10868ba7targetblank60d835ca"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -456,7 +459,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/5dee03d1f3791ef02f4b04f3ffcef6dca79a876b" target="_blank">5dee03d</a>.
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/60d835ca4f4425597bb5fc2b34e87ecb10868ba7" target="_blank">60d835c</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -475,8 +478,10 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    analysis/.DS_Store
+    Ignored:    analysis/.Rhistory
     Ignored:    analysis/deprecated/.DS_Store
     Ignored:    analysis/molecular_cartography_python/.DS_Store
+    Ignored:    analysis/molecular_cartography_python/figures/
     Ignored:    analysis/seqIF_python/.DS_Store
     Ignored:    data/.DS_Store
     Ignored:    data/140623.calcagno_et_al.seurat_object.rds
@@ -486,8 +491,6 @@ Ignored files:
     Ignored:    data/results_cts_100.sqm
     Ignored:    data/seqIF_regions_annotations/
     Ignored:    data/seurat/
-    Ignored:    data/seurat_basic/
-    Ignored:    data/seuratdata/
     Ignored:    figures/.DS_Store
     Ignored:    figures/Figure_5.pathway_plot.pdf
     Ignored:    figures/Figure_5.pca_plot.pdf
@@ -506,22 +509,54 @@ Ignored files:
     Ignored:    figures/mol_cart.Nppa_distribution.png
     Ignored:    figures/supplementary_figure4.cell_type_distributions.eps
     Ignored:    figures/supplementary_figure4.cell_type_distributions.png
-    Ignored:    omnipathr-log/
     Ignored:    output/.DS_Store
     Ignored:    output/mol_cart.harmony_object.h5Seurat
-    Ignored:    output/mol_cart/
+    Ignored:    output/molkart/
     Ignored:    output/proteomics/
     Ignored:    output/seqIF/
+    Ignored:    output/tx_abundances_per_slide.tsv
+    Ignored:    pipeline_configs/mcmicro/
     Ignored:    plots/.DS_Store
     Ignored:    plots/Figure1.umap_plot.pdf
     Ignored:    plots/Figure3.ccr2_monomacro_regions.pdf
     Ignored:    plots/Figure3.cell_types_overtimes.pdf
     Ignored:    plots/Figure3.pixel_clusters_overtimes.pdf
     Ignored:    plots/mol_cart.Figure_2.ct_percentage.pdf
+    Ignored:    plots/molkart.squidpy.co_occurrence_plot.CMs_Nppa.sample_2d_r1_s1.png
+    Ignored:    plots/molkart.squidpy.co_occurrence_plot.CMs_Nppa.sample_2d_r2_s1.png
+    Ignored:    plots/molkart.squidpy.co_occurrence_plot.CMs_Nppa.sample_control_r1_s1.png
+    Ignored:    plots/molkart.squidpy.co_occurrence_plot.CMs_Nppa.sample_control_r2_s1.png
+    Ignored:    plots/molkart.squidpy.co_occurrence_plot.Endocardial_cells.sample_2d_r1_s1.png
+    Ignored:    plots/molkart.squidpy.co_occurrence_plot.Endocardial_cells.sample_2d_r2_s1.png
+    Ignored:    plots/molkart.squidpy.co_occurrence_plot.Endocardial_cells.sample_control_r1_s1.png
+    Ignored:    plots/molkart.squidpy.co_occurrence_plot.Endocardial_cells.sample_control_r2_s1.png
+    Ignored:    plots/molkart.squidpy.co_occurrence_plot.Myeloid_cells.sample_2d_r1_s1.png
+    Ignored:    plots/molkart.squidpy.co_occurrence_plot.Myeloid_cells.sample_2d_r2_s1.png
+    Ignored:    plots/molkart.squidpy.co_occurrence_plot.Myeloid_cells.sample_control_r1_s1.png
+    Ignored:    plots/molkart.squidpy.co_occurrence_plot.Myeloid_cells.sample_control_r2_s1.png
+    Ignored:    plots/molkart.squidpy.nhood_enrichment_plot.sample_2d_r1_s1.png
+    Ignored:    plots/molkart.squidpy.nhood_enrichment_plot.sample_2d_r2_s1.png
+    Ignored:    plots/molkart.squidpy.nhood_enrichment_plot.sample_control_r1_s1.png
+    Ignored:    plots/molkart.squidpy.nhood_enrichment_plot.sample_control_r2_s1.png
     Ignored:    references/.DS_Store
-    Ignored:    renv/.DS_Store
     Ignored:    renv/library/
     Ignored:    renv/staging/
+
+Untracked files:
+    Untracked:  pipeline_configs/nfcore_molkart/
+
+Unstaged changes:
+    Modified:   analysis/data_analysis.Rmd
+    Modified:   analysis/data_processing.Rmd
+    Modified:   analysis/figures.supplementary_figure_2.Rmd
+    Modified:   analysis/mol_cart.QC_spots.Rmd
+    Deleted:    analysis/molecular_cartography_python/kuppe_heart19.h5ad
+    Modified:   analysis/molecular_cartography_python/molkart.local_analysis_lianaplus.ipynb
+    Modified:   analysis/molkart.seurat_analysis.Rmd
+    Modified:   code/functions.R
+    Deleted:    pipeline_configs/samplesheet.nf-molkart.csv
+    Modified:   plots/molkart.umap_time.png
+    Modified:   renv.lock
 
 </code></pre>
 <p>
@@ -567,6 +602,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510/docs/data_analysis.html" target="_blank">2dcd178</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-12-06
+</td>
+<td>
+wflow_publish("*")
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1072,7 +1124,8 @@ Configure site header.
 <p>These scripts were used to analyze Molecular Cartography data from
 the nf-Molkart pipeline.</p>
 <ol style="list-style-type: decimal">
-<li><a href="./molkart.QC_spots.html">QC RNA spots</a></li>
+<li><a href="./molkart.QC_spots.html">QC RNA spots</a> This script
+will</li>
 <li><a href="./molkart.process_quantifications_seurat.Rmd">Seurat
 analysis of Molkart output</a></li>
 <li><a href="./molkart.misty_neighbourhood_analysis.Rmd">Misty and

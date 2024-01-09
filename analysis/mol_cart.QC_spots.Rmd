@@ -23,6 +23,7 @@ source("./code/functions.R")
 
 # Introduction
 
+Here we will use the deduplicated RNA spot tables to calculate the transcript abundances per sample, as well as calculate  
 
 
 # Correlation between technical replicates

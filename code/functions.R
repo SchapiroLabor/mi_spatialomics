@@ -25,7 +25,6 @@ create_seurat_sctransform_mcquant <- function(mcquant,sample_ID){
   cell_features <- mcquant %>%
     select(c(X_centroid,Y_centroid,Area,MajorAxisLength,MinorAxisLength,Eccentricity,Solidity,Extent,Orientation))
 
-  colnames(exp_matrix) <- gsub("_intensity_sum","",colnames(exp_matrix))
   gene_names <- colnames(exp_matrix)
   exp_matrix_t <- t(exp_matrix)
   rownames(exp_matrix_t) <- gene_names

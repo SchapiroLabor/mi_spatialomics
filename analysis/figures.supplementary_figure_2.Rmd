@@ -20,7 +20,7 @@ source("./code/functions.R")
 
 # Supplementary Figure 2 - Quality control (QC) of Molecular Cartography data
 
-## Correlation between technical replicates
+## A) Correlation between technical replicates
 
 The data used in this plot was calculated here:[1_QC_spots.Rmd](../analysis/1_QC_spots.Rmd)
 
@@ -61,7 +61,7 @@ tx_correlation_plot
 ```
 
 
-## Transcripts per uM of tissue
+## B)  Transcripts per uM of tissue
 
 The data used in this plot was calculated here: {1_QC_spots.Rmd}(../analysis/1_count_spots_on_tissue.ipynb)
 
@@ -98,7 +98,7 @@ spots_per_um <- ggbarplot(spots_tissue,
  avg_spots_per_um
 ```
 
-## Principal component analysis between samples
+## C) Principal component analysis between samples
 
 The data used in this plot was calculated here: {1_QC_spots.Rmd}(../analysis/1_QC_spots.Rmd)
 

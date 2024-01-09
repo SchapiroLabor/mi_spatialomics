@@ -12,6 +12,8 @@ editor_options:
 These scripts were used to analyze Molecular Cartography data from the nf-Molkart pipeline.
 
 1) [QC RNA spots](./molkart.QC_spots.html)
+
+This script will 
 2) [Seurat analysis of Molkart output](./molkart.process_quantifications_seurat.Rmd)
 3) [Misty and abundance analysis](./molkart.misty_neighbourhood_analysis.Rmd)
 

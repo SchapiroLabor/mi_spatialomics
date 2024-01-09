@@ -41,12 +41,14 @@ final_samples <- c("sample_control_r1_s1","sample_control_r2_s1",
 seurat_objects <- list()
 
 ## SCTransform based clustering across all samples
-sample_dir <- "../data/nf_molkart_results/quantification/cellpose"
+sample_dir <- "../results/nf-core_molkart/spot2cell"
 seurat_list <- list()
 segmethod_samples <- list.files(sample_dir)
 for(sample in segmethod_samples){
     sample_ID <- strsplit(sample,"\\.")[[1]][1]
-    if(endsWith(sample,".mcquant_fix.csv") & sample_ID %in% final_samples){
+    sample_ID <- strsplit(sample_ID,split="_")[[1]][-1]
+    sample_ID <- paste(sample_ID[1:length(sample_ID) -1],collapse = "_")
+    if(endsWith(sample,"_cellpose.csv") & sample_ID %in% final_samples){
       print(sample_ID)
       sample_quant <- fread(paste(sample_dir,sample,sep="/"))
       seurat_object <- create_seurat_sctransform_mcquant(sample_quant,sample_ID)
@@ -113,6 +115,7 @@ harmony_object <- RunHarmony(resolve_object,
                              dims.use = 1:npcs_to_use)
 ```
 
+
 ```{r}
 harmony_object <- RunUMAP(harmony_object, reduction = "harmony", dims = 1:npcs_to_use)
 harmony_object <- FindNeighbors(harmony_object, reduction = "harmony", dims = 1:npcs_to_use) %>% FindClusters(resolution = 0.3)
@@ -173,7 +176,6 @@ harmony_object <- PrepSCTFindMarkers(harmony_object, assay = "SCT", verbose = TR
 harmony_markers <- FindAllMarkers(harmony_object, logfc.threshold = 0.5, only.pos = TRUE)
 ```
 
-
 ## Transfer labels from snRNA-seq (Calcagno et al. 2020)
 
 ```{r}
@@ -205,8 +207,6 @@ DimPlot(harmony_object, reduction = "umap", group.by = "predicted_ct_lvl2",raste
 DimPlot(harmony_object, reduction = "umap", group.by = "predicted_ct_lvl3",raster=FALSE, label = TRUE)
 DimPlot(harmony_object, reduction = "umap", group.by = "orig_label_calcagno",raster=FALSE, label = TRUE)
 ```
-
-
 
 ## Assign cell-type names to clusters
 
@@ -345,11 +345,12 @@ DotPlot(harmony_object, group.by = "anno_cell_type_lv2",
   guides(size=guide_legend(override.aes=list(shape=21, colour="black", fill="white")))
 ```
 
+
 ```{r}
-library(pheatmap)
-## Instead of a dotplot, let's look at a pseudbulk heatmap
-pseudobulk <- AverageExpression(harmony_object, assay = "SCT",group.by = "anno_cell_type_lv2",slot = "data")
-pheatmap(pseudobulk$SCT[genes,])
+# library(pheatmap)
+# ## Instead of a dotplot, let's look at a pseudbulk heatmap
+# pseudobulk <- AverageExpression(harmony_object, assay = "SCT",group.by = "anno_cell_type_lv2",slot = "data")
+# pheatmap(pseudobulk$SCT[genes,])
 ```
 
 
@@ -357,7 +358,7 @@ pheatmap(pseudobulk$SCT[genes,])
 
 ```{r}
 saveRDS(harmony_object,
-        file = "./output/mol_cart/molkart.harmony_seurat_object.rds")
+        file = "./output/molkart/molkart.harmony_seurat_object.rds")
 ```
 
 

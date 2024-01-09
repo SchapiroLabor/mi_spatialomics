@@ -11,8 +11,11 @@ editor_options:
 
 ## Processing of raw data
 
-These scripts were used to process raw Molecular Cartography data using the [nf-core/molkart](https://nf-co.re/molkart) pipeline (revision: 3c46f9d1f88540131ab4d35bb4f33b2648efd5bc). The configurations, parameters and models used to process the data can be found in the following files:
+The raw Molecular Cartography data was processed using the [nf-core/molkart](https://nf-co.re/molkart) pipeline (revision: 81eafe9f9993d4daf16371ba3804ce9ae08053ad). The configurations, parameters and models used to reproduce the processing can be found in Synapse in the following location:
 
+[/Molecular_Cartography/nfcore_molkart](https://www.synapse.org/#!Synapse:syn53251662)
+
+All downstream processing after nf-core/molkart was performed in R and python using scripts provided and documented in this repository. See [Data processing](./analysis/data_processing.Rmd) for details.
 
 # Lunaphore
 
