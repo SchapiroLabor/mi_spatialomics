@@ -20,4 +20,3 @@ All downstream processing after nf-core/molkart was performed in R and python us
 # Lunaphore
 
 Raw Lunaphore images were processed using [MCMICRO](https://mcmicro.org/). The configurations, parameters and commands used can be found in the following files:
-

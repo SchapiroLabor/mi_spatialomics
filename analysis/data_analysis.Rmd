@@ -18,7 +18,8 @@ These scripts were used to analyze Molecular Cartography data following processi
 
 ## Cell type calling
 - [Seurat analysis of Molkart output](./molkart.process_quantifications_seurat.Rmd)
-- [Misty and abundance analysis](./molkart.misty_neighbourhood_analysis.Rmd)
+- [Misty spatial analysis](./molkart.misty_analysis.Rmd)
+- [Liana bivariate cell-type analysis](./molecular_cartography_python/molkart.local_analysis_lianaplus.ipynb)
 
 # Lunaphore
 

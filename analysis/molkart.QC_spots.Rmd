@@ -32,7 +32,7 @@ Here we will use the deduplicated RNA spot tables to calculate the transcript ab
 
 ```{r}
 ## This script will take the Molecular Cartography spot count tables transform them from tsv
-data_dir <- "../data/nf_molkart_results/dedup_spots"
+data_dir <- "../results/nf-core_molkart/mindagap"
 
 all_samples <- list()
 
@@ -98,15 +98,13 @@ samples <- exp_mat$sample_ID
 exp_mat <- exp_mat %>% select(-sample_ID)
 
 exp_mat <- as.matrix(exp_mat)
-#colnames(exp_mat) <- samples
-rownames(samples)
 exp_mat[is.na(exp_mat)] <- 0
 ```
 
 ```{r}
 ## Perform PCA
 library(factoextra)
-res.pca <- prcomp(exp_mat, scale = TRUE)
+res.pca <- prcomp(exp_mat,center = TRUE, scale = TRUE, retx = TRUE)
 
 fviz_eig(res.pca)
 ```
@@ -141,7 +139,7 @@ pca_plot <- ggplot(pcs,aes(PC1,PC2,label = label)) +
 pca_plot
 
 write.table(pcs,
-            file = "./output/mol_cart/pca_spots.tsv",
+            file = "./output/molkart/pca_spots.tsv",
             sep = "\t",
             col.names = TRUE,
             row.names = FALSE,

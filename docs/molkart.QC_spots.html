@@ -15,7 +15,7 @@
 
 <title>molkart.QC_spots</title>
 
-<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
@@ -31,7 +31,7 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
 <link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
 <script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
@@ -370,7 +370,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -381,8 +381,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -391,13 +391,13 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-07-23
+<strong>Last updated:</strong> 2024-01-09
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>mi_spatialomics/</code> <span
@@ -409,7 +409,7 @@ title="This is the local directory in which the code in this file was executed."
 This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
 analysis was created with <a
   href="https://github.com/workflowr/workflowr">workflowr</a> (version
-1.7.0). The <em>Checks</em> tab describes the reproducibility checks
+1.7.1). The <em>Checks</em> tab describes the reproducibility checks
 that were applied when the results were created. The <em>Past
 versions</em> tab lists the development history.
 </p>
@@ -420,18 +420,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown is untracked by Git. To know which version of the R
+Markdown file created these results, you’ll want to first commit it to
+the Git repo. If you’re still working on the analysis, you can ignore
+this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -522,15 +525,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstreed6085a28841baf3d83d41260bdb95685234c038atargetblankd6085a2a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree2d9b9093963bf07fb65d4723babe273e195717d5targetblank2d9b909a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/d6085a28841baf3d83d41260bdb95685234c038a" target="_blank">d6085a2</a>
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/2d9b9093963bf07fb65d4723babe273e195717d5" target="_blank">2d9b909</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstreed6085a28841baf3d83d41260bdb95685234c038atargetblankd6085a2a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree2d9b9093963bf07fb65d4723babe273e195717d5targetblank2d9b909a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -540,7 +543,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/d6085a28841baf3d83d41260bdb95685234c038a" target="_blank">d6085a2</a>.
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/2d9b9093963bf07fb65d4723babe273e195717d5" target="_blank">2d9b909</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -559,30 +562,79 @@ Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    analysis/.DS_Store
+    Ignored:    analysis/.Rhistory
+    Ignored:    analysis/deprecated/.DS_Store
+    Ignored:    analysis/molecular_cartography_python/.DS_Store
+    Ignored:    analysis/molecular_cartography_python/figures/
+    Ignored:    analysis/seqIF_python/.DS_Store
     Ignored:    data/.DS_Store
-    Ignored:    data/.Rapp.history
     Ignored:    data/140623.calcagno_et_al.seurat_object.rds
-    Ignored:    omnipathr-log/
-    Ignored:    plots/
+    Ignored:    data/Calcagno2022_int_logNorm_annot.h5Seurat
+    Ignored:    data/pixie.cell_table_size_normalized_cell_labels.csv
+    Ignored:    data/results_cts_100.sqm
+    Ignored:    data/seqIF_regions_annotations/
+    Ignored:    data/seurat/
+    Ignored:    figures/.DS_Store
+    Ignored:    figures/Figure_5.pathway_plot.pdf
+    Ignored:    figures/Figure_5.pca_plot.pdf
+    Ignored:    figures/Figure_5.pca_plot.png
+    Ignored:    figures/Figure_5.volcano_plot.pdf
+    Ignored:    figures/Figure_5.vwf_expression_plot.pdf
+    Ignored:    figures/Figure_5.vwf_specificity_plot.pdf
+    Ignored:    figures/Supplementary_figure_3.segmentation_metrics.eps
+    Ignored:    figures/Supplementary_figure_3.segmentation_metrics.png
+    Ignored:    figures/figures.supplementary_figure4.png
+    Ignored:    figures/mol_cart.Figure_2.gains.pdf
+    Ignored:    figures/mol_cart.Figure_2.misty_gains.pdf
+    Ignored:    figures/mol_cart.Myeloid_distribution.png
+    Ignored:    figures/mol_cart.Nppa_distribution.eps
+    Ignored:    figures/mol_cart.Nppa_distribution.pdf
+    Ignored:    figures/mol_cart.Nppa_distribution.png
+    Ignored:    figures/supplementary_figure4.cell_type_distributions.eps
+    Ignored:    figures/supplementary_figure4.cell_type_distributions.png
+    Ignored:    output/.DS_Store
+    Ignored:    output/mol_cart.harmony_object.h5Seurat
+    Ignored:    output/molkart/
+    Ignored:    output/proteomics/
+    Ignored:    output/seqIF/
+    Ignored:    pipeline_configs/mcmicro/
+    Ignored:    plots/.DS_Store
+    Ignored:    plots/Figure1.umap_plot.pdf
+    Ignored:    plots/Figure3.ccr2_monomacro_regions.pdf
+    Ignored:    plots/Figure3.cell_types_overtimes.pdf
+    Ignored:    plots/Figure3.pixel_clusters_overtimes.pdf
+    Ignored:    plots/mol_cart.Figure_2.ct_percentage.pdf
+    Ignored:    plots/molkart.squidpy.co_occurrence_plot.CMs_Nppa.sample_2d_r1_s1.png
+    Ignored:    plots/molkart.squidpy.co_occurrence_plot.CMs_Nppa.sample_2d_r2_s1.png
+    Ignored:    plots/molkart.squidpy.co_occurrence_plot.CMs_Nppa.sample_control_r1_s1.png
+    Ignored:    plots/molkart.squidpy.co_occurrence_plot.CMs_Nppa.sample_control_r2_s1.png
+    Ignored:    plots/molkart.squidpy.co_occurrence_plot.Endocardial_cells.sample_2d_r1_s1.png
+    Ignored:    plots/molkart.squidpy.co_occurrence_plot.Endocardial_cells.sample_2d_r2_s1.png
+    Ignored:    plots/molkart.squidpy.co_occurrence_plot.Endocardial_cells.sample_control_r1_s1.png
+    Ignored:    plots/molkart.squidpy.co_occurrence_plot.Endocardial_cells.sample_control_r2_s1.png
+    Ignored:    plots/molkart.squidpy.co_occurrence_plot.Myeloid_cells.sample_2d_r1_s1.png
+    Ignored:    plots/molkart.squidpy.co_occurrence_plot.Myeloid_cells.sample_2d_r2_s1.png
+    Ignored:    plots/molkart.squidpy.co_occurrence_plot.Myeloid_cells.sample_control_r1_s1.png
+    Ignored:    plots/molkart.squidpy.co_occurrence_plot.Myeloid_cells.sample_control_r2_s1.png
+    Ignored:    plots/molkart.squidpy.nhood_enrichment_plot.sample_2d_r1_s1.png
+    Ignored:    plots/molkart.squidpy.nhood_enrichment_plot.sample_2d_r2_s1.png
+    Ignored:    plots/molkart.squidpy.nhood_enrichment_plot.sample_control_r1_s1.png
+    Ignored:    plots/molkart.squidpy.nhood_enrichment_plot.sample_control_r2_s1.png
     Ignored:    references/.DS_Store
-    Ignored:    renv/.DS_Store
     Ignored:    renv/library/
     Ignored:    renv/staging/
 
 Untracked files:
-    Untracked:  data/cells_per_region.tsv
-    Untracked:  figures.supplementary_figure_3.Rmd
-    Untracked:  figures/Supplementary_figure_5.segmentation_metrics.poster.eps
+    Untracked:  analysis/molkart.QC_spots.Rmd
+    Untracked:  annotations/
 
 Unstaged changes:
-    Deleted:    analysis/figures.supplementary_Figure_3.Rmd
-    Modified:   code/functions.R
-    Modified:   figures/Figure_5.eps
-    Modified:   figures/Figure_5.pdf
-    Modified:   figures/Figure_5.png
-    Modified:   figures/Figure_5.svg
-    Modified:   figures/Supplementary_figure_5.segmentation_metrics.eps
-    Modified:   figures/Supplementary_figure_5.segmentation_metrics.png
+    Modified:   analysis/data_analysis.Rmd
+    Modified:   analysis/figures.supplementary_figure_2.Rmd
+    Deleted:    analysis/mol_cart.QC_spots.Rmd
+    Modified:   analysis/molecular_cartography_python/mol_cart.count_spots_on_tissue.ipynb
+    Modified:   figures/Supplementary_figure_2.eps
+    Modified:   figures/Supplementary_figure_2.png
 
 </code></pre>
 <p>
@@ -628,6 +680,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/5dee03d1f3791ef02f4b04f3ffcef6dca79a876b/analysis/molkart.QC_spots.Rmd" target="_blank">5dee03d</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-09-04
+</td>
+<td>
+Latest code update.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/67e546d5865fdd50e7218ad805ecec53dce079f7/docs/molkart.QC_spots.html" target="_blank">67e546d</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-07-23
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -705,6 +791,8 @@ Added code for supplementary Figures.
 </div>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
+<p>Here we will use the deduplicated RNA spot tables to calculate the
+transcript abundances per sample, as well as calculate</p>
 </div>
 <div id="correlation-between-technical-replicates"
 class="section level1">
@@ -712,7 +800,7 @@ class="section level1">
 <div id="read-data" class="section level3">
 <h3>Read data</h3>
 <pre class="r"><code>## This script will take the Molecular Cartography spot count tables transform them from tsv
-data_dir &lt;- here(&quot;../data/nf_MolCart_results/dedup_spots&quot;)
+data_dir &lt;- &quot;../results/nf-core_molkart/mindagap&quot;
 
 all_samples &lt;- list()
 
@@ -738,7 +826,7 @@ for(this_file in all_files){
     all_samples[[this_file]] &lt;- sample_tx_sums
   }
 }</code></pre>
-<pre><code>[1] &quot;sample_2d_r1_s1.spots_markedDups.txt&quot;</code></pre>
+<pre><code>[1] &quot;sample_2d_r1_s1_sample_2d_r1_s1.spots_markedDups.txt&quot;</code></pre>
 <pre><code>Rows: 940788 Columns: 4
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: &quot;\t&quot;
@@ -749,7 +837,7 @@ dbl (3): x, y, z
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre><code>Warning: Expected 5 pieces. Additional pieces discarded in 99 rows [1, 2, 3, 4, 5, 6, 7,
 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...].</code></pre>
-<pre><code>[1] &quot;sample_2d_r1_s2.spots_markedDups.txt&quot;</code></pre>
+<pre><code>[1] &quot;sample_2d_r1_s2_sample_2d_r1_s2.spots_markedDups.txt&quot;</code></pre>
 <pre><code>Rows: 2242464 Columns: 4
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: &quot;\t&quot;
@@ -760,7 +848,7 @@ dbl (3): x, y, z
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre><code>Warning: Expected 5 pieces. Additional pieces discarded in 99 rows [1, 2, 3, 4, 5, 6, 7,
 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...].</code></pre>
-<pre><code>[1] &quot;sample_2d_r2_s1.spots_markedDups.txt&quot;</code></pre>
+<pre><code>[1] &quot;sample_2d_r2_s1_sample_2d_r2_s1.spots_markedDups.txt&quot;</code></pre>
 <pre><code>Rows: 1055509 Columns: 4
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: &quot;\t&quot;
@@ -771,7 +859,7 @@ dbl (3): x, y, z
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre><code>Warning: Expected 5 pieces. Additional pieces discarded in 100 rows [1, 2, 3, 4, 5, 6,
 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...].</code></pre>
-<pre><code>[1] &quot;sample_2d_r2_s2.spots_markedDups.txt&quot;</code></pre>
+<pre><code>[1] &quot;sample_2d_r2_s2_sample_2d_r2_s2.spots_markedDups.txt&quot;</code></pre>
 <pre><code>Rows: 1855385 Columns: 4
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: &quot;\t&quot;
@@ -782,7 +870,7 @@ dbl (3): x, y, z
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre><code>Warning: Expected 5 pieces. Additional pieces discarded in 98 rows [1, 2, 3, 4, 5, 6, 7,
 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...].</code></pre>
-<pre><code>[1] &quot;sample_4d_r1_s1.spots_markedDups.txt&quot;</code></pre>
+<pre><code>[1] &quot;sample_4d_r1_s1_sample_4d_r1_s1.spots_markedDups.txt&quot;</code></pre>
 <pre><code>Rows: 4988178 Columns: 4
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: &quot;\t&quot;
@@ -793,7 +881,7 @@ dbl (3): x, y, z
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre><code>Warning: Expected 5 pieces. Additional pieces discarded in 100 rows [1, 2, 3, 4, 5, 6,
 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...].</code></pre>
-<pre><code>[1] &quot;sample_4d_r1_s2.spots_markedDups.txt&quot;</code></pre>
+<pre><code>[1] &quot;sample_4d_r1_s2_sample_4d_r1_s2.spots_markedDups.txt&quot;</code></pre>
 <pre><code>Rows: 1225229 Columns: 4
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: &quot;\t&quot;
@@ -804,7 +892,7 @@ dbl (3): x, y, z
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre><code>Warning: Expected 5 pieces. Additional pieces discarded in 100 rows [1, 2, 3, 4, 5, 6,
 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...].</code></pre>
-<pre><code>[1] &quot;sample_4d_r2_s1.spots_markedDups.txt&quot;</code></pre>
+<pre><code>[1] &quot;sample_4d_r2_s1_sample_4d_r2_s1.spots_markedDups.txt&quot;</code></pre>
 <pre><code>Rows: 1231209 Columns: 4
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: &quot;\t&quot;
@@ -815,7 +903,7 @@ dbl (3): x, y, z
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre><code>Warning: Expected 5 pieces. Additional pieces discarded in 99 rows [1, 2, 3, 4, 5, 6, 7,
 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...].</code></pre>
-<pre><code>[1] &quot;sample_4d_r2_s2.spots_markedDups.txt&quot;</code></pre>
+<pre><code>[1] &quot;sample_4d_r2_s2_sample_4d_r2_s2.spots_markedDups.txt&quot;</code></pre>
 <pre><code>Rows: 758844 Columns: 4
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: &quot;\t&quot;
@@ -826,7 +914,7 @@ dbl (3): x, y, z
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre><code>Warning: Expected 5 pieces. Additional pieces discarded in 99 rows [1, 2, 3, 4, 5, 6, 7,
 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...].</code></pre>
-<pre><code>[1] &quot;sample_4h_r1_s1.spots_markedDups.txt&quot;</code></pre>
+<pre><code>[1] &quot;sample_4h_r1_s1_sample_4h_r1_s1.spots_markedDups.txt&quot;</code></pre>
 <pre><code>Rows: 3037103 Columns: 4
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: &quot;\t&quot;
@@ -837,7 +925,7 @@ dbl (3): x, y, z
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre><code>Warning: Expected 5 pieces. Additional pieces discarded in 100 rows [1, 2, 3, 4, 5, 6,
 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...].</code></pre>
-<pre><code>[1] &quot;sample_4h_r1_s2.spots_markedDups.txt&quot;</code></pre>
+<pre><code>[1] &quot;sample_4h_r1_s2_sample_4h_r1_s2.spots_markedDups.txt&quot;</code></pre>
 <pre><code>Rows: 2200936 Columns: 4
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: &quot;\t&quot;
@@ -848,7 +936,7 @@ dbl (3): x, y, z
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre><code>Warning: Expected 5 pieces. Additional pieces discarded in 100 rows [1, 2, 3, 4, 5, 6,
 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...].</code></pre>
-<pre><code>[1] &quot;sample_4h_r2_s1.spots_markedDups.txt&quot;</code></pre>
+<pre><code>[1] &quot;sample_4h_r2_s1_sample_4h_r2_s1.spots_markedDups.txt&quot;</code></pre>
 <pre><code>Rows: 417879 Columns: 4
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: &quot;\t&quot;
@@ -859,7 +947,7 @@ dbl (3): x, y, z
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre><code>Warning: Expected 5 pieces. Additional pieces discarded in 98 rows [1, 2, 3, 4, 5, 6, 7,
 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...].</code></pre>
-<pre><code>[1] &quot;sample_4h_r2_s2.spots_markedDups.txt&quot;</code></pre>
+<pre><code>[1] &quot;sample_4h_r2_s2_sample_4h_r2_s2.spots_markedDups.txt&quot;</code></pre>
 <pre><code>Rows: 2132153 Columns: 4
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: &quot;\t&quot;
@@ -870,7 +958,7 @@ dbl (3): x, y, z
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre><code>Warning: Expected 5 pieces. Additional pieces discarded in 98 rows [1, 2, 3, 4, 5, 6, 7,
 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...].</code></pre>
-<pre><code>[1] &quot;sample_control_r1_s1.spots_markedDups.txt&quot;</code></pre>
+<pre><code>[1] &quot;sample_control_r1_s1_sample_control_r1_s1.spots_markedDups.txt&quot;</code></pre>
 <pre><code>Rows: 5558060 Columns: 4
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: &quot;\t&quot;
@@ -881,7 +969,7 @@ dbl (3): x, y, z
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre><code>Warning: Expected 5 pieces. Additional pieces discarded in 99 rows [1, 2, 3, 4, 5, 6, 7,
 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...].</code></pre>
-<pre><code>[1] &quot;sample_control_r1_s2.spots_markedDups.txt&quot;</code></pre>
+<pre><code>[1] &quot;sample_control_r1_s2_sample_control_r1_s2.spots_markedDups.txt&quot;</code></pre>
 <pre><code>Rows: 5188851 Columns: 4
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: &quot;\t&quot;
@@ -892,7 +980,7 @@ dbl (3): x, y, z
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre><code>Warning: Expected 5 pieces. Additional pieces discarded in 100 rows [1, 2, 3, 4, 5, 6,
 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...].</code></pre>
-<pre><code>[1] &quot;sample_control_r2_s1.spots_markedDups.txt&quot;</code></pre>
+<pre><code>[1] &quot;sample_control_r2_s1_sample_control_r2_s1.spots_markedDups.txt&quot;</code></pre>
 <pre><code>Rows: 4657621 Columns: 4
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: &quot;\t&quot;
@@ -903,7 +991,7 @@ dbl (3): x, y, z
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre><code>Warning: Expected 5 pieces. Additional pieces discarded in 100 rows [1, 2, 3, 4, 5, 6,
 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...].</code></pre>
-<pre><code>[1] &quot;sample_control_r2_s2.spots_markedDups.txt&quot;</code></pre>
+<pre><code>[1] &quot;sample_control_r2_s2_sample_control_r2_s2.spots_markedDups.txt&quot;</code></pre>
 <pre><code>Rows: 4854327 Columns: 4
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: &quot;\t&quot;
@@ -950,14 +1038,11 @@ samples &lt;- exp_mat$sample_ID
 exp_mat &lt;- exp_mat %&gt;% select(-sample_ID)
 
 exp_mat &lt;- as.matrix(exp_mat)
-#colnames(exp_mat) &lt;- samples
-rownames(samples)</code></pre>
-<pre><code>NULL</code></pre>
-<pre class="r"><code>exp_mat[is.na(exp_mat)] &lt;- 0</code></pre>
+exp_mat[is.na(exp_mat)] &lt;- 0</code></pre>
 <pre class="r"><code>## Perform PCA
 library(factoextra)</code></pre>
 <pre><code>Welcome! Want to learn more? See two factoextra-related books at https://goo.gl/ve3WBa</code></pre>
-<pre class="r"><code>res.pca &lt;- prcomp(exp_mat, scale = TRUE)
+<pre class="r"><code>res.pca &lt;- prcomp(exp_mat,center = TRUE, scale = TRUE, retx = TRUE)
 
 fviz_eig(res.pca)</code></pre>
 <p><img src="figure/molkart.QC_spots.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
@@ -1064,7 +1149,7 @@ FloWuenne
 </div>
 </div>
 <pre class="r"><code>write.table(pcs,
-            file = here(&quot;./output/pca_spots.tsv&quot;),
+            file = &quot;./output/molkart/pca_spots.tsv&quot;,
             sep = &quot;\t&quot;,
             col.names = TRUE,
             row.names = FALSE,
@@ -1078,51 +1163,54 @@ Session information
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 4.2.3 (2023-03-15)
+<pre><code>R version 4.3.1 (2023-06-16)
 Platform: aarch64-apple-darwin20 (64-bit)
-Running under: macOS Ventura 13.4.1
+Running under: macOS Sonoma 14.1.2
 
 Matrix products: default
-BLAS:   /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/lib/libRblas.0.dylib
-LAPACK: /Library/Frameworks/R.framework/Versions/4.2-arm64/Resources/lib/libRlapack.dylib
+BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib 
+LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0
 
 locale:
 [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+time zone: Europe/Berlin
+tzcode source: internal
 
 attached base packages:
 [1] stats     graphics  grDevices datasets  utils     methods   base     
 
 other attached packages:
- [1] factoextra_1.0.7 ggsci_3.0.0      cowplot_1.1.1    ggrepel_0.9.3   
- [5] patchwork_1.1.2  ggpubr_0.6.0     lubridate_1.9.2  forcats_1.0.0   
- [9] stringr_1.5.0    dplyr_1.1.2      purrr_1.0.1      readr_2.1.4     
-[13] tidyr_1.3.0      tibble_3.2.1     ggplot2_3.4.2    tidyverse_2.0.0 
-[17] vroom_1.6.3      here_1.0.1       workflowr_1.7.0 
+ [1] factoextra_1.0.7   RColorBrewer_1.1-3 ggsci_3.0.0        cowplot_1.1.1     
+ [5] ggrepel_0.9.4      patchwork_1.1.3    ggpubr_0.6.0       lubridate_1.9.3   
+ [9] forcats_1.0.0      stringr_1.5.1      dplyr_1.1.4        purrr_1.0.2       
+[13] readr_2.1.4        tidyr_1.3.0        tibble_3.2.1       ggplot2_3.4.4     
+[17] tidyverse_2.0.0    vroom_1.6.5        here_1.0.1         workflowr_1.7.1   
 
 loaded via a namespace (and not attached):
- [1] httr_1.4.6          sass_0.4.6          bit64_4.0.5        
- [4] jsonlite_1.8.4      carData_3.0-5       bslib_0.4.2        
- [7] getPass_0.2-2       highr_0.10          BiocManager_1.30.21
-[10] renv_0.17.3         yaml_2.3.7          pillar_1.9.0       
-[13] backports_1.4.1     glue_1.6.2          digest_0.6.31      
-[16] RColorBrewer_1.1-3  promises_1.2.0.1    ggsignif_0.6.4     
-[19] colorspace_2.1-0    htmltools_0.5.5     httpuv_1.6.11      
-[22] pkgconfig_2.0.3     broom_1.0.5         scales_1.2.1       
-[25] processx_3.8.0      whisker_0.4.1       later_1.3.1        
-[28] tzdb_0.4.0          timechange_0.2.0    git2r_0.32.0       
-[31] generics_0.1.3      farver_2.1.1        car_3.1-2          
-[34] cachem_1.0.8        withr_2.5.0         cli_3.6.1          
-[37] magrittr_2.0.3      crayon_1.5.2        evaluate_0.21      
-[40] ps_1.7.4            fs_1.6.2            fansi_1.0.4        
-[43] rstatix_0.7.2       tools_4.2.3         hms_1.1.3          
-[46] lifecycle_1.0.3     munsell_0.5.0       callr_3.7.3        
-[49] compiler_4.2.3      jquerylib_0.1.4     rlang_1.1.1        
-[52] grid_4.2.3          rstudioapi_0.14     labeling_0.4.2     
-[55] rmarkdown_2.21      gtable_0.3.3        abind_1.4-5        
-[58] R6_2.5.1            knitr_1.42          fastmap_1.1.1      
-[61] bit_4.0.5           utf8_1.2.3          rprojroot_2.0.3    
-[64] stringi_1.7.12      parallel_4.2.3      Rcpp_1.0.10        
-[67] vctrs_0.6.2         tidyselect_1.2.0    xfun_0.39          </code></pre>
+ [1] gtable_0.3.4        xfun_0.41           bslib_0.6.1        
+ [4] rstatix_0.7.2       processx_3.8.3      callr_3.7.3        
+ [7] tzdb_0.4.0          vctrs_0.6.5         tools_4.3.1        
+[10] ps_1.7.5            generics_0.1.3      parallel_4.3.1     
+[13] fansi_1.0.5         highr_0.10          pkgconfig_2.0.3    
+[16] lifecycle_1.0.4     farver_2.1.1        compiler_4.3.1     
+[19] git2r_0.33.0        munsell_0.5.0       getPass_0.2-4      
+[22] carData_3.0-5       httpuv_1.6.13       htmltools_0.5.7    
+[25] sass_0.4.8          yaml_2.3.8          car_3.1-2          
+[28] later_1.3.2         pillar_1.9.0        crayon_1.5.2       
+[31] jquerylib_0.1.4     whisker_0.4.1       cachem_1.0.8       
+[34] abind_1.4-5         tidyselect_1.2.0    digest_0.6.33      
+[37] stringi_1.8.2       labeling_0.4.3      rprojroot_2.0.4    
+[40] fastmap_1.1.1       grid_4.3.1          colorspace_2.1-0   
+[43] cli_3.6.2           magrittr_2.0.3      utf8_1.2.4         
+[46] broom_1.0.5         withr_2.5.2         backports_1.4.1    
+[49] scales_1.3.0        promises_1.2.1      bit64_4.0.5        
+[52] timechange_0.2.0    rmarkdown_2.25      httr_1.4.7         
+[55] bit_4.0.5           ggsignif_0.6.4      hms_1.1.3          
+[58] evaluate_0.23       knitr_1.45          rlang_1.1.2        
+[61] Rcpp_1.0.12         glue_1.6.2          BiocManager_1.30.22
+[64] renv_1.0.3          rstudioapi_0.15.0   jsonlite_1.8.8     
+[67] R6_2.5.1            fs_1.6.3           </code></pre>
 </div>
 </div>
 

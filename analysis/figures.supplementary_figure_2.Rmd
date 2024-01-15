@@ -20,12 +20,15 @@ source("./code/functions.R")
 
 # Supplementary Figure 2 - Quality control (QC) of Molecular Cartography data
 
+The data used in this plot was calculated using the following scripts:
+
+- [molkart.QC_spots](./analysis/molkart.QC_spots.Rmd)
+* [Quantification of RNA spots on tissue](./analysis/molecular_cartography_python/molkart.count_spots_on_tissue.ipynb)
+
 ## A) Correlation between technical replicates
 
-The data used in this plot was calculated here:[1_QC_spots.Rmd](../analysis/1_QC_spots.Rmd)
-
 ```{r}
-merge_tx_sums <- vroom("./output/mol_cart/tx_abundances_per_slide.tsv")
+merge_tx_sums <- vroom("./output/molkart/tx_abundances_per_slide.tsv")
 ```
 
 ```{r}
@@ -63,10 +66,9 @@ tx_correlation_plot
 
 ## B)  Transcripts per uM of tissue
 
-The data used in this plot was calculated here: {1_QC_spots.Rmd}(../analysis/1_count_spots_on_tissue.ipynb)
 
 ```{r}
-spots_tissue <- vroom("./output/mol_cart/spots_per_tissue.tsv")
+spots_tissue <- vroom("./output/molkart/molkart.spots_per_tissue.tsv")
 spots_tissue <- spots_tissue %>%
   separate(sample, into =c("sample","time","replicate","slide"), sep = "_")
 
@@ -100,10 +102,9 @@ spots_per_um <- ggbarplot(spots_tissue,
 
 ## C) Principal component analysis between samples
 
-The data used in this plot was calculated here: {1_QC_spots.Rmd}(../analysis/1_QC_spots.Rmd)
 
 ```{r} 
-pcs <- vroom("./output/mol_cart/pca_spots.tsv")
+pcs <- vroom("./output/molkart/pca_spots.tsv")
 pcs$time <- factor(pcs$time,
                    levels = c("control","4h","2d","4d"))
 ```

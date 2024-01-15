@@ -1,0 +1,9 @@
+sample_ID,width,height
+sample_control_r1_s1,10720,15008
+sample_control_r2_s1,17152,8576
+sample_4h_r1_s1,19296,17152
+sample_4h_r2_s2,19296,15008
+sample_2d_r1_s1,17152,19296
+sample_2d_r2_s1,10720,25728
+sample_4d_r1_s1,15008,19296
+sample_4d_r2_s1,21440,12864
