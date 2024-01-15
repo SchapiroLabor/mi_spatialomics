@@ -7,7 +7,7 @@ editor_options:
   chunk_output_type: console
 ---
 
-```{r}
+```{r, include = FALSE}
 library(workflowr)
 library(fs)
 ```
@@ -18,6 +18,6 @@ This repository contains all code used in the project "Highly-multiplexed imagin
 The repository is structured the following way:
 
 ```{r}
-dir_tree(".", recurse = 1, types = "directory")
+dir_tree(".", recurse = 0, types = "directory")
 ```
 
