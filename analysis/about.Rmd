@@ -7,4 +7,17 @@ editor_options:
   chunk_output_type: console
 ---
 
+```{r}
+library(workflowr)
+library(fs)
+```
+
+
 This repository contains all code used in the project "Highly-multiplexed imaging of immune cell infiltration routes in myocardial infarction".
+
+The repository is structured the following way:
+
+```{r}
+dir_tree(".", recurse = 1, types = "directory")
+```
+
