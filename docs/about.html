@@ -442,15 +442,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstreea3612b864ec8114cc5e6447bc842e7cd93741187targetblanka3612b8a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree46de63c713ac3a44265e43b5132a2e5427a36a1dtargetblank46de63ca">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/a3612b864ec8114cc5e6447bc842e7cd93741187" target="_blank">a3612b8</a>
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/46de63c713ac3a44265e43b5132a2e5427a36a1d" target="_blank">46de63c</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstreea3612b864ec8114cc5e6447bc842e7cd93741187targetblanka3612b8a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree46de63c713ac3a44265e43b5132a2e5427a36a1dtargetblank46de63ca"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -460,7 +460,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/a3612b864ec8114cc5e6447bc842e7cd93741187" target="_blank">a3612b8</a>.
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/46de63c713ac3a44265e43b5132a2e5427a36a1d" target="_blank">46de63c</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -614,6 +614,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/46de63c713ac3a44265e43b5132a2e5427a36a1d/analysis/about.Rmd" target="_blank">46de63c</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2024-01-15
+</td>
+<td>
+wflow_publish("./analysis/about.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/d33c17642e09b1e4ca40a5065f01139d57c8500c/docs/about.html" target="_blank">d33c176</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2024-01-15
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/FloWuenne/mi_spatialomics/blob/a3612b864ec8114cc5e6447bc842e7cd93741187/analysis/about.Rmd" target="_blank">a3612b8</a>
 </td>
 <td>
@@ -753,186 +787,30 @@ Start workflowr project.
 </div>
 </div>
 </div>
-<pre class="r"><code>library(workflowr)
-library(fs)</code></pre>
 <p>This repository contains all code used in the project
 “Highly-multiplexed imaging of immune cell infiltration routes in
 myocardial infarction”.</p>
 <p>The repository is structured the following way:</p>
-<pre class="r"><code>dir_tree(&quot;.&quot;, recurse = 1, types = &quot;directory&quot;)</code></pre>
+<pre class="r"><code>dir_tree(&quot;.&quot;, recurse = 0, types = &quot;directory&quot;)</code></pre>
 <pre><code>.
 ├── LICENSE
 ├── README.md
 ├── _workflowr.yml
 ├── analysis
-│   ├── _site.yml
-│   ├── about.Rmd
-│   ├── data_analysis.Rmd
-│   ├── data_processing.Rmd
-│   ├── deprecated
-│   ├── figures.Figure1.Rmd
-│   ├── figures.Figure2.Rmd
-│   ├── figures.Rmd
-│   ├── figures.deep_visual_proteomics.Rmd
-│   ├── figures.supplementary_figure4.Rmd
-│   ├── figures.supplementary_figure_2.Rmd
-│   ├── figures.supplementary_figure_3.segmentation_metrics.Rmd
-│   ├── figures.supplementary_figure_X.proteomics_qc.Rmd
-│   ├── index.Rmd
-│   ├── license.Rmd
-│   ├── mistyfy.R
-│   ├── mol_cart.lianaplus_analysis.ipynb
-│   ├── mol_cart.supplementary_figure4.Rmd
-│   ├── molecular_cartography_python
-│   ├── molkart.QC_spots.Rmd
-│   ├── molkart.misty_analysis.Rmd
-│   ├── molkart.seurat_analysis.Rmd
-│   ├── plots
-│   ├── proteomics.bulk_de_analysis.Rmd
-│   ├── proteomics.filter_proteomic_data.Rmd
-│   ├── proteomics.pathway_enrichment_analysis.Rmd
-│   ├── proteomics.scRNAseq_comparison.Rmd
-│   ├── seqIF.heatmaps_pixie.figure3.Rmd
-│   ├── seqIF.region_quantification.Rmd
-│   ├── seqIF_python
-│   └── spatialMI_functions.py
 ├── annotations
-│   └── molkart
 ├── code
-│   ├── README.md
-│   ├── convert_cellpose_mask.ipynb
-│   └── functions.R
 ├── data
-│   ├── 140623.calcagno_et_al.seurat_object.rds
-│   ├── 20230614_perseus_imputed.txt
-│   ├── Calcagno2022_int_logNorm_annot.h5Seurat
-│   ├── README.md
-│   ├── cells_per_region.tsv
-│   ├── metadata.proteomics_endocardial_layer.txt
-│   ├── molkart_tissue_regions_rois
-│   ├── pixie.cell_table_size_normalized_cell_labels.csv
-│   ├── proteomics.bayesprism.bp_res.rds
-│   ├── proteomics_endocardial_layer.tsv
-│   ├── results_cts_100.sqm
-│   ├── seqIF_regions_annotations
-│   └── seurat
 ├── docs
-│   ├── about.html
-│   ├── data_analysis.html
-│   ├── data_processing.html
-│   ├── figure
-│   ├── figures.Figure1.html
-│   ├── figures.Figure2.html
-│   ├── figures.deep_visual_proteomics.html
-│   ├── figures.figure_5.html
-│   ├── figures.html
-│   ├── figures.supplementary_figure4.html
-│   ├── figures.supplementary_figure_2.html
-│   ├── figures.supplementary_figure_3.segmentation_metrics.html
-│   ├── figures.supplementary_figure_5.html
-│   ├── figures.supplementary_figure_X.proteomics_qc.html
-│   ├── index.html
-│   ├── license.html
-│   ├── mol_cart.QC_spots.html
-│   ├── mol_cart.molkart.Figure1.html
-│   ├── mol_cart.molkart.process_quantifications_seurat.html
-│   ├── mol_cart.supplementary_figure4.html
-│   ├── molkart.Figure1.html
-│   ├── molkart.QC_spots.html
-│   ├── molkart.process_quantifications_seurat.html
-│   ├── proteomics.bayesPrism_deconv.html
-│   ├── proteomics.bulk_de_analysis.html
-│   ├── proteomics.filter_proteomic_data.html
-│   ├── proteomics.impute_proteins.html
-│   ├── proteomics.pathway_enrichment_analysis.html
-│   ├── proteomics.scRNAseq_comparison.html
-│   ├── seqIF.heatmaps_pixie.figure3.html
-│   ├── seqIF.region_quantification.html
-│   └── site_libs
 ├── figures
-│   ├── Figure_5.eps
-│   ├── Figure_5.pathway_plot.pdf
-│   ├── Figure_5.pca_plot.pdf
-│   ├── Figure_5.pca_plot.png
-│   ├── Figure_5.pdf
-│   ├── Figure_5.png
-│   ├── Figure_5.svg
-│   ├── Figure_5.volcano_plot.pdf
-│   ├── Figure_5.vwf_expression_plot.pdf
-│   ├── Figure_5.vwf_specificity_plot.pdf
-│   ├── Supplementary_Figure_1_Molecular_Cartography_ROIs.png
-│   ├── Supplementary_figure_2.eps
-│   ├── Supplementary_figure_2.png
-│   ├── Supplementary_figure_3.segmentation_metrics.eps
-│   ├── Supplementary_figure_3.segmentation_metrics.png
-│   ├── Supplementary_figure_5.segmentation_metrics.poster.eps
-│   ├── Supplementary_figure_X.proteomics.eps
-│   ├── Supplementary_figure_X.proteomics.png
-│   ├── figures.supplementary_figure4.png
-│   ├── mol_cart.Figure_2.gains.pdf
-│   ├── mol_cart.Figure_2.misty_gains.pdf
-│   ├── mol_cart.Myeloid_distribution.png
-│   ├── mol_cart.Nppa_distribution.eps
-│   ├── mol_cart.Nppa_distribution.pdf
-│   ├── mol_cart.Nppa_distribution.png
-│   ├── supplementary_figure4.cell_type_distributions.eps
-│   └── supplementary_figure4.cell_type_distributions.png
 ├── mi_spatialomics.Rproj
 ├── output
-│   ├── README.md
-│   ├── mol_cart.harmony_object.h5Seurat
-│   ├── molkart
-│   ├── proteomics
-│   ├── seqIF
-│   └── tx_abundances_per_slide.tsv
 ├── pipeline_configs
-│   ├── mcmicro
-│   └── nfcore_molkart
 ├── plots
-│   ├── Figure1.dotplot.pdf
-│   ├── Figure1.umap_plot.pdf
-│   ├── Figure3.ccr2_monomacro_regions.pdf
-│   ├── Figure3.cell_types_overtimes.pdf
-│   ├── Figure3.pixel_clusters_overtimes.pdf
-│   ├── mol_cart.Figure_2.ct_percentage.pdf
-│   ├── molkart.squidpy.co_occurrence_plot.CMs_Nppa.sample_2d_r1_s1.png
-│   ├── molkart.squidpy.co_occurrence_plot.CMs_Nppa.sample_2d_r2_s1.png
-│   ├── molkart.squidpy.co_occurrence_plot.CMs_Nppa.sample_control_r1_s1.png
-│   ├── molkart.squidpy.co_occurrence_plot.CMs_Nppa.sample_control_r2_s1.png
-│   ├── molkart.squidpy.co_occurrence_plot.Endocardial_cells.sample_2d_r1_s1.png
-│   ├── molkart.squidpy.co_occurrence_plot.Endocardial_cells.sample_2d_r2_s1.png
-│   ├── molkart.squidpy.co_occurrence_plot.Endocardial_cells.sample_control_r1_s1.png
-│   ├── molkart.squidpy.co_occurrence_plot.Endocardial_cells.sample_control_r2_s1.png
-│   ├── molkart.squidpy.co_occurrence_plot.Myeloid_cells.sample_2d_r1_s1.png
-│   ├── molkart.squidpy.co_occurrence_plot.Myeloid_cells.sample_2d_r2_s1.png
-│   ├── molkart.squidpy.co_occurrence_plot.Myeloid_cells.sample_control_r1_s1.png
-│   ├── molkart.squidpy.co_occurrence_plot.Myeloid_cells.sample_control_r2_s1.png
-│   ├── molkart.squidpy.nhood_enrichment_plot.sample_2d_r1_s1.png
-│   ├── molkart.squidpy.nhood_enrichment_plot.sample_2d_r2_s1.png
-│   ├── molkart.squidpy.nhood_enrichment_plot.sample_control_r1_s1.png
-│   ├── molkart.squidpy.nhood_enrichment_plot.sample_control_r2_s1.png
-│   └── molkart.umap_time.png
 ├── references
-│   ├── Arial.ttf
-│   ├── m2.all.v2023.1.Mm.symbols.gmt
-│   ├── m5.go.v2023.1.Mm.symbols.gmt
-│   ├── m8.all.v2023.1.Mm.symbols.gmt
-│   ├── mh.all.v2023.1.Mm.symbols.gmt
-│   ├── mh.all.v2023.1.Mm.symbols.sets.rds
-│   ├── molecular_cartography_gene_list_color.tsv
-│   └── molkart.image_dimensions.csv
 ├── renv
-│   ├── activate.R
-│   ├── library
-│   ├── settings.json
-│   └── staging
 ├── renv.lock
 ├── sample_2d_r1_s1
-│   ├── coefficients.txt
-│   └── performance.txt
-└── sample_4h_r1_s1
-    ├── coefficients.txt
-    └── performance.txt</code></pre>
+└── sample_4h_r1_s1</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
