@@ -17,7 +17,7 @@ This repository contains all code used in the project "Highly-multiplexed imagin
 
 The repository is structured the following way:
 
-```{r}
+```{r, include = FALSE}
 dir_tree(".", recurse = 0, types = "directory")
 ```
 
