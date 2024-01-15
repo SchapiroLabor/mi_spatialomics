@@ -370,7 +370,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+workflowr <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -381,8 +381,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> </a>
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -391,13 +391,13 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-01-09
+<strong>Last updated:</strong> 2024-01-15
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 1
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>mi_spatialomics/</code> <span
@@ -420,36 +420,33 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
+<div id="strongRMarkdownfilestronguptodate"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of
-the R Markdown file created these results, you’ll want to first commit
-it to the Git repo. If you’re still working on the analysis, you can
-ignore this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree60d835ca4f4425597bb5fc2b34e87ecb10868ba7targetblank60d835ca">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree51d8b3b0fcadf55550d4770982aee22d43b3ed83targetblank51d8b3ba">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/60d835ca4f4425597bb5fc2b34e87ecb10868ba7" target="_blank">60d835c</a>
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/51d8b3b0fcadf55550d4770982aee22d43b3ed83" target="_blank">51d8b3b</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree60d835ca4f4425597bb5fc2b34e87ecb10868ba7targetblank60d835ca"
+id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree51d8b3b0fcadf55550d4770982aee22d43b3ed83targetblank51d8b3ba"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -459,7 +456,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/60d835ca4f4425597bb5fc2b34e87ecb10868ba7" target="_blank">60d835c</a>.
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/51d8b3b0fcadf55550d4770982aee22d43b3ed83" target="_blank">51d8b3b</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -486,7 +483,6 @@ Ignored files:
     Ignored:    data/.DS_Store
     Ignored:    data/140623.calcagno_et_al.seurat_object.rds
     Ignored:    data/Calcagno2022_int_logNorm_annot.h5Seurat
-    Ignored:    data/mol_cart.heart_regions/
     Ignored:    data/pixie.cell_table_size_normalized_cell_labels.csv
     Ignored:    data/results_cts_100.sqm
     Ignored:    data/seqIF_regions_annotations/
@@ -543,20 +539,26 @@ Ignored files:
     Ignored:    renv/staging/
 
 Untracked files:
-    Untracked:  pipeline_configs/nfcore_molkart/
+    Untracked:  analysis/mistyfy.R
+    Untracked:  analysis/molecular_cartography_python/molkart.count_spots_on_tissue.ipynb
+    Untracked:  analysis/molecular_cartography_python/molkart.scanpy_analysis.ipynb
+    Untracked:  analysis/molkart.QC_spots.Rmd
+    Untracked:  analysis/molkart.misty_analysis.Rmd
+    Untracked:  annotations/
+    Untracked:  references/molkart.image_dimensions.csv
+    Untracked:  sample_2d_r1_s1/
+    Untracked:  sample_4h_r1_s1/
 
 Unstaged changes:
-    Modified:   analysis/data_analysis.Rmd
     Modified:   analysis/data_processing.Rmd
     Modified:   analysis/figures.supplementary_figure_2.Rmd
-    Modified:   analysis/mol_cart.QC_spots.Rmd
-    Deleted:    analysis/molecular_cartography_python/kuppe_heart19.h5ad
+    Deleted:    analysis/mol_cart.QC_spots.Rmd
+    Deleted:    analysis/molecular_cartography_python/mol_cart.count_spots_on_tissue.ipynb
     Modified:   analysis/molecular_cartography_python/molkart.local_analysis_lianaplus.ipynb
     Modified:   analysis/molkart.seurat_analysis.Rmd
-    Modified:   code/functions.R
-    Deleted:    pipeline_configs/samplesheet.nf-molkart.csv
+    Modified:   figures/Supplementary_figure_2.eps
+    Modified:   figures/Supplementary_figure_2.png
     Modified:   plots/molkart.umap_time.png
-    Modified:   renv.lock
 
 </code></pre>
 <p>
@@ -602,6 +604,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/51d8b3b0fcadf55550d4770982aee22d43b3ed83/analysis/data_analysis.Rmd" target="_blank">51d8b3b</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2024-01-15
+</td>
+<td>
+wflow_publish("./analysis/data_analysis.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/2d9b9093963bf07fb65d4723babe273e195717d5/analysis/data_analysis.Rmd" target="_blank">2d9b909</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2024-01-09
+</td>
+<td>
+Pushing latest changes. Updating molkart data.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/2d9b9093963bf07fb65d4723babe273e195717d5/docs/data_analysis.html" target="_blank">2d9b909</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2024-01-09
+</td>
+<td>
+Pushing latest changes. Updating molkart data.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1121,16 +1174,26 @@ Configure site header.
 </div>
 <div id="molecular-cartography" class="section level1">
 <h1>Molecular Cartography</h1>
-<p>These scripts were used to analyze Molecular Cartography data from
-the nf-Molkart pipeline.</p>
-<ol style="list-style-type: decimal">
-<li><a href="./molkart.QC_spots.html">QC RNA spots</a> This script
-will</li>
+<p>These scripts were used to analyze Molecular Cartography data
+following processing with the nf-Molkart pipeline.</p>
+<div id="raw-spot-analysis" class="section level2">
+<h2>Raw spot analysis</h2>
+<ul>
+<li><a
+href="./molecular_cartography_python/mol_cart.count_spots_on_tissue.ipynb">Quantification
+of RNA spots on tissue</a></li>
+<li><a href="./molkart.QC_spots.html">QC RNA spots</a></li>
+</ul>
+</div>
+<div id="cell-type-calling" class="section level2">
+<h2>Cell type calling</h2>
+<ul>
 <li><a href="./molkart.process_quantifications_seurat.Rmd">Seurat
 analysis of Molkart output</a></li>
 <li><a href="./molkart.misty_neighbourhood_analysis.Rmd">Misty and
 abundance analysis</a></li>
-</ol>
+</ul>
+</div>
 </div>
 <div id="lunaphore" class="section level1">
 <h1>Lunaphore</h1>
