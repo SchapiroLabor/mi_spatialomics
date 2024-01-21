@@ -17,6 +17,7 @@ library(SCpubr)
 library(pals)
 library(patchwork)
 library(ggbeeswarm)
+library(viridis)
 
 source("./code/functions.R")
 ```
@@ -47,8 +48,11 @@ pal.bands(alphabet, alphabet2, cols25, glasbey, kelly, polychrome,
 
 cell_types <- unique(seurat_object@meta.data$anno_cell_type_lvl2)
 colors <- kelly(n=length(cell_types))
+## Replace white ish color as we can't see it well in plots
 named_colors <- colors
 names(named_colors) <- cell_types
+named_colors[["Myeloid cells 2"]] <- kelly(n = 20)[[16]]
+#named_colors[["Endocardial cells"]] <- kelly(n = 20)[[17]]
 ```
 
 ## Figure 1C : UMAP plot of cell types
@@ -56,8 +60,7 @@ names(named_colors) <- cell_types
 ```{r}
 library(scCustomize)
 ## Set color palette
-seurat_object$anno_cell_type_lvl2 <- factor(seurat_object$anno_cell_type_lvl2,
-                                            levels = sort(unique(seurat_object$anno_cell_type_lvl2)))
+Idents(object = seurat_object) <- "anno_cell_type_lvl2"
 
 umap_plot <- SCpubr::do_DimPlot(sample = seurat_object,
                                 label = FALSE, label.box = TRUE,
@@ -66,19 +69,18 @@ umap_plot <- SCpubr::do_DimPlot(sample = seurat_object,
                                 colors.use = named_colors, 
                                 plot_cell_borders = TRUE,
                                 plot_density_contour = FALSE, plot.axes = FALSE, raster.dpi = 300, 
-                                shuffle = FALSE, order = c("Endocardial cells","Macrophages","Cardiomyocytes","Endothelial cells"),
-                                pt.size = 1, 
+                                shuffle = TRUE,
+                                pt.size = 1, order = c("Cardiomyocytes Nppa+","Myeloid cells 1","Cardiomyocytes","Myeloid cells 2","Endocardial cells","Endothelial cells","Cardiac fibroblasts"),
                                 legend.icon.size = 5, legend.byrow = TRUE) +
-  theme(legend.text = element_text(size = 22))
+  theme(legend.text = element_text(size = 18))
 
 umap_plot
 
-# save_plot(umap_plot,
-#           file = "./plots/Figure1.umap_plot.pdf",
-#           base_height = 6,
-#           base_width = 10)
-# 
-# 
+save_plot(umap_plot,
+          file = "./plots/Figure1.umap_plot.pdf",
+          base_height = 6)
+
+
 save_plot(umap_plot,
           file = "./plots/Figure1.umap_plot.png",
           base_height = 6)
@@ -88,9 +90,22 @@ save_plot(umap_plot,
 # Figure 1D: Marker Dotplot
 
 ```{r}
-library(viridis)
-genes <- c("Myh11","Colec11","Csf3r","Ccl2","C1qa","Cdh5","Npr3","Postn",
-           "Cd74","Nppb","Nppa","Pln","Col1a1")
+harmony_object <- PrepSCTFindMarkers(seurat_object, assay = "SCT", verbose = TRUE)
+harmony_markers <- FindAllMarkers(seurat_object, logfc.threshold = 0.5, only.pos = TRUE)
+```
+
+
+```{r}
+## For the Dotplot, we want the same order as for the Umap plot, so we have to reverse it
+seurat_object$anno_cell_type_lvl2 <- factor(seurat_object$anno_cell_type_lvl2,
+                                            levels = rev(sort(unique(seurat_object$anno_cell_type_lvl2))))
+
+# genes <- c("Myh11","Colec11","Csf3r","Ccl2","C1qa","Cdh5","Npr3","Postn",
+#            "Cd74","Nppb","Nppa","Pln","Col1a1")
+genes <- c("Pdgfra","Pln","Nppa","Nppb","Fn1","Npr3","Kdr","Sell",
+           "C1qa","H2-Eb1","Csf3r","Ccl2","Colec11","Myh11")
+
+
 dotplot <- DotPlot(seurat_object, group.by = "anno_cell_type_lvl2", features = genes) +
   geom_point(aes(size=pct.exp), shape = 21, colour="black", stroke=0.5) +
   scale_colour_viridis(option="viridis", direction = 1) +
@@ -133,6 +148,10 @@ save_plot(dotplot,
 ```
 
 ```{r}
+## Reverese order again for the other plots
+seurat_object$anno_cell_type_lvl2 <- factor(seurat_object$anno_cell_type_lvl2,
+                                            levels = rev(sort(unique(seurat_object$anno_cell_type_lvl2))))
+
 metadata <- seurat_object@meta.data
 
 cell_type_proportions_per_sample <- metadata %>%
@@ -164,29 +183,33 @@ ct_time_barplot <- ggplot(cell_type_proportions_per_time,aes(timepoint,mean_perc
   scale_fill_manual(values = named_colors) +
   geom_text(aes(label=round(mean_perc,0)),
             position=position_dodge(width=0.9),
-            vjust= 0.5, hjust = -0.4, size=4,  angle = 90) +
+            vjust= -1, hjust = 0.4
+            , size=3,  angle = 0) +
   scale_y_continuous(limits = c(0,30)) +
   labs(x = " Timepoint",
        y = "% total cells") +
-  theme(legend.text=element_text(size=15),
-        legend.title = element_blank())
+  theme_minimal() +
+  theme(legend.text=element_text(size=18),
+        legend.title = element_blank(),
+        legend.position = "none",
+        axis.title = element_text(size=18),
+        axis.text  = element_text(size=18)) 
 
 ct_time_barplot
 
 save_plot(ct_time_barplot,filename = here("./plots/molkart.Figure_1.ct_percentage.pdf"),
-          base_height = 6,
-          base_width = 12)
+          base_height = 6)
 ```
 
 ## Figure 1F : Overview of spatial distribution of cell types within 1 sample
 
 ```{r}
-sample_highlight <- "sample_4h_r1_s1"
+sample_highlight <- "sample_2d_r1_s1"
 
 meta_sample <- subset(seurat_object@meta.data,sample_ID == sample_highlight)
 
 full_overview <-  ggplot(meta_sample,aes(X_centroid,Y_centroid)) +
-    geom_point(aes(color = anno_cell_type_lvl2),size = 1) +
+    geom_point(aes(color = anno_cell_type_lvl2),size = 0.3) +
     theme_classic() +
     labs(x = "Spatial 1",
          y = "Spatial 2") +
@@ -197,26 +220,23 @@ full_overview <-  ggplot(meta_sample,aes(X_centroid,Y_centroid)) +
     scale_color_manual(values = named_colors)
 
 cell_type_views <- ggplot(meta_sample,aes(X_centroid,Y_centroid)) +
-  geom_point(aes(color = anno_cell_type_lvl2),size = 0.5) +
+  geom_point(aes(color = anno_cell_type_lvl2),size = 0.3) +
   scale_color_manual(values = named_colors) +
   facet_wrap(~ anno_cell_type_lvl2) +
   theme_void() +
   theme(legend.position = "none",
-        strip.text = element_text(size = 10, color = "black", face = "bold"),
-        strip.background = element_rect(fill = "lightgrey",
-                                        colour = "black",
-                                        linetype = 1)
+        strip.text = element_text(size = 9, color = "black"),
+        # strip.background = element_rect(fill = "lightgrey",
+        #                                 colour = "black",
+        #                                 linetype = 1)
   )
 
 full_plot <- full_overview | cell_type_views
 
 full_plot
 save_plot(full_plot,filename = here("./plots/molkart.Figure_1.spatial_distribution.pdf"),
-          base_height = 6,
-          base_width = 14)
+          base_height = 7)
 ```
-
-
 
 
 ## Additional plots for presentations

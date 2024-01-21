@@ -473,7 +473,7 @@ new.cluster.ids <- c("Cardiomyocytes",  #0
                      "Myeloid_cells_4", #19
                      "Cardiomyocytes_Nppa+", #20
                      "Cardiac_fibroblasts", #21
-                     "Myeloid_cells_5", #22
+                     "Myeloid_cells_1", #22
                      "Cardiac_fibroblasts" #23
                      )
 
@@ -519,7 +519,7 @@ new.cluster.ids <-  c("Cardiomyocytes_Pln",  #0
                      "Myeloid_cells_4_Ccl2", #19
                      "Cardiomyocytes_Nppa+", #20
                      "Cardiac_fibroblasts_Col1a1", #21
-                     "Myeloid_cells_5_C1qa", #22
+                     "Myeloid_cells_1_C1qa", #22
                      "Cardiac_fibroblasts_Msln" #23
                      )
 

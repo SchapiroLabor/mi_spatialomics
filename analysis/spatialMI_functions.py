@@ -417,3 +417,5 @@ def add_scalebar(image_path, img_width_orig, scalebar_length_um, corner="bottom 
     image_with_scalebar.save(image_with_scalebar_path)
 
     return image_with_scalebar_path
+
+
