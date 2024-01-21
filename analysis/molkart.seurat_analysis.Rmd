@@ -105,9 +105,9 @@ ggpairs(meta_props,
 resolve_object <- subset(resolve_object, 
                          subset = 
                            nCount_RNA <= 4000 & 
-                           nCount_RNA >= 20 & 
+                           nCount_RNA >= 20 &
                            Extent > 0.25 &
-                           Solidity > 0.6)
+                           Solidity > 0.75)
 
 ## How many cells are left after filtering?
 post_filter_cells <- nrow(resolve_object@meta.data)
@@ -134,20 +134,19 @@ VlnPlot(resolve_object, features = c("nCount_RNA","nFeature_RNA","Area","Eccentr
 
 ```{r}
 ## Let's generate a batch variable
-resolve_object$batch <- paste(resolve_object$timepoint,resolve_object$slide,sep="_")
-resolve_object[["RNA"]] <- split(resolve_object[["RNA"]], f = resolve_object$batch)
+#resolve_object$batch <- paste(resolve_object$timepoint,resolve_object$slide,sep="_")
+resolve_object[["RNA"]] <- split(resolve_object[["RNA"]], f = resolve_object$timepoint)
 ```
 
 ```{r}
 ## Normalize and scale data using sctransform v2
 resolve_object <- SCTransform(resolve_object, 
-                              assay = "RNA", 
-                              clip.range = c(-5, 5))
+                              assay = "RNA")
 ```
 
 ```{r}
 # Perform PCA
-npcs_to_use <- 50
+npcs_to_use <- 30
 resolve_object <- RunPCA(resolve_object, npcs = npcs_to_use, verbose = FALSE, approx=FALSE)
 ElbowPlot(resolve_object, ndims = npcs_to_use)
 ```
@@ -237,7 +236,7 @@ write.table(harmony_markers,
 
 
 ```{r}
-p1 <- plot_density(harmony_object, features= c("Msln"), size = 0.5)
+p1 <- plot_density(harmony_object, features= c("Npr3"), size = 0.5)
 p2 <- DimPlot(harmony_object, reduction = "umap", label = TRUE, repel = TRUE,raster=FALSE)
 p1+p2
 ```
@@ -338,7 +337,7 @@ new_full_meta <- do.call(rbind, meta_list)
 
 ```{r}
 ## Which seurat cluster corresponds to endocardial cells (Npr3 positive)?
-endocardial_cluster <- 16
+endocardial_cluster <- 15
 
 ## How many cells are in the endocardial cluster?
 n_endo <- nrow(subset(new_full_meta,seurat_clusters == endocardial_cluster))
@@ -355,9 +354,6 @@ pecam1_exp <- harmony_object@assays$SCT@data["Pecam1",]
 new_full_meta$Pecam1 <- pecam1_exp
 npr3_exp <- harmony_object@assays$SCT@data["Npr3",]
 new_full_meta$Npr3 <- npr3_exp
-## Let's also add Msln as a marker of epicardial cells
-msln_exp <- harmony_object@assays$SCT@data["Msln",]
-new_full_meta$Msln <- msln_exp
 
 ## How many cells are Pecam1 positive within the endocardial region?
 pecam1_pos <- subset(new_full_meta,Pecam1 > 0 & in_endo == TRUE)
@@ -369,61 +365,35 @@ new_full_meta <- new_full_meta %>%
 harmony_object@meta.data <- new_full_meta
 ```
 
+### Plot results of spatial annotation for endocardial cells 
 
 ```{r}
-## Plot newly annotated endocardial cells in UMAP plot
-DimPlot(harmony_object, reduction = "umap", group.by = "seurat_clusters",raster=FALSE)
-```
-
-
-```{r}
-## Plot cells that are 
+## Plot cells that are transcriptionally labeled as endocardial cells
 ggplot(new_full_meta,aes(X_centroid,Y_centroid)) +
   geom_point(color = "darkgrey") +
   geom_point(data = subset(new_full_meta,seurat_clusters == endocardial_cluster),color = "red") +
   facet_wrap(~ sample_ID)
 
+## Plot 
+## 1: blue - originally transcriptionally labeled endocardial cells but not in endocardial region. 
+## 2: red - transcriptionally labeled endocardial cells that were in endocardial region
+## 3: purple - Cells that were not clustered with Npr3 positive cells but spatially fall within endocardium and are Pecam1 or Npr3 positive.
 ggplot(new_full_meta,aes(X_centroid,Y_centroid)) +
   geom_point(color = "darkgrey", size = 0.5) +
-  geom_point(data = subset(new_full_meta,seurat_clusters == endocardial_cluster & spatial_endoc == TRUE),color = "red", size = 0.75) +
+  geom_point(data = subset(new_full_meta,spatial_endoc == TRUE & seurat_clusters == endocardial_cluster),color = "red", size = 0.75) +
   geom_point(data = subset(new_full_meta,spatial_endoc == TRUE & seurat_clusters != endocardial_cluster),color = "purple", size = 0.75) +
     geom_point(data = subset(new_full_meta,spatial_endoc == FALSE & seurat_clusters == endocardial_cluster),color = "blue", size = 0.75) +
   facet_wrap(~ sample_ID)
 
+## Plot all cells that were considered "in endocardial region"
 ggplot(new_full_meta,aes(X_centroid,Y_centroid)) +
   geom_point(color = "darkgrey") +
-  geom_point(data = subset(new_full_meta,in_anno == TRUE )) +
+  geom_point(data = subset(new_full_meta,spatial_endoc == TRUE )) +
   facet_wrap(~ sample_ID)
-
-ggplot(new_full_meta,aes(X_centroid,Y_centroid)) +
-  geom_point(color = "darkgrey", size = 0.2) +
-  geom_point(data = subset(new_full_meta,Pecam1 > 0),
-                           aes(color = Pecam1), size = 0.5) +
-  facet_wrap(~ sample_ID) +
-  scale_color_viridis()
-
-ggplot(new_full_meta,aes(X_centroid,Y_centroid)) +
-  geom_point(color = "darkgrey", size = 0.2) +
-  geom_point(data = subset(new_full_meta,Npr3 > 0),
-                           aes(color = Npr3), size = 0.5) +
-  facet_wrap(~ sample_ID) +
-  scale_color_viridis()
 ```
-
 
 ## Assign cell-type names to clusters
 
-```{r}
-plot_density(harmony_object, features= c("Npr3"), size = 0.5)
-```
-
-```{r}
-## Plot cells that are 
-ggplot(new_full_meta,aes(X_centroid,Y_centroid)) +
-  geom_point(color = "darkgrey") +
-  geom_point(data = subset(new_full_meta,seurat_clusters == 24),color = "red") +
-  facet_wrap(~ sample_ID)
-```
 
 ### Level 1 annotation - Higher cell types
 
@@ -436,29 +406,28 @@ seurat_clusters <- harmony_object@active.ident
 
 new.cluster.ids <- c("Cardiomyocytes",  #0
                      "Endothelial_cells",  #1
-                     "Endothelial_cells", #2
-                     "Cardiac_fibroblasts", #3
+                     "Cardiac_fibroblasts", #2
+                     "Endothelial_cells", #3
                      "Cardiomyocytes", #4
-                     "Immune_cells", #5
+                     "Cardiomyocytes", #5
                      "Cardiomyocytes", #6
                      "Cardiac_fibroblasts", #7
-                     "Cardiomyocytes", #8
-                     "Smooth_muscle_cells", #9
+                     "Immune_cells", #8
+                     "Endothelial_cells", #9 -> Between nCMs and endo?
                      "Immune_cells", #10
-                     "Immune_cells" , #11
+                     "Pericytes" , #11
                      "Cardiomyocytes", #12
-                     "Cardiomyocytes", #13
-                     "Smooth_muscle_cells", #14
-                     "Endothelial_cells", #15 -> Between nCMs and endo?
-                     "Endothelial_cells", #16
-                     "Immune_cells",#17
-                     "Glia_cells", #18
+                     "Smooth_muscle_cells", #13
+                     "Cardiomyocytes", #14
+                     "Endothelial_cells", #15 
+                     "Immune_cells", #16
+                     "Cardiomyocytes",#17
+                     "Cardiomyocytes", #18 Glia_cells
                      "Immune_cells", #19
-                     "Cardiac_fibroblasts", #20
-                     "Immune_cells", #21
+                     "Cardiomyocytes", #20
+                     "Cardiac_fibroblasts", #21
                      "Immune_cells", #22
-                     "Cycling_cells", #23
-                     "Endothelial_cells" #24
+                     "Cardiac_fibroblasts" #23
                      )
 
 names(new.cluster.ids) <- levels(harmony_object)
@@ -484,29 +453,28 @@ seurat_clusters <- harmony_object@active.ident
 ## Cluster level 2
 new.cluster.ids <- c("Cardiomyocytes",  #0
                      "Endothelial_cells",  #1
-                     "Endothelial_cells", #2
-                     "Cardiac_fibroblasts", #3
-                     "Cardiomyocytes_Nppa+", #4
-                     "Macrophages", #5 Macrophages
+                     "Cardiac_fibroblasts", #2
+                     "Endothelial_cells", #3
+                     "Cardiomyocytes", #4
+                     "Cardiomyocytes_Nppa+", #5 Macrophages
                      "Cardiomyocytes", #6
                      "Cardiac_fibroblasts", #7
-                     "Cardiomyocytes", #8
-                     "Pericytes", #9
-                     "Dendritic_cells", #10 Dendritic cells
-                     "Macrophages" , #11
+                     "Myeloid_cells_1", #8
+                     "EndMA+", #9
+                     "Myeloid_cells_2", #10 Dendritic cells
+                     "Pericytes" , #11
                      "Cardiomyocytes_Nppb+", #12
-                     "Cardiomyocytes_Nppa+", #13
-                     "Smooth_muscle_cells", #14
-                     "Endothelial_cells", #15
-                     "Endocardial_cells", #16
-                     "Neutrophils",#17
-                     "Glia_cells", #18
-                     "Macrophages", #19
-                     "Cardiac_fibroblasts", #20
-                     "Macrophages", #21
-                     "B_cells", #22
-                     "Cycling_cells", #23
-                     "Endothelial_cells" #24
+                     "Smooth_muscle_cells", #13
+                     "Cardiomyocytes", #14
+                     "Endocardial_cells", #15
+                     "Myeloid_cells_3", #16
+                     "Cardiomyocytes_Nppa+",#17
+                     "Cardiomyocytes", #18
+                     "Myeloid_cells_4", #19
+                     "Cardiomyocytes_Nppa+", #20
+                     "Cardiac_fibroblasts", #21
+                     "Myeloid_cells_5", #22
+                     "Cardiac_fibroblasts" #23
                      )
 
 names(new.cluster.ids) <- levels(harmony_object)
@@ -517,40 +485,44 @@ harmony_object@meta.data$anno_cell_type_lvl2 <- harmony_object@active.ident
 Idents(object = harmony_object) <- "seurat_clusters"
 ```
 
+```{r}
+DimPlot(harmony_object, reduction = "umap", label = TRUE, repel = TRUE,raster=FALSE, group.by = "anno_cell_type_lvl2")
+```
+
 ### Level 3 annotation - Cell states with marker names
 
 ```{r}
-## Annotate cell clusters with more detaile
+## Annotate cell clusters with more detailed cell states
 ## Lvl3
 seurat_clusters <- harmony_object@active.ident
 
 ## Cluster level 3
-new.cluster.ids <- c("Cardiomyocytes_Pln",  #0
+new.cluster.ids <-  c("Cardiomyocytes_Pln",  #0
                      "Endothelial_cells_Kdr",  #1
-                     "Endothelial_cells_Aqp1", #2
-                     "Cardiac_fibroblasts_Col1a1", #3
-                     "Cardiomyocytes_Nppa+", #4
-                     "Macrophages_Mrc1", #5 Macrophages
-                     "Cardiomyocytes_Ryr2", #6
+                     "Cardiac_fibroblasts_Col1a1", #2
+                     "Endothelial_cells_Aqp1", #3
+                     "Cardiomyocytes_Pln", #4
+                     "Cardiomyocytes_Nppa+", #5 Macrophages
+                     "Cardiomyocytes_Clu", #6
                      "Cardiac_fibroblasts_Dcn", #7
-                     "Cardiomyocytes_Clu", #8
-                     "Pericytes_Colec11", #9
-                     "Dendritic_cells_Cd74", #10 Dendritic cells
-                     "Macrophages_Arg1" , #11
+                     "Myeloid_cells_1_C1qa", #8
+                     "EndMA+_Fn1", #9
+                     "Myeloid_cells_2_Cd74", #10 Dendritic cells
+                     "Pericytes_Colec11" , #11
                      "Cardiomyocytes_Nppb+", #12
-                     "Cardiomyocytes_Nppa+", #13
-                     "Smooth_muscle_cells_Myh11", #14
-                     "Endothelial_cells_Vegfa", #15
-                     "Endothelial_cells_Npr3", #16
-                     "Neutrophils_Csf3r",#17
-                     "Glia_cells_Plp1", #18
-                     "Macrophages_Ccl2", #19
-                     "Cardiac_fibroblasts", #20
-                     "Macrophages_Cxcl2", #21
-                     "B_cells_Cd19", #22
-                     "Cycling_cells_Mki67", #23
-                     "Endothelial_cells_Il6" #24
+                     "Smooth_muscle_cells_Myh11", #13
+                     "Cardiomyocytes_Vegfa", #14
+                     "Endocardial_cells_Npr3", #15
+                     "Myeloid_cells_3_Csf3r", #16
+                     "Cardiomyocytes_Nppa+",#17
+                     "Cardiomyocytes", #18
+                     "Myeloid_cells_4_Ccl2", #19
+                     "Cardiomyocytes_Nppa+", #20
+                     "Cardiac_fibroblasts_Col1a1", #21
+                     "Myeloid_cells_5_C1qa", #22
+                     "Cardiac_fibroblasts_Msln" #23
                      )
+
 
 names(new.cluster.ids) <- levels(harmony_object)
 harmony_object <- RenameIdents(harmony_object, new.cluster.ids)
@@ -561,47 +533,65 @@ Idents(object = harmony_object) <- "seurat_clusters"
 ```
 
 ```{r}
-## Additionally, we will label all cells that express Ccr2 over a threshold
-ccr2_exp <- hist(harmony_object@assays$SCT@scale.data["Ccr2",])
-ccr2_cells <- harmony_object@assays$SCT@data["Ccr2",] > 0
-harmony_object@meta.data$ccr2_pos <- if_else(harmony_object@assays$SCT@data["Ccr2",] > 0,"yes","no")
+DimPlot(harmony_object, reduction = "umap", label = TRUE, repel = TRUE,raster=FALSE, group.by = "anno_cell_type_lvl3")
 ```
 
-```{r}
-Idents(object = harmony_object) <- "anno_cell_type_lvl2"
-harmony_object <- PrepSCTFindMarkers(harmony_object, assay = "SCT", verbose = TRUE)
-harmony_markers <- FindAllMarkers(harmony_object, logfc.threshold = 0.5, only.pos = TRUE)
-```
-
-```{r}
-library(viridis)
-genes <- c("Ighm","Npr3","Acta2","Colec11","Fn1","Lyz2","Clu","Nppa","Dcn","Ryr2","Aqp1")
-DotPlot(harmony_object, group.by = "anno_cell_type_lv2",
-        features = c("Ighm","Npr3","Acta2","Colec11","Plp1","Lyz2","Clu","Nppa","Dcn","Ryr2","Aqp1")) +
-  geom_point(aes(size=pct.exp), shape = 21, colour="black", stroke=0.5) +
-  scale_colour_viridis(option="magma", direction = -1) +
-  guides(size=guide_legend(override.aes=list(shape=21, colour="black", fill="white")))
-```
-
-
-```{r}
-# library(pheatmap)
-# ## Instead of a dotplot, let's look at a pseudbulk heatmap
-# pseudobulk <- AverageExpression(harmony_object, assay = "SCT",group.by = "anno_cell_type_lv2",slot = "data")
-# pheatmap(pseudobulk$SCT[genes,])
-```
 
 ### Refine cell type cluster based on spatial annotation and marker expression
 
+
 ```{r}
-## First, let's reclassify endocardial cells based on the Qupath annotation we did above
-harmony_object@meta.data <- harmony_object@meta.data %>%
-  mutate("anno_cell_type_lvl2" = if_else(spatial_endoc == TRUE,"Endocardial_cells",anno_cell_type_lvl2),
-         "anno_cell_type_lvl3" = if_else(spatial_endoc == TRUE,"Endocardial_cells_Npr3",anno_cell_type_lvl3))
+## Using the clustering settings we did, there is a subgroup of cells that are lymphoid but clustered with cells in cluster 16. We will put these cells in a separate cluster based on their marker expression
+new_full_meta <- harmony_object@meta.data
+emb <- harmony_object@reductions$umap@cell.embeddings
+lymph_emb <- subset(as.data.frame(emb),umap_1 > 8.5 & umap_2 > -5)
+
+new_full_meta <- new_full_meta %>%
+  mutate("lymphoid" = if_else(rownames(new_full_meta) %in% rownames(lymph_emb) & seurat_clusters == 16, TRUE,FALSE))
+
+harmony_object@meta.data <- new_full_meta
 
 harmony_object@meta.data <- harmony_object@meta.data %>%
-  mutate("anno_cell_type_lvl2" = if_else(Msln > 0,"Epicardial_cells",anno_cell_type_lvl2),
-         "anno_cell_type_lvl3" = if_else(Msln > 0,"Epicardial_cells_Msln",anno_cell_type_lvl3))
+  mutate("anno_cell_type_lvl2" = if_else(lymphoid == TRUE, "Lymphoid_cells",anno_cell_type_lvl2),
+         "anno_cell_type_lvl3" = if_else(lymphoid == TRUE, "Lymphoid_cells_Cd3e",anno_cell_type_lvl3)
+         )
+```
+
+
+```{r}
+## Endocardial cells
+## First, let's reclassify endocardial cells based on the Qupath annotation we did above
+harmony_object@meta.data <- harmony_object@meta.data %>%
+  mutate("anno_cell_type_lvl2" = if_else(spatial_endoc == TRUE & anno_cell_type_lvl2 == "Endocardial_cells","Endocardial_cells",
+                                         if_else(spatial_endoc == TRUE & anno_cell_type_lvl2 != "Endocardial_cells","Endocardial_cells",
+                                          if_else(spatial_endoc == FALSE & anno_cell_type_lvl2 == "Endocardial_cells","Endothelial_cells",anno_cell_type_lvl2))),
+         "anno_cell_type_lvl3" = if_else(spatial_endoc == TRUE & anno_cell_type_lvl3 == "Endocardial_cells_Npr3","Endocardial_cells_Npr3",
+                                         if_else(spatial_endoc == TRUE & anno_cell_type_lvl3 != "Endocardial_cells_Npr3","Endocardial_cells_Npr3",
+                                         if_else(spatial_endoc == FALSE & anno_cell_type_lvl3 == "Endocardial_cells_Npr3","Endothelial_cells",anno_cell_type_lvl3))))
+
+
+# ## Add cells located within endocardium to annotations
+# harmony_object@meta.data <- harmony_object@meta.data %>%
+#   mutate("anno_cell_type_lvl2" = if_else(spatial_endoc == TRUE | anno_cell_type_lvl2 == "Endocardial_cells","Endocardial_cells",anno_cell_type_lvl2),
+#          "anno_cell_type_lvl3" = if_else(spatial_endoc == TRUE | anno_cell_type_lvl3 == "Endocardial_cells_Npr3","Endocardial_cells_Npr3",anno_cell_type_lvl3))
+
+
+# ## Separate out Lyve1 expressing cells belonging to lymphatic vessels
+# lymph_cells <- subset(harmony_object, anno_cell_type_lvl2 == "Endocardial_cells" & Lyve1 > 0)
+# 
+# harmony_object@meta.data <- harmony_object@meta.data %>%
+#   mutate("anno_cell_type_lvl2" = if_else(rownames(harmony_object@meta.data) %in% rownames(lymph_cells@meta.data),"Lymphatic_endothelial_cells",anno_cell_type_lvl2),
+#          "anno_cell_type_lvl3" = if_else(rownames(harmony_object@meta.data) %in% rownames(lymph_cells@meta.data),"Lymphatic_endothelial_cells_Lyve1",anno_cell_type_lvl2))
+```
+
+```{r}
+new_full_meta <- harmony_object@meta.data
+## Plot cells that are 
+ggplot(new_full_meta,aes(X_centroid,Y_centroid)) +
+  geom_point(color = "darkgrey") +
+  geom_point(data = subset(new_full_meta,anno_cell_type_lvl2 == "Endocardial_cells"),color = "red") +
+  geom_point(data = subset(new_full_meta,grepl("Myeloid_cells",anno_cell_type_lvl2)),color = "blue") +
+  facet_wrap(~ sample_ID)
 ```
 
 ```{r}
@@ -610,9 +600,30 @@ p1 <- DimPlot(harmony_object, reduction = "umap", group.by = "anno_cell_type_lvl
 p2 <- DimPlot(harmony_object, reduction = "umap", group.by = "anno_cell_type_lvl2",raster=FALSE, 
               alpha = 0.5, label = TRUE, repel = TRUE) + NoLegend() 
 p3 <- DimPlot(harmony_object, reduction = "umap", group.by = "anno_cell_type_lvl3",raster=FALSE, 
-              alpha = 0.5, label = TRUE, repel = TRUE) + NoLegend() 
+              alpha = 0.5, label = TRUE, repel = TRUE) + NoLegend()
 
 p1 + p2 + p3
+```
+
+## Identify and plot best "marker" genes
+
+```{r}
+Idents(object = harmony_object) <- "anno_cell_type_lvl2"
+harmony_object <- PrepSCTFindMarkers(harmony_object, assay = "SCT", verbose = TRUE)
+harmony_markers <- FindAllMarkers(harmony_object, logfc.threshold = 0.5, only.pos = TRUE)
+```
+
+```{r}
+## Set order of cell types
+levels(harmony_object) <- rev(sort(levels(harmony_object)))
+
+library(viridis)
+genes <- c("Csf3r","Npr3","Ccl2","Lyz2","H2-Eb1",
+           "Pdgfrb","Nppa","Nppb","C1qa","Postn","Aqp1","Mybpc3")
+DotPlot(harmony_object, group.by = "anno_cell_type_lvl2",
+        features = genes) +
+  geom_point(aes(size=pct.exp), shape = 21, colour="black", stroke=0.75) +
+  scale_colour_viridis(option="magma", direction = 1)
 ```
 
 
@@ -664,7 +675,7 @@ write.table(metadata,
 
 ```{r}
 misty_in <- harmony_object@meta.data %>%
-  dplyr::select(sample_ID,timepoint,replicate,X_centroid,Y_centroid,Area,anno_cell_type_lvl1,anno_cell_type_lvl2,anno_cell_type_lvl3,ccr2_pos,nCount_RNA) 
+  dplyr::select(sample_ID,timepoint,replicate,X_centroid,Y_centroid,Area,anno_cell_type_lvl1,anno_cell_type_lvl2,anno_cell_type_lvl3,nCount_RNA) 
 misty_in$cell_ID <- rownames(misty_in)
 ```
 
@@ -705,6 +716,9 @@ wrap_plots(expression_plot_list, nrow = 2, ncol = 4)  + plot_layout(guides = 'co
 ```
 
 ```{r}
+misty_in <- misty_in %>%
+  mutate("misty_cts" = if_else(grepl("Myeloid_cells",anno_cell_type_lvl2),"Myeloid_cells",anno_cell_type_lvl2))
+
 write.table(misty_in,
             file = "./output/molkart/molkart.misty_celltype_table.tsv",
             sep="\t",
@@ -716,6 +730,17 @@ write.table(misty_in,
 # Plot cell-type on spatial plot
 
 ```{r}
+## Count percentage of each cell type in each sample
+ct_prop <- harmony_object@meta.data %>%
+  group_by(anno_cell_type_lvl2,sample_ID) %>%
+  tally() %>%
+  ungroup() %>%
+  group_by(sample_ID) %>%
+  mutate("prop" = n / sum(n))
+```
+
+
+```{r}
 expression_plot_list <- list()
 
 samples <- c("sample_control_r1_s1","sample_4h_r1_s1",
@@ -723,7 +748,7 @@ samples <- c("sample_control_r1_s1","sample_4h_r1_s1",
              "sample_control_r2_s1","sample_4h_r2_s2",
              "sample_2d_r2_s1","sample_4d_r2_s1")
 
-for(cluster_of_int in unique(harmony_object$anno_cell_type_lv2)){
+for(cluster_of_int in unique(harmony_object$anno_cell_type_lvl2)){
   print(cluster_of_int)
   for(this_sample in samples){
     pt_size <- 0.6
@@ -733,7 +758,7 @@ for(cluster_of_int in unique(harmony_object$anno_cell_type_lv2)){
     highlight_plot <- ggplot(meta,aes(Y_centroid,X_centroid)) +
       geom_point(data = subset(meta,!seurat_clusters %in% cluster_of_int),color = "darkgrey", size = pt_size) +
       # geom_point(data = subset(meta,seurat_clusters %in% cluster_of_int),aes(color = seurat_clusters), size = pt_size) +
-      geom_point(data = subset(meta,anno_cell_type_lv2 == cluster_of_int),color = "purple", size = 1) +
+      geom_point(data = subset(meta,anno_cell_type_lvl2 == cluster_of_int),color = "purple", size = 1) +
       theme_classic() +
       labs(x = "Spatial 1",
            y = "Spatial 2") +
@@ -745,7 +770,7 @@ for(cluster_of_int in unique(harmony_object$anno_cell_type_lv2)){
     }
   
   time_plot <- wrap_plots(expression_plot_list, nrow = 2, ncol = 4)  + plot_layout(guides = 'collect') + plot_annotation(cluster_of_int,theme=theme(plot.title=element_text(hjust=0.5)))
-  filename <- paste("./output/molkart_cell_types/",cluster_of_int,".cell_type_distributions.png",sep = "")
+  filename <- paste("./output/molkart/molkart_cell_types/",cluster_of_int,".cell_type_distributions.png",sep = "")
   save_plot(time_plot,
             filename = filename,
             base_height = 6)

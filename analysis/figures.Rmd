@@ -9,7 +9,7 @@ editor_options:
 
 # Figures
 
-- [Figure 1](./mol_cart.molkart.Figure1.Rmd)
+- [Figure 1](./figures.Figure1.Rmd)
 - [Figure 2]()
 - [Figure 3]()
 - [Figure 4]()
@@ -18,7 +18,7 @@ editor_options:
 # Supplementary Figures
 
 - [Supplementary Figure 1](../figures/Supplementary_Figure_1_Molecular_Cartography_ROIs.png)
-- [Supplementary Figure 2](./figures)
-- Supplementary Figure 3
+- [Supplementary Figure 2](./analysis/Supplementary_Figure_2.Rmd)
+- [Supplementary Figure 3]()
 - Supplementary Figure 4
 - [Supplementary Figure 5](./figures.supplementary_figure_5.html)

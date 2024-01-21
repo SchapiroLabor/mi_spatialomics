@@ -23,7 +23,7 @@ source("./code/functions.R")
 
 ```{r}
 ## If the object has already been computed
-seurat_object <- readRDS(file = "./output/mol_cart/molkart.harmony_seurat_object.rds")
+seurat_object <-  readRDS(file = "./output/molkart/molkart.harmony_seurat_object.rds")
 ```
 
 ```{r}
@@ -39,71 +39,191 @@ mean(cells_per_sample$n)
 # Umap plot
 
 ```{r}
+seurat_object@meta.data$anno_cell_type_lvl2 <- gsub("_"," ",seurat_object@meta.data$anno_cell_type_lvl2)
+
 pal.bands(alphabet, alphabet2, cols25, glasbey, kelly, polychrome, 
-  stepped, tol, watlington,
+  stepped, tol, watlington, tableau20,
   show.names=FALSE)
-```
 
-
-```{r}
-seurat_object@meta.data$anno_cell_type_lv2 <- gsub("_"," ",seurat_object@meta.data$anno_cell_type_lv2)
-
-## Set color palette
-arr <- list(x = -10, y = -15, x_len = 5, y_len = 5)
-cell_types <- unique(seurat_object@meta.data$anno_cell_type_lv2)
-colors <- cols25(n=length(cell_types))
+cell_types <- unique(seurat_object@meta.data$anno_cell_type_lvl2)
+colors <- kelly(n=length(cell_types))
 named_colors <- colors
 names(named_colors) <- cell_types
+```
 
-umap_plot <- SCpubr::do_DimPlot(sample = seurat_object, 
-                                label = TRUE, label.box = TRUE,
-                                group.by = "anno_cell_type_lv2",
-                   repel = TRUE,legend.position = "none", colors.use = named_colors, plot_cell_borders = TRUE,
-                   plot_density_contour = FALSE, plot.axes = FALSE, raster.dpi = 300, 
-                   label.size = 6)
+## Figure 1C : UMAP plot of cell types
 
+```{r}
+library(scCustomize)
+## Set color palette
+seurat_object$anno_cell_type_lvl2 <- factor(seurat_object$anno_cell_type_lvl2,
+                                            levels = sort(unique(seurat_object$anno_cell_type_lvl2)))
+
+umap_plot <- SCpubr::do_DimPlot(sample = seurat_object,
+                                label = FALSE, label.box = TRUE,
+                                group.by = "anno_cell_type_lvl2",
+                                repel = TRUE, legend.position = "right", 
+                                colors.use = named_colors, 
+                                plot_cell_borders = TRUE,
+                                plot_density_contour = FALSE, plot.axes = FALSE, raster.dpi = 300, 
+                                shuffle = FALSE, order = c("Endocardial cells","Macrophages","Cardiomyocytes","Endothelial cells"),
+                                pt.size = 1, 
+                                legend.icon.size = 5, legend.byrow = TRUE) +
+  theme(legend.text = element_text(size = 22))
 
 umap_plot
 
+# save_plot(umap_plot,
+#           file = "./plots/Figure1.umap_plot.pdf",
+#           base_height = 6,
+#           base_width = 10)
+# 
+# 
 save_plot(umap_plot,
-          file = "./plots/Figure1.umap_plot.pdf",
-          base_height = 6,
-          base_width = 8)
+          file = "./plots/Figure1.umap_plot.png",
+          base_height = 6)
 ```
 
 
-# Marker Dotplot
+# Figure 1D: Marker Dotplot
 
 ```{r}
 library(viridis)
-genes <- c("Ighm","Npr3","Acta2","Colec11","Fn1","Lyz2","Clu","Nppa","Dcn","Ryr2","Aqp1")
-dotplot <- DotPlot(seurat_object, group.by = "anno_cell_type_lv2",
-        features = c("Ighm","Npr3","Acta2","Colec11","Fn1","Lyz2","Clu","Nppa","Dcn","Ryr2","Aqp1")) +
+genes <- c("Myh11","Colec11","Csf3r","Ccl2","C1qa","Cdh5","Npr3","Postn",
+           "Cd74","Nppb","Nppa","Pln","Col1a1")
+dotplot <- DotPlot(seurat_object, group.by = "anno_cell_type_lvl2", features = genes) +
   geom_point(aes(size=pct.exp), shape = 21, colour="black", stroke=0.5) +
-  scale_colour_viridis(option="magma", direction = -1) +
-  guides(size=guide_legend(override.aes=list(shape=21, colour="black", fill="white"))) +
+  scale_colour_viridis(option="viridis", direction = 1) +
   theme(axis.title =  element_blank(),
-        axis.text.x = element_text(size = 18, angle = 90, vjust = 0.5, hjust=1),
+        axis.text.x = element_text(size = 18, angle = 45, hjust=1),
         axis.text.y = element_text(size = 18),
-        legend.position = "top", legend.text = element_text(size = 18))
+        legend.position = "right", legend.text = element_text(size = 18))
 dotplot
 
 save_plot(dotplot,
           file = "./plots/Figure1.dotplot.pdf",
-          base_height = 8,
-          base_width = 9)
+          base_height = 6)
 ```
+
+## Figure 1E: Cell type changes over time
+
+```{r}
+# ct_time_barplot_v2 <- ggplot(cell_type_proportions_per_sample,aes(x = timepoint,y = ct_perc_time, fill = anno_cell_type_lvl2)) +
+#     stat_summary(
+#       fun = mean,
+#       geom = "bar",
+#       width = 1,
+#       color = "black") +
+#   geom_beeswarm(size = 2.5, pch = 21, color = "black", fill= "white") +
+#   facet_grid(. ~ anno_cell_type_lvl2) +
+#   theme_bw() +
+#   theme(axis.title = element_text(face="bold")) +
+#   theme(axis.text.x = element_text(size = 14,angle = 45, vjust = 0.5, hjust=1),
+#         strip.text.x = element_text(size = 14, colour = "black", angle = 90, face = "bold"),
+#         strip.background = element_blank(),
+#         legend.position = "none") + 
+#   labs(x = "",
+#        y = "% total cells") +
+#   scale_fill_manual(values = named_colors)
+# 
+# ct_time_barplot_v2
+# save_plot(ct_time_barplot_v2,filename = here("./plots/mol_cart.Figure_2.ct_percentage.pdf"),
+#           base_height = 6,
+#           base_asp = 2)
+```
+
+```{r}
+metadata <- seurat_object@meta.data
+
+cell_type_proportions_per_sample <- metadata %>%
+  group_by(anno_cell_type_lvl2,timepoint,sample_ID) %>%
+  tally() %>%
+  ungroup() %>%
+  group_by(timepoint) %>%
+  mutate("ct_perc_time" = n / sum(n)) %>%
+  ungroup()
+
+## Mean and points version
+cell_type_proportions_per_sample$anno_cell_type_lvl2 <- gsub("_"," ",cell_type_proportions_per_sample$anno_cell_type_lvl2)
+
+## Set order of cell types in plot from most abundant to least abundant
+total_cells <- cell_type_proportions_per_sample %>%
+  group_by(anno_cell_type_lvl2) %>%
+  summarise("total_cells" = sum(n)) %>%
+  arrange(desc(total_cells))
+
+cell_type_proportions_per_sample$anno_cell_type_lvl2 <- factor(cell_type_proportions_per_sample$anno_cell_type_lvl2,
+       levels = total_cells$anno_cell_type_lvl2)
+
+cell_type_proportions_per_time <- cell_type_proportions_per_sample %>%
+  group_by(anno_cell_type_lvl2,timepoint) %>%
+  summarise("mean_perc" = mean(ct_perc_time) * 100)
+
+ct_time_barplot <- ggplot(cell_type_proportions_per_time,aes(timepoint,mean_perc,fill = anno_cell_type_lvl2)) +
+  geom_bar(stat = "identity", position = "dodge",color = "black") +
+  scale_fill_manual(values = named_colors) +
+  geom_text(aes(label=round(mean_perc,0)),
+            position=position_dodge(width=0.9),
+            vjust= 0.5, hjust = -0.4, size=4,  angle = 90) +
+  scale_y_continuous(limits = c(0,30)) +
+  labs(x = " Timepoint",
+       y = "% total cells") +
+  theme(legend.text=element_text(size=15),
+        legend.title = element_blank())
+
+ct_time_barplot
+
+save_plot(ct_time_barplot,filename = here("./plots/molkart.Figure_1.ct_percentage.pdf"),
+          base_height = 6,
+          base_width = 12)
+```
+
+## Figure 1F : Overview of spatial distribution of cell types within 1 sample
+
+```{r}
+sample_highlight <- "sample_4h_r1_s1"
+
+meta_sample <- subset(seurat_object@meta.data,sample_ID == sample_highlight)
+
+full_overview <-  ggplot(meta_sample,aes(X_centroid,Y_centroid)) +
+    geom_point(aes(color = anno_cell_type_lvl2),size = 1) +
+    theme_classic() +
+    labs(x = "Spatial 1",
+         y = "Spatial 2") +
+    theme(axis.ticks = element_blank(),
+          axis.text = element_blank(),
+          axis.line = element_blank(),
+          legend.position = "none") +
+    scale_color_manual(values = named_colors)
+
+cell_type_views <- ggplot(meta_sample,aes(X_centroid,Y_centroid)) +
+  geom_point(aes(color = anno_cell_type_lvl2),size = 0.5) +
+  scale_color_manual(values = named_colors) +
+  facet_wrap(~ anno_cell_type_lvl2) +
+  theme_void() +
+  theme(legend.position = "none",
+        strip.text = element_text(size = 10, color = "black", face = "bold"),
+        strip.background = element_rect(fill = "lightgrey",
+                                        colour = "black",
+                                        linetype = 1)
+  )
+
+full_plot <- full_overview | cell_type_views
+
+full_plot
+save_plot(full_plot,filename = here("./plots/molkart.Figure_1.spatial_distribution.pdf"),
+          base_height = 6,
+          base_width = 14)
+```
+
+
+
 
 ## Additional plots for presentations
 
 ### Spatial plot with all samples and cell types
 
 ```{r}
-cell_types <- unique(seurat_object@meta.data$anno_cell_type_lv2)
-colors <- cols25(n=length(cell_types))
-named_colors <- colors
-names(named_colors) <- cell_types
-
 meta <- seurat_object@meta.data
 
 expression_plot_list <- list()
@@ -113,12 +233,12 @@ samples <- c("sample_control_r1_s1","sample_4h_r1_s1",
              "sample_2d_r2_s1","sample_4d_r2_s1")
 
 for(this_sample in samples){
-  pt_size <- 0.1
+  pt_size <- 0.3
   cluster_of_int <- c(16,19)
   sample_object <- subset(meta,sample_ID == this_sample)
   
   highlight_plot <- ggplot(sample_object,aes(X_centroid,Y_centroid)) +
-    geom_point(aes(color = anno_cell_type_lv2),size = pt_size) +
+    geom_point(aes(color = anno_cell_type_lvl2),size = pt_size) +
     theme_void() +
     theme(axis.ticks = element_blank(),
             axis.text = element_blank(),
@@ -140,7 +260,7 @@ wrap_plots(expression_plot_list, nrow = 2, ncol = 4)
 metadata <- seurat_object@meta.data
 
 cell_type_proportions_per_sample <- metadata %>%
-  group_by(anno_cell_type_lv2,timepoint,sample_ID) %>%
+  group_by(anno_cell_type_lvl2,timepoint,sample_ID) %>%
   tally() %>%
   ungroup() %>%
   group_by(timepoint) %>%
@@ -148,36 +268,35 @@ cell_type_proportions_per_sample <- metadata %>%
   ungroup()
 
 ## Mean and points version
-cell_type_proportions_per_sample$anno_cell_type_lv2 <- gsub("_"," ",cell_type_proportions_per_sample$anno_cell_type_lv2)
+cell_type_proportions_per_sample$anno_cell_type_lvl2 <- gsub("_"," ",cell_type_proportions_per_sample$anno_cell_type_lvl2)
 
 ## Set order of cell types in plot from most abundant to least abundant
 total_cells <- cell_type_proportions_per_sample %>%
-  group_by(anno_cell_type_lv2) %>%
+  group_by(anno_cell_type_lvl2) %>%
   summarise("total_cells" = sum(n)) %>%
   arrange(desc(total_cells))
 
-cell_type_proportions_per_sample$anno_cell_type_lv2 <- factor(cell_type_proportions_per_sample$anno_cell_type_lv2,
-       levels = total_cells$anno_cell_type_lv2)
+cell_type_proportions_per_sample$anno_cell_type_lvl2 <- factor(cell_type_proportions_per_sample$anno_cell_type_lvl2,
+       levels = total_cells$anno_cell_type_lvl2)
 
 ## Set color palette for cell-types in molecular cartography data
-arr <- list(x = -10, y = -15, x_len = 5, y_len = 5)
-cell_types <- unique(unique(cell_type_proportions_per_sample$anno_cell_type_lv2))
+cell_types <- unique(unique(cell_type_proportions_per_sample$anno_cell_type_lvl2))
 colors <- cols25(n=length(cell_types))
 named_colors <- colors
 names(named_colors) <- cell_types
 
 cell_types_oi <- c("Cardiomyocytes","Cardiac fibroblasts","Cardiomyocytes Nppa+","Myeloid cells")
 cell_type_proportions_per_sample <- subset(cell_type_proportions_per_sample,
-                                           anno_cell_type_lv2 %in% cell_types_oi)
+                                           anno_cell_type_lvl2 %in% cell_types_oi)
 
-ct_time_barplot_v2 <- ggplot(cell_type_proportions_per_sample,aes(x = timepoint,y = ct_perc_time, fill = anno_cell_type_lv2)) +
+ct_time_barplot_v2 <- ggplot(cell_type_proportions_per_sample,aes(x = timepoint,y = ct_perc_time, fill = anno_cell_type_lvl2)) +
     stat_summary(
       fun.y = mean,
       geom = "bar",
       width = 1,
       color = "black") +
   geom_beeswarm(size = 2.5, pch = 21, color = "black", fill= "white") +
-  facet_grid(. ~ anno_cell_type_lv2) +
+  facet_grid(. ~ anno_cell_type_lvl2) +
   theme_bw() +
   theme(axis.title = element_text(face="bold")) +
   theme(axis.text.x = element_text(size = 14,angle = 45, vjust = 0.5, hjust=1),
@@ -213,7 +332,7 @@ for(cluster_of_int in cell_types_oi){
     
     highlight_plot <- ggplot(meta,aes(Y_centroid,X_centroid)) +
       geom_point(data = subset(meta,!seurat_clusters %in% cluster_of_int),color = "darkgrey", size = pt_size) +
-      geom_point(data = subset(meta,gsub("_"," ",anno_cell_type_lv2) == cluster_of_int),color = color_use, size = pt_size * 2) +
+      geom_point(data = subset(meta,gsub("_"," ",anno_cell_type_lvl2) == cluster_of_int),color = color_use, size = pt_size * 2) +
       theme_classic() +
       labs(x = "Spatial 1",
            y = "Spatial 2") +
@@ -239,7 +358,7 @@ samples <- c("sample_control_r1_s1","sample_2d_r1_s1")
 expression_plot_list <- list()
 time_plot_list <- list()
 
-cell_types_oi <- c("Endocardial cell","Cardiomyocytes Nppa+","Myeloid cells")
+cell_types_oi <- c("Endocardial cells","Cardiomyocytes Nppa+","Macrophages")
 colors_used <- named_colors[cell_types_oi]
 
   
@@ -253,7 +372,7 @@ for(cluster_of_int in cell_types_oi){
     
     highlight_plot <- ggplot(meta,aes(Y_centroid,X_centroid)) +
       geom_point(data = subset(meta,!seurat_clusters %in% cluster_of_int),color = "darkgrey", size = pt_size) +
-      geom_point(data = subset(meta,gsub("_"," ",anno_cell_type_lv2) == cluster_of_int),color = color_use, size = pt_size * 4) +
+      geom_point(data = subset(meta,gsub("_"," ",anno_cell_type_lvl2) == cluster_of_int),color = color_use, size = pt_size * 4) +
       theme_classic() +
       labs(x = "Spatial 1",
            y = "Spatial 2") +

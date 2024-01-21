@@ -26,7 +26,7 @@ source("./code/functions.R")
 
 ```{r}
 ## If the object has already been computed
-seurat_object <- readRDS(file = "./output/mol_cart/molkart.harmony_seurat_object.rds")
+seurat_object <- readRDS(file = "./output/molkart/molkart.harmony_seurat_object.rds")
 ```
 
 # Figure 2A:  Plot whole tissue quantification changes across time

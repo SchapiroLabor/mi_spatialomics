@@ -7,12 +7,27 @@ editor_options:
   chunk_output_type: console
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(mistyR)
+library(rlist)
+library(FNN)
+library(future)
+library(cowplot)
+library(igraph)
+library(ClusterR)
+
+source("./code/functions.R")
+plan(multisession, workers = 8)
+```
+
 ```{r}
 ## Custom functions
 interaction_communities_info <- function(misty.results, concat.views, view,
                                          trim = 0, trim.measure = "gain.R2", 
                                          cutoff = 1, resolution = 1) {
-  
   
   inv <- sign((stringr::str_detect(trim.measure, "gain") |
                  stringr::str_detect(trim.measure, "RMSE", negate = TRUE)) - 0.5)
@@ -82,59 +97,44 @@ cellular_neighborhoods <- function(sample.cells, sample.pos, n, k){
   misty.views  <- create_initial_view(sample.cells) %>% add_paraview(sample.pos, family = "constant", l = n)
   clust <- KMeans_rcpp(misty.views[[paste0("paraview.",n)]], k)
   return(clust$clusters) 
-}#
-```
-
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-
-library(tidyverse)
-library(mistyR)
-library(rlist)
-library(FNN)
-library(future)
-library(cowplot)
-library(igraph)
-library(ClusterR)
-
-source("./code/functions.R")
-plan(multisession, workers = 8)
+}
 ```
 
 # Introduction
 
 In this markdown we will utilize [MistyR](https://saezlab.github.io/mistyR/) to perform global spatial analysis on the cell-type encodings for our molecular Cartography data.
 
-## Load data
+Make sure to have the latest development version (15.01.2024) : https://github.com/jtanevski/mistyR
+
+## Analyze data using MistyR
 
 ```{r}
+size_param <- 125
 all.data <- read_tsv("./output/molkart/molkart.misty_celltype_table.tsv")
 
 samples <- all.data %>%
   pull(sample_ID) %>%
   unique()
+
 cts <- all.data %>%
-  pull(anno_cell_type_lvl2) %>%
+  pull(misty_cts) %>%
   unique()
 
 cts.names <- make.names(cts, allow_ = FALSE)
 
 ## Count number of cells per type
 ct_numbers <- all.data %>%
-  group_by(sample_ID, anno_cell_type_lvl2) %>%
+  group_by(sample_ID, misty_cts) %>%
   summarise(n = n()) %>%
-  pivot_wider(names_from = anno_cell_type_lvl2, values_from = n) %>%
+  pivot_wider(names_from = misty_cts, values_from = n) %>%
   column_to_rownames("sample_ID") %>%
   as.matrix()
-```
 
-```{r}
 samples %>% walk(\(sample){
   
   sample.cells <- all.data %>%
     filter(sample_ID == sample) %>%
-    pull(anno_cell_type_lvl2) %>%
+    pull(misty_cts) %>%
     map(~ .x == cts) %>%
     list.rbind() %>%
     `colnames<-`(cts.names) %>%
@@ -147,60 +147,37 @@ samples %>% walk(\(sample){
   #l <- ceiling(knn.dist(sample.pos, 1) %>% mean())
   #l <- 20/0.138
   #l <- 50/0.138
-  l <- 100/0.138
+  #l <- 100/0.138
+  l <- size_param / 0.138
 
   misty.views.cts <- create_initial_view(sample.cells) %>%
     add_paraview(sample.pos, l) %>%
     rename_view(paste0("paraview.", l), "paraview") %>%
     select_markers("intraview", where(~ sd(.) != 0))
   
-  run_misty(misty.views.cts, sample, "results_cts_100.sqm", bypass.intra = TRUE)
+  run_misty(misty.views.cts, sample, paste("results_cts_",size_param,".sqm",sep=""), bypass.intra = TRUE)
 })
 ```
-
-```{r}
-sample <- "sample_4h_r1_s1"
-sample.cells <- all.data %>%
-    filter(sample_ID == sample) %>%
-    pull(anno_cell_type_lvl2) %>%
-    map(~ .x == cts) %>%
-    list.rbind() %>%
-    `colnames<-`(cts.names) %>%
-    as_tibble()
-
-
-sample.pos <- all.data %>%
-    filter(sample_ID == sample) %>%
-    select(X_centroid, Y_centroid)
-
-l <- 100/0.138
-
-misty.views.cts <- create_initial_view(sample.cells) %>%
-    add_paraview(sample.pos, l) %>%
-    rename_view(paste0("paraview.", l), "paraview") %>%
-    select_markers("intraview", where(~ sd(.) != 0))
-
-run_misty(misty.views.cts, sample, "results_cts_100.sqm", bypass.intra = TRUE)
-```
-
 
 
 ```{r}
 groups <- samples %>% str_extract("(?<=sample_).+(?=_r)") %>% unique()
 
-misty.results.g <- groups %>% map(~ collect_results("results_cts_100.sqm", .x))
+misty.results.g <- groups %>% map(~ collect_results("results_cts_125.sqm", .x))
+#misty.results.g <- groups %>% map(~ collect_results(paste("results_cts_",as.character(size_param),".sqm",sep=""), .x,)) ##
 names(misty.results.g) <- groups
 
-dir.create("misty_figures_100")
+dir.create(paste("misty_figures_",size_param,sep="")) ##
 
 misty.results.g %>% iwalk(\(misty.results, cond){
   plot.list <- list()
   plot_improvement_stats(misty.results, "gain.R2")
   plot.list <- list.append(plot.list, last_plot())
-  plot_interaction_heatmap(misty.results, "paraview", cutoff = 0.5, clean = TRUE, trim = 5)
+  plot_interaction_heatmap(misty.results, "paraview", cutoff = 0.4, clean = TRUE, trim = 5)
   plot.list <- list.append(plot.list, last_plot())
   plot_grid(plotlist = plot.list, ncol = 2)
-  ggsave(paste0("misty_figures_100/", cond, "_stats.pdf"), width = 10, height = 10)
+  ggsave(paste0("misty_figures_125/", cond, "_stats.pdf"), width = 10, height = 10)
+  #ggsave(paste0("misty_figures_",size_param,"/", cond, "_stats.pdf"), width = 10, height = 10)
 })
 
 dir.create("graphs", recursive = TRUE)
@@ -231,10 +208,15 @@ names(misty.results.g) %>% walk(\(g){
     )
   }, .init = list(intraview = NULL, paraview = NULL))
   
-  
-  out <- interaction_communities_info(misty.results.g[[g]], concat.views, 
-                                      view = "paraview", trim = 5, cutoff = 0.5)
-  write_graph(out, paste0("graphs/para.100.", g, ".graphml"), "graphml")
+  # out <- interaction_communities_info(misty.results.g[[g]], concat.views, 
+  #                                     view = "paraview", trim = 5, cutoff = 0.5)
+  # write_graph(out, paste0("graphs/para.125.", g, ".graphml"), "graphml")
+  #write_graph(out, paste0("graphs/para.",size_param,".", g, ".graphml"), "graphml")
 })
+```
+
+```{r}
+## Check directionality of interaction
+misty.results.g$"2d" %>% plot_interaction_heatmap(view = "paraview", cutoff = 0.4)
 ```
 

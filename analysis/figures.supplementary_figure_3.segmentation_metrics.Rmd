@@ -22,9 +22,11 @@ library(ggbeeswarm)
 source("./code/functions.R")
 ```
 
+# Introduction
+
 ```{r}
 # Load data
-qc_dir <- "/Users/florian_wuennemann/1_Projects/MI_project/data/nf_molkart_results/QC"
+qc_dir <- "../results/nf-core_molkart/molkartqc"
 files <- fs::dir_ls(path = qc_dir, glob = "*csv")
 qc_data <- vroom(files)
 qc_data <- qc_data %>%
@@ -39,8 +41,7 @@ qc_data$time  <- factor(qc_data$time,
                         levels = c("control","4h","2d","4d"))
 
 qc_data$segmentation_method <- factor(qc_data$segmentation_method,
-                                      levels = c("cellpose","ilastik_multicut",
-                                                 "mesmer_wholecell","mesmer_nuclear"
+                                      levels = c("cellpose","ilastik","mesmer"
                                                  ))
 
 final_samples <- c("sample_control_r1_s1","sample_control_r2_s1",
@@ -57,6 +58,7 @@ qc_data <- qc_data %>%
   subset(group %in% c("avg_area","spot_assign_per_cell","spot_assign_percent","total_cells"))
 ```
 
+# Plot the data
 
 ```{r}
 qc_data$group <- gsub("avg_area","Average area (uM^2)",qc_data$group)
@@ -65,7 +67,8 @@ qc_data$group <- gsub("spot_assign_percent","% spots in cells",qc_data$group)
 qc_data$group <- gsub("total_cells","Total # cells ",qc_data$group)
 
 spots_assigned <- ggplot(qc_data,aes(segmentation_method,values)) +
-  geom_boxplot(aes(fill = segmentation_method)) +
+  geom_boxplot(aes(color = segmentation_method, fill = segmentation_method),
+               outlier.size = 0, alpha = 0.3) +
   coord_flip() +
   scale_fill_brewer(palette = "Set1") +
   scale_color_brewer(palette = "Set1") +
@@ -78,7 +81,7 @@ spots_assigned <- ggplot(qc_data,aes(segmentation_method,values)) +
   theme(legend.position = "none") +
   facet_grid(. ~ group, scales = "free") +
   theme(plot.background = element_rect(fill = "white")) +
-  geom_beeswarm(size = 2, fill = "white",color= "black",pch = 21) +
+  geom_beeswarm(size = 3, aes(fill = segmentation_method) ,pch = 21, alpha = 0.4) +
   panel_border()
 
 spots_assigned
@@ -101,10 +104,10 @@ qc_data_stats <- qc_data %>%
   summarise("average" = mean(values))
 ```
 
-
+## Alternative
 
 ```{r}
-## Plot for Poster
+## Plot for Poster only showing Cellpose
 
 ## Subset for only mesmer whole-cell and Cellpose
 qc_data_sub <- subset(qc_data,segmentation_method %in% c("cellpose","mesmer_wholecell"))
