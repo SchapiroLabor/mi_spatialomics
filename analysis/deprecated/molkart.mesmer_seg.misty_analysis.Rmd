@@ -23,6 +23,9 @@ library(viridis)
 source("./code/functions.R")
 ```
 
+
+This markdown will perform Misty analysis on the cell typing based on Mesmer segmentation masks.
+
 ```{r}
 plan(multisession, workers = 8)
 
@@ -112,7 +115,7 @@ Make sure to have the latest development version (15.01.2024) : https://github.c
 
 ```{r}
 size_param <- 125
-all.data <- read_tsv("./output/molkart/molkart.misty_celltype_table.lowres.tsv")
+all.data <- read_tsv("./output/molkart/molkart.misty_celltype_table.mesmer_seg.lowres.tsv")
 
 samples <- all.data %>%
   pull(sample_ID) %>%
@@ -153,7 +156,7 @@ samples %>% walk(\(sample){
     rename_view(paste0("paraview.", l), "paraview") %>%
     select_markers("intraview", where(~ sd(.) != 0))
   
-  db_name <- paste("results_cts.lowres.",size_param,".sqm",sep="")
+  db_name <- paste("results_cts.mesmer_seg.lowres.",size_param,".sqm",sep="")
   
   run_misty(misty.views.cts, sample, db_name, bypass.intra = TRUE)
 })
@@ -162,21 +165,21 @@ samples %>% walk(\(sample){
 
 ```{r}
 l <- size_param / 0.138
-db_name <- paste("results_cts.lowres.",size_param,".sqm",sep="")
+db_name <- paste("results_cts.mesmer_seg.lowres.",size_param,".sqm",sep="")
 groups <- samples %>% str_extract("(?<=sample_).+(?=_r)") %>% unique()
 
 misty.results.g <- groups %>% map(~ collect_results(db_name, .x))
 #misty.results.g <- groups %>% map(~ collect_results(paste("results_cts_",as.character(size_param),".sqm",sep=""), .x,)) ##
 names(misty.results.g) <- groups
 
-outdir <- paste("misty_figures_",size_param,sep="")
+outdir <- paste("mesmer_seg.misty_figures_",size_param,sep="")
 dir.create(outdir) ##
 
 misty.results.g %>% iwalk(\(misty.results, cond){
   plot.list <- list()
   plot_improvement_stats(misty.results, "gain.R2")
   plot.list <- list.append(plot.list, last_plot())
-  plot_interaction_heatmap(misty.results, "paraview", cutoff = 0.4, clean = TRUE, trim = 5)
+  plot_interaction_heatmap(misty.results, "paraview", cutoff = 0.3, clean = TRUE, trim = 5)
   plot.list <- list.append(plot.list, last_plot())
   plot_grid(plotlist = plot.list, ncol = 2)
   ggsave(paste0(outdir,"/", cond, "_stats.pdf"), width = 10, height = 10)
@@ -220,118 +223,7 @@ dir.create("graphs", recursive = TRUE)
 ```
 
 ```{r}
-## Save misty results in R object for easier faster loading
-saveRDS(misty.results.g,
-        file = paste0("./output/molkart/misty_results.lowres.",size_param,".rds"))
+# ## Save misty results in R object for easier faster loading
+# saveRDS(misty.results.g,
+#         file = paste0("./output/molkart/misty_results.lowres.",size_param,".rds"))
 ```
-
-
-## Analyze data using MistyR with high level cell phenotypes
-
-```{r}
-size_param <- 125
-all.data <- read_tsv("./output/molkart/molkart.misty_celltype_table.highres.tsv")
-
-samples <- all.data %>%
-  pull(sample_ID) %>%
-  unique()
-
-cts <- all.data %>%
-  pull(misty_cts) %>%
-  unique()
-
-cts.names <- make.names(cts, allow_ = FALSE)
-
-## Count number of cells per type
-ct_numbers <- all.data %>%
-  group_by(sample_ID, misty_cts) %>%
-  summarise(n = n()) %>%
-  pivot_wider(names_from = misty_cts, values_from = n) %>%
-  column_to_rownames("sample_ID") %>%
-  as.matrix()
-
-samples %>% walk(\(sample){
-  
-  sample.cells <- all.data %>%
-    filter(sample_ID == sample) %>%
-    pull(misty_cts) %>%
-    map(~ .x == cts) %>%
-    list.rbind() %>%
-    `colnames<-`(cts.names) %>%
-    as_tibble()
-
-  sample.pos <- all.data %>%
-    filter(sample_ID == sample) %>%
-    select(X_centroid, Y_centroid)
-
-  #l <- ceiling(knn.dist(sample.pos, 1) %>% mean())
-  #l <- 20/0.138
-  #l <- 50/0.138
-  #l <- 100/0.138
-  l <- size_param / 0.138
-
-  misty.views.cts <- create_initial_view(sample.cells) %>%
-    add_paraview(sample.pos, l) %>%
-    rename_view(paste0("paraview.", l), "paraview") %>%
-    select_markers("intraview", where(~ sd(.) != 0))
-  
-  run_misty(misty.views.cts, sample, paste("results_cts.highres",size_param,".sqm",sep=""), bypass.intra = TRUE)
-})
-```
-
-
-```{r}
-groups <- samples %>% str_extract("(?<=sample_).+(?=_r)") %>% unique()
-
-misty.results.g <- groups %>% map(~ collect_results("results_cts.highres125.sqm", .x))
-#misty.results.g <- groups %>% map(~ collect_results(paste("results_cts_",as.character(size_param),".sqm",sep=""), .x,)) ##
-names(misty.results.g) <- groups
-
-dir.create(paste("misty_figures_highres125",size_param,sep="")) ##
-
-misty.results.g %>% iwalk(\(misty.results, cond){
-  plot.list <- list()
-  plot_improvement_stats(misty.results, "gain.R2")
-  plot.list <- list.append(plot.list, last_plot())
-  plot_interaction_heatmap(misty.results, "paraview", cutoff = 0.4, clean = TRUE, trim = 5)
-  plot.list <- list.append(plot.list, last_plot())
-  plot_grid(plotlist = plot.list, ncol = 2)
-  ggsave(paste0("misty_figures_highres125/s", cond, "_stats.pdf"), width = 10, height = 10)
-  #ggsave(paste0("misty_figures_",size_param,"/", cond, "_stats.pdf"), width = 10, height = 10)
-})
-
-# dir.create("graphs", recursive = TRUE)
-
-# names(misty.results.g) %>% walk(\(g){
-#   concat.views <- samples %>% str_subset(g) %>% map(\(sample){
-#     sample.cells <- all.data %>%
-#       filter(sample_ID == sample) %>%
-#       pull(anno_cell_type_lvl2) %>%
-#       map(~ .x == cts) %>%
-#       list.rbind() %>%
-#       `colnames<-`(cts.names) %>%
-#       as_tibble()
-#     
-#     sample.pos <- all.data %>%
-#       filter(sample_ID == sample) %>%
-#       select(X_centroid, Y_centroid)
-#     
-#     misty.views.cts <- create_initial_view(sample.cells) %>%
-#       add_paraview(sample.pos, l) %>%
-#       rename_view(paste0("paraview.", l), "paraview") %>%
-#       select_markers("intraview", where(~ sd(.) != 0))
-#     
-#   }) %>% list.clean() %>% reduce(\(acc, nxt){
-#     list(
-#       intraview = bind_rows(acc[["intraview"]], nxt[["intraview"]]),
-#       paraview = bind_rows(acc[["paraview"]], nxt[["paraview"]])
-#     )
-#   }, .init = list(intraview = NULL, paraview = NULL))
-  
-  # out <- interaction_communities_info(misty.results.g[[g]], concat.views, 
-  #                                     view = "paraview", trim = 5, cutoff = 0.5)
-  # write_graph(out, paste0("graphs/para.125.", g, ".graphml"), "graphml")
-  #write_graph(out, paste0("graphs/para.",size_param,".", g, ".graphml"), "graphml")
-})
-```
-
