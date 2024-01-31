@@ -41,7 +41,7 @@ qc_data$time  <- factor(qc_data$time,
                         levels = c("control","4h","2d","4d"))
 
 qc_data$segmentation_method <- factor(qc_data$segmentation_method,
-                                      levels = c("cellpose","ilastik","mesmer"
+                                      levels = c("mesmer","ilastik","cellpose"
                                                  ))
 
 final_samples <- c("sample_control_r1_s1","sample_control_r2_s1",
@@ -66,35 +66,42 @@ qc_data$group <- gsub("spot_assign_per_cell","Spots / cell",qc_data$group)
 qc_data$group <- gsub("spot_assign_percent","% spots in cells",qc_data$group)
 qc_data$group <- gsub("total_cells","Total # cells ",qc_data$group)
 
-spots_assigned <- ggplot(qc_data,aes(segmentation_method,values)) +
+spots_assigned <- ggplot(qc_data,aes(segmentation_method, y= values, group = segmentation_method)) +
   geom_boxplot(aes(color = segmentation_method, fill = segmentation_method),
                outlier.size = 0, alpha = 0.3) +
-  coord_flip() +
-  scale_fill_brewer(palette = "Set1") +
-  scale_color_brewer(palette = "Set1") +
+  # coord_flip() +
+  scale_fill_brewer(palette = "Dark2") +
+  scale_color_brewer(palette = "Dark2") +
   scale_x_discrete(labels=c("cellpose" = "Cellpose",
-                            "ilastik_multicut" = "Ilastik Multicut",
-                            "mesmer_wholecell" = "Mesmer - Whole cell",
-                            "mesmer_nuclear" = "Mesmer - Nuclear")) +
-  labs(x = "",
-       y = "") +
+                            "ilastik" = "Ilastik Multicut",
+                            "mesmer" = "Mesmer")) +
+  labs(x = "") +
   theme(legend.position = "none") +
-  facet_grid(. ~ group, scales = "free") +
+  facet_wrap(~ group, scales = "free") +
   theme(plot.background = element_rect(fill = "white")) +
-  geom_beeswarm(size = 3, aes(fill = segmentation_method) ,pch = 21, alpha = 0.4) +
+  geom_point(size = 3.5, aes(fill = segmentation_method), color = "black" ,
+             pch = 21, alpha = 1) +
+  # stat_summary(
+  #       fun.y = mean,
+  #       color = "black",
+  #       linewidth = 1.5 ,
+  #       geom = "errorbar", 
+  #       aes(ymax = ..y.., ymin = ..y..),
+  #       position = position_dodge(width = 0.3), 
+  #       width = 0.25) +
   panel_border()
 
 spots_assigned
 
-save_plot(filename = here("./figures/Supplementary_figure_3.segmentation_metrics.png"),
+save_plot(filename = here("./plots/Supplementary_figure_3.segmentation_metrics.png"),
+          plot = spots_assigned,
+          base_height = 2.5,
+          base_width = 5)
+
+
+save_plot(filename = here("./plots/Supplementary_figure_3.segmentation_metrics.pdf"),
           plot = spots_assigned,
           base_height = 6)
-
-
-save_plot(filename = here("./figures/Supplementary_figure_3.segmentation_metrics.eps"),
-          plot = spots_assigned,
-          base_height = 5,
-          base_width = 10)
 ```
 
 ```{r}

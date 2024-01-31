@@ -315,7 +315,8 @@ def crop_black_margins(img, output_path: str) -> None:
     img_cropped.save(output_path)
 
 
-def add_scalebar(image_path, img_width_orig, scalebar_length_um, corner="bottom right", image_with_scalebar_path=".", font_size=None):
+def add_scalebar(image_path, scalebar_length_um, corner="bottom right", image_with_scalebar_path=".", font_size=None,
+                 pixel_resolution = 1):
     """
     Add a scalebar to an image.
 
@@ -337,8 +338,8 @@ def add_scalebar(image_path, img_width_orig, scalebar_length_um, corner="bottom 
     image = Image.open(image_path)
 
     # Convert scalebar length from micrometers to pixels
-    pixel_resolution = img_width_orig * 0.138 / image.width
-    scalebar_length_px = int(scalebar_length_um / pixel_resolution)
+    #pixel_resolution = img_width_orig * 0.138 / image.width
+    scalebar_length_px = int(scalebar_length_um * pixel_resolution)
 
     # Set scalebar parameters
     # Scalebar height proportional to its length
