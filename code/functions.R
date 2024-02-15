@@ -59,9 +59,9 @@ create_seurat_sctransform_mcquant <- function(mcquant,sample_ID){
 ################
 
 ## Color palette for proteomics analysis
-proteome_palette <- c("control" = "#4D9221",
-                      "MI_remote" = "#FDE0EF",
-                      "MI_IZ" = "#C51B7D")
+proteome_palette <- c("control" = "cyan4",
+                      "MI_remote" = "darkorange",
+                      "MI_IZ" =  "purple")
 
 # [1] "#8E0152" "#C51B7D" "#DE77AE" "#F1B6DA" "#FDE0EF" "#F7F7F7"
 # [7] "#E6F5D0" "#B8E186" "#7FBC41" "#4D9221" "#276419"
@@ -125,11 +125,11 @@ plot_pretty_volcano <- function(de_table,
 
   volcano_plot <- ggplot(data=de_table, aes(x= logFC, y= -log10(pval), label = label_protein)) +
     geom_point(data = subset(de_table, get(sig_col) > sig_thresh),
-               size = pt_size, fill = "darkgrey",pch = 21, color = "black", stroke = 0.5) +
+               size = pt_size, color = "darkgrey") +
     geom_point(data = subset(de_table, get(sig_col) <= sig_thresh  & logFC > 0),
-               size = pt_size, fill = col_pos_logFC,pch = 21, color = "black") +
+               size = pt_size, color = col_pos_logFC) +
     geom_point(data = subset(de_table, get(sig_col) <= sig_thresh  & logFC < 0),
-               size = pt_size, fill = col_neg_logFC,pch = 21, color = "black") +
+               size = pt_size, color = col_neg_logFC) +
     labs(title = plot_title)
 
   return(volcano_plot)

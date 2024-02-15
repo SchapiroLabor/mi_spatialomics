@@ -133,7 +133,7 @@ sig_pathways_mi$source <- gsub("HALLMARK_","",sig_pathways_mi$source)
 sig_pathways_mi$source <- gsub("_"," ",sig_pathways_mi$source)
 path_plot <- ggplot(sig_pathways_mi, aes(x = reorder(source, score), y = score)) + 
     geom_bar(aes(fill = score),color = "black", stat = "identity") +
-    scale_fill_gradient2(low = "darkblue", high = "darkred",
+    scale_fill_gradient2(low = "darkorange", high = "purple",
         mid = "white", midpoint = 0) +
   # scale_fill_viridis(option = "F", direction = 1) +
     theme(axis.title = element_text(face = "bold", size = 12),
@@ -149,7 +149,7 @@ path_plot
 
 save_plot(filename = "./figures/Figure_5.pathway_plot.pdf",
           plot = path_plot,
-          base_asp = 1.5,
+          base_asp = 1.9,
           base_height = 4)
 ```
 
@@ -162,13 +162,13 @@ snrna_prot <- snrna_prot %>%
 
 endo_proteomic_corr <- ggplot(snrna_prot,aes(avg_log2FC,logFC,
                               label = label_gene)) +
+  geom_hline(yintercept = 0, linetype = 2) +
   geom_point(data =subset(snrna_prot,gene != "Vwf"), size =3, fill = "darkgrey", pch = 21) +
-  geom_point(data = subset(snrna_prot,gene == "Vwf"),size = 4, fill = proteome_palette[['MI_IZ']], pch = 21) +
-  geom_point(data = subset(snrna_prot,gene %in% c("Npr3","Cdh11")),size = 4, fill = "#EFCC00", pch = 21) +
+  geom_point(data = subset(snrna_prot,gene == "Vwf"),size = 4, fill = "purple", pch = 21) +
+  geom_point(data = subset(snrna_prot,gene %in% c("Npr3","Cdh11")),size = 4, fill = "lightblue", pch = 21) +
   geom_label_repel() +
   labs(x = "Specificity endocard. cells (snRNA-seq)",
-       y = "Log2 fold-change (Proteomics)") +
-  geom_hline(yintercept = 0, linetype = 2)
+       y = "Log2 fold-change (Proteomics)") 
 
 endo_proteomic_corr
 
@@ -251,8 +251,8 @@ npr3_plot <- plot_proteomics_boxplot(norm_table = protein_sub,
 npr3_plot
 
 ## Median plot with points
-goi <- "Cdh11"
-cd11_plot <- plot_proteomics_boxplot(norm_table = protein_sub,
+goi <- "Npr3"
+npr3_plot <- plot_proteomics_boxplot(norm_table = protein_sub,
                                     protein = goi,
                                     style = "mean") +
   theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1)) +
@@ -260,7 +260,12 @@ cd11_plot <- plot_proteomics_boxplot(norm_table = protein_sub,
   ylim(yaxis_limits) + 
   labs(y = "")
 
-cd11_plot
+joined_plot <- npr3_plot + vwf_plot
+
+save_plot(filename = "./figures/Figure_5.expression_plot.pdf",
+          plot = joined_plot,
+          base_asp = 1,
+          base_height = 4)
 ```
 
 # Assemble final figure
