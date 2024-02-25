@@ -628,13 +628,13 @@ DotPlot(harmony_object, group.by = "anno_cell_type_lvl2",
 
 ```{r}
 saveRDS(harmony_object,
-        file = "./output/molkart/molkart.harmony_seurat_object.rds")
+        file = "./output/molkart/molkart.seurat_object.rds")
 ```
 
 ```{r}
 ## If the object has already been computed
 harmony_object <- readRDS(file
-                          = "./output/molkart/molkart.harmony_seurat_object.rds")
+                          = "./output/molkart/molkart.seurat_object.rds")
 ```
 
 # Save data formatted for input to spatial anndata object
@@ -791,6 +791,6 @@ for(cluster_of_int in unique(harmony_object$anno_cell_type_lvl2)){
 # Plot expression on UMAP and space
 
 ```{r}
-plot_density(harmony_object,features = c("Ryr2"))
+plot_density(harmony_object,features = c("Npr3"))
 ```
 

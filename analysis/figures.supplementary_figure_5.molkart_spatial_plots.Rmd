@@ -1,0 +1,167 @@
+---
+title: "figures.supplementary_figure_5.molkart_spatial_plots"
+author: "FloWuenne"
+date: "2024-02-15"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+```{r}
+library(tidyverse)
+library(Seurat)
+library(patchwork)
+source("./code/functions.R")
+```
+
+# Load data
+
+```{r}
+## If the object has already been computed
+seurat_object <-  readRDS(file = "./output/molkart/molkart.seurat_object.rds")
+```
+
+# Plot data 
+
+## A) Spatial plots per sample
+
+```{r}
+metadata <- seurat_object@meta.data
+
+## Set sample order for patchwork
+sample_names <- c("sample_control_r1_s1","sample_4h_r1_s1",
+             "sample_2d_r1_s1","sample_4d_r1_s1",
+             "sample_control_r2_s1","sample_4h_r2_s2",
+             "sample_2d_r2_s1","sample_4d_r2_s1")
+
+
+## Make a spatial plot for each sample and organize them using patchwork
+sample_plots <- lapply(sample_names, function(sample) {
+  meta_sub <- subset(metadata,sample_ID == sample)
+  
+  # Generate the plot
+  ## Add a line of blank space on top of the plot
+  p <- ggplot(meta_sub, aes(x = X_centroid, 
+                            y = Y_centroid,
+                            color = anno_cell_type_lvl2)) +
+    dark_theme_void() +
+    geom_point(size = 0.6) +
+    scale_color_manual(values = named_colors
+                       ) +
+    theme(legend.position = "right",
+          legend.title = element_text(size = 20),
+          legend.text = element_text(size = 16)) + # Hide legend or adjust as needed
+    guides(color = guide_legend(title = "Cell types",override.aes = list(size = 6))) +
+    labs(title = "")
+  
+  ## Manually add tags and titles to plots for visual improvements
+  if(sample == "sample_control_r1_s1"){
+    p <- p + 
+      labs(tag = "a",
+           title = "Control",
+           y = "Replicate 1") + 
+      theme(plot.tag = element_text(size = 20, face = "bold"),
+            plot.title = element_text(hjust=0.5, size = 20, face = "bold"),
+            axis.title.y = element_text(size = 20,angle = 90, face = "bold")
+            )
+  } else if(sample == "sample_4h_r1_s1"){
+    p <- p + 
+      labs(title = "4 hours") + 
+      theme(plot.tag = element_text(size = 20, face = "bold"),
+            plot.title = element_text(hjust=0.5, size = 20, face = "bold"))
+  } else if(sample == "sample_2d_r1_s1"){
+    p <- p + 
+      labs(title = "2 days") + 
+      theme(plot.tag = element_text(size = 20, face = "bold"),
+            plot.title = element_text(hjust=0.5, size = 20, face = "bold"))
+  } else if(sample == "sample_4d_r1_s1"){
+    p <- p + 
+      labs(title = "4 days") + 
+      theme(plot.tag = element_text(size = 20, face = "bold"),
+            plot.title = element_text(hjust=0.5, size = 20, face = "bold"))
+  } else if (sample == "sample_control_r2_s1"){
+    p <- p +
+      labs(y = "Replicate 2") + 
+      theme(axis.title.y = element_text(size = 20,angle = 90, face = "bold")
+            )
+  }
+  
+  
+  # Return the plot
+  return(p)
+})
+
+sample_plots_arranged <- wrap_plots(sample_plots,ncol = 4, nrows = 2) + plot_layout(guides = "collect")
+sample_plots_arranged
+```
+
+## B) Cell type proportions over time
+
+```{r}
+cell_type_proportions_per_sample <- metadata %>%
+  group_by(anno_cell_type_lvl2,timepoint,sample_ID) %>%
+  tally() %>%
+  ungroup() %>%
+  group_by(timepoint,sample_ID) %>%
+  mutate("percent" = n / sum(n) * 100) %>%
+  ungroup()
+
+## Check that percentage sum up to 100 per sample
+percent_check <- cell_type_proportions_per_sample %>%
+  group_by(sample_ID) %>%
+  summarise("sum" = sum(percent))
+
+## Replace underscores in cell names with spaces
+cell_type_proportions_per_sample$anno_cell_type_lvl2 <- gsub("_"," ",cell_type_proportions_per_sample$anno_cell_type_lvl2)
+
+## Set order of cell types in plot from most abundant to least abundant
+mean_percent <- cell_type_proportions_per_sample %>%
+  group_by(timepoint,anno_cell_type_lvl2) %>%
+  summarise("mean_percent" = mean(percent)) %>%
+  ungroup() %>%
+  group_by(timepoint) %>%
+  arrange(desc(mean_percent))
+
+cell_type_proportions_per_sample$anno_cell_type_lvl2 <- factor(cell_type_proportions_per_sample$anno_cell_type_lvl2,
+       levels = subset(mean_percent,timepoint == "control")$anno_cell_type_lvl2)
+
+## Calculate mean cell number per timepoint
+mean_percent <- cell_type_proportions_per_sample %>%
+  mutate("anno_cell_type_lvl2" = if_else(grepl("Myeloid cells",anno_cell_type_lvl2),"Myeloid_cells",anno_cell_type_lvl2)) %>% ## Merge myeloid cells into one group for calculations
+  group_by(timepoint,anno_cell_type_lvl2) %>%
+  summarise("mean_percent" = mean(percent)) %>%
+  ungroup()
+
+ct_time_barplot <- ggplot(cell_type_proportions_per_sample,aes(timepoint,percent,fill = anno_cell_type_lvl2)) +
+  geom_bar(position='dodge', stat='summary', fun='mean', color = "black") +
+  # Add points for each fill group on top of bars
+  geom_point(position=position_dodge(width=0.9), aes(group=anno_cell_type_lvl2), size=2.5, shape=21, fill="white", color="black") +
+  scale_fill_manual(values = named_colors, name = "Cell types") +
+  labs(x = " Timepoint",
+       y = "% total cells") +
+  theme_minimal() +
+  theme(legend.text=element_text(size=18),
+        legend.title = element_text(size=20),
+        legend.position = "right",
+        axis.title = element_text(size=18),
+        axis.text  = element_text(size=18))
+
+
+ct_time_barplot <- ct_time_barplot + labs(tags = "b") + theme(plot.tag = element_text(size = 20, face = "bold"))
+ct_time_barplot
+```
+
+
+## Merge plots
+
+```{r}
+wrapped_plots <- (sample_plots_arranged / ct_time_barplot) + plot_layout(nrow = 2, ncol = 1)
+wrapped_plots
+
+save_plot(wrapped_plots,
+          filename = "./plots/Supplementary_figure_5.spatial_plots.molkart.png",
+          base_height = 12,
+          base_asp = 1.2)
+```
+
+

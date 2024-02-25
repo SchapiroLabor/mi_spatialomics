@@ -268,76 +268,172 @@ save_plot(filename = "./figures/Figure_5.expression_plot.pdf",
           base_height = 4)
 ```
 
-# Assemble final figure
+
+# Subfigure H - human CITE-seq umap
+
 
 ```{r}
-final_fig5_top <- plot_spacer()  + pca_plot  + plot_layout(widths = c(1.5, 1))
-final_fig5_mid <- volc_limma_IZ_remote + plot_spacer() + path_plot  + 
-  plot_layout(widths = c(1.5, 0.2, 1))
-combined_prot_plot <- vwf_plot + cd11_plot + npr3_plot
-final_fig5_bottom <- endo_proteomic_corr + plot_spacer() + combined_prot_plot + plot_layout(widths = c(1, 0.2, 1))
 
-final_fig5 <- final_fig5_top / final_fig5_mid / final_fig5_bottom +plot_layout(heights= c(1, 1, 0.7)) 
+library(Seurat)
+library(SCpubr)
 
-final_fig5 <- final_fig5 + 
-  #plot_annotation(tag_levels = 'A') & 
-  #theme(plot.tag = element_text(size = 25)) +
-  theme(plot.background = element_rect(fill = "white"))
-
-final_fig5
-
-#plot_width  <- 8.5 
-plot_height <- 11
-plot_asp <- 1.3
-
-save_plot(filename = "./figures/Figure_5.png",
-          plot = final_fig5,
-          base_asp = plot_asp,
-          base_height = plot_height)
-
-
-save_plot(filename = "./figures/Figure_5.eps",
-          plot = final_fig5,
-          base_asp = plot_asp,
-          base_height = plot_height)
-
-save_plot(filename = "./figures/Figure_5.pdf",
-          plot = final_fig5,
-          base_asp = plot_asp,
-          base_height = plot_height)
-
-save_plot(filename = "./figures/Figure_5.svg",
-          plot = final_fig5,
-          base_asp = plot_asp,
-          base_height = plot_height)
+human_citeseq <- readRDS("../public_data/Amrute_et_al/final_global_annotated.rds")
 ```
-
-## Figures for poster
 
 ```{r}
-final_fig5_top <- plot_spacer()  + pca_plot  + plot_layout(widths = c(1.5, 1))
-post_middle <- path_plot + plot_spacer() + endo_proteomic_corr + plot_layout(widths = c(1, 0.2, 1))
-combined_prot_plot <- vwf_plot + npr3_plot
-final_fig5_bottom <- combined_prot_plot + plot_spacer()  + plot_layout(widths = c(1, 1, 3))
+DefaultAssay(human_citeseq) <- "SCT"
 
-final_fig5_poster1 <- final_fig5_top / post_middle / post_middle +plot_layout(heights= c(1, 1, 1)) 
+#Choose endocardial cluster
+Idents(human_citeseq) <- "annotation.0.1"
+human_endocardium <- subset (human_citeseq, idents = "Endocardium")
 
+#Choose Donor and AMI only
+Idents(human_endocardium) <- "HF.etiology"
+human_endocardium <- subset (human_endocardium, idents = c("Donor", "AMI"))
 
-plot_height <- 11
-plot_asp <- 1.3
-save_plot(filename = "../results/Rotterdam_poster_proteomics.middle.eps",
-          plot = final_fig5_poster1,
-          base_asp = plot_asp,
-          base_height = plot_height)
+#plot VWF expression
+plot3 <- VlnPlot (human_endocardium, feature = c("VWF"), cols = c("#008000", "#CD1076"))
 
-final_fig5_poster_2<- final_fig5_top / final_fig5_bottom / final_fig5_bottom +plot_layout(heights= c(1, 1, 1)) 
+#plot Umap embedding using SCpubr package
+named_colors <- c("Fibroblast" = "#1f77b4",
+                    "B Cells" = "#d62728",
+                    "Plasma Cells" = "#ff7f0e",
+                    "Endocardium" = "#17becf",
+                    "Endothelium" = "#8c564b",
+                    "Lymphatics" = "lightgrey",
+                    "T_NK Cells" = "#bcbd22",
+                    "Myeloid" = "#2ca02c",
+                    "Glia" = "#9467bd",
+                    "SMC_Pericyte" = "#e377c2", 
+                    "Mast Cells" = "darkred")
 
-
-plot_height <- 11
-plot_asp <- 1.3
-save_plot(filename = "../results/Rotterdam_poster_proteomics.version2.eps",
-          plot = final_fig5_poster_2,
-          base_asp = plot_asp,
-          base_height = plot_height)
+human_cite_umap <- SCpubr::do_DimPlot(sample = human_citeseq, 
+                            label = FALSE, label.box= TRUE, 
+                            group.by = "annotation.0.1", 
+                            repel = TRUE, 
+                            legend.position = "right", plot_cell_borders = TRUE, 
+                            plot_density_contour = FALSE,
+                            plot.axes = FALSE, raster.dpi = 300, 
+                            shuffle = FALSE, 
+                            pt.size = 0.4, reduction = "rna.umap",
+                            legend.icon.size = 5, 
+                            legend.byrow = TRUE, colors.use = named_colors) +
+  theme(legend.position = "none")
 ```
+
+```{r}
+save_plot(human_cite_umap,
+          file = "./plots/Figure4.human_citeseq_umap.png",
+          base_height = 4)
+```
+
+
+# Subfigure I - Violin plot for vWF
+
+```{r}
+sub_human_cite <- subset(human_endocardium,HF.etiology %in% c("Donor","AMI"))
+sub_human_cite$disease_group <- sub_human_cite$HF.etiology
+
+## Quick DE analysis between Donor and AMI
+sub_human_cite_pb <- AggregateExpression(sub_human_cite,
+                                   return.seurat = T, 
+                                   group.by = "sample")
+```
+
+
+```{r}
+Idents(sub_human_cite) <- sub_human_cite$disease_group
+vwf_vlnpot <- SCpubr::do_ViolinPlot(sample = sub_human_cite, 
+                      features = "VWF",
+                      group.by = "disease_group",
+                      line_width = 1,
+                      legend.position = "none",
+                      legend.title = "",
+                      font.size = 25,
+                      ylab = "Expression level",
+                      xlab = "",
+                      colors.use = c("Donor" = "#008000", 
+                                     "AMI" = "#CD1076",
+                                     "ICM" = "white",
+                                     "NICM" = "white"))
+
+save_plot(vwf_vlnpot,
+          file = "./plots/Figure4.human_citeseq_vlnplot.png",
+          base_height = 4)
+```
+
+
+
+<!-- # Assemble final figure -->
+
+<!-- ```{r} -->
+<!-- final_fig5_top <- plot_spacer()  + pca_plot  + plot_layout(widths = c(1.5, 1)) -->
+<!-- final_fig5_mid <- volc_limma_IZ_remote + plot_spacer() + path_plot  +  -->
+<!--   plot_layout(widths = c(1.5, 0.2, 1)) -->
+<!-- combined_prot_plot <- vwf_plot + cd11_plot + npr3_plot -->
+<!-- final_fig5_bottom <- endo_proteomic_corr + plot_spacer() + combined_prot_plot + plot_layout(widths = c(1, 0.2, 1)) -->
+
+<!-- final_fig5 <- final_fig5_top / final_fig5_mid / final_fig5_bottom +plot_layout(heights= c(1, 1, 0.7))  -->
+
+<!-- final_fig5 <- final_fig5 +  -->
+<!--   #plot_annotation(tag_levels = 'A') &  -->
+<!--   #theme(plot.tag = element_text(size = 25)) + -->
+<!--   theme(plot.background = element_rect(fill = "white")) -->
+
+<!-- final_fig5 -->
+
+<!-- #plot_width  <- 8.5  -->
+<!-- plot_height <- 11 -->
+<!-- plot_asp <- 1.3 -->
+
+<!-- save_plot(filename = "./figures/Figure_5.png", -->
+<!--           plot = final_fig5, -->
+<!--           base_asp = plot_asp, -->
+<!--           base_height = plot_height) -->
+
+
+<!-- save_plot(filename = "./figures/Figure_5.eps", -->
+<!--           plot = final_fig5, -->
+<!--           base_asp = plot_asp, -->
+<!--           base_height = plot_height) -->
+
+<!-- save_plot(filename = "./figures/Figure_5.pdf", -->
+<!--           plot = final_fig5, -->
+<!--           base_asp = plot_asp, -->
+<!--           base_height = plot_height) -->
+
+<!-- save_plot(filename = "./figures/Figure_5.svg", -->
+<!--           plot = final_fig5, -->
+<!--           base_asp = plot_asp, -->
+<!--           base_height = plot_height) -->
+<!-- ``` -->
+
+<!-- ## Figures for poster -->
+
+<!-- ```{r} -->
+<!-- final_fig5_top <- plot_spacer()  + pca_plot  + plot_layout(widths = c(1.5, 1)) -->
+<!-- post_middle <- path_plot + plot_spacer() + endo_proteomic_corr + plot_layout(widths = c(1, 0.2, 1)) -->
+<!-- combined_prot_plot <- vwf_plot + npr3_plot -->
+<!-- final_fig5_bottom <- combined_prot_plot + plot_spacer()  + plot_layout(widths = c(1, 1, 3)) -->
+
+<!-- final_fig5_poster1 <- final_fig5_top / post_middle / post_middle +plot_layout(heights= c(1, 1, 1))  -->
+
+
+<!-- plot_height <- 11 -->
+<!-- plot_asp <- 1.3 -->
+<!-- save_plot(filename = "../results/Rotterdam_poster_proteomics.middle.eps", -->
+<!--           plot = final_fig5_poster1, -->
+<!--           base_asp = plot_asp, -->
+<!--           base_height = plot_height) -->
+
+<!-- final_fig5_poster_2<- final_fig5_top / final_fig5_bottom / final_fig5_bottom +plot_layout(heights= c(1, 1, 1))  -->
+
+
+<!-- plot_height <- 11 -->
+<!-- plot_asp <- 1.3 -->
+<!-- save_plot(filename = "../results/Rotterdam_poster_proteomics.version2.eps", -->
+<!--           plot = final_fig5_poster_2, -->
+<!--           base_asp = plot_asp, -->
+<!--           base_height = plot_height) -->
+<!-- ``` -->
 

@@ -19,7 +19,7 @@ library(cowplot)
 # Load data
 
 ```{r}
-seurat_object <- readRDS(file = "./output/mol_cart/molkart.harmony_seurat_object.rds")
+seurat_object <- readRDS(file = "./output/mol_cart/molkart.seurat_object.rds")
 ```
 
 # Plot cell types across slides

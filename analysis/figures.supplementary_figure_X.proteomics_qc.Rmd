@@ -137,35 +137,51 @@ mi_remote_uniq <- subset(limma_venn_df,MI_control == FALSE & remote_control == F
 venn <- Venn(limma_venn_list)
 data <- process_data(venn)
 venn_diagram <- ggplot() +
-  # change mapping of color filling
-  geom_sf(fill = "lightgrey", data = venn_region(data), show.legend = FALSE) +  
-  # adjust edge size and color
-  geom_sf(color="black", size = 3, data = venn_setedge(data), show.legend = FALSE) +  
-  # show set label in bold
-  geom_sf_text(aes(label = name), size = 4, fontface = "bold", data = venn_setlabel(data)) +  
-  # add a alternative region name
- geom_sf_label(aes(label = count), data = venn_region(data)) + 
-  theme_cowplot() + 
-  scale_x_continuous(expand = expansion(mult = .3)) 
-
-venn_diagram$layers[[1]]$mapping <- aes(fill = name)
-
-venn_diagram <- venn_diagram +
-  scale_fill_manual(values = c(MI_vs_control = "white",
-                               MI_vs_control..MI_remote_vs_control = "white",
-                               MI_remote_vs_control = "white",
-                               MI_vs_control..MI_IZ_vs_MI_remote = "white",
-                               MI_IZ_vs_MI_remote = "white",
-                               MI_remote_vs_control..MI_IZ_vs_MI_remote = "white",
-                               MI_vs_control..MI_remote_vs_control..MI_IZ_vs_MI_remote = "white")) +
-  theme(legend.position = "none") +
-  theme(plot.background = element_rect(fill = NA, colour = "white", size = 0),
-        axis.title=element_blank(),
-        axis.text=element_blank(),
-        axis.ticks=element_blank(),
-        axis.line =element_blank())
-
+  # 1. region count layer
+  geom_polygon(aes(X, Y), 
+          data = venn_regionedge(data)) +
+  # 2. set edge layer
+  geom_path(aes(X, Y), 
+          data = venn_setedge(data), 
+          show.legend = FALSE) +
+  # 3. set label layer
+  geom_text(aes(X, Y, label = name), 
+               data = venn_setlabel(data)) +
+  # 4. region label layer
+  geom_label(aes(X, Y, label = count), 
+                data = venn_regionlabel(data)) +
+  coord_equal() +
+  theme_void()
 venn_diagram
+ #  # change mapping of color filling
+ #  geom_sf(fill = "lightgrey", data = venn_region(data), show.legend = FALSE) +  
+ #  # adjust edge size and color
+ #  geom_sf(color="black", size = 3, data = venn_setedge(data), show.legend = FALSE) +  
+ #  # show set label in bold
+ #  geom_sf_text(aes(label = name), size = 4, fontface = "bold", data = venn_setlabel(data)) +  
+ #  # add a alternative region name
+ # geom_sf_label(aes(label = count), data = venn_region(data)) + 
+ #  theme_cowplot() + 
+ #  scale_x_continuous(expand = expansion(mult = .3)) 
+
+# venn_diagram$layers[[1]]$mapping <- aes(fill = name)
+# 
+# venn_diagram <- venn_diagram +
+#   scale_fill_manual(values = c(MI_vs_control = "white",
+#                                MI_vs_control..MI_remote_vs_control = "white",
+#                                MI_remote_vs_control = "white",
+#                                MI_vs_control..MI_IZ_vs_MI_remote = "white",
+#                                MI_IZ_vs_MI_remote = "white",
+#                                MI_remote_vs_control..MI_IZ_vs_MI_remote = "white",
+#                                MI_vs_control..MI_remote_vs_control..MI_IZ_vs_MI_remote = "white")) +
+#   theme(legend.position = "none") +
+#   theme(plot.background = element_rect(fill = NA, colour = "white", size = 0),
+#         axis.title=element_blank(),
+#         axis.text=element_blank(),
+#         axis.ticks=element_blank(),
+#         axis.line =element_blank())
+# 
+# venn_diagram
 ```
 
 # Volcano plot of MI_IZ vs control
