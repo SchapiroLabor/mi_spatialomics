@@ -32,7 +32,10 @@ misty.results.g <- readRDS("./output/molkart/misty_results.lowres.125.rds")
 
 # Figure 2A,D,G : Plot Misty interaction matrix
 
+## With labels
+
 ```{r}
+## Misty plots with labels
 plot_interaction_heatmap_custom <- function(misty.results, view, cutoff = 1,
                                      trim = -Inf, trim.measure = c(
                                        "gain.R2", "multi.R2", "intra.R2",
@@ -148,11 +151,154 @@ plot_interaction_heatmap_custom <- function(misty.results, view, cutoff = 1,
 control_misty <- plot_interaction_heatmap_custom(misty.results.g$control, "paraview", cutoff = 0.4, clean = TRUE, trim = 5)
 
 control_misty
-#unique(control_misty$Predictor)
+
+save_plot(control_misty,
+          file = "./plots/Figure2.mistyR_control.with_labels.pdf",
+          base_height = 7)
+
+
+d2_misty <- plot_interaction_heatmap_custom(misty.results.g$'2d', "paraview", cutoff = 0.4, clean = TRUE, trim = 5)
+
+d2_misty
+
+save_plot(d2_misty,
+          file = "./plots/Figure2.mistyR_d2.with_labels.pdf",
+          base_height = 5)
+
+d4_misty <- plot_interaction_heatmap_custom(misty.results.g$'4d', "paraview", cutoff = 0.4, clean = TRUE, trim = 5)
+
+d4_misty
+
+save_plot(d4_misty,
+          file = "./plots/Figure2.mistyR_d4.with_labels.pdf",
+          base_height = 5)
+```
+
+
+## Without labels
+
+```{r}
+## Misty figures without text for adding to Adobe
+## Misty plots with labels
+plot_interaction_heatmap_custom <- function(misty.results, view, cutoff = 1,
+                                     trim = -Inf, trim.measure = c(
+                                       "gain.R2", "multi.R2", "intra.R2",
+                                       "gain.RMSE", "multi.RMSE", "intra.RMSE"
+                                     ),
+                                     clean = FALSE) {
+  trim.measure.type <- match.arg(trim.measure)
+
+  assertthat::assert_that(("importances.aggregated" %in% names(misty.results)),
+    msg = "The provided result list is malformed. Consider using collect_results()."
+  )
+
+  assertthat::assert_that(("improvements.stats" %in% names(misty.results)),
+    msg = "The provided result list is malformed. Consider using collect_results()."
+  )
+
+  assertthat::assert_that((view %in%
+    (misty.results$importances.aggregated %>% dplyr::pull(view))),
+  msg = "The selected view cannot be found in the results table."
+  )
+
+  inv <- sign((stringr::str_detect(trim.measure.type, "gain") |
+    stringr::str_detect(trim.measure.type, "RMSE", negate = TRUE)) - 0.5)
+
+  targets <- misty.results$improvements.stats %>%
+    dplyr::filter(
+      measure == trim.measure.type,
+      inv * mean >= inv * trim
+    ) %>%
+    dplyr::pull(target)
+
+
+  plot.data <- misty.results$importances.aggregated %>%
+    dplyr::filter(view == !!view, Target %in% targets)
+
+  if (clean) {
+    clean.predictors <- plot.data %>%
+      dplyr::mutate(Importance = Importance * (Importance >= cutoff)) %>%
+      dplyr::group_by(Predictor) %>%
+      dplyr::summarize(total = sum(Importance, na.rm = TRUE)) %>%
+      dplyr::filter(total > 0) %>%
+      dplyr::pull(Predictor)
+    clean.targets <- plot.data %>%
+      dplyr::mutate(Importance = Importance * (Importance >= cutoff)) %>%
+      dplyr::group_by(Target) %>%
+      dplyr::summarize(total = sum(Importance, na.rm = TRUE)) %>%
+      dplyr::filter(total > 0) %>%
+      dplyr::pull(Target)
+    plot.data.clean <- plot.data
+    # plot.data.clean <- plot.data %>%
+    #   dplyr::filter(
+    #     Predictor %in% clean.predictors,
+    #     Target %in% clean.targets
+    #   )
+  } else {
+    plot.data.clean <- plot.data
+  }
+
+  #set2.blue <- "#8DA0CB"
+  ## Color roughly based on https://icolorpalette.com/color/080210
+  
+  
+  ## Replace dots with spaces in cell type names
+  plot.data.clean$Predictor <- gsub("\\."," ",plot.data.clean$Predictor)
+  plot.data.clean$Target <- gsub("\\."," ",plot.data.clean$Target)
+  
+  plot.data.clean$Predictor <- gsub("Cardiomyocytes Nppa ","Cardiomyocytes Nppa+",plot.data.clean$Predictor)
+  plot.data.clean$Target <- gsub("Cardiomyocytes Nppa ","Cardiomyocytes Nppa+",plot.data.clean$Target) 
+  
+  ## Subset for only relevant Predictors
+  plot.data.clean <- subset(plot.data.clean,Predictor %in% c("Cardiomyocytes","Cardiomyocytes Nppa+","Endocardial cells",
+                                                             "Cardiac fibroblasts","Pericytes","Myeloid cells"))
+  
+  ## Subset for only interactions above specified threshold 
+  plot.data.clean <- plot.data.clean %>%
+    mutate("Importance" = ifelse(Importance < cutoff, 0, Importance))
+  
+  ## Plot data
+  results.plot <- ggplot2::ggplot(
+    plot.data.clean,
+    ggplot2::aes(
+      x = Predictor,
+      y = Target
+    )
+  ) +
+    #ggplot2::geom_tile(data = subset(plot.data.clean, Importance > cutoff),ggplot2::aes(fill = Importance)) +
+    ggplot2::geom_tile(ggplot2::aes(fill = Importance)) +
+    ggplot2::scale_fill_gradientn(
+      colours = c("white", "#efe5fb", "#d3baf6", "#691ad2","#5314a6","#27094f"),
+      #values = scales::rescale(c(0, 0.5, 1, 1.2)),
+      limits = c(0,1.8)
+    ) +
+    # ggplot2::scale_fill_gradient2(
+
+    #   limits = c(0, max(plot.data.clean$Importance))
+    # ) +
+    ggplot2::theme_classic() +
+    ggplot2::theme(axis.title = element_blank(),
+                   axis.text.x = element_blank(),
+                   axis.text.y = element_blank(),
+                   legend.title = element_blank(),
+                   legend.text = element_blank()) +
+    ggplot2::coord_equal() 
+    #ggplot2::ggtitle(view)
+
+  return(results.plot)
+  #return(plot.data.clean)
+
+  invisible(misty.results)
+}
+
+## Now we will plot the interaction heatmap
+control_misty <- plot_interaction_heatmap_custom(misty.results.g$control, "paraview", cutoff = 0.4, clean = TRUE, trim = 5)
+
+control_misty
 
 save_plot(control_misty,
           file = "./plots/Figure2.mistyR_control.pdf",
-          base_height = 5)
+          base_height = 2.5)
 
 
 d2_misty <- plot_interaction_heatmap_custom(misty.results.g$'2d', "paraview", cutoff = 0.4, clean = TRUE, trim = 5)
@@ -161,7 +307,7 @@ d2_misty
 
 save_plot(d2_misty,
           file = "./plots/Figure2.mistyR_d2.pdf",
-          base_height = 5)
+          base_height = 2.5)
 
 d4_misty <- plot_interaction_heatmap_custom(misty.results.g$'4d', "paraview", cutoff = 0.4, clean = TRUE, trim = 5)
 
@@ -169,90 +315,89 @@ d4_misty
 
 save_plot(d4_misty,
           file = "./plots/Figure2.mistyR_d4.pdf",
-          base_height = 5)
+          base_height = 2.5)
 ```
+
 
 # Figure 2 : Distribution of cell types of interest
 
 
+<!-- # Potential supplementary figure with markers -->
 
+<!-- ```{r} -->
+<!-- library(data.table) -->
 
-# Potential supplementary figure with markers
+<!-- spots_control <- fread("../results/nf-core_molkart/mindagap/sample_control_r2_s1_sample_control_r2_s1.spots_markedDups.txt") -->
+<!-- colnames(spots_control) <- c("X","Y","Z","gene") -->
+<!-- nppa <- ggplot(spots_control,aes(X,Y)) + -->
+<!--   geom_point(data = subset(spots_control,gene =="Pln"),color = "lightgrey",size = 0.00001) + -->
+<!--   geom_point(data = subset(spots_control,gene =="Nppa"),color = "magenta",size = 0.00001) + -->
+<!--   xlim(0,17152) + -->
+<!--   ylim(0,8576) + -->
+<!--   dark_theme_void() -->
 
-```{r}
-library(data.table)
+<!-- myeloid <- ggplot(spots_control,aes(X,Y)) + -->
+<!--   geom_point(data = subset(spots_control,gene =="C1qa"),color = "yellow",size = 0.00001) + -->
+<!--   xlim(0,17152) + -->
+<!--   ylim(0,8576) + -->
+<!--   dark_theme_void() -->
 
-spots_control <- fread("../results/nf-core_molkart/mindagap/sample_control_r2_s1_sample_control_r2_s1.spots_markedDups.txt")
-colnames(spots_control) <- c("X","Y","Z","gene")
-nppa <- ggplot(spots_control,aes(X,Y)) +
-  geom_point(data = subset(spots_control,gene =="Pln"),color = "lightgrey",size = 0.00001) +
-  geom_point(data = subset(spots_control,gene =="Nppa"),color = "magenta",size = 0.00001) +
-  xlim(0,17152) +
-  ylim(0,8576) +
-  dark_theme_void()
+<!-- endocard <- ggplot(spots_control,aes(X,Y)) + -->
+<!--   geom_point(data = subset(spots_control,gene =="Npr3"),color = "cyan",size = 0.00001) + -->
+<!--   xlim(0,17152) + -->
+<!--   ylim(0,8576) + -->
+<!--   dark_theme_void() -->
 
-myeloid <- ggplot(spots_control,aes(X,Y)) +
-  geom_point(data = subset(spots_control,gene =="C1qa"),color = "yellow",size = 0.00001) +
-  xlim(0,17152) +
-  ylim(0,8576) +
-  dark_theme_void()
+<!-- nppa | myeloid | endocard -->
+<!-- ``` -->
 
-endocard <- ggplot(spots_control,aes(X,Y)) +
-  geom_point(data = subset(spots_control,gene =="Npr3"),color = "cyan",size = 0.00001) +
-  xlim(0,17152) +
-  ylim(0,8576) +
-  dark_theme_void()
+<!-- ```{r} -->
+<!-- spots_d2 <- fread("../results/nf-core_molkart/mindagap/sample_2d_r2_s1_sample_2d_r2_s1.spots_markedDups.txt") -->
+<!-- colnames(spots_d2) <- c("X","Y","Z","gene") -->
+<!-- nppa <- ggplot(spots_d2,aes(X,Y)) + -->
+<!--   geom_point(data = subset(spots_d2,gene =="Nppa"),color = "magenta",size = 0.1) + -->
+<!--   xlim(0,10720) + -->
+<!--   ylim(0,25728) + -->
+<!--   dark_theme_void() -->
 
-nppa | myeloid | endocard
-```
+<!-- myeloid <- ggplot(spots_d2,aes(X,Y)) + -->
+<!--   geom_point(data = subset(spots_d2,gene =="C1qa"),color = "yellow",size = 0.1) + -->
+<!--   xlim(0,10720) + -->
+<!--   ylim(0,25728) + -->
+<!--   dark_theme_void() -->
 
-```{r}
-spots_d2 <- fread("../results/nf-core_molkart/mindagap/sample_2d_r2_s1_sample_2d_r2_s1.spots_markedDups.txt")
-colnames(spots_d2) <- c("X","Y","Z","gene")
-nppa <- ggplot(spots_d2,aes(X,Y)) +
-  geom_point(data = subset(spots_d2,gene =="Nppa"),color = "magenta",size = 0.1) +
-  xlim(0,10720) +
-  ylim(0,25728) +
-  dark_theme_void()
+<!-- endocard <- ggplot(spots_d2,aes(X,Y)) + -->
+<!--   geom_point(data = subset(spots_d2,gene =="Npr3"),color = "cyan",size = 0.1) + -->
+<!--   xlim(0,10720) + -->
+<!--   ylim(0,25728) + -->
+<!--   dark_theme_void() -->
 
-myeloid <- ggplot(spots_d2,aes(X,Y)) +
-  geom_point(data = subset(spots_d2,gene =="C1qa"),color = "yellow",size = 0.1) +
-  xlim(0,10720) +
-  ylim(0,25728) +
-  dark_theme_void()
+<!-- nppa | myeloid | endocard -->
+<!-- ``` -->
 
-endocard <- ggplot(spots_d2,aes(X,Y)) +
-  geom_point(data = subset(spots_d2,gene =="Npr3"),color = "cyan",size = 0.1) +
-  xlim(0,10720) +
-  ylim(0,25728) +
-  dark_theme_void()
+<!-- ```{r} -->
+<!-- spots_d4 <- fread("../results/nf-core_molkart/mindagap/sample_4d_r1_s1_sample_4d_r1_s1.spots_markedDups.txt") -->
+<!-- colnames(spots_d4) <- c("X","Y","Z","gene") -->
+<!-- nppa <- ggplot(spots_d4,aes(X,Y)) + -->
+<!--   geom_point(data = subset(spots_d4,gene =="Nppa"),color = "magenta",size = 0.1) + -->
+<!--   xlim(0,15008) + -->
+<!--   ylim(0,19296) + -->
+<!--   dark_theme_void() -->
 
-nppa | myeloid | endocard
-```
+<!-- myeloid <- ggplot(spots_d4,aes(X,Y)) + -->
+<!--   geom_point(data = subset(spots_d4,gene =="C1qa"),color = "yellow",size = 0.1) + -->
+<!--   xlim(0,15008) + -->
+<!--   ylim(0,19296) + -->
+<!--   dark_theme_void() -->
 
-```{r}
-spots_d4 <- fread("../results/nf-core_molkart/mindagap/sample_4d_r1_s1_sample_4d_r1_s1.spots_markedDups.txt")
-colnames(spots_d4) <- c("X","Y","Z","gene")
-nppa <- ggplot(spots_d4,aes(X,Y)) +
-  geom_point(data = subset(spots_d4,gene =="Nppa"),color = "magenta",size = 0.1) +
-  xlim(0,15008) +
-  ylim(0,19296) +
-  dark_theme_void()
+<!-- endocard <- ggplot(spots_d4,aes(X,Y)) + -->
+<!--   geom_point(data = subset(spots_d4,gene =="Npr3"),color = "cyan",size = 0.1) + -->
+<!--   xlim(0,15008) + -->
+<!--   ylim(0,19296) + -->
+<!--   dark_theme_void() -->
 
-myeloid <- ggplot(spots_d4,aes(X,Y)) +
-  geom_point(data = subset(spots_d4,gene =="C1qa"),color = "yellow",size = 0.1) +
-  xlim(0,15008) +
-  ylim(0,19296) +
-  dark_theme_void()
-
-endocard <- ggplot(spots_d4,aes(X,Y)) +
-  geom_point(data = subset(spots_d4,gene =="Npr3"),color = "cyan",size = 0.1) +
-  xlim(0,15008) +
-  ylim(0,19296) +
-  dark_theme_void()
-
-nppa | myeloid | endocard
-```
+<!-- nppa | myeloid | endocard -->
+<!-- ``` -->
 
 
 <!-- # Figure 2A:  Plot whole tissue quantification changes across time -->

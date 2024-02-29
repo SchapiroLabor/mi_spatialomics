@@ -1,0 +1,232 @@
+---
+title: "figures.supplementary_figure6.pixie"
+author: "FloWuenne"
+date: "2024-02-28"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+```{r}
+library(pheatmap)
+library(data.table)
+library(viridis)
+library(RColorBrewer)
+library(tidyverse)
+library(pals)
+library(vroom)
+library(plotly)
+
+pixel_map_color <- c("#8c3bff", "#018700", "#00acc6", "#97ff00",
+                "#ff7ed1", "#6b004f", "#ffa52f", "#573b00", "#005659","#ffffff")
+
+names(pixel_map_color) <- c("Ankrd1+", "Mpo+", "aSMA+", "Pdgfra+", "Cd45+", "Ccr2+", "Trem2+ Cd68+", "Cd31+", "Tnnt2+","background")
+
+
+source("./code/functions.R")
+```
+
+```{r}
+pixel_heat <- fread("../results/SeqIF/pixie_pixel_masks_0.05/pixel_channel_avg_meta_cluster.csv")
+pixel_heat
+
+pixel_heat <- pixel_heat %>%
+  subset(pixel_meta_cluster_rename != "background")
+```
+
+
+```{r}
+mat_rownames <- pixel_heat$pixel_meta_cluster_rename
+mat_rownames <- gsub("_","+ ",mat_rownames)
+mat_rownames <- paste(mat_rownames,"pixels", sep = " ")
+mat_dat <- pixel_heat %>%
+  dplyr::select(-c(pixel_meta_cluster,count,pixel_meta_cluster_rename))
+```
+
+
+```{r}
+cap = 3 #hierarchical clustering cap
+hclust_coln = "pixel_meta_cluster_rename"
+rwb_cols = colorRampPalette(c("royalblue4","white","red4"))(99)
+
+mat_dat = scale(mat_dat)
+mat_dat = pmin(mat_dat, cap)
+rownames(mat_dat) <- mat_rownames
+
+# Determine breaks
+range = max(abs(mat_dat))
+breaks = seq(-range, range, length.out=100)
+
+mat_col = data.frame(pixel_cluster = as.factor(mat_rownames))
+rownames(mat_col) <- mat_rownames
+mat_colors = pixel_map_color[1:length(mat_rownames)]
+names(mat_colors) = mat_rownames
+mat_colors = list(pixel_cluster = mat_colors)
+
+# Make heatmap
+pheatmap(mat_dat,
+         color = rwb_cols,
+         border_color = "black",
+         breaks = breaks,
+         cluster_rows = TRUE,
+         cluster_cols = TRUE,
+         treeheight_col = 25,
+         treeheight_row = 25,
+         #treeheight_col = 0,
+         show_rownames = TRUE,
+         annotation_row = mat_col,
+         annotation_colors = mat_colors,
+         annotation_names_row = FALSE,
+         annotation_legend = FALSE,
+         legend = TRUE,
+         #legend_breaks = c(-3,-2,-1,0,1,2,3),
+         #legend_labels = c("-3","-2","-1","0","1","2","3"),
+         main = "",
+         filename = "./output/seqIF/supplementary_figure_6.pixie_pixel_cluster_heatmap.pdf",
+         fontsize = 20,
+         width = 8,
+         height = 6)
+dev.off()
+```
+
+## Pixel cluster changes over time
+
+
+```{r}
+## read in pixel cluster counts
+pixel_counts = fread("../results/SeqIF/pixie_pixel_masks_0.05/pixel_counts.all_samples.csv")
+pixel_counts <- pixel_counts %>%
+  mutate("Pixel_cluster" = if_else(Pixel_cluster %in% c("Cd68+","Trem2+"),"Trem2+ Cd68+",Pixel_cluster)) %>%
+  subset(!Pixel_cluster %in% c("Cd68+","Trem2+"))
+  
+pixel_cluster_counts_stats <- pixel_counts %>%
+  subset(Pixel_cluster != "background") %>%
+  separate("Sample_ID", into = c("time","sample")) %>%
+  group_by(time,Pixel_cluster) %>%
+  summarise("n_pixel" = sum(Count)) %>%
+  mutate("percent" = n_pixel / sum(n_pixel)) %>%
+  ungroup()
+```
+
+```{r}
+pixel_cluster_counts_stats$time <-factor(pixel_cluster_counts_stats$time,
+                              levels = c("Control","4h","24h","48h"))
+
+pixel_cluster_counts_stats$Pixel_cluster <- factor(pixel_cluster_counts_stats$Pixel_cluster,
+                              levels = c("Tnnt2+", "Ankrd1+","Cd31+","Pdgfra+", "Mpo+","aSMA+", "Ccr2+","Trem2+ Cd68+","Cd45+"))
+```
+
+```{r}
+pixel_number_distribution <- ggplot(pixel_cluster_counts_stats, 
+                                    aes(x=time, y=percent * 100)) +
+  geom_bar(stat = "identity", position = "stack", aes(fill = Pixel_cluster), color = "black") +
+  theme(legend.position = "none",
+        axis.line = element_blank()) +
+  scale_fill_manual(values = pixel_map_color) +
+  scale_x_discrete(expand = c(0,0.1),
+                   name ="Time", 
+                   limits=c("Control","4h","24h","48h")) +
+  labs(y = "% cells") +
+  facet_wrap(~ Pixel_cluster, scales = "free_y", nrow = 2)
+
+pixel_number_distribution
+
+save_plot(pixel_number_distribution,
+          file = "./output/seqIF/supplementary_figure_6.pixie_clusters_overtime.pdf",
+          base_height = 4,
+          base_asp = 2.5)
+```
+
+```{r}
+ brewer.pal(4, "Dark2")
+```
+
+
+<!-- ## Cell cluster changes over time -->
+
+<!-- ```{r} -->
+<!-- ## Plot distribution of all cell types for a given sample -->
+<!-- unique(cells_over_time$cell_meta_cluster) -->
+<!-- unique(cells_over_time$fov) -->
+<!-- cells_over_time_sub <- subset(cells_over_time,fov == "48h_79") -->
+<!-- spatial_plot <- ggplot(cells_over_time_sub,aes(X_centroid,Y_centroid,color = cell_meta_cluster)) + -->
+<!--   geom_point(size = 0.01) + -->
+<!--   facet_wrap(~ cell_meta_cluster) + -->
+<!--   labs(title= unique(cells_over_time_sub$fov)) -->
+
+<!-- spatial_plot -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- # ## Plot distribution of 1 cell type over time -->
+<!-- # # cells_over_time_sub <- subset(cells_over_time,fov %in% c("Control_14","4h_97","24h_86","48h_76")) -->
+<!-- # cells_over_time_sub <- cells_over_time -->
+<!-- # pt_size = 0.001 -->
+<!-- #  -->
+<!-- # # cells_over_time_sub$fov <- factor(cells_over_time_sub$fov,  -->
+<!-- # #                                   levels = c("Control_14","4h_97","24h_86","48h_76")) -->
+<!-- #  -->
+<!-- # spatial_plot_monos_macros_ccr2 <- ggplot(cells_over_time_sub,aes(X_centroid,Y_centroid)) + -->
+<!-- #     geom_point(data = subset(cells_over_time_sub,cell_meta_cluster == "Cardiomyocytes"),size = pt_size, -->
+<!-- #              color = "darkgrey") + -->
+<!-- #   geom_point(data = subset(cells_over_time_sub,cell_meta_cluster == "Cardiomyocytes Ankrd1+"),size = pt_size, -->
+<!-- #              color = "blue") + -->
+<!-- #   geom_point(data = subset(cells_over_time_sub,cell_meta_cluster == "Neutrophils" | cell_meta_cluster ==  "Mono / Macros Ccr2+"),size = pt_size, -->
+<!-- #              color = "magenta", alpha = 0.5) + -->
+<!-- #     # geom_point(data = subset(cells_over_time_sub,cell_meta_cluster == "Mono / Macros Ccr2+"),size = pt_size, -->
+<!-- #     #          color = "yellow") + -->
+<!-- #   facet_wrap(~ fov) -->
+<!-- #  -->
+<!-- # spatial_plot_monos_macros_ccr2 -->
+<!-- ``` -->
+
+
+
+<!-- ```{r} -->
+<!-- ## Color palette -->
+<!-- cells_over_time_sub <-  cells_over_time %>% -->
+<!-- #  mutate("cell_type_labels" = if_else(grepl("Macro|Neutro",cell_meta_cluster),"Myeloid cells",cell_meta_cluster)) -->
+<!--   mutate("cell_type_labels" = cell_meta_cluster) -->
+
+<!-- cells_over_time_sub <- cells_over_time_sub %>% -->
+<!--   subset(!cell_type_labels %in% c("background","out_of_mask")) %>% -->
+<!--   separate("fov", into = c("time","sample")) %>% -->
+<!--   group_by(time,cell_type_labels) %>% -->
+<!--   tally() %>% -->
+<!--   ungroup() -->
+
+<!-- cells_over_time_sub <- cells_over_time_sub %>% -->
+<!--   group_by(time) %>% -->
+<!--   mutate("percent" = n / sum(n)) %>% -->
+<!--   ungroup() -->
+<!-- ``` -->
+
+
+<!-- ```{r} -->
+<!-- # cells_over_time_sub$time <-factor(cells_over_time_sub$time, -->
+<!-- #                               levels = c("Control","4h","24h","48h")) -->
+<!-- #  -->
+<!-- # cells_over_time_sub$percent_p <- cells_over_time_sub$percent * 100 -->
+<!-- # cell_number_distribution_bar <- ggplot(cells_over_time_sub, aes(x=time_cont, y=percent_p, fill= cell_type_labels)) + -->
+<!-- #   geom_bar(stat = "identity", position = "fill", color = "black") + -->
+<!-- #   theme(legend.position = "right", -->
+<!-- #         legend.title = element_blank(), -->
+<!-- #         axis.line = element_blank(), -->
+<!-- #         legend.text=element_text(size=18), -->
+<!-- #         axis.text = element_text(size=18)) + -->
+<!-- #   labs(y = "% cells") + -->
+<!-- #   scale_fill_manual(values = cell_cluster_colors) + -->
+<!-- #   scale_x_discrete(expand = c(0,0.1), -->
+<!-- #                    name ="Time", -->
+<!-- #                     limits=c("Control","4h","24h","48h")) + -->
+<!-- #   guides(fill=guide_legend(nrow=10,byrow=TRUE)) -->
+<!-- #  -->
+<!-- # cell_number_distribution_bar -->
+<!-- #  -->
+<!-- # save_plot(cell_number_distribution_bar, -->
+<!-- #           file = "./output/seqIF/Figure3.cell_types_overtimes.pdf", -->
+<!-- #           base_height = 5, -->
+<!-- #           base_asp = 1.5) -->
+<!-- ``` -->

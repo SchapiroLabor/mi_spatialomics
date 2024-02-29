@@ -53,7 +53,7 @@ region_measurements <- region_measurements_full %>%
 ## Pixie output
 
 ```{r}
-pixie_cell_out <- fread("/Users/florian_wuennemann/1_Projects/MI_project/Lunaphore/pixie/masked_subset/cell_masks_0.05/cell_table_size_normalized_cell_labels.csv")
+pixie_cell_out <- fread("../results/SeqIF/pixie_cell_masks_0.05/cell_table_size_normalized_cell_labels.csv")
 pixie_cell_out <- pixie_cell_out %>%
   separate(fov,into = c("time","sample"), remove = FALSE) %>%
   subset(cell_meta_cluster != "background") %>%
@@ -185,8 +185,7 @@ ccr2_mono_regions
 
 save_plot(ccr2_mono_regions,
           file = "./plots/Figure3.ccr2_monomacro_regions.pdf",
-          base_height = 3.5,
-          base_asp = 1.3)
+          base_height = 3.5)
 ```
 
 

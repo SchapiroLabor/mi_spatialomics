@@ -1,5 +1,5 @@
 ---
-title: "Supplementary Figure 3"
+title: "Supplementary Figure 2"
 author: "FloWuenne"
 date: "2023-06-12"
 output: workflowr::wflow_html
@@ -125,18 +125,18 @@ pca_plot
 supp_figure_2 <- tx_correlation_plot / (spots_per_um | pca_plot)
 
 supp_figure_2 <- supp_figure_2 + 
-  plot_annotation(tag_levels = 'A') & 
+  plot_annotation(tag_levels = 'a') & 
   theme(plot.tag = element_text(size = 25)) +
   theme(plot.background = element_rect(fill = "white"))
 
 supp_figure_2
 
-save_plot(filename = "./figures/Supplementary_figure_2.png",
+save_plot(filename = "./plots/Supplementary_figure_2.png",
           plot = supp_figure_2,
           base_height = 8)
 
 
-save_plot(filename = "./figures/Supplementary_figure_2.eps",
+save_plot(filename = "./plots/Supplementary_figure_2.eps",
           plot = supp_figure_2,
           base_height = 8)
 ```

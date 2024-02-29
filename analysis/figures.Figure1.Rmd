@@ -235,6 +235,8 @@ library(dplyr)
 
 # Get unique cell types
 unique_cell_types <- sort(unique(meta_sample$anno_cell_type_lvl2))
+max_x <- max(meta_sample$X_centroid)
+max_y <- max(meta_sample$Y_centroid)
 
 # Loop through each cell type and generate a plot
 plots <- lapply(unique_cell_types, function(cell_type) {
@@ -244,8 +246,11 @@ plots <- lapply(unique_cell_types, function(cell_type) {
   p <- ggplot(meta_sample, aes(x = X_centroid, y = 
                                  Y_centroid)) +
     dark_theme_void() +
-    geom_point(data = subset(meta_sample,anno_cell_type_lvl2 != cell_type),
-               size = 0.6, color = "white") +
+    # Set x and y limits
+    xlim(0,max_x) +
+    ylim(0,max_y) +
+    # geom_point(data = subset(meta_sample,anno_cell_type_lvl2 != cell_type),
+    #            size = 0.6, color = "white") +
     geom_point(data = subset(meta_sample,anno_cell_type_lvl2 == cell_type),
                size = 0.6, 
                aes(color = anno_cell_type_lvl2)) +
@@ -273,18 +278,6 @@ save_plot(cell_type_views,
           base_asp = 1.3)
 ```
 
-
-```{r}
-# Plot with labels
- ggplot(meta_sample,aes(X_centroid,Y_centroid)) +
-
-  geom_point(aes(color = anno_cell_type_lvl2),size = 0.5) +
-  scale_color_manual(values = named_colors) +
-  facet_wrap(~ anno_cell_type_lvl2) +
-  theme(strip.text = element_text(size = 18, color = "white"),
-        legend.position = "none"
-        )
-```
 
 ## Additional plots 
 
