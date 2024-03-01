@@ -54,7 +54,7 @@ pcs$group <- factor(pcs$group,
 ## Plot PCs
 pca_plot <- ggplot(pcs,aes(PC1,PC2)) +
   geom_point(size = 5,pch = 21,color = "black", aes(fill = group)) +
-  ggforce::geom_mark_ellipse(color = "white",aes(fill = group, label = group)) +
+  ggforce::geom_mark_ellipse(color = "white",aes(fill = group)) +
   expand_limits(y = c(-50, 40),
                 x = c(-40,80)) +
   scale_fill_manual(values = proteome_palette,
@@ -68,9 +68,10 @@ pca_plot
 
 save_plot(filename = "./figures/Figure_5.pca_plot.pdf",
           plot = pca_plot,
-          base_asp = 1.3,
+          base_asp = 1,
           base_height = 4)
 ```
+
 
 # Subfigure C - Volcano plot: Remote vs control
 
@@ -91,15 +92,19 @@ path_de_inter <- sort(intersect(limma_mi_remote$gene,df$target))
 
 
 ```{r}
-top_10_genes <- limma_mi_remote %>%
-  arrange(desc(logFC)) %>%
-  top_n(wt = logFC, 10)
-top_10_genes <- top_10_genes$gene
-bottom_10_genes <- limma_mi_remote %>% arrange(desc(logFC))
-bottom_10_genes <- tail(bottom_10_genes,n=10)
+# top_10_proteins <- limma_mi_remote %>%
+#   arrange(desc(logFC)) %>%
+#   top_n(wt = logFC, 10)
+# top_10_proteins <- top_10_proteins$gene
+# bottom_10_proteins <- limma_mi_remote %>% arrange(desc(logFC))
+# bottom_10_proteins <- tail(bottom_10_proteins,n=10)
+
+manual_labeled_proteins <- c("Thbd","Reln","Tns","Vwf","Fga","Ltf","S100a9","Lcp1")
 
 limma_mi_remote <- limma_mi_remote %>%
-  mutate("label_protein" = if_else(gene %in% path_de_inter & adj.P.Val < 0.05 & (logFC > 1.25 | logFC < 0), gene, ""))
+  # mutate("label_protein" = if_else(gene %in% path_de_inter & adj.P.Val < 0.05 & (logFC > 1.25 | logFC < 0), gene, ""))
+  mutate("label_protein" = if_else(gene %in% manual_labeled_proteins,gene,""))
+
 limma_mi_remote$label_protein <- gsub("Vwf","vWF",limma_mi_remote$label_protein)
 
 volc_limma_IZ_remote <- plot_pretty_volcano(limma_mi_remote, 
@@ -109,15 +114,16 @@ volc_limma_IZ_remote <- plot_pretty_volcano(limma_mi_remote,
                                       col_pos_logFC = proteome_palette[['MI_IZ']],
                                       col_neg_logFC = proteome_palette[['MI_remote']]) +
     # geom_point(data = subset(limma_mi_remote, gene %in% path_de_inter),pch = 21, color = "black", size = 4) +
-  geom_label_repel(box.padding = 0.5, max.overlaps = Inf, size = 3)
+  geom_label_repel(box.padding = 0.75, max.overlaps = Inf, size = 3)
 
-
-volc_limma_IZ_remote
+## Interactive plotly plot to view genes on points
+# plot_ly(data = limma_mi_remote, x = ~logFC, y = ~-log10(adj.P.Val),
+#         text = ~paste("Gene: ", gene))
 
 save_plot(filename = "./figures/Figure_5.volcano_plot.pdf",
           plot = volc_limma_IZ_remote,
           base_asp = 1.3,
-          base_height = 4)
+          base_height = 3)
 ```
 
 # Subfigure D - Pathway enrichment for MI_IZ vs MI_remote
@@ -149,8 +155,8 @@ path_plot
 
 save_plot(filename = "./figures/Figure_5.pathway_plot.pdf",
           plot = path_plot,
-          base_asp = 1.9,
-          base_height = 4)
+          base_asp = 1.8,
+          base_height = 2.75)
 ```
 
 # Subfigure E - Vwf specificity for Endocardial cells
@@ -165,8 +171,8 @@ endo_proteomic_corr <- ggplot(snrna_prot,aes(avg_log2FC,logFC,
   geom_hline(yintercept = 0, linetype = 2) +
   geom_point(data =subset(snrna_prot,gene != "Vwf"), size =3, fill = "darkgrey", pch = 21) +
   geom_point(data = subset(snrna_prot,gene == "Vwf"),size = 4, fill = "purple", pch = 21) +
-  geom_point(data = subset(snrna_prot,gene %in% c("Npr3","Cdh11")),size = 4, fill = "lightblue", pch = 21) +
-  geom_label_repel() +
+  geom_point(data = subset(snrna_prot,gene %in% c("Npr3","Cdh11")),size = 4, fill = "darkorange", pch = 21) +
+  geom_label_repel(size = 6) +
   labs(x = "Specificity endocard. cells (snRNA-seq)",
        y = "Log2 fold-change (Proteomics)") 
 
@@ -174,8 +180,8 @@ endo_proteomic_corr
 
 save_plot(filename = "./figures/Figure_5.vwf_specificity_plot.pdf",
           plot = endo_proteomic_corr,
-          base_asp = 1.3,
-          base_height = 4.5)
+          base_asp = 1.5,
+          base_height = 3.5)
 ```
 
 
@@ -357,9 +363,12 @@ vwf_vlnpot <- SCpubr::do_ViolinPlot(sample = sub_human_cite,
                                      "ICM" = "white",
                                      "NICM" = "white"))
 
+ vwf_vlnpot <- vwf_vlnpot + theme(plot.margin=unit(c(0,0,0,0), "pt"))
+
 save_plot(vwf_vlnpot,
-          file = "./plots/Figure4.human_citeseq_vlnplot.png",
-          base_height = 4)
+          file = "./plots/Figure4.human_citeseq_vlnplot.pdf",
+          base_height = 3.75,
+          base_asp = 2)
 ```
 
 

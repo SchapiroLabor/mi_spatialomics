@@ -119,6 +119,7 @@ plot_pretty_volcano <- function(de_table,
                                 pt_label, pt_size,
                                 plot_title,
                                 sig_thresh,
+                                gene_list = null,
                                 sig_col = "adj.P.Val",
                                 col_pos_logFC = "red",
                                 col_neg_logFC = "blue"){
@@ -130,7 +131,9 @@ plot_pretty_volcano <- function(de_table,
                size = pt_size, color = col_pos_logFC) +
     geom_point(data = subset(de_table, get(sig_col) <= sig_thresh  & logFC < 0),
                size = pt_size, color = col_neg_logFC) +
+    geom_point(data = subset(de_table, label_protein != ""), size = pt_size, color = "black") +
     labs(title = plot_title)
+
 
   return(volcano_plot)
 }

@@ -74,12 +74,11 @@ n_prot_plot
 metadata_counts$group <- factor(metadata_counts$group,
                                 levels = c("control","MI_remote","MI_IZ"))
 
-missingness_plot <- ggplot(metadata_counts,aes(missingness,n_nuclei, label = sample,
-                           fill = group)) +
-  geom_point(pch = 21, size = 5) +
+missingness_plot <- ggplot(metadata_counts,aes(missingness,n_nuclei, label = sample)) +
+  geom_point(pch = 21, size = 5,aes(fill = group)) +
   scale_fill_manual(values = proteome_palette,
                     labels = c("Control","MI_remote","MI_IZ")) +
-  geom_text_repel() +
+  geom_label_repel() +
   labs(x = "% missing values",
        y = "# nuclei in tissue collected",
        fill = "Group") +
@@ -107,82 +106,61 @@ pca_var <- ggplot(var_explained,aes(PC,var_expl)) +
 pca_var
 ```
 
-# Subfigure D - Venn Diagram of limma DE results
 
+# Subfigure D - Upset plot for shared proteins between conditions
 ```{r}
+library(ggplot2)
+library(ComplexUpset)
+
 ## Load limma results and subset for significantly differential proteins between conditions
 limma_res <- fread("./output/proteomics/proteomics.limma.full_statistics.tsv")
 limma_res_sig <- subset(limma_res,adj.P.Val <= 0.05)
-
-limma_mi_ctr_genes <- subset(limma_res_sig,analysis == "MI_IZ_vs_control")$gene
-limma_remote_ctr_genes <- subset(limma_res_sig,analysis == "MI_remote_vs_control")$gene
-limma_mi_remote_genes <- subset(limma_res_sig,analysis == "MI_IZ_vs_MI_remote")$gene
-limma_venn_vec <- unique(limma_res_sig$gene)
-limma_venn_df <- data.frame("MI_control" = limma_venn_vec %in% limma_mi_ctr_genes,
-                      "remote_control" = limma_venn_vec %in% limma_remote_ctr_genes,
-                      "MI_IZ_MI_remote" = limma_venn_vec %in% limma_mi_remote_genes)
-limma_venn_df$gene <- limma_venn_vec
-
-limma_venn_list <- list("MI_vs_control" = limma_mi_ctr_genes, 
-                        "MI_remote_vs_control" = limma_remote_ctr_genes,
-                        "MI_IZ_vs_MI_remote" = limma_mi_remote_genes)
-
-## Get genes that are uniquely DE in MI vs control
-mi_control_uniq <- subset(limma_venn_df,MI_control == TRUE & remote_control == FALSE & MI_IZ_MI_remote == FALSE)
-mi_control_remote_shared <- subset(limma_venn_df,MI_control == TRUE & remote_control == FALSE & MI_IZ_MI_remote == TRUE)
-mi_remote_uniq <- subset(limma_venn_df,MI_control == FALSE & remote_control == FALSE & MI_IZ_MI_remote == TRUE)
-
-## Plot Venn diagram using ggVennDiagram
-
-venn <- Venn(limma_venn_list)
-data <- process_data(venn)
-venn_diagram <- ggplot() +
-  # 1. region count layer
-  geom_polygon(aes(X, Y), 
-          data = venn_regionedge(data)) +
-  # 2. set edge layer
-  geom_path(aes(X, Y), 
-          data = venn_setedge(data), 
-          show.legend = FALSE) +
-  # 3. set label layer
-  geom_text(aes(X, Y, label = name), 
-               data = venn_setlabel(data)) +
-  # 4. region label layer
-  geom_label(aes(X, Y, label = count), 
-                data = venn_regionlabel(data)) +
-  coord_equal() +
-  theme_void()
-venn_diagram
- #  # change mapping of color filling
- #  geom_sf(fill = "lightgrey", data = venn_region(data), show.legend = FALSE) +  
- #  # adjust edge size and color
- #  geom_sf(color="black", size = 3, data = venn_setedge(data), show.legend = FALSE) +  
- #  # show set label in bold
- #  geom_sf_text(aes(label = name), size = 4, fontface = "bold", data = venn_setlabel(data)) +  
- #  # add a alternative region name
- # geom_sf_label(aes(label = count), data = venn_region(data)) + 
- #  theme_cowplot() + 
- #  scale_x_continuous(expand = expansion(mult = .3)) 
-
-# venn_diagram$layers[[1]]$mapping <- aes(fill = name)
-# 
-# venn_diagram <- venn_diagram +
-#   scale_fill_manual(values = c(MI_vs_control = "white",
-#                                MI_vs_control..MI_remote_vs_control = "white",
-#                                MI_remote_vs_control = "white",
-#                                MI_vs_control..MI_IZ_vs_MI_remote = "white",
-#                                MI_IZ_vs_MI_remote = "white",
-#                                MI_remote_vs_control..MI_IZ_vs_MI_remote = "white",
-#                                MI_vs_control..MI_remote_vs_control..MI_IZ_vs_MI_remote = "white")) +
-#   theme(legend.position = "none") +
-#   theme(plot.background = element_rect(fill = NA, colour = "white", size = 0),
-#         axis.title=element_blank(),
-#         axis.text=element_blank(),
-#         axis.ticks=element_blank(),
-#         axis.line =element_blank())
-# 
-# venn_diagram
+limma_res_sig <- limma_res_sig %>%
+  select(gene,analysis) %>%
+  mutate(value = 1) %>%
+  # Reshape the data frame so that each gene has 1 row entry for each comparison
+  pivot_wider(names_from = analysis, 
+              values_from = value, 
+              values_fill = list(value = 0)) %>%
+  # Sum rows by gene
+  group_by(gene) %>%
+  summarise_all(sum) %>%
+  ungroup()
+              
+analysis_groups <- c("MI_IZ_vs_control","MI_remote_vs_control","MI_IZ_vs_MI_remote")
+upset_plot <- upset(limma_res_sig, analysis_groups , name='Comparison',
+                    width_ratio=0.1,
+                    set_sizes=(
+                      upset_set_size()
+        + theme(axis.text.x=element_text(angle=90))
+    ))
+upset_plot
 ```
+
+# Assemble final figure
+
+```{r,fig.height = 8, fig.width = 10}
+supp_figure_X <- n_prot_plot + missingness_plot + pca_var + wrap_elements(upset_plot)
+
+supp_figure_X <- supp_figure_X + 
+  plot_layout(nrow = 2,ncol =2 , widths = c(1,2)) +
+  plot_annotation(tag_levels = 'A') & 
+  theme(plot.tag = element_text(size = 25)) &
+  theme(plot.background = element_rect(fill = "white"))
+
+supp_figure_X
+
+save_plot(filename = "./figures/Supplementary_figure_X.proteomics.png",
+          plot = supp_figure_X,
+          base_height = 8)
+
+
+save_plot(filename = "./figures/Supplementary_figure_X.proteomics.eps",
+          plot = supp_figure_X,
+          base_height = 8)
+```
+
+
 
 # Volcano plot of MI_IZ vs control
 
@@ -287,26 +265,81 @@ vsn_matrix_t <- vsn_matrix_t %>%
 ```
 
 
-# Assemble final figure
-
-```{r,fig.height = 8, fig.width = 10}
-supp_figure_X <- (n_prot_plot |  missingness_plot) / (pca_var | venn_diagram)
-
-supp_figure_X <- supp_figure_X + 
-  plot_annotation(tag_levels = 'A') & 
-  theme(plot.tag = element_text(size = 25)) +
-  theme(plot.background = element_rect(fill = "white"))
-
-supp_figure_X
-
-save_plot(filename = "./figures/Supplementary_figure_X.proteomics.png",
-          plot = supp_figure_X,
-          base_height = 8)
 
 
-save_plot(filename = "./figures/Supplementary_figure_X.proteomics.eps",
-          plot = supp_figure_X,
-          base_height = 8)
-```
+# Old Subfigure D - Venn Diagram of limma DE results
 
+<!-- ```{r} -->
+<!-- ## Load limma results and subset for significantly differential proteins between conditions -->
+<!-- limma_res <- fread("./output/proteomics/proteomics.limma.full_statistics.tsv") -->
+<!-- limma_res_sig <- subset(limma_res,adj.P.Val <= 0.05) -->
 
+<!-- limma_mi_ctr_genes <- subset(limma_res_sig,analysis == "MI_IZ_vs_control")$gene -->
+<!-- limma_remote_ctr_genes <- subset(limma_res_sig,analysis == "MI_remote_vs_control")$gene -->
+<!-- limma_mi_remote_genes <- subset(limma_res_sig,analysis == "MI_IZ_vs_MI_remote")$gene -->
+<!-- limma_venn_vec <- unique(limma_res_sig$gene) -->
+<!-- limma_venn_df <- data.frame("MI_control" = limma_venn_vec %in% limma_mi_ctr_genes, -->
+<!--                       "remote_control" = limma_venn_vec %in% limma_remote_ctr_genes, -->
+<!--                       "MI_IZ_MI_remote" = limma_venn_vec %in% limma_mi_remote_genes) -->
+<!-- limma_venn_df$gene <- limma_venn_vec -->
+
+<!-- limma_venn_list <- list("MI_vs_control" = limma_mi_ctr_genes,  -->
+<!--                         "MI_remote_vs_control" = limma_remote_ctr_genes, -->
+<!--                         "MI_IZ_vs_MI_remote" = limma_mi_remote_genes) -->
+
+<!-- ## Get genes that are uniquely DE in MI vs control -->
+<!-- mi_control_uniq <- subset(limma_venn_df,MI_control == TRUE & remote_control == FALSE & MI_IZ_MI_remote == FALSE) -->
+<!-- mi_control_remote_shared <- subset(limma_venn_df,MI_control == TRUE & remote_control == FALSE & MI_IZ_MI_remote == TRUE) -->
+<!-- mi_remote_uniq <- subset(limma_venn_df,MI_control == FALSE & remote_control == FALSE & MI_IZ_MI_remote == TRUE) -->
+
+<!-- ## Plot Venn diagram using ggVennDiagram -->
+
+<!-- venn <- Venn(limma_venn_list) -->
+<!-- data <- process_data(venn) -->
+<!-- venn_diagram <- ggplot() + -->
+<!--   # 1. region count layer -->
+<!--   geom_polygon(aes(X, Y),  -->
+<!--           data = venn_regionedge(data)) + -->
+<!--   # 2. set edge layer -->
+<!--   geom_path(aes(X, Y),  -->
+<!--           data = venn_setedge(data),  -->
+<!--           show.legend = FALSE) + -->
+<!--   # 3. set label layer -->
+<!--   geom_text(aes(X, Y, label = name),  -->
+<!--                data = venn_setlabel(data)) + -->
+<!--   # 4. region label layer -->
+<!--   geom_label(aes(X, Y, label = count),  -->
+<!--                 data = venn_regionlabel(data)) + -->
+<!--   coord_equal() + -->
+<!--   theme_void() -->
+<!-- venn_diagram -->
+<!--  #  # change mapping of color filling -->
+<!--  #  geom_sf(fill = "lightgrey", data = venn_region(data), show.legend = FALSE) +   -->
+<!--  #  # adjust edge size and color -->
+<!--  #  geom_sf(color="black", size = 3, data = venn_setedge(data), show.legend = FALSE) +   -->
+<!--  #  # show set label in bold -->
+<!--  #  geom_sf_text(aes(label = name), size = 4, fontface = "bold", data = venn_setlabel(data)) +   -->
+<!--  #  # add a alternative region name -->
+<!--  # geom_sf_label(aes(label = count), data = venn_region(data)) +  -->
+<!--  #  theme_cowplot() +  -->
+<!--  #  scale_x_continuous(expand = expansion(mult = .3))  -->
+
+<!-- # venn_diagram$layers[[1]]$mapping <- aes(fill = name) -->
+<!-- #  -->
+<!-- # venn_diagram <- venn_diagram + -->
+<!-- #   scale_fill_manual(values = c(MI_vs_control = "white", -->
+<!-- #                                MI_vs_control..MI_remote_vs_control = "white", -->
+<!-- #                                MI_remote_vs_control = "white", -->
+<!-- #                                MI_vs_control..MI_IZ_vs_MI_remote = "white", -->
+<!-- #                                MI_IZ_vs_MI_remote = "white", -->
+<!-- #                                MI_remote_vs_control..MI_IZ_vs_MI_remote = "white", -->
+<!-- #                                MI_vs_control..MI_remote_vs_control..MI_IZ_vs_MI_remote = "white")) + -->
+<!-- #   theme(legend.position = "none") + -->
+<!-- #   theme(plot.background = element_rect(fill = NA, colour = "white", size = 0), -->
+<!-- #         axis.title=element_blank(), -->
+<!-- #         axis.text=element_blank(), -->
+<!-- #         axis.ticks=element_blank(), -->
+<!-- #         axis.line =element_blank()) -->
+<!-- #  -->
+<!-- # venn_diagram -->
+<!-- ``` -->
