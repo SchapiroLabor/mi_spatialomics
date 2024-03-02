@@ -30,7 +30,6 @@ pca_res <- readRDS("./output/proteomics/proteomics.pca_res.rds")
 vsn_mat <- fread("./output/proteomics/proteomics.vsn_norm_proteins.tsv")
 limma_res <- fread("./output/proteomics/proteomics.limma.full_statistics.tsv")
 mi_pathways <- fread("./output/proteomics/proteomics.pathway_results.MIiz_MIremote.tsv")
-snrna_prot <- fread("./output/proteomics/proteomics.snRNAseq_comp.tsv")
 ```
 
 
@@ -77,6 +76,8 @@ save_plot(filename = "./figures/Figure_5.pca_plot.pdf",
 
 ```{r}
 limma_mi_remote <- subset(limma_res,analysis == "MI_IZ_vs_MI_remote")
+limma_remote_control <- subset(limma_res,analysis == "MI_remote_vs_control")
+limma_mi_control <- subset(limma_res,analysis == "MI_IZ_vs_control")
 
 ## Get proteins from Coagulation pathway from pathway analysis results to highlight on volcano plot
 mh_gsea_net <- readRDS("./references/mh.all.v2023.1.Mm.symbols.sets.rds")
@@ -99,7 +100,7 @@ path_de_inter <- sort(intersect(limma_mi_remote$gene,df$target))
 # bottom_10_proteins <- limma_mi_remote %>% arrange(desc(logFC))
 # bottom_10_proteins <- tail(bottom_10_proteins,n=10)
 
-manual_labeled_proteins <- c("Thbd","Reln","Tns","Vwf","Fga","Ltf","S100a9","Lcp1")
+manual_labeled_proteins <- c("Thbd","Vwf","Coro1a","Thbs1")
 
 limma_mi_remote <- limma_mi_remote %>%
   # mutate("label_protein" = if_else(gene %in% path_de_inter & adj.P.Val < 0.05 & (logFC > 1.25 | logFC < 0), gene, ""))
@@ -114,7 +115,8 @@ volc_limma_IZ_remote <- plot_pretty_volcano(limma_mi_remote,
                                       col_pos_logFC = proteome_palette[['MI_IZ']],
                                       col_neg_logFC = proteome_palette[['MI_remote']]) +
     # geom_point(data = subset(limma_mi_remote, gene %in% path_de_inter),pch = 21, color = "black", size = 4) +
-  geom_label_repel(box.padding = 0.75, max.overlaps = Inf, size = 3)
+  geom_label_repel(box.padding = 0.5, max.overlaps = Inf) +
+  geom_vline(xintercept= 0 , linetype = 2)
 
 ## Interactive plotly plot to view genes on points
 # plot_ly(data = limma_mi_remote, x = ~logFC, y = ~-log10(adj.P.Val),
@@ -123,8 +125,27 @@ volc_limma_IZ_remote <- plot_pretty_volcano(limma_mi_remote,
 save_plot(filename = "./figures/Figure_5.volcano_plot.pdf",
           plot = volc_limma_IZ_remote,
           base_asp = 1.3,
+          base_height = 3.25)
+```
+
+```{r}
+## Volcano plot for schema
+volc_limma_remote_control <- ggplot(data=limma_remote_control, 
+                                    aes(x= logFC, y= -log10(pval))) +
+    geom_point(size = 3, color = "black")+
+  theme(axis.title = element_text(size =20),
+        axis.text = element_blank(),
+        axis.ticks = element_blank()) +
+  geom_vline(xintercept = 0, linetype = 2)
+
+volc_limma_remote_control
+
+save_plot(filename = "./figures/Figure_4.volcano_schema.pdf",
+          plot = volc_limma_remote_control,
+          base_asp = 1.4,
           base_height = 3)
 ```
+
 
 # Subfigure D - Pathway enrichment for MI_IZ vs MI_remote
 
@@ -142,11 +163,13 @@ path_plot <- ggplot(sig_pathways_mi, aes(x = reorder(source, score), y = score))
     scale_fill_gradient2(low = "darkorange", high = "purple",
         mid = "white", midpoint = 0) +
   # scale_fill_viridis(option = "F", direction = 1) +
-    theme(axis.title = element_text(face = "bold", size = 12),
-          axis.text.x = element_text(hjust = 1, size =10, face= "bold"),
-        axis.text.y = element_text(size =10),
-        panel.grid.major = element_blank(), 
-        panel.grid.minor = element_blank()) +
+    theme(axis.title = element_text(face = "bold", size = 20),
+          axis.text.x = element_text(hjust = 1, size =20, face= "bold"),
+          axis.text.y = element_text(size =16),
+          panel.grid.major = element_blank(), 
+          panel.grid.minor = element_blank(),
+          legend.text = element_text(size =20),
+          legend.title = element_text(size =20)) +
     xlab("Pathways") +
   coord_flip()
 
@@ -155,24 +178,27 @@ path_plot
 
 save_plot(filename = "./figures/Figure_5.pathway_plot.pdf",
           plot = path_plot,
-          base_asp = 1.8,
-          base_height = 2.75)
+          base_asp = 2,
+          base_height = 4)
 ```
 
 # Subfigure E - Vwf specificity for Endocardial cells
 
 ```{r}
+snrna_prot <- fread("./output/proteomics/proteomics.snRNAseq_comp.tsv")
 snrna_prot <- snrna_prot %>%
-  mutate("label_gene" = if_else(gene %in% c("Npr3","Cdh11"),gene,
-                                if_else(gene == "Vwf","vWF","")))
+  mutate("label_gene" = if_else(gene %in% c("Cdh11","Thbd","Vcam1"),gene,
+                                if_else(gene == "Vwf","vWF",""))) %>%
+  subset(pct.1 > 0.05)
 
 endo_proteomic_corr <- ggplot(snrna_prot,aes(avg_log2FC,logFC,
                               label = label_gene)) +
   geom_hline(yintercept = 0, linetype = 2) +
   geom_point(data =subset(snrna_prot,gene != "Vwf"), size =3, fill = "darkgrey", pch = 21) +
-  geom_point(data = subset(snrna_prot,gene == "Vwf"),size = 4, fill = "purple", pch = 21) +
-  geom_point(data = subset(snrna_prot,gene %in% c("Npr3","Cdh11")),size = 4, fill = "darkorange", pch = 21) +
-  geom_label_repel(size = 6) +
+  geom_point(data = subset(snrna_prot,gene %in% c("Vwf","Vcam1")),size = 4, fill = "purple", pch = 21) +
+  geom_point(data = subset(snrna_prot,gene %in% c("Thbd")),size = 4, fill = "darkorange", pch = 21) +
+    geom_point(data = subset(snrna_prot,gene %in% c("Cdh11")),size = 4, fill = "grey20", pch = 21) +
+  geom_label_repel(size = 5.5, max.overlaps = 20,force = 3) +
   labs(x = "Specificity endocard. cells (snRNA-seq)",
        y = "Log2 fold-change (Proteomics)") 
 
@@ -180,7 +206,7 @@ endo_proteomic_corr
 
 save_plot(filename = "./figures/Figure_5.vwf_specificity_plot.pdf",
           plot = endo_proteomic_corr,
-          base_asp = 1.5,
+          base_asp = 1.75,
           base_height = 3.5)
 ```
 
@@ -188,6 +214,8 @@ save_plot(filename = "./figures/Figure_5.vwf_specificity_plot.pdf",
 # Subfigure F - Vwf is upregulated in MI_IZ
 
 ```{r}
+source("./code/functions.R")
+
 vsn_matrix <- fread("./output/proteomics/proteomics.vsn_norm_proteins.tsv")
 colnames(vsn_matrix)[1:11] <- paste("s",1:11,colnames(vsn_matrix)[1:11],sep="_")
 protein_sub <- vsn_matrix  %>%
@@ -217,6 +245,55 @@ protein_sub$group <- factor(protein_sub$group,
 #   theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1)) +
 #   labs(x = "")
 
+
+## Median plot with points
+goi <- "Cdh11"
+npr3_plot <- plot_proteomics_boxplot(norm_table = protein_sub,
+                                    protein = goi,
+                                    style = "mean") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1)) +
+  labs(x = "") +
+  ylim(yaxis_limits) +
+  labs(y = "") +
+  scale_x_discrete(labels=c("Control" = "Control", 
+                            "MI_remote" = "MI remote",
+                             "MI_IZ" = "MI IZ"))
+
+## Median plot with points
+goi <- "Thbd"
+thbd_plot <- plot_proteomics_boxplot(norm_table = protein_sub,
+                                    protein = goi,
+                                    style = "mean") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1)) +
+  geom_signif(comparisons = list(c("MI_IZ","MI_remote")),
+              tip_length = 0, annotation = "0.001", y_position = 16.5) +
+  geom_signif(comparisons = list(c("MI_IZ","Control")),
+              tip_length = 0, annotation = "0.023", y_position = 15.5) +
+  labs(x = "") +
+  ylim(yaxis_limits) + 
+  labs(y = "") +
+  scale_x_discrete(labels=c("Control" = "Control", 
+                            "MI_remote" = "MI remote",
+                             "MI_IZ" = "MI IZ"))
+
+## Median plot with points
+goi <- "Vcam1"
+vcam1_plot <- plot_proteomics_boxplot(norm_table = protein_sub,
+                                    protein = goi,
+                                    style = "mean") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1)) +
+  geom_signif(comparisons = list(c("MI_IZ","MI_remote")),
+              tip_length = 0, annotation = "6.7e-4", y_position = 16.5) +
+  geom_signif(comparisons = list(c("MI_IZ","Control")),
+              tip_length = 0, annotation = "0.0078", y_position = 15.5) +
+  labs(x = "") +
+  ylim(yaxis_limits) + 
+  labs(y = "") +
+  scale_x_discrete(labels=c("Control" = "Control", 
+                            "MI_remote" = "MI remote",
+                             "MI_IZ" = "MI IZ"))
+
+
 ## Median plot with points
 yaxis_limits <- c(11,17)
 goi <- "Vwf"
@@ -224,10 +301,9 @@ vwf_plot <- plot_proteomics_boxplot(norm_table = protein_sub,
                                     protein = goi,
                                     style = "mean") +
   geom_signif(comparisons = list(c("MI_IZ","MI_remote")),
-              tip_length = 0, annotation = "0.0057", y_position = 15.5) +
+              tip_length = 0, annotation = "0.0057", y_position = 16.5) +
   geom_signif(comparisons = list(c("MI_IZ","Control")),
-              tip_length = 0, annotation = "0.0022", y_position = 16.25) +
-   expand_limits(y = c(13, 16)) +
+              tip_length = 0, annotation = "0.0022", y_position = 15.5) +
   theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1)) +
   labs(x = "") +
   ylim(yaxis_limits) +
@@ -235,44 +311,34 @@ vwf_plot <- plot_proteomics_boxplot(norm_table = protein_sub,
                             "MI_remote" = "MI remote",
                              "MI_IZ" = "MI IZ"))
 
-vwf_plot
+# save_plot(filename = "./figures/Figure_5.vwf_expression_plot.pdf",
+#           plot = vwf_plot,
+#           base_asp = 0.5,
+#           base_height = 4)
 
-save_plot(filename = "./figures/Figure_5.vwf_expression_plot.pdf",
-          plot = vwf_plot,
-          base_asp = 0.5,
-          base_height = 4)
-```
 
-```{r}
-## Median plot with points
-goi <- "Npr3"
-npr3_plot <- plot_proteomics_boxplot(norm_table = protein_sub,
-                                    protein = goi,
-                                    style = "mean") +
-  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1)) +
-  labs(x = "") +
-  ylim(yaxis_limits) +
-  labs(y = "")
-
-npr3_plot
-
-## Median plot with points
-goi <- "Npr3"
-npr3_plot <- plot_proteomics_boxplot(norm_table = protein_sub,
-                                    protein = goi,
-                                    style = "mean") +
-  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1)) +
-  labs(x = "") +
-  ylim(yaxis_limits) + 
-  labs(y = "")
-
-joined_plot <- npr3_plot + vwf_plot
+joined_plot <- npr3_plot + thbd_plot +  vcam1_plot + vwf_plot + plot_layout(nrow = 1,axis_titles = "collect") & labs(y = "Normalized protein level")
 
 save_plot(filename = "./figures/Figure_5.expression_plot.pdf",
           plot = joined_plot,
-          base_asp = 1,
+          base_asp = 2.5,
           base_height = 4)
 ```
+
+
+# Combine plots for figure
+
+```{r}
+# # Combine plots
+# comb_plot <- (pca_plot + volc_limma_IZ_remote + path_plot) / (endo_proteomic_corr + wrap_plots(npr3_plot,vwf_plot))
+# 
+# save_plot(filename = "./figures/Figure_4.proteomics_combined.pdf",
+#           plot = comb_plot,
+#           base_asp = 2.5,
+#           base_height = 12)
+```
+
+
 
 
 # Subfigure H - human CITE-seq umap
@@ -325,12 +391,11 @@ human_cite_umap <- SCpubr::do_DimPlot(sample = human_citeseq,
                             legend.icon.size = 5, 
                             legend.byrow = TRUE, colors.use = named_colors) +
   theme(legend.position = "none")
-```
 
-```{r}
 save_plot(human_cite_umap,
           file = "./plots/Figure4.human_citeseq_umap.png",
-          base_height = 4)
+          base_height = 3,
+          base_asp = 1.3)
 ```
 
 
@@ -363,12 +428,11 @@ vwf_vlnpot <- SCpubr::do_ViolinPlot(sample = sub_human_cite,
                                      "ICM" = "white",
                                      "NICM" = "white"))
 
- vwf_vlnpot <- vwf_vlnpot + theme(plot.margin=unit(c(0,0,0,0), "pt"))
+ vwf_vlnpot <- vwf_vlnpot + theme(plot.margin = margin(t=10, r=10, b=-25, l=10, unit="pt"))
 
 save_plot(vwf_vlnpot,
           file = "./plots/Figure4.human_citeseq_vlnplot.pdf",
-          base_height = 3.75,
-          base_asp = 2)
+          base_height = 4)
 ```
 
 

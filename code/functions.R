@@ -78,7 +78,7 @@ plot_proteomics_boxplot <- function(norm_table,protein, style = "mean"){
       geom = "errorbar",
       aes(ymax = ..y.., ymin = ..y..),
       width = 0.3,
-      size = 2,
+      size = 1,
       color = "black")
   }else if(style == "bar"){
     mean_geom <- stat_summary(
@@ -94,7 +94,7 @@ plot_proteomics_boxplot <- function(norm_table,protein, style = "mean"){
     geom_beeswarm(size =2.5, pch = 21, color = "black", aes(fill = group)) +
     mean_geom +
     labs(x = "Group",
-         y = "Normalized protein level",
+         y = "",
          title = if_else(protein == "Vwf","vWF",protein)) +
     scale_fill_manual(values = c(proteome_palette[["control"]],
                                  proteome_palette[["MI_remote"]],
@@ -103,7 +103,9 @@ plot_proteomics_boxplot <- function(norm_table,protein, style = "mean"){
                                  proteome_palette[["MI_remote"]],
                                  proteome_palette[["MI_IZ"]])) +
     theme(legend.position = "none",
-          plot.title = element_text(hjust = 0.5))
+          plot.title = element_text(hjust = 0.5, size = 20),
+          axis.text.x = element_text(size = 17.5),
+          axis.title.y = element_text(size = 17.5))
 
   return(protein_boxplot)
 }

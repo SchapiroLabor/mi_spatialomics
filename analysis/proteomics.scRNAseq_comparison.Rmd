@@ -37,7 +37,7 @@ calcagno_et_al <- LoadH5Seurat("./data/Calcagno2022_int_logNorm_annot.h5Seurat")
 
 ```{r}
 ## Get only control cells for marker calculation
-calcagno_et_al_d0 <- subset(calcagno_et_al,time == "D0")
+calcagno_et_al_ds <- subset(calcagno_et_al,time == "D0")
 calcagno_et_al_d1 <- subset(calcagno_et_al,time == "D1")
 ```
 
