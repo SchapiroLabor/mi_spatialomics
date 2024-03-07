@@ -258,6 +258,19 @@
       ],
       "Hash": "fd8d03c43e175afce12c1012711a05cc"
     },
+    "ComplexUpset": {
+      "Package": "ComplexUpset",
+      "Version": "1.3.3",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "colorspace",
+        "ggplot2",
+        "patchwork",
+        "scales"
+      ],
+      "Hash": "33a906b96379ddbd41dcb85f80f4fed9"
+    },
     "DBI": {
       "Package": "DBI",
       "Version": "1.2.0",
@@ -1127,13 +1140,19 @@
     },
     "SCpubr": {
       "Package": "SCpubr",
-      "Version": "2.0.2",
-      "Source": "Bioconductor",
-      "Repository": "CRAN",
+      "Version": "2.0.0.9000",
+      "Source": "GitHub",
+      "Remotes": "saezlab/liana",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "SCpubr",
+      "RemoteUsername": "enblacar",
+      "RemoteRef": "v2.0.0-dev-stable",
+      "RemoteSha": "b2357dc7dffceaacaed14cdc7daf164bfad28a2a",
       "Requirements": [
         "R"
       ],
-      "Hash": "8b68bff394e3e09995c8044480ecc3ea"
+      "Hash": "c3fad1db96a4424136123f4c87127cc5"
     },
     "SQUAREM": {
       "Package": "SQUAREM",
@@ -1317,6 +1336,13 @@
         "utils"
       ],
       "Hash": "e21b3571ce76eb4dfe6bf7900960aa6a"
+    },
+    "SnowballC": {
+      "Package": "SnowballC",
+      "Version": "0.7.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "46da3912f69e3e6258a033802c4af32e"
     },
     "SparseArray": {
       "Package": "SparseArray",
@@ -2820,6 +2846,17 @@
       ],
       "Hash": "899f28fe0388b7f687d7453429c2474d"
     },
+    "ggdark": {
+      "Package": "ggdark",
+      "Version": "0.2.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "ggplot2"
+      ],
+      "Hash": "98bc9e4ddbb5dfd678e00f4028a7c1c0"
+    },
     "ggdendro": {
       "Package": "ggdendro",
       "Version": "0.1.23",
@@ -3479,7 +3516,7 @@
     },
     "httpuv": {
       "Package": "httpuv",
-      "Version": "1.6.13",
+      "Version": "1.6.14",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -3490,7 +3527,7 @@
         "promises",
         "utils"
       ],
-      "Hash": "d23d2879001f3d82ee9dc38a9ef53c4c"
+      "Hash": "16abeb167dbf511f8cc0552efaf05bab"
     },
     "httr": {
       "Package": "httr",
@@ -3609,6 +3646,16 @@
         "parallel"
       ],
       "Hash": "9d0ef8912bc1d66357977f5b8e4dc5ed"
+    },
+    "janeaustenr": {
+      "Package": "janeaustenr",
+      "Version": "1.0.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R"
+      ],
+      "Hash": "26f391e42073877818f2d4f0470dca24"
     },
     "janitor": {
       "Package": "janitor",
@@ -5784,7 +5831,7 @@
     },
     "terra": {
       "Package": "terra",
-      "Version": "1.7-65",
+      "Version": "1.7-71",
       "Source": "Repository",
       "Repository": "CRAN",
       "Requirements": [
@@ -5792,7 +5839,7 @@
         "Rcpp",
         "methods"
       ],
-      "Hash": "8e245fd4eab07bf55ddb2e6ea353c0e1"
+      "Hash": "e8611881ab70a4fb7a1f629b31e6fcff"
     },
     "testthat": {
       "Package": "testthat",
@@ -5927,6 +5974,29 @@
       ],
       "Hash": "79540e5fcd9e0435af547d885f184fd5"
     },
+    "tidytext": {
+      "Package": "tidytext",
+      "Version": "0.4.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "Matrix",
+        "R",
+        "cli",
+        "dplyr",
+        "generics",
+        "janeaustenr",
+        "lifecycle",
+        "methods",
+        "purrr",
+        "rlang",
+        "stringr",
+        "tibble",
+        "tokenizers",
+        "vctrs"
+      ],
+      "Hash": "eb8386c938a086eb3216595eba76831d"
+    },
     "tidyverse": {
       "Package": "tidyverse",
       "Version": "2.0.0",
@@ -6001,6 +6071,19 @@
         "xfun"
       ],
       "Hash": "5ac22900ae0f386e54f1c307eca7d843"
+    },
+    "tokenizers": {
+      "Package": "tokenizers",
+      "Version": "0.3.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Requirements": [
+        "R",
+        "Rcpp",
+        "SnowballC",
+        "stringi"
+      ],
+      "Hash": "76d35ebfaaf291e08c15696c9f2ec96d"
     },
     "tweenr": {
       "Package": "tweenr",

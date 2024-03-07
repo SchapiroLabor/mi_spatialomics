@@ -144,7 +144,7 @@ supp_figure_X <- n_prot_plot + missingness_plot + pca_var + wrap_elements(upset_
 
 supp_figure_X <- supp_figure_X + 
   plot_layout(nrow = 2,ncol =2 , widths = c(1,2)) +
-  plot_annotation(tag_levels = 'A') & 
+  plot_annotation(tag_levels = 'a') & 
   theme(plot.tag = element_text(size = 25)) &
   theme(plot.background = element_rect(fill = "white"))
 

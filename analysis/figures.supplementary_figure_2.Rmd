@@ -27,21 +27,22 @@ The data used in this plot was calculated using the following scripts:
 
 ## A) Correlation between technical replicates
 
-```{r}
-merge_tx_sums <- vroom("./output/molkart/tx_abundances_per_slide.tsv")
-```
 
 ```{r}
+merge_tx_sums <- vroom("./output/molkart/tx_abundances_per_slide.tsv")
+
 merge_tx_sums_split <- merge_tx_sums %>%
   separate(sample_ID, into = c("string","time","replicate"))
 
 # Replace replicate by slide ID
 merge_tx_sums_split$replicate <- gsub("r1","Biol. repl. 1",merge_tx_sums_split$replicate)
 merge_tx_sums_split$replicate <- gsub("r2","Biol. repl. 2",merge_tx_sums_split$replicate)
+merge_tx_sums_split$time <- gsub("2d","2 days",merge_tx_sums_split$time)
+merge_tx_sums_split$time <- gsub("4d","4 days",merge_tx_sums_split$time)
 
 # Set order of time 
 merge_tx_sums_split$time <- factor(merge_tx_sums_split$time,
-                                   levels = c("control","4h","2d","4d"))
+                                   levels = c("control","4h","2 days","4 days"))
 
 tx_correlation_plot <- ggplot(merge_tx_sums_split,aes(log10(total_tx_rep1),log10(total_tx_rep2))) +
     geom_point(aes(color = time)) +

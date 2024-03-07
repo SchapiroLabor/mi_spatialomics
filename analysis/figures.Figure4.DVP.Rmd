@@ -79,6 +79,12 @@ limma_mi_remote <- subset(limma_res,analysis == "MI_IZ_vs_MI_remote")
 limma_remote_control <- subset(limma_res,analysis == "MI_remote_vs_control")
 limma_mi_control <- subset(limma_res,analysis == "MI_IZ_vs_control")
 
+## Which proteins are differentially expressed in MI vs remote but not in MI vs remote but not in remote vs control?
+iz_uniq <- setdiff(subset(limma_mi_remote,adj.P.Val < 0.05)$gene,subset(limma_remote_control,adj.P.Val < 0.05)$gene)
+limma_mi_remote_uniq <- subset(limma_mi_remote, gene %in% iz_uniq) %>%
+  subset(adj.P.Val < 0.05) %>%
+  arrange(desc(logFC))
+
 ## Get proteins from Coagulation pathway from pathway analysis results to highlight on volcano plot
 mh_gsea_net <- readRDS("./references/mh.all.v2023.1.Mm.symbols.sets.rds")
 
@@ -215,6 +221,7 @@ save_plot(filename = "./figures/Figure_5.vwf_specificity_plot.pdf",
 
 ```{r}
 source("./code/functions.R")
+yaxis_limits <- c(11,17)
 
 vsn_matrix <- fread("./output/proteomics/proteomics.vsn_norm_proteins.tsv")
 colnames(vsn_matrix)[1:11] <- paste("s",1:11,colnames(vsn_matrix)[1:11],sep="_")
@@ -259,7 +266,7 @@ npr3_plot <- plot_proteomics_boxplot(norm_table = protein_sub,
                             "MI_remote" = "MI remote",
                              "MI_IZ" = "MI IZ"))
 
-## Median plot with points
+## Mean plot with points
 goi <- "Thbd"
 thbd_plot <- plot_proteomics_boxplot(norm_table = protein_sub,
                                     protein = goi,
@@ -295,7 +302,6 @@ vcam1_plot <- plot_proteomics_boxplot(norm_table = protein_sub,
 
 
 ## Median plot with points
-yaxis_limits <- c(11,17)
 goi <- "Vwf"
 vwf_plot <- plot_proteomics_boxplot(norm_table = protein_sub,
                                     protein = goi,
@@ -325,6 +331,22 @@ save_plot(filename = "./figures/Figure_5.expression_plot.pdf",
           base_height = 4)
 ```
 
+```{r}
+## Explore expression of proteins of interest
+goi <- "Slit3"
+plot_proteomics_boxplot(norm_table = protein_sub,
+                                    protein = goi,
+                                    style = "mean") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1)) +
+  labs(x = "") +
+  ylim(yaxis_limits) + 
+  labs(y = "") +
+  scale_x_discrete(labels=c("Control" = "Control", 
+                            "MI_remote" = "MI remote",
+                             "MI_IZ" = "MI IZ"))
+```
+
+
 
 # Combine plots for figure
 
@@ -339,13 +361,10 @@ save_plot(filename = "./figures/Figure_5.expression_plot.pdf",
 ```
 
 
-
-
 # Subfigure H - human CITE-seq umap
 
 
 ```{r}
-
 library(Seurat)
 library(SCpubr)
 
@@ -407,8 +426,20 @@ sub_human_cite$disease_group <- sub_human_cite$HF.etiology
 
 ## Quick DE analysis between Donor and AMI
 sub_human_cite_pb <- AggregateExpression(sub_human_cite,
-                                   return.seurat = T, 
-                                   group.by = "sample")
+                                   return.seurat = T,
+                                   group.by = c("sample","disease_group"))
+Idents(sub_human_cite_pb) <- "disease_group"
+
+sub_human_cite_pb_de <- FindMarkers(object = sub_human_cite_pb,
+                         ident.1 = "Donor",
+                         ident.2 = "AMI",
+                         test.use = "DESeq2",
+                         min.pct = 0.1)
+
+sub_human_cite_pb_de$gene <- rownames(sub_human_cite_pb_de)
+sub_human_cite_pb_vwf <- subset(sub_human_cite_pb_de,gene == "VWF")
+pvalue <- sub_human_cite_pb_vwf$p_val
+pvalue
 ```
 
 
@@ -435,6 +466,29 @@ save_plot(vwf_vlnpot,
           base_height = 4)
 ```
 
+
+# Save differential protein expression results for Table 3
+
+```{r}
+table3 <- limma_res %>%
+  select(-c(label_protein,"P.Value"))
+
+colnames(table3) <- gsub("\\.","_",colnames(table3))
+colnames(table3) <- gsub("adj_P_Val","ajusted_pval",colnames(table3))
+
+table3 <- table3 %>%
+  select(analysis,logFC,AveExpr,t,pval,ajusted_pval,B,gene,protein_ids) %>%
+  arrange(desc(logFC)) %>%
+  drop_na()
+
+write.table(table3,
+            file = "./output/proteomics/Table3.tsv",
+            sep = "\t",
+            quote = F,
+            row.names = F,
+            col.names = TRUE)
+
+```
 
 
 <!-- # Assemble final figure -->

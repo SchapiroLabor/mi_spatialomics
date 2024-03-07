@@ -75,7 +75,7 @@ ggplot(missingness,aes(group,missingness,fill = group)) +
 ## Filter out proteins that are identified in < 3 MI samples
 
 Then we are going to calculate the missingness per sample group (the treatment group and area that was excised by laser microdissection) and exclude proteins that are only identified in a subset of samples per group. For controls, we expect a protein to be measured in at least 2/3 samples (33% missingness allowed).
-For MI samples, we expect a protein to be measured in at least 2/4 samples (50% missingness allowed)
+For MI samples, we expect a protein to be measured in at least 3/4 samples (25% missingness allowed)
 
 ```{r}
 na_mi <- prot_res %>%
@@ -98,7 +98,7 @@ prot_res_filt <- subset(prot_res,Protein_Ids %in% subset(na_mi,retain == "yes")$
 
 ## Exclude contaminants (keratins etc.)
 
-After filtering based on missingness, we will filter out any proteions that are considered contaminants based on know contaminations based on [Frankenfeld 2022](https://pubs.acs.org/doi/10.1021/acs.jproteome.2c00145)
+After filtering based on missingness, we will filter out any proteins that are considered contaminants based on [Frankenfeld 2022](https://pubs.acs.org/doi/10.1021/acs.jproteome.2c00145)
 
 ```{r}
 ## Count number of detected proteins with contaminants

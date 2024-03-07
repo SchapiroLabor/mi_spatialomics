@@ -32,7 +32,7 @@ source("./code/functions.R")
 
 # Introduction
 
-Here we will perform an analysis to detect differentially expressed proteins (DEPs) between the healthy control endocardial layer (control), the endocardial layer adjacent to the infarct at 1 day post infarction (MI_IZ) and the endocardial layer that is remote to the infarct from the same heart as the MI_IZ.
+Here we will perform an analysis to detect differentially expressed proteins (DEPs) between the healthy control endocardial layer (control), the endocardial layer adjacent to the infarct at 1 day post infarction (MI_IZ) and the endocardial layer that is remote to the infarct (MI_remote) from the same heart as the MI_IZ.
 
 We will compare two different methods to perform differential expresssion, proDA, which models missing values in it's statistical model and limma, which uses linear models and can handle missing values.
 
