@@ -72,7 +72,7 @@ spots_assigned <- ggplot(qc_data,aes(segmentation_method, y= values, group = seg
   # coord_flip() +
   scale_fill_brewer(palette = "Dark2") +
   scale_color_brewer(palette = "Dark2") +
-  scale_x_discrete(labels=c("cellpose" = "Cellpose",
+  scale_x_discrete(labels=c("cellpose" = "Cellpose 2",
                             "ilastik" = "Ilastik Multicut",
                             "mesmer" = "Mesmer")) +
   labs(x = "") +

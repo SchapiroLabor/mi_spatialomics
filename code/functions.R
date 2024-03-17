@@ -12,7 +12,12 @@ theme_cowplot_custom <- theme_cowplot() +
 
 theme_set(theme_cowplot_custom)
 
-time_palette <- brewer.pal(4, "Dark2")
+#time_palette <- brewer.pal(4, "Dark2")
+time_palette <- c("Control" = "#1B9E77",
+                  "4h" = "#666666",
+                  "24h" =  "#D95F02",
+                  "2 days" = "#7570B3",
+                  "4 days" = "#E7298A")
 
 ################
 ## Seurat analysis for Molkart data

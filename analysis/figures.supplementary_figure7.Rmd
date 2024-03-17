@@ -1,0 +1,184 @@
+---
+title: "figures.supplementary_figure7"
+author: "FloWuenne"
+date: "2024-03-11"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+```{r}
+library(tidyverse)
+library(data.table)
+library(ggbeeswarm)
+library(patchwork)
+
+source(here("./code/functions.R"))  
+```
+
+
+# B) 
+
+```{r}
+data_path <- "./data/seqIF_regions_annotations/"
+cell_locations <-
+    list.files(path = paste(data_path,"cell_locations",sep=""),pattern = "*.csv") %>%
+    setNames(., .) %>%
+    map_df(~fread(paste(paste(data_path,"cell_locations",sep=""),.,sep="/"), select= c("CellID","ROI")),
+           .id = "sample") %>%
+  mutate("fov" = gsub("annotated_|.csv","",sample))
+  
+region_measurements_full <- 
+    list.files(path = paste(data_path,"ROI_measurements",sep=""),pattern = "*.txt") %>% 
+    setNames(., .) %>%
+    map_df(~fread(paste(paste(data_path,"ROI_measurements",sep=""),.,sep="/")),
+           .id = "sample") %>%
+  mutate("fov" = gsub(".txt","",sample)) 
+colnames(region_measurements_full) <- gsub(" ","_",colnames(region_measurements_full))
+colnames(region_measurements_full) <- gsub("\\^","",colnames(region_measurements_full))
+colnames(region_measurements_full) <- gsub("\\µ","u",colnames(region_measurements_full))
+
+## Sum all individual annotations per sample and region
+region_measurements <- region_measurements_full %>%
+  mutate("Area_um2" = if_else(fov %in% c("24h_86","4h_97"),Area_um2 * 0.235^2,Area_um2)) %>% ## Images that were post-registered using palom need to be size corrected, as their final pixel resolution is different
+  group_by(fov,Name) %>%
+  summarise("total_area_um2" = sum(Area_um2)) %>%
+  ungroup()
+```
+
+## Pixie output
+
+```{r}
+pixie_cell_out <- fread("../results/SeqIF/pixie_cell_masks_0.05/cell_table_size_normalized_cell_labels.csv")
+pixie_cell_out <- pixie_cell_out %>%
+  separate(fov,into = c("time","sample"), remove = FALSE) %>%
+  subset(cell_meta_cluster != "background") %>%
+  mutate("CellID" = label)
+```
+
+## Merge data
+
+```{r}
+annotated_cells <- left_join(pixie_cell_out,cell_locations, by = c("fov","CellID"))
+annotated_cells <- annotated_cells %>%
+  subset(ROI != "Background")
+
+## Set factor level for time
+annotated_cells$time <- factor(annotated_cells$time,
+                               levels = c("Control","4h","24h","48h"))
+```
+
+
+```{r}
+## Let's plot the number of cells per cell-type per sample
+cells_per_region <- annotated_cells %>%
+  subset(!ROI %in% c("Unclassified","Ignore")) %>%
+  subset(!ROI %in% c("PathAnnotationObject","papillary_muscle","Lumen","Background",
+                     "Ignore","RV_ignore","myocardium_control","remote_endocardium")) %>%
+  group_by(ROI,fov,time,cell_meta_cluster) %>%
+  tally()
+
+cells_per_region_sub <- cells_per_region %>%
+subset(grepl("Macro|Mono|Leuko|Neutro",cell_meta_cluster))
+
+## Normalize cell numbers for area
+region_measurements$ROI <- region_measurements$Name
+cells_per_region_norm <- left_join(cells_per_region_sub,region_measurements, by = c("fov","ROI"))
+cells_per_region_norm <- cells_per_region_norm %>%
+  mutate("cells_per_mm2" = n / total_area_um2 * 1000000)  ## Normalize to square mm
+```
+
+
+```{r}
+ccr2_monomacro <- cells_per_region_norm %>%
+  subset(cell_meta_cluster == "Mono / Macros Ccr2+") %>%
+  subset(time %in% c("4h","24h","48h"))
+
+ccr2_monomacro$ROI <- gsub("border_zone","Border zone",ccr2_monomacro$ROI)
+ccr2_monomacro$ROI <- gsub("infarct_core","Infarct core",ccr2_monomacro$ROI)
+ccr2_monomacro$ROI <- gsub("Epicardium","Epicardium",ccr2_monomacro$ROI)
+ccr2_monomacro$ROI <- gsub("Endocardium","Endocardium",ccr2_monomacro$ROI)
+
+ccr2_monomacro$ROI <- factor(ccr2_monomacro$ROI,
+                             levels = c("Endocardium","Infarct core","Epicardium","Border zone"))
+
+seqIF_ccr2_relquant <- ggplot(ccr2_monomacro,aes(x = time,y = cells_per_mm2)) +
+    stat_summary(
+      fun.y = mean,
+      geom = "bar",
+      width = 0.9,
+      size = 0.3,
+      color = "black",
+      fill = "lightgrey") +
+  geom_beeswarm(size = 2, pch = 21, color = "black", aes(fill = ROI)) +
+  labs(x = "Time",
+         y = expression("Cells /"~mm^2)) + 
+  #expression(paste("Mo / M",phi," per "~mm^2))
+  facet_grid(. ~ ROI) +
+  scale_fill_manual(values = c("#337272","#f0f0f0","#b062c2","#2c95c5")) +
+  theme(axis.title = element_text(face="bold"),
+        legend.position = "none") +
+  theme(panel.border = element_rect(color = "black", fill = NA, size = 0.75)) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        axis.title.x = element_blank()) 
+seqIF_ccr2_relquant
+```
+
+
+# c) Immunofluorescence relative abundance of CCR2+ cells
+
+
+```{r}
+if_rel_counts <- fread("./data/Traditional_IF_relative_cell_counts.csv")
+
+colnames(if_rel_counts) <- gsub(" ","_",colnames(if_rel_counts))
+if_rel_counts <- if_rel_counts %>%
+  pivot_longer(cols = Endo_Pre:BZ_2d,
+               names_to = "sample",
+               values_to = "cell_count") %>%
+  separate(sample, into = c("region","timepoint"), sep = "_")
+
+# Replace abbreviations with full labels
+if_rel_counts$region <- gsub("Endo","Endocard",if_rel_counts$region)
+if_rel_counts$region <- gsub("Core","Infarct core",if_rel_counts$region)
+if_rel_counts$region <- gsub("Epi","Epicard",if_rel_counts$region)
+if_rel_counts$region <- gsub("BZ","Border zone",if_rel_counts$region)
+if_rel_counts$region <- factor(if_rel_counts$region, levels = c("Endocard","Infarct core","Epicard","Border zone"))
+
+if_rel_counts$timepoint <- gsub("Pre","Control",if_rel_counts$timepoint)
+if_rel_counts$timepoint <- gsub("1d","24h",if_rel_counts$timepoint)
+if_rel_counts$timepoint <- gsub("2d","2 days",if_rel_counts$timepoint)
+if_rel_counts$timepoint <- factor(if_rel_counts$timepoint, levels = c("Control","4h","24h","2 days"))
+
+if_rel_counts <- subset(if_rel_counts,timepoint != "Control")
+
+if_ccr2_relquant <- ggplot(if_rel_counts,aes(timepoint,cell_count)) +
+    stat_summary(
+      fun.y = mean,
+      geom = "bar",
+      width = 0.9,
+      size = 0.3,
+      color = "black",
+      fill = "lightgrey") +
+  labs(x = "Time",
+         y = expression("Cells /"~mm^2)) + 
+  geom_beeswarm(size = 2 , pch = 21, color = "black", aes(fill = region)) +
+  facet_grid(.~ region) +
+  theme(axis.title = element_text(face="bold"),
+        legend.position = "none") +
+  scale_fill_manual(values = c("#337272","#f0f0f0","#b062c2","#2c95c5")) +
+  theme(panel.border = element_rect(color = "black", fill = NA, size = 0.75)) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        axis.title.x = element_blank())
+
+## Combine plots
+joined_plot <- seqIF_ccr2_relquant | if_ccr2_relquant
+
+save_plot(filename = "./plots/supp_figure_7.tradIF-relative_cell_counts.pdf",
+          plot = joined_plot,
+          base_asp = 3,
+          base_height = 4)
+```
+

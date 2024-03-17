@@ -104,7 +104,7 @@ pixel_counts <- pixel_counts %>%
 pixel_cluster_counts_stats <- pixel_counts %>%
   subset(Pixel_cluster != "background") %>%
   separate("Sample_ID", into = c("time","sample")) %>%
-  group_by(time,Pixel_cluster) %>%
+  group_by(sample,time,Pixel_cluster) %>%
   summarise("n_pixel" = sum(Count)) %>%
   mutate("percent" = n_pixel / sum(n_pixel)) %>%
   ungroup()
@@ -121,7 +121,11 @@ pixel_cluster_counts_stats$Pixel_cluster <- factor(pixel_cluster_counts_stats$Pi
 ```{r}
 pixel_number_distribution <- ggplot(pixel_cluster_counts_stats, 
                                     aes(x=time, y=percent * 100)) +
-  geom_bar(stat = "identity", position = "stack", aes(fill = Pixel_cluster), color = "black") +
+  # geom_bar(stat = "identity", position = "stack", aes(fill = Pixel_cluster), color = "black") +
+  geom_bar(position='dodge', stat='summary', fun='mean', color = "black",
+           aes(fill = Pixel_cluster)) +
+  # Add points for each fill group on top of bars
+  geom_point(aes(group=Pixel_cluster), size=2.5, shape=21, fill="white", color="black") +
   theme(legend.position = "none",
         axis.line = element_blank()) +
   scale_fill_manual(values = pixel_map_color) +
@@ -137,10 +141,6 @@ save_plot(pixel_number_distribution,
           file = "./output/seqIF/supplementary_figure_6.pixie_clusters_overtime.pdf",
           base_height = 4,
           base_asp = 2.5)
-```
-
-```{r}
- brewer.pal(4, "Dark2")
 ```
 
 

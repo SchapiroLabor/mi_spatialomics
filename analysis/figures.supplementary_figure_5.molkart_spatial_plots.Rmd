@@ -11,7 +11,18 @@ editor_options:
 library(tidyverse)
 library(Seurat)
 library(patchwork)
+library(ggdark)
 source("./code/functions.R")
+
+named_colors <- c("Cardiac fibroblasts" = "#1f77b4",
+                  "Cardiomyocytes" = "#ff7697",
+                  "Cardiomyocytes Nppa+" = "#ff9966",
+                  "Endocardial cells" = "#17becf",
+                  "Endothelial cells" = "#8c564b",
+                  "Lymphoid cells" = "#bcbd22",
+                  "Myeloid cells" = "#2ca02c",
+                  "Pericytes" = "#9467bd",
+                  "Smooth muscle cells" = "#e377c2")
 ```
 
 # Load data
@@ -19,14 +30,6 @@ source("./code/functions.R")
 ```{r}
 ## If the object has already been computed
 seurat_object <-  readRDS(file = "./output/molkart/molkart.seurat_object.rds")
-```
-
-# Plot data 
-
-## A) Spatial plots per sample
-
-```{r}
-metadata <- seurat_object@meta.data
 
 ## Set sample order for patchwork
 sample_names <- c("sample_control_r1_s1","sample_4h_r1_s1",
@@ -34,10 +37,51 @@ sample_names <- c("sample_control_r1_s1","sample_4h_r1_s1",
              "sample_control_r2_s1","sample_4h_r2_s2",
              "sample_2d_r2_s1","sample_4d_r2_s1")
 
+metadata <- seurat_object@meta.data
 
+new_metadata <- data.frame()
+# For each sample in sample_names, apply a rotation function to x and y positions in metadata
+for(sample in sample_names){
+  meta_sub <- subset(metadata,sample_ID == sample)
+  if(sample == "sample_control_r1_s1"){ # rotate 90 degrees counter clockwise
+    y_orig <- meta_sub$Y_centroid
+    x_orig <- meta_sub$X_centroid 
+    meta_sub$X_centroid <- y_orig * -1
+    meta_sub$Y_centroid <- x_orig
+  }else if(sample == "sample_control_r2_s1"){ # rotate 90 degrees counter clockwise
+    meta_sub$X_centroid <- meta_sub$X_centroid * -1
+    meta_sub$Y_centroid <- meta_sub$Y_centroid *  1
+  }else if(sample == "sample_4h_r1_s1"){ # rotate 90 degrees counter clockwise
+    meta_sub$X_centroid <- meta_sub$X_centroid * -1
+    meta_sub$Y_centroid <- meta_sub$Y_centroid *  1
+  }else if(sample == "sample_4h_r2_s2"){ # rotate 90 degrees counter clockwise
+    y_orig <- meta_sub$Y_centroid
+    x_orig <- meta_sub$X_centroid 
+    meta_sub$X_centroid <- y_orig * -1
+    meta_sub$Y_centroid <- x_orig
+  }else if(sample == "sample_2d_r1_s1"){ # rotate 90 degrees counter clockwise
+    meta_sub$X_centroid <- meta_sub$X_centroid * -1
+    meta_sub$Y_centroid <- meta_sub$Y_centroid * -1
+  }else if(sample == "sample_4d_r2_s1"){ # rotate 90 degrees counter clockwise
+    y_orig <- meta_sub$Y_centroid 
+    meta_sub$Y_centroid <- meta_sub$X_centroid * -1
+    meta_sub$X_centroid <- y_orig * 1
+  }
+  new_metadata <- rbind(new_metadata,meta_sub)
+}
+new_metadata
+```
+
+# Plot data 
+
+## A) Spatial plots per sample
+
+
+```{r}
 ## Make a spatial plot for each sample and organize them using patchwork
 sample_plots <- lapply(sample_names, function(sample) {
-  meta_sub <- subset(metadata,sample_ID == sample)
+  meta_sub <- subset(new_metadata,sample_ID == sample)
+  meta_sub$anno_cell_type_lvl2 <- gsub("_"," ",meta_sub$anno_cell_type_lvl2)
   
   # Generate the plot
   ## Add a line of blank space on top of the plot
@@ -91,7 +135,7 @@ sample_plots <- lapply(sample_names, function(sample) {
   return(p)
 })
 
-sample_plots_arranged <- wrap_plots(sample_plots,ncol = 4, nrows = 2) + plot_layout(guides = "collect")
+sample_plots_arranged <- wrap_plots(sample_plots,ncol = 4, nrows = 2) + plot_layout(guides = "collect") & theme(legend.position = 'right')
 sample_plots_arranged
 ```
 

@@ -37,12 +37,13 @@ merge_tx_sums_split <- merge_tx_sums %>%
 # Replace replicate by slide ID
 merge_tx_sums_split$replicate <- gsub("r1","Biol. repl. 1",merge_tx_sums_split$replicate)
 merge_tx_sums_split$replicate <- gsub("r2","Biol. repl. 2",merge_tx_sums_split$replicate)
+merge_tx_sums_split$time <- gsub("control","Control",merge_tx_sums_split$time)
 merge_tx_sums_split$time <- gsub("2d","2 days",merge_tx_sums_split$time)
 merge_tx_sums_split$time <- gsub("4d","4 days",merge_tx_sums_split$time)
 
 # Set order of time 
 merge_tx_sums_split$time <- factor(merge_tx_sums_split$time,
-                                   levels = c("control","4h","2 days","4 days"))
+                                   levels = c("Control","4h","2 days","4 days"))
 
 tx_correlation_plot <- ggplot(merge_tx_sums_split,aes(log10(total_tx_rep1),log10(total_tx_rep2))) +
     geom_point(aes(color = time)) +
@@ -51,7 +52,8 @@ tx_correlation_plot <- ggplot(merge_tx_sums_split,aes(log10(total_tx_rep1),log10
          y = "log10(spots) - Slide 2") +
   stat_cor(aes(label = ..r.label..), method = "spearman") +
   facet_grid(replicate ~ time) +
-  scale_color_brewer(palette = "Dark2") + 
+  #scale_color_brewer(palette = "Dark2") + 
+  scale_color_manual(values = time_palette) +
   theme(strip.text = element_text(face = "bold", color = "black", size = 14),
         strip.background = element_rect(fill = "lightgrey", linetype = "solid",
                                         color = "black", linewidth = 0.8),
@@ -73,9 +75,15 @@ spots_tissue <- vroom("./output/molkart/molkart.spots_per_tissue.tsv")
 spots_tissue <- spots_tissue %>%
   separate(sample, into =c("sample","time","replicate","slide"), sep = "_")
 
-spots_tissue$time <- factor(spots_tissue$time,levels = c("control","4h","2d","4d"))
 spots_tissue <- spots_tissue %>%
   mutate("spots_per_mm2" = spots_per_um2 * 100)
+
+# Replace time labels
+spots_tissue$time <- gsub("control","Control",spots_tissue$time)
+spots_tissue$time <- gsub("2d","2 days",spots_tissue$time)
+spots_tissue$time <- gsub("4d","4 days",spots_tissue$time)
+spots_tissue$time <- factor(spots_tissue$time,
+                            levels = c("Control","4h","2 days","4 days"))
 
 spots_per_um <- ggbarplot(spots_tissue, 
                           x = "time", 
@@ -93,7 +101,8 @@ spots_per_um <- ggbarplot(spots_tissue,
   ) +
   theme_minimal_hgrid() +
   theme(axis.title = element_text(face="bold")) +
-  rremove("legend")
+  rremove("legend") +
+  scale_fill_manual(values = time_palette)
 
  spots_per_um
  
@@ -106,15 +115,19 @@ spots_per_um <- ggbarplot(spots_tissue,
 
 ```{r} 
 pcs <- vroom("./output/molkart/pca_spots.tsv")
+pcs$time <- gsub("control","Control",pcs$time)
+pcs$time <- gsub("2d","2 days",pcs$time)
+pcs$time <- gsub("4d","4 days",pcs$time)
 pcs$time <- factor(pcs$time,
-                   levels = c("control","4h","2d","4d"))
+                   levels = c("Control","4h","2 days","4 days"))
 ```
 
 
 ```{r}
 pca_plot <- ggplot(pcs,aes(PC1,PC2,label = label)) +
   geom_point(size = 5, aes(color = time, shape = slide)) +
-  scale_color_brewer(palette = "Dark2",labels = c("control","4 hours","2 days","4 days")) +
+  # scale_color_brewer(palette = "Dark2",labels = c("Control","4 hours","2 days","4 days")) +
+  scale_color_manual(values = time_palette) +
   labs(color = "Time",
        shape = "Slide")
 pca_plot
