@@ -436,15 +436,15 @@ results.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstreee6213a5ae03dcd38ce227600f6ad3c4c9a7c5fc0targetblanke6213a5a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstreece9dba261e23e43b9315814f970b0bbf79896f44targetblankce9dba2a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/e6213a5ae03dcd38ce227600f6ad3c4c9a7c5fc0" target="_blank">e6213a5</a>
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/ce9dba261e23e43b9315814f970b0bbf79896f44" target="_blank">ce9dba2</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstreee6213a5ae03dcd38ce227600f6ad3c4c9a7c5fc0targetblanke6213a5a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstreece9dba261e23e43b9315814f970b0bbf79896f44targetblankce9dba2a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -454,7 +454,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/e6213a5ae03dcd38ce227600f6ad3c4c9a7c5fc0" target="_blank">e6213a5</a>.
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/ce9dba261e23e43b9315814f970b0bbf79896f44" target="_blank">ce9dba2</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -492,6 +492,7 @@ Ignored files:
     Ignored:    data/results_cts_100.sqm
     Ignored:    data/seqIF_regions_annotations/
     Ignored:    data/seurat/
+    Ignored:    omnipathr-log/
     Ignored:    output/.DS_Store
     Ignored:    output/mol_cart.harmony_object.h5Seurat
     Ignored:    output/molkart/
@@ -504,24 +505,6 @@ Ignored files:
     Ignored:    renv/.DS_Store
     Ignored:    renv/library/
     Ignored:    renv/staging/
-
-Untracked files:
-    Untracked:  analysis/deprecated/figures.supplementary_figureX.Rmd
-    Untracked:  analysis/deprecated/figures.supplementary_figure_X.MistyR.Rmd
-
-Unstaged changes:
-    Deleted:    analysis/figures.supplementary_figureX.Rmd
-    Deleted:    analysis/figures.supplementary_figure_X.MistyR.Rmd
-    Deleted:    analysis/figures.supplementary_figure_X.proteomics_qc.Rmd
-    Deleted:    figures/Figure_5.eps
-    Deleted:    figures/Figure_5.pdf
-    Deleted:    figures/Figure_5.png
-    Deleted:    figures/Figure_5.svg
-    Deleted:    figures/Supplementary_Figure_1_Molecular_Cartography_ROIs.png
-    Deleted:    figures/Supplementary_figure_5.segmentation_metrics.poster.eps
-    Modified:   figures/Supplementary_figure_X.proteomics.eps
-    Modified:   figures/Supplementary_figure_X.proteomics.png
-    Deleted:    results_cts.lowres.125.sqm
 
 </code></pre>
 <p>
@@ -567,6 +550,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/ce9dba261e23e43b9315814f970b0bbf79896f44/analysis/data_analysis.Rmd" target="_blank">ce9dba2</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2024-03-21
+</td>
+<td>
+wflow_publish("analysis/data_analysis.Rmd")
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/a2cf304e74fb46c810972b7e482a90b38cc5c9cb/docs/data_analysis.html" target="_blank">a2cf304</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2024-03-21
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1219,8 +1236,8 @@ of RNA spots on tissue</a></li>
 <div id="cell-type-calling" class="section level2">
 <h2>Cell type calling</h2>
 <ul>
-<li><a href="./molkart.process_quantifications_seurat.Rmd">Seurat
-analysis of Molkart output</a></li>
+<li><a href="./molkart.seurat_analysis.Rmd">Seurat analysis of Molkart
+output</a></li>
 <li><a href="./molkart.misty_analysis.Rmd">Misty spatial
 analysis</a></li>
 <li><a
@@ -1232,17 +1249,13 @@ bivariate cell-type analysis</a></li>
 <div id="lunaphore" class="section level1">
 <h1>Lunaphore</h1>
 <p>These scripts were used to analyze SeqIF data from the Lunaphore
-COMET platform processed using MCMICRO.</p>
+COMET platform processed using MCMICRO and pixie.</p>
 <ol style="list-style-type: decimal">
 <li><a
 href="./seqIF_python/seqIF.figure_3.create_pixie_images.ipynb">Pixie :
 Marker images, pixel and cell clusters using Napari</a></li>
 <li><a href="./seqIF.heatmaps_pixie.figure3.Rmd">Pixie : Heatmaps for
 pixel and cell clustering and cell cluster changes over time</a></li>
-<li><a href="./seqIF.region_quantification.Rmd">SeqIF region
-quantifications for Figure 3</a></li>
-<li><a href="./seqIF.figure_3.infiltration_screenshots.ipynb">SeqIF
-Jupyter notebook to create image views</a></li>
 </ol>
 </div>
 <div
