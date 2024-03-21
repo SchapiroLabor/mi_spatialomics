@@ -14,7 +14,7 @@ library(tidyverse)
 library(data.table)
 library(ggbeeswarm)
 
-source(here("./code/functions.R"))
+source("./code/functions.R")
 ```
 
 # Load data
@@ -58,7 +58,7 @@ abs_plot <- ggplot(abs_counts,aes(timepoint,cell_count)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1),
         axis.title.x = element_blank())
   
-save_plot(filename = "./figures/Figure_3.tradIF-absolute_cell_counts.pdf",
+save_plot(filename = "./plots/Figure_3.tradIF-absolute_cell_counts.pdf",
           plot = abs_plot,
           base_asp = 1.8,
           base_height = 3)

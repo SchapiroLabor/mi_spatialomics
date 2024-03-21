@@ -64,7 +64,7 @@ pca_plot <- ggplot(pcs,aes(PC1,PC2)) +
 
 pca_plot
 
-save_plot(filename = "./figures/Figure_5.pca_plot.pdf",
+save_plot(filename = "./plots/Figure_5.pca_plot.pdf",
           plot = pca_plot,
           base_asp = 1,
           base_height = 4)
@@ -127,7 +127,7 @@ volc_limma_IZ_remote <- plot_pretty_volcano(limma_mi_remote,
 # plot_ly(data = limma_mi_remote, x = ~logFC, y = ~-log10(adj.P.Val),
 #         text = ~paste("Gene: ", gene))
 
-save_plot(filename = "./figures/Figure_5.volcano_plot.pdf",
+save_plot(filename = "./plots/Figure_5.volcano_plot.pdf",
           plot = volc_limma_IZ_remote,
           base_asp = 1.3,
           base_height = 3.25)
@@ -145,7 +145,7 @@ volc_limma_remote_control <- ggplot(data=limma_remote_control,
 
 volc_limma_remote_control
 
-save_plot(filename = "./figures/Figure_4.volcano_schema.pdf",
+save_plot(filename = "./plots/Figure_4.volcano_schema.pdf",
           plot = volc_limma_remote_control,
           base_asp = 1.4,
           base_height = 3)
@@ -181,7 +181,7 @@ path_plot <- ggplot(sig_pathways_mi, aes(x = reorder(source, score), y = score))
 path_plot
 
 
-save_plot(filename = "./figures/Figure_5.pathway_plot.pdf",
+save_plot(filename = "./plots/Figure_5.pathway_plot.pdf",
           plot = path_plot,
           base_asp = 2,
           base_height = 4)
@@ -209,7 +209,7 @@ endo_proteomic_corr <- ggplot(snrna_prot,aes(avg_log2FC,logFC,
 
 endo_proteomic_corr
 
-save_plot(filename = "./figures/Figure_5.vwf_specificity_plot.pdf",
+save_plot(filename = "./plots/Figure_5.vwf_specificity_plot.pdf",
           plot = endo_proteomic_corr,
           base_asp = 1.75,
           base_height = 3.5)
@@ -324,7 +324,7 @@ vwf_plot <- plot_proteomics_boxplot(norm_table = protein_sub,
 
 joined_plot <- npr3_plot + thbd_plot +  vcam1_plot + vwf_plot + plot_layout(nrow = 1,axis_titles = "collect") & labs(y = "Normalized protein level")
 
-save_plot(filename = "./figures/Figure_5.expression_plot.pdf",
+save_plot(filename = "./plots/Figure_5.expression_plot.pdf",
           plot = joined_plot,
           base_asp = 2.5,
           base_height = 4)

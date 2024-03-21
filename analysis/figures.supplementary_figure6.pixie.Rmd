@@ -29,7 +29,7 @@ source("./code/functions.R")
 ```
 
 ```{r}
-pixel_heat <- fread("../results/SeqIF/pixie_pixel_masks_0.05/pixel_channel_avg_meta_cluster.csv")
+pixel_heat <- fread("../data/SeqIF/pixie_pixel_masks_0.05/pixel_channel_avg_meta_cluster.csv")
 pixel_heat
 
 pixel_heat <- pixel_heat %>%
@@ -95,7 +95,7 @@ pheatmap(mat_dat,
 
 ```{r}
 ## read in pixel cluster counts
-pixel_counts = fread("../results/SeqIF/pixie_pixel_masks_0.05/pixel_counts.all_samples.csv")
+pixel_counts = fread("../data/SeqIF/pixie_pixel_masks_0.05/pixel_counts.all_samples.csv")
 pixel_counts <- pixel_counts %>%
   mutate("Pixel_cluster" = if_else(Pixel_cluster %in% c("Cd68+","Trem2+"),"Trem2+ Cd68+",Pixel_cluster)) %>%
   subset(!Pixel_cluster %in% c("Cd68+","Trem2+"))

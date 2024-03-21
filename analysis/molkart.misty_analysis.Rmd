@@ -123,12 +123,12 @@ cts <- all.data %>%
 cts.names <- make.names(cts, allow_ = FALSE)
 
 ## Count number of cells per type
-ct_numbers <- all.data %>%
-  group_by(sample_ID, misty_cts) %>%
-  summarise(n = n()) %>%
-  pivot_wider(names_from = misty_cts, values_from = n) %>%
-  column_to_rownames("sample_ID") %>%
-  as.matrix()
+# ct_numbers <- all.data %>%
+#   group_by(sample_ID, misty_cts) %>%
+#   summarise(n = n()) %>%
+#   pivot_wider(names_from = misty_cts, values_from = n) %>%
+#   column_to_rownames("sample_ID") %>%
+#   as.matrix()
 
 samples %>% walk(\(sample){
   
