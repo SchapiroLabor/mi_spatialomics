@@ -1,7 +1,6 @@
 ---
-title: "figures.supplementary_figure_X.proteomics_qc"
-author: "FloWuenne"
-date: "2023-06-26"
+title: "Supplementary Figure 9"
+author: "Florian Wuennemann"
 output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console

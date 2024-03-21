@@ -1,5 +1,5 @@
 ---
-title: "figures.supplementary_figure_5"
+title: "Supplementary Figure 4"
 author: "FloWuenne"
 date: "2023-06-12"
 output: workflowr::wflow_html

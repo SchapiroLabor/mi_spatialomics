@@ -1,7 +1,6 @@
 ---
-title: "figures.supplementary_figure7"
-author: "FloWuenne"
-date: "2024-03-11"
+title: "Supplementary Figure 7"
+author: "Florian Wuennemann"
 output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
