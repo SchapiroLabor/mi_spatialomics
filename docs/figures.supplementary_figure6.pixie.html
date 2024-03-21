@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="FloWuenne" />
+
+<meta name="date" content="2024-02-28" />
+
+<title>figures.supplementary_figure6.pixie</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">mi_spatialomics</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="data_processing.html">Data processing</a>
+</li>
+<li>
+  <a href="data_analysis.html">Data analysis</a>
+</li>
+<li>
+  <a href="figures.html">Figures</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">figures.supplementary_figure6.pixie</h1>
+<h4 class="author">FloWuenne</h4>
+<h4 class="date">2024-02-28</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2024-03-21
+</p>
+<p>
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>mi_spatialomics/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.1). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20230612code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20230612)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20230612code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20230612)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstreee6213a5ae03dcd38ce227600f6ad3c4c9a7c5fc0targetblanke6213a5a">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/e6213a5ae03dcd38ce227600f6ad3c4c9a7c5fc0" target="_blank">e6213a5</a>
+</a>
+</p>
+</div>
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstreee6213a5ae03dcd38ce227600f6ad3c4c9a7c5fc0targetblanke6213a5a"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/e6213a5ae03dcd38ce227600f6ad3c4c9a7c5fc0" target="_blank">e6213a5</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rproj.user/
+    Ignored:    analysis/.DS_Store
+    Ignored:    analysis/deprecated/.DS_Store
+    Ignored:    analysis/molecular_cartography_python/.DS_Store
+    Ignored:    analysis/seqIF_python/.DS_Store
+    Ignored:    analysis/seqIF_python/pixie/.DS_Store
+    Ignored:    analysis/seqIF_python/pixie/cell_clustering/
+    Ignored:    annotations/.DS_Store
+    Ignored:    annotations/SeqIF/.DS_Store
+    Ignored:    annotations/molkart/.DS_Store
+    Ignored:    annotations/molkart/Figure1_regions/.DS_Store
+    Ignored:    annotations/molkart/Supplementary_Figure4_regions/.DS_Store
+    Ignored:    data/.DS_Store
+    Ignored:    data/140623.calcagno_et_al.seurat_object.rds
+    Ignored:    data/Calcagno2022_int_logNorm_annot.h5Seurat
+    Ignored:    data/IC_03_IF_CCR2_CD68 cell numbers.xlsx
+    Ignored:    data/Traditional_IF_absolute_cell_counts.csv
+    Ignored:    data/Traditional_IF_relative_cell_counts.csv
+    Ignored:    data/pixie.cell_table_size_normalized_cell_labels.csv
+    Ignored:    data/results_cts_100.sqm
+    Ignored:    data/seqIF_regions_annotations/
+    Ignored:    data/seurat/
+    Ignored:    output/.DS_Store
+    Ignored:    output/mol_cart.harmony_object.h5Seurat
+    Ignored:    output/molkart/
+    Ignored:    output/proteomics/
+    Ignored:    output/results_cts.lowres.125.sqm
+    Ignored:    output/seqIF/
+    Ignored:    pipeline_configs/.DS_Store
+    Ignored:    plots/
+    Ignored:    references/.DS_Store
+    Ignored:    renv/.DS_Store
+    Ignored:    renv/library/
+    Ignored:    renv/staging/
+
+Untracked files:
+    Untracked:  analysis/deprecated/figures.supplementary_figureX.Rmd
+    Untracked:  analysis/deprecated/figures.supplementary_figure_X.MistyR.Rmd
+
+Unstaged changes:
+    Deleted:    analysis/figures.supplementary_figureX.Rmd
+    Deleted:    analysis/figures.supplementary_figure_X.MistyR.Rmd
+    Deleted:    analysis/figures.supplementary_figure_X.proteomics_qc.Rmd
+    Deleted:    figures/Figure_5.eps
+    Deleted:    figures/Figure_5.pdf
+    Deleted:    figures/Figure_5.png
+    Deleted:    figures/Figure_5.svg
+    Deleted:    figures/Supplementary_Figure_1_Molecular_Cartography_ROIs.png
+    Deleted:    figures/Supplementary_figure_5.segmentation_metrics.poster.eps
+    Modified:   figures/Supplementary_figure_X.proteomics.eps
+    Modified:   figures/Supplementary_figure_X.proteomics.png
+    Deleted:    results_cts.lowres.125.sqm
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were
+made to the R Markdown
+(<code>analysis/figures.supplementary_figure6.pixie.Rmd</code>) and HTML
+(<code>docs/figures.supplementary_figure6.pixie.html</code>) files. If
+you’ve configured a remote Git repository (see
+<code>?wflow_git_remote</code>), click on the hyperlinks in the table
+below to view the files as they were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/e6213a5ae03dcd38ce227600f6ad3c4c9a7c5fc0/analysis/figures.supplementary_figure6.pixie.Rmd" target="_blank">e6213a5</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2024-03-21
+</td>
+<td>
+Publish all updated files.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/56559c732914d3853c5fb73bef8b60761246d181/analysis/figures.supplementary_figure6.pixie.Rmd" target="_blank">56559c7</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2024-03-21
+</td>
+<td>
+Cleaned up repository.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/21b927e0205633ae05c7b6d6c6a775bf786aa565/analysis/figures.supplementary_figure6.pixie.Rmd" target="_blank">21b927e</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2024-03-17
+</td>
+<td>
+Updates supplementary figure code.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/a49803c71466ba6486f05956e2a2ac329515a2fd/analysis/figures.supplementary_figure6.pixie.Rmd" target="_blank">a49803c</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2024-02-29
+</td>
+<td>
+Updated a number of figures.
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<pre class="r"><code>library(pheatmap)
+library(data.table)
+library(viridis)</code></pre>
+<pre><code>Loading required package: viridisLite</code></pre>
+<pre class="r"><code>library(RColorBrewer)
+library(tidyverse)</code></pre>
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.4.4     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.0
+✔ purrr     1.0.2     </code></pre>
+<pre><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::between()     masks data.table::between()
+✖ dplyr::filter()      masks stats::filter()
+✖ dplyr::first()       masks data.table::first()
+✖ lubridate::hour()    masks data.table::hour()
+✖ lubridate::isoweek() masks data.table::isoweek()
+✖ dplyr::lag()         masks stats::lag()
+✖ dplyr::last()        masks data.table::last()
+✖ lubridate::mday()    masks data.table::mday()
+✖ lubridate::minute()  masks data.table::minute()
+✖ lubridate::month()   masks data.table::month()
+✖ lubridate::quarter() masks data.table::quarter()
+✖ lubridate::second()  masks data.table::second()
+✖ purrr::transpose()   masks data.table::transpose()
+✖ lubridate::wday()    masks data.table::wday()
+✖ lubridate::week()    masks data.table::week()
+✖ lubridate::yday()    masks data.table::yday()
+✖ lubridate::year()    masks data.table::year()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<pre class="r"><code>library(pals)</code></pre>
+<pre><code>
+Attaching package: &#39;pals&#39;
+
+The following objects are masked from &#39;package:viridis&#39;:
+
+    cividis, inferno, magma, plasma, turbo, viridis
+
+The following objects are masked from &#39;package:viridisLite&#39;:
+
+    cividis, inferno, magma, plasma, turbo, viridis</code></pre>
+<pre class="r"><code>library(vroom)</code></pre>
+<pre><code>
+Attaching package: &#39;vroom&#39;
+
+The following objects are masked from &#39;package:readr&#39;:
+
+    as.col_spec, col_character, col_date, col_datetime, col_double,
+    col_factor, col_guess, col_integer, col_logical, col_number,
+    col_skip, col_time, cols, cols_condense, cols_only, date_names,
+    date_names_lang, date_names_langs, default_locale, fwf_cols,
+    fwf_empty, fwf_positions, fwf_widths, locale, output_column,
+    problems, spec</code></pre>
+<pre class="r"><code>library(plotly)</code></pre>
+<pre><code>
+Attaching package: &#39;plotly&#39;
+
+The following object is masked from &#39;package:ggplot2&#39;:
+
+    last_plot
+
+The following object is masked from &#39;package:stats&#39;:
+
+    filter
+
+The following object is masked from &#39;package:graphics&#39;:
+
+    layout</code></pre>
+<pre class="r"><code>pixel_map_color &lt;- c(&quot;#8c3bff&quot;, &quot;#018700&quot;, &quot;#00acc6&quot;, &quot;#97ff00&quot;,
+                &quot;#ff7ed1&quot;, &quot;#6b004f&quot;, &quot;#ffa52f&quot;, &quot;#573b00&quot;, &quot;#005659&quot;,&quot;#ffffff&quot;)
+
+names(pixel_map_color) &lt;- c(&quot;Ankrd1+&quot;, &quot;Mpo+&quot;, &quot;aSMA+&quot;, &quot;Pdgfra+&quot;, &quot;Cd45+&quot;, &quot;Ccr2+&quot;, &quot;Trem2+ Cd68+&quot;, &quot;Cd31+&quot;, &quot;Tnnt2+&quot;,&quot;background&quot;)
+
+
+source(&quot;./code/functions.R&quot;)</code></pre>
+<pre><code>
+Attaching package: &#39;cowplot&#39;
+
+The following object is masked from &#39;package:lubridate&#39;:
+
+    stamp
+
+here() starts at /Users/florian_wuennemann/1_Projects/MI_project/mi_spatialomics</code></pre>
+<pre class="r"><code>pixel_heat &lt;- fread(&quot;../data/SeqIF/pixie_pixel_masks_0.05/pixel_channel_avg_meta_cluster.csv&quot;)
+pixel_heat</code></pre>
+<pre><code>    pixel_meta_cluster    ANKRD1       aSMA       CCR2      CD31       CD45
+ 1:                  1 0.6564672 0.02853554 0.16578453 0.2343214 0.12020333
+ 2:                  2 0.2760541 0.02163947 0.16486345 0.1195075 0.31608038
+ 3:                  5 0.1751630 0.67531316 0.08870606 0.3571941 0.09310648
+ 4:                  8 0.2524684 0.04044455 0.09697171 0.1752383 0.09049972
+ 5:                 11 0.2810251 0.03931616 0.29839863 0.2179582 1.37854076
+ 6:                 12 0.2042928 0.02445315 0.98214607 0.1210940 0.39986051
+ 7:                 17 0.2493411 0.02978874 0.23478253 0.1286853 0.26765573
+ 8:                 18 0.1980813 0.03114820 0.11136213 0.5636297 0.07064971
+ 9:                 20 0.3814408 0.03187345 0.10676994 0.1285132 0.10595270
+10:                 23 0.3647658 0.04919484 0.34145857 0.2864004 0.22677640
+          CD68        MPO     PDGFRa     TNNT2      TREM2      count
+ 1: 0.02963032 0.14417472 0.05818441 0.3331969 0.07812194  307505563
+ 2: 0.07763542 0.93435865 0.07390264 0.2107106 0.11017212   26537966
+ 3: 0.02850467 0.07914696 0.11918324 0.2620314 0.05507709   20357034
+ 4: 0.04440526 0.10189771 0.50140056 0.3540510 0.07616204  127310325
+ 5: 0.12912089 0.26835699 0.12163833 0.2498097 0.16524068    4581183
+ 6: 0.23309418 0.21003429 0.16730817 0.1769699 0.39281374   20030320
+ 7: 0.75303281 0.12003899 0.12104188 0.2046672 1.06433816   26214802
+ 8: 0.02691090 0.07606489 0.06639025 0.3491986 0.05912748  330116307
+ 9: 0.02739381 0.06758424 0.04609704 0.6888311 0.04905438 1938275265
+10: 0.06095365 0.17504628 0.10001979 0.3157357 0.12774674  142733133
+    pixel_meta_cluster_rename
+ 1:                   Ankrd1+
+ 2:                      Mpo+
+ 3:                     aSMA+
+ 4:                   Pdgfra+
+ 5:                     Cd45+
+ 6:                     Ccr2+
+ 7:               Trem2_Cd68+
+ 8:                     Cd31+
+ 9:                    Tnnt2+
+10:                background</code></pre>
+<pre class="r"><code>pixel_heat &lt;- pixel_heat %&gt;%
+  subset(pixel_meta_cluster_rename != &quot;background&quot;)</code></pre>
+<pre class="r"><code>mat_rownames &lt;- pixel_heat$pixel_meta_cluster_rename
+mat_rownames &lt;- gsub(&quot;_&quot;,&quot;+ &quot;,mat_rownames)
+mat_rownames &lt;- paste(mat_rownames,&quot;pixels&quot;, sep = &quot; &quot;)
+mat_dat &lt;- pixel_heat %&gt;%
+  dplyr::select(-c(pixel_meta_cluster,count,pixel_meta_cluster_rename))</code></pre>
+<pre class="r"><code>cap = 3 #hierarchical clustering cap
+hclust_coln = &quot;pixel_meta_cluster_rename&quot;
+rwb_cols = colorRampPalette(c(&quot;royalblue4&quot;,&quot;white&quot;,&quot;red4&quot;))(99)
+
+mat_dat = scale(mat_dat)
+mat_dat = pmin(mat_dat, cap)
+rownames(mat_dat) &lt;- mat_rownames
+
+# Determine breaks
+range = max(abs(mat_dat))
+breaks = seq(-range, range, length.out=100)
+
+mat_col = data.frame(pixel_cluster = as.factor(mat_rownames))
+rownames(mat_col) &lt;- mat_rownames
+mat_colors = pixel_map_color[1:length(mat_rownames)]
+names(mat_colors) = mat_rownames
+mat_colors = list(pixel_cluster = mat_colors)
+
+# Make heatmap
+pheatmap(mat_dat,
+         color = rwb_cols,
+         border_color = &quot;black&quot;,
+         breaks = breaks,
+         cluster_rows = TRUE,
+         cluster_cols = TRUE,
+         treeheight_col = 25,
+         treeheight_row = 25,
+         #treeheight_col = 0,
+         show_rownames = TRUE,
+         annotation_row = mat_col,
+         annotation_colors = mat_colors,
+         annotation_names_row = FALSE,
+         annotation_legend = FALSE,
+         legend = TRUE,
+         #legend_breaks = c(-3,-2,-1,0,1,2,3),
+         #legend_labels = c(&quot;-3&quot;,&quot;-2&quot;,&quot;-1&quot;,&quot;0&quot;,&quot;1&quot;,&quot;2&quot;,&quot;3&quot;),
+         main = &quot;&quot;,
+         filename = &quot;./output/seqIF/supplementary_figure_6.pixie_pixel_cluster_heatmap.pdf&quot;,
+         fontsize = 20,
+         width = 8,
+         height = 6)</code></pre>
+</div>
+<div id="pixel-cluster-changes-over-time" class="section level2">
+<h2>Pixel cluster changes over time</h2>
+<pre class="r"><code>## read in pixel cluster counts
+pixel_counts = fread(&quot;../data/SeqIF/pixie_pixel_masks_0.05/pixel_counts.all_samples.csv&quot;)
+pixel_counts &lt;- pixel_counts %&gt;%
+  mutate(&quot;Pixel_cluster&quot; = if_else(Pixel_cluster %in% c(&quot;Cd68+&quot;,&quot;Trem2+&quot;),&quot;Trem2+ Cd68+&quot;,Pixel_cluster)) %&gt;%
+  subset(!Pixel_cluster %in% c(&quot;Cd68+&quot;,&quot;Trem2+&quot;))
+  
+pixel_cluster_counts_stats &lt;- pixel_counts %&gt;%
+  subset(Pixel_cluster != &quot;background&quot;) %&gt;%
+  separate(&quot;Sample_ID&quot;, into = c(&quot;time&quot;,&quot;sample&quot;)) %&gt;%
+  group_by(sample,time,Pixel_cluster) %&gt;%
+  summarise(&quot;n_pixel&quot; = sum(Count)) %&gt;%
+  mutate(&quot;percent&quot; = n_pixel / sum(n_pixel)) %&gt;%
+  ungroup()</code></pre>
+<pre><code>`summarise()` has grouped output by &#39;sample&#39;, &#39;time&#39;. You can override using
+the `.groups` argument.</code></pre>
+<pre class="r"><code>pixel_cluster_counts_stats$time &lt;-factor(pixel_cluster_counts_stats$time,
+                              levels = c(&quot;Control&quot;,&quot;4h&quot;,&quot;24h&quot;,&quot;48h&quot;))
+
+pixel_cluster_counts_stats$Pixel_cluster &lt;- factor(pixel_cluster_counts_stats$Pixel_cluster,
+                              levels = c(&quot;Tnnt2+&quot;, &quot;Ankrd1+&quot;,&quot;Cd31+&quot;,&quot;Pdgfra+&quot;, &quot;Mpo+&quot;,&quot;aSMA+&quot;, &quot;Ccr2+&quot;,&quot;Trem2+ Cd68+&quot;,&quot;Cd45+&quot;))</code></pre>
+<pre class="r"><code>pixel_number_distribution &lt;- ggplot(pixel_cluster_counts_stats, 
+                                    aes(x=time, y=percent * 100)) +
+  # geom_bar(stat = &quot;identity&quot;, position = &quot;stack&quot;, aes(fill = Pixel_cluster), color = &quot;black&quot;) +
+  geom_bar(position=&#39;dodge&#39;, stat=&#39;summary&#39;, fun=&#39;mean&#39;, color = &quot;black&quot;,
+           aes(fill = Pixel_cluster)) +
+  # Add points for each fill group on top of bars
+  geom_point(aes(group=Pixel_cluster), size=2.5, shape=21, fill=&quot;white&quot;, color=&quot;black&quot;) +
+  theme(legend.position = &quot;none&quot;,
+        axis.line = element_blank()) +
+  scale_fill_manual(values = pixel_map_color) +
+  scale_x_discrete(expand = c(0,0.1),
+                   name =&quot;Time&quot;, 
+                   limits=c(&quot;Control&quot;,&quot;4h&quot;,&quot;24h&quot;,&quot;48h&quot;)) +
+  labs(y = &quot;% cells&quot;) +
+  facet_wrap(~ Pixel_cluster, scales = &quot;free_y&quot;, nrow = 2)
+
+pixel_number_distribution</code></pre>
+<p><img src="figure/figures.supplementary_figure6.pixie.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>save_plot(pixel_number_distribution,
+          file = &quot;./output/seqIF/supplementary_figure_6.pixie_clusters_overtime.pdf&quot;,
+          base_height = 4,
+          base_asp = 2.5)</code></pre>
+<!-- ## Cell cluster changes over time -->
+<!-- ```{r} -->
+<!-- ## Plot distribution of all cell types for a given sample -->
+<!-- unique(cells_over_time$cell_meta_cluster) -->
+<!-- unique(cells_over_time$fov) -->
+<!-- cells_over_time_sub <- subset(cells_over_time,fov == "48h_79") -->
+<!-- spatial_plot <- ggplot(cells_over_time_sub,aes(X_centroid,Y_centroid,color = cell_meta_cluster)) + -->
+<!--   geom_point(size = 0.01) + -->
+<!--   facet_wrap(~ cell_meta_cluster) + -->
+<!--   labs(title= unique(cells_over_time_sub$fov)) -->
+<!-- spatial_plot -->
+<!-- ``` -->
+<!-- ```{r} -->
+<!-- # ## Plot distribution of 1 cell type over time -->
+<!-- # # cells_over_time_sub <- subset(cells_over_time,fov %in% c("Control_14","4h_97","24h_86","48h_76")) -->
+<!-- # cells_over_time_sub <- cells_over_time -->
+<!-- # pt_size = 0.001 -->
+<!-- #  -->
+<!-- # # cells_over_time_sub$fov <- factor(cells_over_time_sub$fov,  -->
+<!-- # #                                   levels = c("Control_14","4h_97","24h_86","48h_76")) -->
+<!-- #  -->
+<!-- # spatial_plot_monos_macros_ccr2 <- ggplot(cells_over_time_sub,aes(X_centroid,Y_centroid)) + -->
+<!-- #     geom_point(data = subset(cells_over_time_sub,cell_meta_cluster == "Cardiomyocytes"),size = pt_size, -->
+<!-- #              color = "darkgrey") + -->
+<!-- #   geom_point(data = subset(cells_over_time_sub,cell_meta_cluster == "Cardiomyocytes Ankrd1+"),size = pt_size, -->
+<!-- #              color = "blue") + -->
+<!-- #   geom_point(data = subset(cells_over_time_sub,cell_meta_cluster == "Neutrophils" | cell_meta_cluster ==  "Mono / Macros Ccr2+"),size = pt_size, -->
+<!-- #              color = "magenta", alpha = 0.5) + -->
+<!-- #     # geom_point(data = subset(cells_over_time_sub,cell_meta_cluster == "Mono / Macros Ccr2+"),size = pt_size, -->
+<!-- #     #          color = "yellow") + -->
+<!-- #   facet_wrap(~ fov) -->
+<!-- #  -->
+<!-- # spatial_plot_monos_macros_ccr2 -->
+<!-- ``` -->
+<!-- ```{r} -->
+<!-- ## Color palette -->
+<!-- cells_over_time_sub <-  cells_over_time %>% -->
+<!-- #  mutate("cell_type_labels" = if_else(grepl("Macro|Neutro",cell_meta_cluster),"Myeloid cells",cell_meta_cluster)) -->
+<!--   mutate("cell_type_labels" = cell_meta_cluster) -->
+<!-- cells_over_time_sub <- cells_over_time_sub %>% -->
+<!--   subset(!cell_type_labels %in% c("background","out_of_mask")) %>% -->
+<!--   separate("fov", into = c("time","sample")) %>% -->
+<!--   group_by(time,cell_type_labels) %>% -->
+<!--   tally() %>% -->
+<!--   ungroup() -->
+<!-- cells_over_time_sub <- cells_over_time_sub %>% -->
+<!--   group_by(time) %>% -->
+<!--   mutate("percent" = n / sum(n)) %>% -->
+<!--   ungroup() -->
+<!-- ``` -->
+<!-- ```{r} -->
+<!-- # cells_over_time_sub$time <-factor(cells_over_time_sub$time, -->
+<!-- #                               levels = c("Control","4h","24h","48h")) -->
+<!-- #  -->
+<!-- # cells_over_time_sub$percent_p <- cells_over_time_sub$percent * 100 -->
+<!-- # cell_number_distribution_bar <- ggplot(cells_over_time_sub, aes(x=time_cont, y=percent_p, fill= cell_type_labels)) + -->
+<!-- #   geom_bar(stat = "identity", position = "fill", color = "black") + -->
+<!-- #   theme(legend.position = "right", -->
+<!-- #         legend.title = element_blank(), -->
+<!-- #         axis.line = element_blank(), -->
+<!-- #         legend.text=element_text(size=18), -->
+<!-- #         axis.text = element_text(size=18)) + -->
+<!-- #   labs(y = "% cells") + -->
+<!-- #   scale_fill_manual(values = cell_cluster_colors) + -->
+<!-- #   scale_x_discrete(expand = c(0,0.1), -->
+<!-- #                    name ="Time", -->
+<!-- #                     limits=c("Control","4h","24h","48h")) + -->
+<!-- #   guides(fill=guide_legend(nrow=10,byrow=TRUE)) -->
+<!-- #  -->
+<!-- # cell_number_distribution_bar -->
+<!-- #  -->
+<!-- # save_plot(cell_number_distribution_bar, -->
+<!-- #           file = "./output/seqIF/Figure3.cell_types_overtimes.pdf", -->
+<!-- #           base_height = 5, -->
+<!-- #           base_asp = 1.5) -->
+<!-- ``` -->
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.3.1 (2023-06-16)
+Platform: aarch64-apple-darwin20 (64-bit)
+Running under: macOS Sonoma 14.1.2
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib 
+LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+time zone: Europe/Berlin
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices datasets  utils     methods   base     
+
+other attached packages:
+ [1] here_1.0.1         ggsci_3.0.0        cowplot_1.1.2      plotly_4.10.4     
+ [5] vroom_1.6.5        pals_1.8           lubridate_1.9.3    forcats_1.0.0     
+ [9] stringr_1.5.1      dplyr_1.1.4        purrr_1.0.2        readr_2.1.5       
+[13] tidyr_1.3.0        tibble_3.2.1       ggplot2_3.4.4      tidyverse_2.0.0   
+[17] RColorBrewer_1.1-3 viridis_0.6.4      viridisLite_0.4.2  data.table_1.14.10
+[21] pheatmap_1.0.12    workflowr_1.7.1   
+
+loaded via a namespace (and not attached):
+ [1] tidyselect_1.2.0    farver_2.1.1        fastmap_1.1.1      
+ [4] lazyeval_0.2.2      promises_1.2.1      digest_0.6.34      
+ [7] timechange_0.2.0    lifecycle_1.0.4     processx_3.8.3     
+[10] magrittr_2.0.3      compiler_4.3.1      rlang_1.1.3        
+[13] sass_0.4.8          tools_4.3.1         utf8_1.2.4         
+[16] yaml_2.3.8          knitr_1.45          labeling_0.4.3     
+[19] htmlwidgets_1.6.4   bit_4.0.5           mapproj_1.2.11     
+[22] withr_2.5.2         grid_4.3.1          fansi_1.0.6        
+[25] git2r_0.33.0        colorspace_2.1-0    scales_1.3.0       
+[28] dichromat_2.0-0.1   cli_3.6.2           rmarkdown_2.25     
+[31] crayon_1.5.2        ragg_1.2.7          generics_0.1.3     
+[34] rstudioapi_0.15.0   httr_1.4.7          tzdb_0.4.0         
+[37] cachem_1.0.8        maps_3.4.2          BiocManager_1.30.22
+[40] vctrs_0.6.5         jsonlite_1.8.8      callr_3.7.3        
+[43] hms_1.1.3           bit64_4.0.5         systemfonts_1.0.5  
+[46] jquerylib_0.1.4     glue_1.7.0          ps_1.7.6           
+[49] stringi_1.8.3       gtable_0.3.4        later_1.3.2        
+[52] munsell_0.5.0       pillar_1.9.0        htmltools_0.5.7    
+[55] R6_2.5.1            textshaping_0.3.7   rprojroot_2.0.4    
+[58] evaluate_0.23       highr_0.10          renv_1.0.3         
+[61] httpuv_1.6.14       bslib_0.6.1         Rcpp_1.0.12        
+[64] gridExtra_2.3       whisker_0.4.1       xfun_0.41          
+[67] fs_1.6.3            getPass_0.2-4       pkgconfig_2.0.3    </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,2032 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Florian Wuennemann" />
+
+
+<title>Molecular Cartography - Seurat analysis</title>
+
+<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">mi_spatialomics</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="data_processing.html">Data processing</a>
+</li>
+<li>
+  <a href="data_analysis.html">Data analysis</a>
+</li>
+<li>
+  <a href="figures.html">Figures</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Molecular Cartography - Seurat
+analysis</h1>
+<h4 class="author">Florian Wuennemann</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+workflowr <span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2024-03-21
+</p>
+<p>
+<strong>Checks:</strong> <span
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>mi_spatialomics/</code> <span
+class="glyphicon glyphicon-question-sign" aria-hidden="true"
+title="This is the local directory in which the code in this file was executed.">
+</span>
+</p>
+<p>
+This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a>
+analysis was created with <a
+  href="https://github.com/workflowr/workflowr">workflowr</a> (version
+1.7.1). The <em>Checks</em> tab describes the reproducibility checks
+that were applied when the results were created. The <em>Past
+versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the
+global environment can affect the analysis in your R Markdown file in
+unknown ways. For reproduciblity it’s best to always run the code in an
+empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20230612code">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Seed:</strong>
+<code>set.seed(20230612)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20230612code"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20230612)</code> was run prior to running
+the code in the R Markdown file. Setting a seed ensures that any results
+that rely on randomness, e.g. subsampling or permutations, are
+reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Session information:</strong>
+recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package
+versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be
+confident that you successfully produced the results during this
+run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr
+project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstreee6213a5ae03dcd38ce227600f6ad3c4c9a7c5fc0targetblanke6213a5a">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>Repository version:</strong>
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/e6213a5ae03dcd38ce227600f6ad3c4c9a7c5fc0" target="_blank">e6213a5</a>
+</a>
+</p>
+</div>
+<div
+id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstreee6213a5ae03dcd38ce227600f6ad3c4c9a7c5fc0targetblanke6213a5a"
+class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development
+and connecting the code version to the results is critical for
+reproducibility.
+</p>
+<p>
+The results in this page were generated with repository version
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/e6213a5ae03dcd38ce227600f6ad3c4c9a7c5fc0" target="_blank">e6213a5</a>.
+See the <em>Past versions</em> tab to see a history of the changes made
+to the R Markdown and HTML files.
+</p>
+<p>
+Note that you need to be careful to ensure that all relevant files for
+the analysis have been committed to Git prior to generating the results
+(you can use <code>wflow_publish</code> or
+<code>wflow_git_commit</code>). workflowr only checks the R Markdown
+file, but you know if there are other scripts or data files that it
+depends on. Below is the status of the Git repository when the results
+were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .DS_Store
+    Ignored:    .Rproj.user/
+    Ignored:    analysis/.DS_Store
+    Ignored:    analysis/deprecated/.DS_Store
+    Ignored:    analysis/molecular_cartography_python/.DS_Store
+    Ignored:    analysis/seqIF_python/.DS_Store
+    Ignored:    analysis/seqIF_python/pixie/.DS_Store
+    Ignored:    analysis/seqIF_python/pixie/cell_clustering/
+    Ignored:    annotations/.DS_Store
+    Ignored:    annotations/SeqIF/.DS_Store
+    Ignored:    annotations/molkart/.DS_Store
+    Ignored:    annotations/molkart/Figure1_regions/.DS_Store
+    Ignored:    annotations/molkart/Supplementary_Figure4_regions/.DS_Store
+    Ignored:    data/.DS_Store
+    Ignored:    data/140623.calcagno_et_al.seurat_object.rds
+    Ignored:    data/Calcagno2022_int_logNorm_annot.h5Seurat
+    Ignored:    data/IC_03_IF_CCR2_CD68 cell numbers.xlsx
+    Ignored:    data/Traditional_IF_absolute_cell_counts.csv
+    Ignored:    data/Traditional_IF_relative_cell_counts.csv
+    Ignored:    data/pixie.cell_table_size_normalized_cell_labels.csv
+    Ignored:    data/results_cts_100.sqm
+    Ignored:    data/seqIF_regions_annotations/
+    Ignored:    data/seurat/
+    Ignored:    output/.DS_Store
+    Ignored:    output/mol_cart.harmony_object.h5Seurat
+    Ignored:    output/molkart/
+    Ignored:    output/proteomics/
+    Ignored:    output/results_cts.lowres.125.sqm
+    Ignored:    output/seqIF/
+    Ignored:    pipeline_configs/.DS_Store
+    Ignored:    plots/
+    Ignored:    references/.DS_Store
+    Ignored:    renv/.DS_Store
+    Ignored:    renv/library/
+    Ignored:    renv/staging/
+
+Untracked files:
+    Untracked:  analysis/deprecated/figures.supplementary_figureX.Rmd
+    Untracked:  analysis/deprecated/figures.supplementary_figure_X.MistyR.Rmd
+
+Unstaged changes:
+    Deleted:    analysis/figures.supplementary_figureX.Rmd
+    Deleted:    analysis/figures.supplementary_figure_X.MistyR.Rmd
+    Deleted:    analysis/figures.supplementary_figure_X.proteomics_qc.Rmd
+    Deleted:    figures/Figure_5.eps
+    Deleted:    figures/Figure_5.pdf
+    Deleted:    figures/Figure_5.png
+    Deleted:    figures/Figure_5.svg
+    Deleted:    figures/Supplementary_Figure_1_Molecular_Cartography_ROIs.png
+    Deleted:    figures/Supplementary_figure_5.segmentation_metrics.poster.eps
+    Modified:   figures/Supplementary_figure_X.proteomics.eps
+    Modified:   figures/Supplementary_figure_X.proteomics.png
+    Modified:   results_cts.lowres.125.sqm
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not
+included in this status report because it is ok for generated content to
+have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the repository in which changes were
+made to the R Markdown
+(<code>analysis/molkart.seurat_analysis.Rmd</code>) and HTML
+(<code>docs/molkart.seurat_analysis.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/56559c732914d3853c5fb73bef8b60761246d181/analysis/molkart.seurat_analysis.Rmd" target="_blank">56559c7</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2024-03-21
+</td>
+<td>
+Cleaned up repository.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/b06dcd3db178ee99174eccc48ef69c5e412d3b38/analysis/molkart.seurat_analysis.Rmd" target="_blank">b06dcd3</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2024-02-25
+</td>
+<td>
+Updated Figure 1,4 and S4 and 5 code.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/af64c404ea19eb213eb04f764db6e3ca5fc6f513/analysis/molkart.seurat_analysis.Rmd" target="_blank">af64c40</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2024-01-30
+</td>
+<td>
+Updated analysis for Figure 1 and 2.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/86e53f04583198a6d5ee6292cc4073f99691b432/analysis/molkart.seurat_analysis.Rmd" target="_blank">86e53f0</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2024-01-22
+</td>
+<td>
+Finalized new Figure 1 plots.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/82f107f64ab7816688025b9d625c2e5652fcabc3/analysis/molkart.seurat_analysis.Rmd" target="_blank">82f107f</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2024-01-21
+</td>
+<td>
+Updates to Molkart analysis.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/f4d5c82b8aff408b3c7ab1c5d910d67597ac771b/analysis/molkart.seurat_analysis.Rmd" target="_blank">f4d5c82</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2024-01-15
+</td>
+<td>
+Latest update to Seurat analysis with reprocessed data.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/2d9b9093963bf07fb65d4723babe273e195717d5/analysis/molkart.seurat_analysis.Rmd" target="_blank">2d9b909</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2024-01-09
+</td>
+<td>
+Pushing latest changes. Updating molkart data.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/60d835ca4f4425597bb5fc2b34e87ecb10868ba7/analysis/molkart.seurat_analysis.Rmd" target="_blank">60d835c</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-12-06
+</td>
+<td>
+Updated renv packages.
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<pre class="r"><code>library(Seurat)</code></pre>
+<pre><code>Loading required package: SeuratObject</code></pre>
+<pre><code>Loading required package: sp</code></pre>
+<pre><code>&#39;SeuratObject&#39; was built with package &#39;Matrix&#39; 1.6.3 but the current
+version is 1.6.5; it is recomended that you reinstall &#39;SeuratObject&#39; as
+the ABI for &#39;Matrix&#39; may have changed</code></pre>
+<pre><code>
+Attaching package: &#39;SeuratObject&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:base&#39;:
+
+    intersect</code></pre>
+<pre class="r"><code>library(SeuratData)
+library(SeuratDisk)</code></pre>
+<pre><code>Registered S3 method overwritten by &#39;SeuratDisk&#39;:
+  method            from  
+  as.sparse.H5Group Seurat</code></pre>
+<pre class="r"><code>library(data.table)
+library(harmony)</code></pre>
+<pre><code>Loading required package: Rcpp</code></pre>
+<pre class="r"><code>library(here)</code></pre>
+<pre><code>here() starts at /Users/florian_wuennemann/1_Projects/MI_project/mi_spatialomics</code></pre>
+<pre class="r"><code>library(Nebulosa)</code></pre>
+<pre><code>Loading required package: ggplot2</code></pre>
+<pre><code>Loading required package: patchwork</code></pre>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ lubridate 1.9.3     ✔ tibble    3.2.1
+✔ purrr     1.0.2     ✔ tidyr     1.3.0</code></pre>
+<pre><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::between()     masks data.table::between()
+✖ dplyr::filter()      masks stats::filter()
+✖ dplyr::first()       masks data.table::first()
+✖ lubridate::hour()    masks data.table::hour()
+✖ lubridate::isoweek() masks data.table::isoweek()
+✖ dplyr::lag()         masks stats::lag()
+✖ dplyr::last()        masks data.table::last()
+✖ lubridate::mday()    masks data.table::mday()
+✖ lubridate::minute()  masks data.table::minute()
+✖ lubridate::month()   masks data.table::month()
+✖ lubridate::quarter() masks data.table::quarter()
+✖ lubridate::second()  masks data.table::second()
+✖ purrr::transpose()   masks data.table::transpose()
+✖ lubridate::wday()    masks data.table::wday()
+✖ lubridate::week()    masks data.table::week()
+✖ lubridate::yday()    masks data.table::yday()
+✖ lubridate::year()    masks data.table::year()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<pre class="r"><code>library(GGally)</code></pre>
+<pre><code>Registered S3 method overwritten by &#39;GGally&#39;:
+  method from   
+  +.gg   ggplot2</code></pre>
+<pre class="r"><code>library(Matrix)</code></pre>
+<pre><code>
+Attaching package: &#39;Matrix&#39;
+
+The following objects are masked from &#39;package:tidyr&#39;:
+
+    expand, pack, unpack</code></pre>
+<pre class="r"><code>library(sf)</code></pre>
+<pre><code>Linking to GEOS 3.11.0, GDAL 3.5.3, PROJ 9.1.0; sf_use_s2() is TRUE</code></pre>
+<pre class="r"><code>library(sfheaders)
+library(viridis)</code></pre>
+<pre><code>Loading required package: viridisLite</code></pre>
+<pre class="r"><code>source(&quot;./code/functions.R&quot;)</code></pre>
+<pre><code>
+Attaching package: &#39;cowplot&#39;
+
+The following object is masked from &#39;package:lubridate&#39;:
+
+    stamp
+
+The following object is masked from &#39;package:patchwork&#39;:
+
+    align_plots</code></pre>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>In this analysis, we will process the single-cell quantification from
+nf-Molkart. These tables are basically the output from the regionprops
+command from scikit and contain properties from the segmentation masks,
+as well as the count of RNA molecules per gene. We will parse these
+tables to extract the transcript counts, put these in the expression
+matrix slots from Seurat and extract the metadata for samples and
+segmentation masks and put these into the metadata slot of Seurat
+objects.</p>
+</div>
+<div id="read-data" class="section level1">
+<h1>Read data</h1>
+<div id="process-mcquant-tables-to-seurat-object"
+class="section level2">
+<h2>Process mcquant tables to seurat object</h2>
+<p>First, we read the samples, create Seurat objects for them and then
+merge the Seurat objects.</p>
+<div id="merging-seurat-objects" class="section level3">
+<h3>Merging seurat objects</h3>
+<pre class="r"><code>final_samples &lt;- c(&quot;sample_control_r1_s1&quot;,&quot;sample_control_r2_s1&quot;,
+                   &quot;sample_4h_r1_s1&quot;,&quot;sample_4h_r2_s2&quot;,
+                   &quot;sample_2d_r1_s1&quot;,&quot;sample_2d_r2_s1&quot;,
+                   &quot;sample_4d_r1_s1&quot;,&quot;sample_4d_r2_s1&quot;)
+
+seurat_objects &lt;- list()
+norm_list &lt;- list()
+
+## SCTransform based clustering across all samples
+sample_dir &lt;- &quot;../data/nf-core_molkart/spot2cell&quot;
+seurat_list &lt;- list()
+segmethod_samples &lt;- list.files(sample_dir)
+for(sample in segmethod_samples){
+    sample_ID &lt;- strsplit(sample,&quot;\\.&quot;)[[1]][1]
+    sample_ID &lt;- strsplit(sample_ID,split=&quot;_&quot;)[[1]][-1]
+    sample_ID &lt;- paste(sample_ID[1:length(sample_ID) -1],collapse = &quot;_&quot;)
+    if(endsWith(sample,&quot;_cellpose.csv&quot;) &amp; sample_ID %in% final_samples){
+      print(sample_ID)
+      sample_quant &lt;- fread(paste(sample_dir,sample,sep=&quot;/&quot;))
+      seurat_object &lt;- create_seurat_sctransform_mcquant(sample_quant,sample_ID)
+      # norm_list[[sample_ID]] &lt;- seurat_object@assays$RNA@layers$counts / seurat_object@meta.data$Area
+      seurat_list[[sample_ID]] &lt;- seurat_object
+  }
+}</code></pre>
+<pre><code>[1] &quot;sample_2d_r1_s1&quot;</code></pre>
+<pre><code>Warning: Data is of class matrix. Coercing to dgCMatrix.</code></pre>
+<pre><code>[1] &quot;sample_2d_r2_s1&quot;</code></pre>
+<pre><code>Warning: Data is of class matrix. Coercing to dgCMatrix.</code></pre>
+<pre><code>[1] &quot;sample_4d_r1_s1&quot;</code></pre>
+<pre><code>Warning: Data is of class matrix. Coercing to dgCMatrix.</code></pre>
+<pre><code>[1] &quot;sample_4d_r2_s1&quot;</code></pre>
+<pre><code>Warning: Data is of class matrix. Coercing to dgCMatrix.</code></pre>
+<pre><code>[1] &quot;sample_4h_r1_s1&quot;</code></pre>
+<pre><code>Warning: Data is of class matrix. Coercing to dgCMatrix.</code></pre>
+<pre><code>[1] &quot;sample_4h_r2_s2&quot;</code></pre>
+<pre><code>Warning: Data is of class matrix. Coercing to dgCMatrix.</code></pre>
+<pre><code>[1] &quot;sample_control_r1_s1&quot;</code></pre>
+<pre><code>Warning: Data is of class matrix. Coercing to dgCMatrix.</code></pre>
+<pre><code>[1] &quot;sample_control_r2_s1&quot;</code></pre>
+<pre><code>Warning: Data is of class matrix. Coercing to dgCMatrix.</code></pre>
+<pre class="r"><code>resolve_object &lt;- merge(seurat_list[[1]], y = c(seurat_list[-1]), 
+                        project = &quot;molkart_MI&quot;, merge.data = TRUE)
+resolve_object &lt;- JoinLayers(resolve_object)</code></pre>
+</div>
+</div>
+</div>
+<div id="process-data" class="section level1">
+<h1>Process data</h1>
+<p>Now, we will filter cells based on some general quality control
+parameters like a minimum number of RNA molecules detected and also
+remove some weirdly shaped cell masks.</p>
+<div id="plot-distribution-of-transcript-counts-and-mask-properties"
+class="section level2">
+<h2>Plot distribution of transcript counts and mask properties</h2>
+<pre class="r"><code>## Set order of timepoints
+resolve_object@meta.data$timepoint &lt;- factor(resolve_object@meta.data$timepoint,
+                               levels = c(&quot;control&quot;,&quot;4h&quot;,&quot;2d&quot;,&quot;4d&quot;))
+
+
+## Show distribution of QC measures before filtering outliers
+VlnPlot(resolve_object, features = c(&quot;nCount_RNA&quot;,&quot;nFeature_RNA&quot;,&quot;Area&quot;,&quot;Eccentricity&quot;,&quot;Solidity&quot;),
+        group.by = &quot;timepoint&quot;, pt.size = 0, cols = time_palette)</code></pre>
+<pre><code>Warning: Default search for &quot;data&quot; layer in &quot;RNA&quot; assay yielded no results;
+utilizing &quot;counts&quot; layer instead.</code></pre>
+<p><img src="figure/molkart.seurat_analysis.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>prefiltered_cells &lt;- nrow(resolve_object@meta.data)
+print(paste(prefiltered_cells,&quot;cells before filtering&quot;))</code></pre>
+<pre><code>[1] &quot;83606 cells before filtering&quot;</code></pre>
+</div>
+<div id="filter-outlier-cells" class="section level2">
+<h2>Filter outlier cells</h2>
+<pre class="r"><code>## Before filtering cells, let&#39;s see if there are any specific outliers
+meta_props &lt;- resolve_object@meta.data %&gt;%
+  select(Area,MajorAxisLength,MinorAxisLength,Eccentricity,Solidity,Extent,nCount_RNA,timepoint)
+
+ggpairs(meta_props, 
+        mapping = aes(color = timepoint),
+        columns = c(&quot;Area&quot;, &quot;Solidity&quot;, &quot;Extent&quot;,&quot;nCount_RNA&quot;))</code></pre>
+<p><img src="figure/molkart.seurat_analysis.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>resolve_object &lt;- subset(resolve_object, 
+                         subset = 
+                           nCount_RNA &lt;= 4000 &amp; 
+                           nCount_RNA &gt;= 20 &amp;
+                           Extent &gt; 0.25 &amp;
+                           Solidity &gt; 0.75)
+
+## How many cells are left after filtering?
+post_filter_cells &lt;- nrow(resolve_object@meta.data)</code></pre>
+<pre class="r"><code>## Let&#39;s check the same correlations after filtering
+meta_props &lt;- resolve_object@meta.data %&gt;%
+  select(Area,MajorAxisLength,MinorAxisLength,Eccentricity,Solidity,Extent,nCount_RNA,timepoint)
+
+ggpairs(meta_props, 
+        mapping = aes(color = timepoint),
+        columns = c(&quot;Area&quot;, &quot;Solidity&quot;, &quot;Extent&quot;,&quot;nCount_RNA&quot;))</code></pre>
+<p><img src="figure/molkart.seurat_analysis.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>## Show distribution of QC measures after filtering outliers
+VlnPlot(resolve_object, features = c(&quot;nCount_RNA&quot;,&quot;nFeature_RNA&quot;,&quot;Area&quot;,&quot;Eccentricity&quot;,&quot;Solidity&quot;),
+        group.by = &quot;timepoint&quot;, pt.size = 0, cols = time_palette)</code></pre>
+<pre><code>Warning: Default search for &quot;data&quot; layer in &quot;RNA&quot; assay yielded no results;
+utilizing &quot;counts&quot; layer instead.</code></pre>
+<p><img src="figure/molkart.seurat_analysis.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="integrate-samples-using-sctransform-and-harmony"
+class="section level2">
+<h2>Integrate samples using SCTransform and Harmony</h2>
+<p>Now we will integrate the different samples using the harmony method
+within Seurat.</p>
+<pre class="r"><code>resolve_object[[&quot;RNA&quot;]] &lt;- split(resolve_object[[&quot;RNA&quot;]], f = resolve_object$timepoint)</code></pre>
+<pre class="r"><code>## Normalize and scale data using sctransform v2
+resolve_object &lt;- SCTransform(resolve_object, 
+                              assay = &quot;RNA&quot;)</code></pre>
+<pre><code>Running SCTransform on assay: RNA</code></pre>
+<pre><code>Running SCTransform on layer: counts.2d</code></pre>
+<pre><code>vst.flavor=&#39;v2&#39; set. Using model with fixed slope and excluding poisson genes.</code></pre>
+<pre><code>Variance stabilizing transformation of count matrix of size 93 by 9183</code></pre>
+<pre><code>Model formula is y ~ log_umi</code></pre>
+<pre><code>Get Negative Binomial regression parameters per gene</code></pre>
+<pre><code>Using 93 genes, 5000 cells</code></pre>
+<pre><code>Second step: Get residuals using fitted parameters for 93 genes</code></pre>
+<pre><code>Computing corrected count matrix for 93 genes</code></pre>
+<pre><code>Calculating gene attributes</code></pre>
+<pre><code>Wall clock passed: Time difference of 0.8328509 secs</code></pre>
+<pre><code>Determine variable features</code></pre>
+<pre><code>Centering data matrix</code></pre>
+<pre><code>Getting residuals for block 1(of 2) for 2d dataset</code></pre>
+<pre><code>Getting residuals for block 2(of 2) for 2d dataset</code></pre>
+<pre><code>Centering data matrix</code></pre>
+<pre><code>Finished calculating residuals for 2d</code></pre>
+<pre><code>Running SCTransform on layer: counts.4d</code></pre>
+<pre><code>vst.flavor=&#39;v2&#39; set. Using model with fixed slope and excluding poisson genes.</code></pre>
+<pre><code>Variance stabilizing transformation of count matrix of size 99 by 19015</code></pre>
+<pre><code>Model formula is y ~ log_umi</code></pre>
+<pre><code>Get Negative Binomial regression parameters per gene</code></pre>
+<pre><code>Using 94 genes, 5000 cells</code></pre>
+<pre><code>Second step: Get residuals using fitted parameters for 99 genes</code></pre>
+<pre><code>Computing corrected count matrix for 99 genes</code></pre>
+<pre><code>Calculating gene attributes</code></pre>
+<pre><code>Wall clock passed: Time difference of 0.985574 secs</code></pre>
+<pre><code>Determine variable features</code></pre>
+<pre><code>Centering data matrix</code></pre>
+<pre><code>Getting residuals for block 1(of 4) for 4d dataset</code></pre>
+<pre><code>Getting residuals for block 2(of 4) for 4d dataset</code></pre>
+<pre><code>Getting residuals for block 3(of 4) for 4d dataset</code></pre>
+<pre><code>Getting residuals for block 4(of 4) for 4d dataset</code></pre>
+<pre><code>Centering data matrix</code></pre>
+<pre><code>Finished calculating residuals for 4d</code></pre>
+<pre><code>Running SCTransform on layer: counts.4h</code></pre>
+<pre><code>vst.flavor=&#39;v2&#39; set. Using model with fixed slope and excluding poisson genes.</code></pre>
+<pre><code>Variance stabilizing transformation of count matrix of size 95 by 20155</code></pre>
+<pre><code>Model formula is y ~ log_umi</code></pre>
+<pre><code>Get Negative Binomial regression parameters per gene</code></pre>
+<pre><code>Using 94 genes, 5000 cells</code></pre>
+<pre><code>Second step: Get residuals using fitted parameters for 95 genes</code></pre>
+<pre><code>Computing corrected count matrix for 95 genes</code></pre>
+<pre><code>Calculating gene attributes</code></pre>
+<pre><code>Wall clock passed: Time difference of 0.6392071 secs</code></pre>
+<pre><code>Determine variable features</code></pre>
+<pre><code>Centering data matrix</code></pre>
+<pre><code>Getting residuals for block 1(of 5) for 4h dataset</code></pre>
+<pre><code>Getting residuals for block 2(of 5) for 4h dataset</code></pre>
+<pre><code>Getting residuals for block 3(of 5) for 4h dataset</code></pre>
+<pre><code>Getting residuals for block 4(of 5) for 4h dataset</code></pre>
+<pre><code>Getting residuals for block 5(of 5) for 4h dataset</code></pre>
+<pre><code>Centering data matrix</code></pre>
+<pre><code>Finished calculating residuals for 4h</code></pre>
+<pre><code>Running SCTransform on layer: counts.control</code></pre>
+<pre><code>vst.flavor=&#39;v2&#39; set. Using model with fixed slope and excluding poisson genes.</code></pre>
+<pre><code>Variance stabilizing transformation of count matrix of size 93 by 20675</code></pre>
+<pre><code>Model formula is y ~ log_umi</code></pre>
+<pre><code>Get Negative Binomial regression parameters per gene</code></pre>
+<pre><code>Using 89 genes, 5000 cells</code></pre>
+<pre><code>Found 2 outliers - those will be ignored in fitting/regularization step</code></pre>
+<pre><code>Second step: Get residuals using fitted parameters for 93 genes</code></pre>
+<pre><code>Computing corrected count matrix for 93 genes</code></pre>
+<pre><code>Calculating gene attributes</code></pre>
+<pre><code>Wall clock passed: Time difference of 0.636632 secs</code></pre>
+<pre><code>Determine variable features</code></pre>
+<pre><code>Centering data matrix</code></pre>
+<pre><code>Getting residuals for block 1(of 5) for control dataset</code></pre>
+<pre><code>Getting residuals for block 2(of 5) for control dataset</code></pre>
+<pre><code>Getting residuals for block 3(of 5) for control dataset</code></pre>
+<pre><code>Getting residuals for block 4(of 5) for control dataset</code></pre>
+<pre><code>Getting residuals for block 5(of 5) for control dataset</code></pre>
+<pre><code>Centering data matrix</code></pre>
+<pre><code>Finished calculating residuals for control</code></pre>
+<pre><code>Set default assay to SCT</code></pre>
+<pre class="r"><code># Perform PCA
+npcs_to_use &lt;- 30
+resolve_object &lt;- RunPCA(resolve_object, npcs = npcs_to_use, verbose = FALSE, approx=FALSE)
+ElbowPlot(resolve_object, ndims = npcs_to_use)</code></pre>
+<p><img src="figure/molkart.seurat_analysis.Rmd/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>harmony_object &lt;- IntegrateLayers(
+  object = resolve_object, method = HarmonyIntegration,
+  orig.reduction = &quot;pca&quot;, new.reduction = &quot;harmony&quot;,
+  assay = &quot;SCT&quot;, verbose = FALSE
+)</code></pre>
+<pre><code>Warning: HarmonyMatrix is deprecated and will be removed in the future from the
+API in the future</code></pre>
+<pre><code>Warning: Warning: The parameters do_pca and npcs are deprecated. They will be ignored for this function call and please remove parameters do_pca and npcs and pass to harmony cell_embeddings directly.
+This warning is displayed once per session.</code></pre>
+<pre><code>Warning: Warning: The parameter tau is deprecated. It will be ignored for this function call and please remove parameter tau in future function calls. Advanced users can set value of parameter tau by using parameter .options and function harmony_options().
+This warning is displayed once per session.</code></pre>
+<pre><code>Warning: Warning: The parameter block.size is deprecated. It will be ignored for this function call and please remove parameter block.size in future function calls. Advanced users can set value of parameter block.size by using parameter .options and function harmony_options().
+This warning is displayed once per session.</code></pre>
+<pre><code>Warning: Warning: The parameter max.iter.harmony is replaced with parameter max_iter. It will be ignored for this function call and please use parameter max_iter in future function calls.
+This warning is displayed once per session.</code></pre>
+<pre><code>Warning: Warning: The parameter max.iter.cluster is deprecated. It will be ignored for this function call and please remove parameter max.iter.cluster in future function calls. Advanced users can set value of parameter max.iter.cluster by using parameter .options and function harmony_options().
+This warning is displayed once per session.</code></pre>
+<pre><code>Warning: Warning: The parameter epsilon.cluster is deprecated. It will be ignored for this function call and please remove parameter epsilon.cluster in future function calls. Advanced users can set value of parameter epsilon.cluster by using parameter .options and function harmony_options().
+This warning is displayed once per session.</code></pre>
+<pre><code>Warning: Warning: The parameter epsilon.harmony is deprecated. It will be ignored for this function call and please remove parameter epsilon.harmony in future function calls. If users want to control if harmony would stop early or not, use parameter early_stop. Advanced users can set value of parameter epsilon.harmony by using parameter .options and function harmony_options().
+This warning is displayed once per session.</code></pre>
+<pre><code>Warning: Quick-TRANSfer stage steps exceeded maximum (= 3451400)</code></pre>
+<pre class="r"><code>harmony_object &lt;- FindNeighbors(harmony_object, reduction = &quot;harmony&quot;, dims = 1:npcs_to_use)</code></pre>
+<pre><code>Computing nearest neighbor graph</code></pre>
+<pre><code>Computing SNN</code></pre>
+<pre class="r"><code>harmony_object &lt;- FindClusters(harmony_object, resolution = 0.4, cluster.name = &quot;harmony_clusters&quot;)</code></pre>
+<pre><code>Modularity Optimizer version 1.3.0 by Ludo Waltman and Nees Jan van Eck
+
+Number of nodes: 69028
+Number of edges: 2495751
+
+Running Louvain algorithm...
+Maximum modularity in 10 random starts: 0.9460
+Number of communities: 24
+Elapsed time: 15 seconds</code></pre>
+<pre class="r"><code>harmony_object &lt;- RunUMAP(harmony_object, reduction = &quot;harmony&quot;, dims = 1:npcs_to_use, reduction.name = &quot;umap&quot;)</code></pre>
+<pre><code>Warning: The default method for RunUMAP has changed from calling Python UMAP via reticulate to the R-native UWOT using the cosine metric
+To use Python UMAP via reticulate, set umap.method to &#39;umap-learn&#39; and metric to &#39;correlation&#39;
+This message will be shown once per session</code></pre>
+<pre><code>21:19:09 UMAP embedding parameters a = 0.9922 b = 1.112</code></pre>
+<pre><code>Found more than one class &quot;dist&quot; in cache; using the first, from namespace &#39;spam&#39;</code></pre>
+<pre><code>Also defined by &#39;BiocGenerics&#39;</code></pre>
+<pre><code>21:19:09 Read 69028 rows and found 30 numeric columns</code></pre>
+<pre><code>21:19:09 Using Annoy for neighbor search, n_neighbors = 30</code></pre>
+<pre><code>Found more than one class &quot;dist&quot; in cache; using the first, from namespace &#39;spam&#39;</code></pre>
+<pre><code>Also defined by &#39;BiocGenerics&#39;</code></pre>
+<pre><code>21:19:09 Building Annoy index with metric = cosine, n_trees = 50</code></pre>
+<pre><code>0%   10   20   30   40   50   60   70   80   90   100%</code></pre>
+<pre><code>[----|----|----|----|----|----|----|----|----|----|</code></pre>
+<pre><code>**************************************************|
+21:19:16 Writing NN index file to temp file /var/folders/ph/m6mhj3s541799cykzbp3dx0m0000gn/T//RtmpgOWfRi/file1304382ad87d
+21:19:17 Searching Annoy index using 1 thread, search_k = 3000
+21:19:36 Annoy recall = 98.6%
+21:19:36 Commencing smooth kNN distance calibration using 1 thread with target n_neighbors = 30
+21:19:37 Initializing from normalized Laplacian + noise (using RSpectra)
+21:19:39 Commencing optimization for 200 epochs, with 3233778 positive edges
+21:20:04 Optimization finished</code></pre>
+<pre class="r"><code>p1 &lt;- plot_density(harmony_object, features= c(&quot;Npr3&quot;), size = 0.5)
+p2 &lt;- DimPlot(harmony_object, reduction = &quot;umap&quot;, label = TRUE, repel = TRUE,raster=FALSE)
+p1+p2</code></pre>
+<p><img src="figure/molkart.seurat_analysis.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="plot-harmony-integration-results" class="section level2">
+<h2>Plot Harmony integration results</h2>
+<pre class="r"><code>## Plot UMAP with cells labeled by sampled time point and by cluster assigned using nearest-neighbor analysis
+p1 &lt;- DimPlot(harmony_object, reduction = &quot;umap&quot;, group.by = &quot;timepoint&quot;,raster=FALSE, 
+              cols = time_palette, alpha = 0.5)
+p2 &lt;- DimPlot(harmony_object, reduction = &quot;umap&quot;, label = TRUE, repel = TRUE,raster=FALSE)
+p1+p2</code></pre>
+<p><img src="figure/molkart.seurat_analysis.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>## Plot UMAP next to a barplot
+meta_time &lt;- harmony_object@meta.data %&gt;%
+  group_by(seurat_clusters, timepoint) %&gt;%
+  tally() %&gt;%
+  mutate(&quot;frac&quot; = n / sum(n))
+
+time_bar &lt;- ggplot(meta_time,aes(seurat_clusters,frac, fill = timepoint)) +
+  geom_bar(stat = &quot;identity&quot;, position = &quot;stack&quot;) +
+  coord_flip() +
+  scale_fill_manual(values = time_palette)
+
+combined_time_plot &lt;- p2 + time_bar &amp; 
+  theme(plot.background = element_rect(fill = &#39;white&#39;),
+        panel.background = element_rect(fill = &#39;white&#39;))
+
+save_plot(combined_time_plot,
+          file = &quot;./plots/molkart.umap_time.png&quot;,
+          base_height = 10)</code></pre>
+<pre class="r"><code>## Plot Nebulosa plots for QC measures to highlight cell clusters with high number of transcripts
+plot_density(harmony_object, features= c(&quot;Area&quot;,&quot;nCount_RNA&quot;,&quot;Solidity&quot;,&quot;Extent&quot;))</code></pre>
+<p><img src="figure/molkart.seurat_analysis.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>## Plot the number of cells per cluster and color by cluster ID
+cell_numbers &lt;- harmony_object@meta.data %&gt;%
+  group_by(seurat_clusters) %&gt;%
+  tally()
+
+ggplot(cell_numbers,aes(seurat_clusters,n)) +
+  geom_bar(stat = &quot;identity&quot;,aes(fill = seurat_clusters)) +
+  theme(legend.position = &quot;None&quot;)</code></pre>
+<p><img src="figure/molkart.seurat_analysis.Rmd/unnamed-chunk-15-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="identify-marker-genes-for-cell-clusters"
+class="section level2">
+<h2>Identify marker genes for cell clusters</h2>
+<pre class="r"><code>harmony_object &lt;- PrepSCTFindMarkers(harmony_object, assay = &quot;SCT&quot;, verbose = TRUE)</code></pre>
+<pre><code>Found 4 SCT models. Recorrecting SCT counts using minimum median counts: 78</code></pre>
+<pre class="r"><code>harmony_markers &lt;- FindAllMarkers(harmony_object, logfc.threshold = 0.5, only.pos = TRUE)</code></pre>
+<pre><code>Calculating cluster 0</code></pre>
+<pre><code>Calculating cluster 1</code></pre>
+<pre><code>Calculating cluster 2</code></pre>
+<pre><code>Calculating cluster 3</code></pre>
+<pre><code>Calculating cluster 4</code></pre>
+<pre><code>Calculating cluster 5</code></pre>
+<pre><code>Calculating cluster 6</code></pre>
+<pre><code>Calculating cluster 7</code></pre>
+<pre><code>Calculating cluster 8</code></pre>
+<pre><code>Calculating cluster 9</code></pre>
+<pre><code>Calculating cluster 10</code></pre>
+<pre><code>Calculating cluster 11</code></pre>
+<pre><code>Calculating cluster 12</code></pre>
+<pre><code>Calculating cluster 13</code></pre>
+<pre><code>Calculating cluster 14</code></pre>
+<pre><code>Calculating cluster 15</code></pre>
+<pre><code>Calculating cluster 16</code></pre>
+<pre><code>Calculating cluster 17</code></pre>
+<pre><code>Calculating cluster 18</code></pre>
+<pre><code>Calculating cluster 19</code></pre>
+<pre><code>Calculating cluster 20</code></pre>
+<pre><code>Calculating cluster 21</code></pre>
+<pre><code>Calculating cluster 22</code></pre>
+<pre><code>Calculating cluster 23</code></pre>
+<pre class="r"><code>## Write marker table to file
+write.table(harmony_markers,
+            file = &quot;./output/molkart/molkart.cell_type_markers.csv&quot;,
+            sep = &quot;,&quot;,
+            row.names = TRUE,
+            col.names = TRUE,
+            quote = FALSE)</code></pre>
+</div>
+<div id="transfer-labels-from-snrna-seq-calcagno-et-al.-2020"
+class="section level2">
+<h2>Transfer labels from snRNA-seq (Calcagno et al. 2020)</h2>
+<p>To get some labels for cell types from a publicly available dataset,
+we will transfer labels from an snRNA-seq dataset generated by <a
+href="https://www.nature.com/articles/s44161-022-00140-7">Calcagno et
+al. 2020 in Nature cardiovascular research</a>.</p>
+<pre class="r"><code>calcagno_et_al &lt;- LoadH5Seurat(&quot;../public_data/Calcagno_et_al_NatCardioVasc_2022/reprocessed_data/Calcagno2022_int_logNorm_annot.h5Seurat&quot;)</code></pre>
+<pre><code>Validating h5Seurat file</code></pre>
+<pre><code>Initializing RNA with data</code></pre>
+<pre><code>Adding counts for RNA</code></pre>
+<pre><code>Adding miscellaneous information for RNA</code></pre>
+<pre><code>Initializing integrated with data</code></pre>
+<pre><code>Adding scale.data for integrated</code></pre>
+<pre><code>Adding variable feature information for integrated</code></pre>
+<pre><code>Adding miscellaneous information for integrated</code></pre>
+<pre><code>Adding reduction pca</code></pre>
+<pre><code>Adding cell embeddings for pca</code></pre>
+<pre><code>Adding feature loadings for pca</code></pre>
+<pre><code>Adding miscellaneous information for pca</code></pre>
+<pre><code>Adding reduction umap</code></pre>
+<pre><code>Adding cell embeddings for umap</code></pre>
+<pre><code>Adding miscellaneous information for umap</code></pre>
+<pre><code>Adding graph integrated_nn</code></pre>
+<pre><code>Adding graph integrated_snn</code></pre>
+<pre><code>Adding command information</code></pre>
+<pre><code>Adding cell-level metadata</code></pre>
+<pre><code>Adding miscellaneous information</code></pre>
+<pre><code>Adding tool-specific results</code></pre>
+<pre><code>Adding data that was not associated with an assay</code></pre>
+<pre><code>Warning: Adding a command log without an assay associated with it</code></pre>
+<pre class="r"><code>calcagno_et_al &lt;- SCTransform(calcagno_et_al, assay = &quot;RNA&quot;)</code></pre>
+<pre><code>Running SCTransform on assay: RNA</code></pre>
+<pre><code>vst.flavor=&#39;v2&#39; set. Using model with fixed slope and excluding poisson genes.</code></pre>
+<pre><code>Calculating cell attributes from input UMI matrix: log_umi</code></pre>
+<pre><code>Variance stabilizing transformation of count matrix of size 20024 by 64108</code></pre>
+<pre><code>Model formula is y ~ log_umi</code></pre>
+<pre><code>Get Negative Binomial regression parameters per gene</code></pre>
+<pre><code>Using 2000 genes, 5000 cells</code></pre>
+<pre><code>Found 213 outliers - those will be ignored in fitting/regularization step</code></pre>
+<pre><code>Second step: Get residuals using fitted parameters for 20024 genes</code></pre>
+<pre><code>Computing corrected count matrix for 20024 genes</code></pre>
+<pre><code>Calculating gene attributes</code></pre>
+<pre><code>Wall clock passed: Time difference of 3.495663 mins</code></pre>
+<pre><code>Determine variable features</code></pre>
+<pre><code>Centering data matrix</code></pre>
+<pre><code>Place corrected count matrix in counts slot</code></pre>
+<pre><code>Set default assay to SCT</code></pre>
+<pre class="r"><code>anchors &lt;- FindTransferAnchors(reference = calcagno_et_al, query = harmony_object, normalization.method = &quot;SCT&quot;, npcs = 50, recompute.residuals = FALSE)</code></pre>
+<pre><code>Performing PCA on the provided reference using 65 features as input.</code></pre>
+<pre><code>Warning in irlba(A = t(x = object), nv = npcs, ...): You&#39;re computing too large
+a percentage of total singular values, use a standard svd instead.</code></pre>
+<pre><code>Projecting cell embeddings</code></pre>
+<pre><code>Finding neighborhoods</code></pre>
+<pre><code>Finding anchors</code></pre>
+<pre><code>    Found 26749 anchors</code></pre>
+<pre class="r"><code>predictions.assay_lvl1 &lt;- TransferData(anchorset = anchors, refdata = calcagno_et_al$level_1, prediction.assay = FALSE, weight.reduction = &quot;pcaproject&quot;, dims = NULL)</code></pre>
+<pre><code>Finding integration vectors</code></pre>
+<pre><code>Finding integration vector weights</code></pre>
+<pre><code>Predicting cell labels</code></pre>
+<pre class="r"><code>predictions.assay_lvl2 &lt;- TransferData(anchorset = anchors, refdata = calcagno_et_al$level_2, prediction.assay = FALSE, weight.reduction = &quot;pcaproject&quot;, dims = NULL)</code></pre>
+<pre><code>Finding integration vectors</code></pre>
+<pre><code>Finding integration vector weights</code></pre>
+<pre><code>Predicting cell labels</code></pre>
+<pre class="r"><code>predictions.assay_lvl3 &lt;- TransferData(anchorset = anchors, refdata = calcagno_et_al$level_3, prediction.assay = FALSE, weight.reduction = &quot;pcaproject&quot;, dims = NULL)</code></pre>
+<pre><code>Finding integration vectors</code></pre>
+<pre><code>Finding integration vector weights</code></pre>
+<pre><code>Predicting cell labels</code></pre>
+<pre class="r"><code>predictions.orig_label &lt;- TransferData(anchorset = anchors, refdata = calcagno_et_al$orig_label, prediction.assay = FALSE, weight.reduction = &quot;pcaproject&quot;, dims = NULL)</code></pre>
+<pre><code>Finding integration vectors</code></pre>
+<pre><code>Finding integration vector weights</code></pre>
+<pre><code>Predicting cell labels</code></pre>
+<pre class="r"><code>## Add labels to Harmony object and plot Umap
+harmony_object@meta.data$predicted_ct_lvl1 &lt;- predictions.assay_lvl1$predicted.id
+harmony_object@meta.data$predicted_ct_lvl2 &lt;- predictions.assay_lvl2$predicted.id
+harmony_object@meta.data$predicted_ct_lvl3 &lt;- predictions.assay_lvl3$predicted.id
+harmony_object@meta.data$orig_label_calcagno &lt;- predictions.orig_label$predicted.id</code></pre>
+<pre class="r"><code>calcagno_lvl1 &lt;- DimPlot(harmony_object, reduction = &quot;umap&quot;, group.by = &quot;predicted_ct_lvl1&quot;,raster=FALSE, label = TRUE)
+calcagno_lvl2 &lt;- DimPlot(harmony_object, reduction = &quot;umap&quot;, group.by = &quot;predicted_ct_lvl2&quot;,raster=FALSE, label = TRUE)
+calcagno_lvl3 &lt;- DimPlot(harmony_object, reduction = &quot;umap&quot;, group.by = &quot;predicted_ct_lvl3&quot;,raster=FALSE, label = TRUE)
+DimPlot(harmony_object, reduction = &quot;umap&quot;, group.by = &quot;orig_label_calcagno&quot;,raster=FALSE, label = TRUE)</code></pre>
+<p><img src="figure/molkart.seurat_analysis.Rmd/unnamed-chunk-22-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>calcagno_lvl1 | calcagno_lvl2 | calcagno_lvl3</code></pre>
+<p><img src="figure/molkart.seurat_analysis.Rmd/unnamed-chunk-22-2.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div
+id="use-manual-tissue-annotation-to-improve-endocardial-cell-labeling"
+class="section level2">
+<h2>Use manual tissue annotation to improve endocardial cell
+labeling</h2>
+<p>Endocardial cells are very small and thin and form a monolayer at the
+inner lining of the heart. We noticed that our RNA marker Npr3 does not
+always reliably label endocardial cells and therefore will use manual
+annotation of the endocardial tissue regions to improve annotation of
+endocardial cells.</p>
+<pre class="r"><code>## Function to use GeoJson mask from QuPath with Seurat metadata to check cell overlap to manual annotation region
+check_mask_overlap &lt;- function(polygon_sf,metadata,img_height,anno_name){
+  points_sf &lt;- st_as_sf(metadata, coords = c(&quot;X_centroid&quot;, &quot;Y_centroid&quot;), crs = NA)
+  polygon_sf &lt;- st_set_crs(polygon_sf, NA)
+  
+  mirrored_geometries &lt;- st_geometry(polygon_sf) %&gt;% 
+    st_coordinates() %&gt;%
+    as.data.frame() %&gt;%
+    mutate(&quot;Y&quot; = img_height - Y) %&gt;%
+    select(X,Y,L2)
+  mirrored_geometries &lt;- as.data.frame(mirrored_geometries)
+  
+  polygon_list &lt;- split(mirrored_geometries[,c(&quot;X&quot;, &quot;Y&quot;)], mirrored_geometries$L2)
+  closed_polys &lt;- list()
+  # Iterate over polygons in polygon_list and add the first row to the end of each polygon
+  for (i in 1:length(polygon_list)) {
+    closed_polys[[i]] &lt;- as.matrix(rbind(polygon_list[[i]], polygon_list[[i]][1,]))
+  }
+  
+  # Convert the list of polygons to sf objects
+  sf_objects &lt;- lapply(closed_polys, function(polygon) {
+    st_polygon(list(polygon))
+  })
+  
+  # Create a MULTIPOLYGON object
+  multipolygon &lt;- st_multipolygon(sf_objects)
+  
+  ## Check which points fall withing the annotation
+  points_within_polygons &lt;- st_within(points_sf, multipolygon, sparse = FALSE)
+  metadata[anno_name] &lt;- points_within_polygons
+  return(metadata)
+}</code></pre>
+<pre class="r"><code>## Check which cells fall in the spatial endocardial region for each sample
+all_vals &lt;- list()
+for(sample_id in unique(harmony_object@meta.data$sample_ID)){
+  print(sample_id)
+  image_sizes &lt;- fread(&quot;./references/molkart.image_dimensions.csv&quot;)
+  img_height &lt;- subset(image_sizes,sample_ID == sample_id)$height
+  
+  polygon_sf &lt;- st_read(paste(&quot;./annotations/molkart/heart_regions_r/&quot;,sample_id,&quot;.stack.geojson&quot;,sep=&quot;&quot;))
+  sample_meta &lt;- subset(harmony_object@meta.data,sample_ID == sample_id)
+  sample_vals &lt;- list(polygon_sf,sample_meta,img_height)
+  all_vals &lt;- append(all_vals,list(sample_vals))
+  #
+}</code></pre>
+<pre><code>[1] &quot;sample_2d_r1_s1&quot;
+Reading layer `sample_2d_r1_s1.stack&#39; from data source 
+  `/Users/florian_wuennemann/1_Projects/MI_project/mi_spatialomics/annotations/molkart/heart_regions_r/sample_2d_r1_s1.stack.geojson&#39; 
+  using driver `GeoJSON&#39;
+Simple feature collection with 1 feature and 3 fields
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: 8566 ymin: 690 xmax: 13860 ymax: 9747
+Geodetic CRS:  WGS 84
+[1] &quot;sample_2d_r2_s1&quot;
+Reading layer `sample_2d_r2_s1.stack&#39; from data source 
+  `/Users/florian_wuennemann/1_Projects/MI_project/mi_spatialomics/annotations/molkart/heart_regions_r/sample_2d_r2_s1.stack.geojson&#39; 
+  using driver `GeoJSON&#39;
+Simple feature collection with 3 features and 4 fields
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: 3793 ymin: 8044 xmax: 10720 ymax: 20387
+Geodetic CRS:  WGS 84
+[1] &quot;sample_4d_r1_s1&quot;
+Reading layer `sample_4d_r1_s1.stack&#39; from data source 
+  `/Users/florian_wuennemann/1_Projects/MI_project/mi_spatialomics/annotations/molkart/heart_regions_r/sample_4d_r1_s1.stack.geojson&#39; 
+  using driver `GeoJSON&#39;
+Simple feature collection with 2 features and 4 fields
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: 5539 ymin: 1844 xmax: 10738 ymax: 12420
+Geodetic CRS:  WGS 84
+[1] &quot;sample_4d_r2_s1&quot;
+Reading layer `sample_4d_r2_s1.stack&#39; from data source 
+  `/Users/florian_wuennemann/1_Projects/MI_project/mi_spatialomics/annotations/molkart/heart_regions_r/sample_4d_r2_s1.stack.geojson&#39; 
+  using driver `GeoJSON&#39;
+Simple feature collection with 3 features and 3 fields
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: 0 ymin: 236 xmax: 17963 ymax: 6159
+Geodetic CRS:  WGS 84
+[1] &quot;sample_4h_r1_s1&quot;
+Reading layer `sample_4h_r1_s1.stack&#39; from data source 
+  `/Users/florian_wuennemann/1_Projects/MI_project/mi_spatialomics/annotations/molkart/heart_regions_r/sample_4h_r1_s1.stack.geojson&#39; 
+  using driver `GeoJSON&#39;
+Simple feature collection with 3 features and 3 fields
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: 2237 ymin: 5280 xmax: 15604 ymax: 17152
+Geodetic CRS:  WGS 84
+[1] &quot;sample_4h_r2_s2&quot;
+Reading layer `sample_4h_r2_s2.stack&#39; from data source 
+  `/Users/florian_wuennemann/1_Projects/MI_project/mi_spatialomics/annotations/molkart/heart_regions_r/sample_4h_r2_s2.stack.geojson&#39; 
+  using driver `GeoJSON&#39;
+Simple feature collection with 1 feature and 2 fields
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: 6475 ymin: 3304 xmax: 18740 ymax: 15008
+Geodetic CRS:  WGS 84
+[1] &quot;sample_control_r1_s1&quot;
+Reading layer `sample_control_r1_s1.stack&#39; from data source 
+  `/Users/florian_wuennemann/1_Projects/MI_project/mi_spatialomics/annotations/molkart/heart_regions_r/sample_control_r1_s1.stack.geojson&#39; 
+  using driver `GeoJSON&#39;
+Simple feature collection with 1 feature and 3 fields
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: 3748 ymin: 12539 xmax: 10117 ymax: 14892
+Geodetic CRS:  WGS 84
+[1] &quot;sample_control_r2_s1&quot;
+Reading layer `sample_control_r2_s1.stack&#39; from data source 
+  `/Users/florian_wuennemann/1_Projects/MI_project/mi_spatialomics/annotations/molkart/heart_regions_r/sample_control_r2_s1.stack.geojson&#39; 
+  using driver `GeoJSON&#39;
+Simple feature collection with 3 features and 3 fields
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: 0 ymin: 2591 xmax: 6300 ymax: 7736
+Geodetic CRS:  WGS 84</code></pre>
+<pre class="r"><code>#test &lt;- check_mask_overlap(polygon_sf,sample_meta,img_height)
+meta_list &lt;- Map(function(x) check_mask_overlap(x[[1]], x[[2]], x[[3]],&quot;in_endo&quot;), all_vals)
+
+# Combine all data frames into one
+new_full_meta &lt;- do.call(rbind, meta_list)</code></pre>
+<pre class="r"><code>## Which seurat cluster corresponds to endocardial cells (Npr3 positive)?
+endocardial_cluster &lt;- 15
+
+## How many cells are in the endocardial cluster?
+n_endo &lt;- nrow(subset(new_full_meta,seurat_clusters == endocardial_cluster))
+
+## How many of the transcriptionally defined endocardial cell cluster are spatially within the endocardium?
+n_endo_spatial &lt;- nrow(subset(new_full_meta,seurat_clusters == endocardial_cluster &amp; in_endo == TRUE))
+
+## How many segmented cells are total in the annotated regions?
+anno_region_cells &lt;- nrow(subset(new_full_meta, in_endo == TRUE))
+
+## Let&#39;s classify cells that are Pecam1 positive within the endocardial region as endocardial (even if they are not Npr3 positive)
+## add Pecam1 expression 
+pecam1_exp &lt;- harmony_object@assays$SCT@data[&quot;Pecam1&quot;,]
+new_full_meta$Pecam1 &lt;- pecam1_exp
+npr3_exp &lt;- harmony_object@assays$SCT@data[&quot;Npr3&quot;,]
+new_full_meta$Npr3 &lt;- npr3_exp
+
+## How many cells are Pecam1 positive within the endocardial region?
+pecam1_pos &lt;- subset(new_full_meta,Pecam1 &gt; 0 &amp; in_endo == TRUE)
+
+## Add another annotation column to metadata to classify all cells with Pecam1 &gt; 0 within the endocardial region as endocardial cells
+new_full_meta &lt;- new_full_meta %&gt;%
+  mutate(&quot;spatial_endoc&quot; = if_else((in_endo == TRUE &amp; Pecam1 &gt; 2) | (in_endo == TRUE &amp; seurat_clusters == endocardial_cluster), TRUE,FALSE))
+
+harmony_object@meta.data &lt;- new_full_meta</code></pre>
+<div id="plot-results-of-spatial-annotation-for-endocardial-cells"
+class="section level3">
+<h3>Plot results of spatial annotation for endocardial cells</h3>
+<pre class="r"><code>## Plot cells that are transcriptionally labeled as endocardial cells
+ggplot(new_full_meta,aes(X_centroid,Y_centroid)) +
+  geom_point(color = &quot;darkgrey&quot;) +
+  geom_point(data = subset(new_full_meta,seurat_clusters == endocardial_cluster),color = &quot;red&quot;) +
+  facet_wrap(~ sample_ID)</code></pre>
+<p><img src="figure/molkart.seurat_analysis.Rmd/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>## Plot 
+## 1: blue - originally transcriptionally labeled endocardial cells but not in endocardial region. 
+## 2: red - transcriptionally labeled endocardial cells that were in endocardial region
+## 3: purple - Cells that were not clustered with Npr3 positive cells but spatially fall within endocardium and are Pecam1 or Npr3 positive.
+ggplot(new_full_meta,aes(X_centroid,Y_centroid)) +
+  geom_point(color = &quot;darkgrey&quot;, size = 0.5) +
+  geom_point(data = subset(new_full_meta,spatial_endoc == TRUE &amp; seurat_clusters == endocardial_cluster),color = &quot;red&quot;, size = 0.75) +
+  geom_point(data = subset(new_full_meta,spatial_endoc == TRUE &amp; seurat_clusters != endocardial_cluster),color = &quot;purple&quot;, size = 0.75) +
+    geom_point(data = subset(new_full_meta,spatial_endoc == FALSE &amp; seurat_clusters == endocardial_cluster),color = &quot;blue&quot;, size = 0.75) +
+  facet_wrap(~ sample_ID)</code></pre>
+<p><img src="figure/molkart.seurat_analysis.Rmd/unnamed-chunk-26-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>## Plot all cells that were considered &quot;in endocardial region&quot;
+ggplot(new_full_meta,aes(X_centroid,Y_centroid)) +
+  geom_point(color = &quot;darkgrey&quot;) +
+  geom_point(data = subset(new_full_meta,spatial_endoc == TRUE )) +
+  facet_wrap(~ sample_ID)</code></pre>
+<p><img src="figure/molkart.seurat_analysis.Rmd/unnamed-chunk-26-3.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="assign-cell-type-names-to-clusters" class="section level2">
+<h2>Assign cell-type names to clusters</h2>
+<div id="level-1-annotation---higher-cell-types" class="section level3">
+<h3>Level 1 annotation - Higher cell types</h3>
+<pre class="r"><code>## Annotate main cell-types and states
+## LVL1
+seurat_clusters &lt;- harmony_object@active.ident
+
+## Cluster level 1
+
+new.cluster.ids &lt;- c(&quot;Cardiomyocytes&quot;,  #0
+                     &quot;Endothelial_cells&quot;,  #1
+                     &quot;Cardiac_fibroblasts&quot;, #2
+                     &quot;Endothelial_cells&quot;, #3
+                     &quot;Cardiomyocytes&quot;, #4
+                     &quot;Cardiomyocytes&quot;, #5
+                     &quot;Cardiomyocytes&quot;, #6
+                     &quot;Cardiac_fibroblasts&quot;, #7
+                     &quot;Immune_cells&quot;, #8
+                     &quot;Immune_cells&quot;, #9 
+                     &quot;Immune_cells&quot;, #10
+                     &quot;Pericytes&quot; , #11
+                     &quot;Cardiomyocytes&quot;, #12
+                     &quot;Smooth_muscle_cells&quot;, #13
+                     &quot;Cardiomyocytes&quot;, #14
+                     &quot;Endothelial_cells&quot;, #15 
+                     &quot;Immune_cells&quot;, #16
+                     &quot;Cardiomyocytes&quot;,#17
+                     &quot;Cardiomyocytes&quot;, #18 Glia_cells
+                     &quot;Immune_cells&quot;, #19
+                     &quot;Cardiomyocytes&quot;, #20
+                     &quot;Cardiac_fibroblasts&quot;, #21
+                     &quot;Immune_cells&quot;, #22
+                     &quot;Cardiac_fibroblasts&quot; #23
+                     )
+
+names(new.cluster.ids) &lt;- levels(harmony_object)
+harmony_object &lt;- RenameIdents(harmony_object, new.cluster.ids)
+harmony_object@meta.data$anno_cell_type_lvl1 &lt;- harmony_object@active.ident
+
+## Reset cluster to seurat ID
+Idents(object = harmony_object) &lt;- &quot;seurat_clusters&quot;</code></pre>
+<pre class="r"><code>DimPlot(harmony_object, reduction = &quot;umap&quot;, label = TRUE, repel = TRUE,raster=FALSE, group.by = &quot;anno_cell_type_lvl1&quot;)</code></pre>
+<p><img src="figure/molkart.seurat_analysis.Rmd/unnamed-chunk-28-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="level-2-annotation---sub-cell-cell-states"
+class="section level3">
+<h3>Level 2 annotation - Sub-Cell &amp; cell states</h3>
+<pre class="r"><code>## Annotate cell clusters with more detaile
+## Lvl2
+
+seurat_clusters &lt;- harmony_object@active.ident
+
+## Cluster level 2
+new.cluster.ids &lt;- c(&quot;Cardiomyocytes&quot;,  #0
+                     &quot;Endothelial_cells&quot;,  #1
+                     &quot;Cardiac_fibroblasts&quot;, #2
+                     &quot;Endothelial_cells&quot;, #3
+                     &quot;Cardiomyocytes&quot;, #4
+                     &quot;Cardiomyocytes_Nppa+&quot;, #5 Macrophages
+                     &quot;Cardiomyocytes&quot;, #6
+                     &quot;Cardiac_fibroblasts&quot;, #7
+                     &quot;Myeloid_cells&quot;, #8
+                     &quot;Myeloid_cells&quot;, #9
+                     &quot;Myeloid_cells&quot;, #10 Dendritic cells
+                     &quot;Pericytes&quot; , #11
+                     &quot;Cardiomyocytes&quot;, #12
+                     &quot;Smooth_muscle_cells&quot;, #13
+                     &quot;Cardiomyocytes&quot;, #14
+                     &quot;Endocardial_cells&quot;, #15
+                     &quot;Myeloid_cells&quot;, #16
+                     &quot;Cardiomyocytes_Nppa+&quot;,#17
+                     &quot;Cardiomyocytes&quot;, #18
+                     &quot;Myeloid_cells&quot;, #19
+                     &quot;Cardiomyocytes_Nppa+&quot;, #20
+                     &quot;Cardiac_fibroblasts&quot;, #21
+                     &quot;Myeloid_cells&quot;, #22
+                     &quot;Cardiac_fibroblasts&quot; #23
+                     )
+
+names(new.cluster.ids) &lt;- levels(harmony_object)
+harmony_object &lt;- RenameIdents(harmony_object, new.cluster.ids)
+harmony_object@meta.data$anno_cell_type_lvl2 &lt;- harmony_object@active.ident
+
+## Reset cluster to seurat ID
+Idents(object = harmony_object) &lt;- &quot;seurat_clusters&quot;</code></pre>
+<pre class="r"><code>DimPlot(harmony_object, reduction = &quot;umap&quot;, label = TRUE, repel = TRUE,raster=FALSE, group.by = &quot;anno_cell_type_lvl2&quot;)</code></pre>
+<p><img src="figure/molkart.seurat_analysis.Rmd/unnamed-chunk-30-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div id="level-3-annotation---cell-states-with-marker-names"
+class="section level3">
+<h3>Level 3 annotation - Cell states with marker names</h3>
+<pre class="r"><code>## Annotate cell clusters with more detailed cell states
+## Lvl3
+seurat_clusters &lt;- harmony_object@active.ident
+
+## Cluster level 3
+new.cluster.ids &lt;-  c(&quot;Cardiomyocytes_Pln&quot;,  #0
+                     &quot;Endothelial_cells_Kdr&quot;,  #1
+                     &quot;Cardiac_fibroblasts_Col1a1&quot;, #2
+                     &quot;Endothelial_cells_Aqp1&quot;, #3
+                     &quot;Cardiomyocytes_Pln&quot;, #4
+                     &quot;Cardiomyocytes_Nppa+&quot;, #5 Macrophages
+                     &quot;Cardiomyocytes_Cxcr6&quot;, #6
+                     &quot;Cardiac_fibroblasts_Dcn&quot;, #7
+                     &quot;Mono/Macros_C1qa&quot;, #8
+                     &quot;Mono/Macros_Arg1+&quot;, #9
+                     &quot;DC_Cd74&quot;, #10 Dendritic cells
+                     &quot;Pericytes_Colec11&quot; , #11
+                     &quot;Cardiomyocytes_Nppb+&quot;, #12
+                     &quot;Smooth_muscle_cells_Myh11&quot;, #13
+                     &quot;Cardiomyocytes_Vegfa&quot;, #14
+                     &quot;Endocardial_cells_Npr3&quot;, #15
+                     &quot;Neutrophils_Csf3r&quot;, #16
+                     &quot;Cardiomyocytes_Nppa+&quot;,#17
+                     &quot;Cardiomyocytes_Pln&quot;, #18
+                     &quot;Mono/Macros_Ccl2&quot;, #19
+                     &quot;Cardiomyocytes_Nppa+&quot;, #20
+                     &quot;Cardiac_fibroblasts_Col1a1&quot;, #21
+                     &quot;Mono/Macros_C1qa&quot;, #22
+                     &quot;Cardiac_fibroblasts_Msln&quot; #23
+                     )
+
+
+names(new.cluster.ids) &lt;- levels(harmony_object)
+harmony_object &lt;- RenameIdents(harmony_object, new.cluster.ids)
+harmony_object@meta.data$anno_cell_type_lvl3 &lt;- harmony_object@active.ident
+
+## Reset cluster to seurat ID
+Idents(object = harmony_object) &lt;- &quot;seurat_clusters&quot;</code></pre>
+<pre class="r"><code>DimPlot(harmony_object, reduction = &quot;umap&quot;, label = TRUE, repel = TRUE,raster=FALSE, group.by = &quot;anno_cell_type_lvl3&quot;)</code></pre>
+<p><img src="figure/molkart.seurat_analysis.Rmd/unnamed-chunk-32-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div
+id="refine-cell-type-cluster-based-on-spatial-annotation-and-marker-expression"
+class="section level3">
+<h3>Refine cell type cluster based on spatial annotation and marker
+expression</h3>
+<pre class="r"><code>## Using the clustering settings we did, there is a subgroup of cells that are lymphoid but clustered with cells in cluster 16. We will put these cells in a separate cluster based on their marker expression
+new_full_meta &lt;- harmony_object@meta.data
+emb &lt;- harmony_object@reductions$umap@cell.embeddings
+lymph_emb &lt;- subset(as.data.frame(emb),umap_1 &gt; 8.5 &amp; umap_2 &gt; -5)
+
+new_full_meta &lt;- new_full_meta %&gt;%
+  mutate(&quot;lymphoid&quot; = if_else(rownames(new_full_meta) %in% rownames(lymph_emb) &amp; seurat_clusters == 16, TRUE,FALSE))
+
+harmony_object@meta.data &lt;- new_full_meta
+
+harmony_object@meta.data &lt;- harmony_object@meta.data %&gt;%
+  mutate(&quot;anno_cell_type_lvl2&quot; = if_else(lymphoid == TRUE, &quot;Lymphoid_cells&quot;,anno_cell_type_lvl2),
+         &quot;anno_cell_type_lvl3&quot; = if_else(lymphoid == TRUE, &quot;Lymphoid_cells_Cd3e&quot;,anno_cell_type_lvl3)
+         )</code></pre>
+<pre class="r"><code>## Endocardial cells
+## First, let&#39;s reclassify endocardial cells based on the Qupath annotation we did above
+harmony_object@meta.data &lt;- harmony_object@meta.data %&gt;%
+  mutate(&quot;anno_cell_type_lvl2&quot; = if_else(spatial_endoc == TRUE &amp; anno_cell_type_lvl2 == &quot;Endocardial_cells&quot;,&quot;Endocardial_cells&quot;,
+                                         if_else(spatial_endoc == TRUE &amp; anno_cell_type_lvl2 != &quot;Endocardial_cells&quot;,&quot;Endocardial_cells&quot;,
+                                          if_else(spatial_endoc == FALSE &amp; anno_cell_type_lvl2 == &quot;Endocardial_cells&quot;,&quot;Endothelial_cells&quot;,anno_cell_type_lvl2))),
+         &quot;anno_cell_type_lvl3&quot; = if_else(spatial_endoc == TRUE &amp; anno_cell_type_lvl3 == &quot;Endocardial_cells_Npr3&quot;,&quot;Endocardial_cells_Npr3&quot;,
+                                         if_else(spatial_endoc == TRUE &amp; anno_cell_type_lvl3 != &quot;Endocardial_cells_Npr3&quot;,&quot;Endocardial_cells_Npr3&quot;,
+                                         if_else(spatial_endoc == FALSE &amp; anno_cell_type_lvl3 == &quot;Endocardial_cells_Npr3&quot;,&quot;Lymphatic_endothelial_cells_Lyve1&quot;,anno_cell_type_lvl3))))
+
+
+# ## Add cells located within endocardium to annotations
+# harmony_object@meta.data &lt;- harmony_object@meta.data %&gt;%
+#   mutate(&quot;anno_cell_type_lvl2&quot; = if_else(spatial_endoc == TRUE | anno_cell_type_lvl2 == &quot;Endocardial_cells&quot;,&quot;Endocardial_cells&quot;,anno_cell_type_lvl2),
+#          &quot;anno_cell_type_lvl3&quot; = if_else(spatial_endoc == TRUE | anno_cell_type_lvl3 == &quot;Endocardial_cells_Npr3&quot;,&quot;Endocardial_cells_Npr3&quot;,anno_cell_type_lvl3))</code></pre>
+<pre class="r"><code>new_full_meta &lt;- harmony_object@meta.data
+## Plot cells that are 
+ggplot(new_full_meta,aes(X_centroid,Y_centroid)) +
+  geom_point(color = &quot;darkgrey&quot;) +
+  geom_point(data = subset(new_full_meta,anno_cell_type_lvl2 == &quot;Endocardial_cells&quot;),color = &quot;red&quot;) +
+  geom_point(data = subset(new_full_meta,grepl(&quot;Myeloid_cells&quot;,anno_cell_type_lvl2)),color = &quot;blue&quot;) +
+  facet_wrap(~ sample_ID)</code></pre>
+<p><img src="figure/molkart.seurat_analysis.Rmd/unnamed-chunk-35-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>p1 &lt;- DimPlot(harmony_object, reduction = &quot;umap&quot;, group.by = &quot;anno_cell_type_lvl1&quot;,raster=FALSE, 
+              alpha = 0.5, label = TRUE, repel = TRUE) + NoLegend()
+p2 &lt;- DimPlot(harmony_object, reduction = &quot;umap&quot;, group.by = &quot;anno_cell_type_lvl2&quot;,raster=FALSE, 
+              alpha = 0.5, label = TRUE, repel = TRUE) + NoLegend() 
+p3 &lt;- DimPlot(harmony_object, reduction = &quot;umap&quot;, group.by = &quot;anno_cell_type_lvl3&quot;,raster=FALSE, 
+              alpha = 0.5, label = TRUE, repel = TRUE) + NoLegend()
+
+p1 + p2 + p3</code></pre>
+<p><img src="figure/molkart.seurat_analysis.Rmd/unnamed-chunk-36-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="identify-and-plot-best-marker-genes" class="section level2">
+<h2>Identify and plot best “marker” genes</h2>
+<pre class="r"><code>Idents(object = harmony_object) &lt;- &quot;anno_cell_type_lvl2&quot;
+harmony_object &lt;- PrepSCTFindMarkers(harmony_object, assay = &quot;SCT&quot;, verbose = TRUE)</code></pre>
+<pre><code>Found 4 SCT models. Recorrecting SCT counts using minimum median counts: 78</code></pre>
+<pre class="r"><code>harmony_markers &lt;- FindAllMarkers(harmony_object, logfc.threshold = 0.5, only.pos = TRUE)</code></pre>
+<pre><code>Calculating cluster Myeloid_cells</code></pre>
+<pre><code>Calculating cluster Cardiac_fibroblasts</code></pre>
+<pre><code>Calculating cluster Pericytes</code></pre>
+<pre><code>Calculating cluster Endothelial_cells</code></pre>
+<pre><code>Calculating cluster Cardiomyocytes</code></pre>
+<pre><code>Calculating cluster Smooth_muscle_cells</code></pre>
+<pre><code>Calculating cluster Cardiomyocytes_Nppa+</code></pre>
+<pre><code>Calculating cluster Endocardial_cells</code></pre>
+<pre><code>Calculating cluster Lymphoid_cells</code></pre>
+<pre class="r"><code>## Set order of cell types
+levels(harmony_object) &lt;- rev(sort(levels(harmony_object)))
+
+library(viridis)
+genes &lt;- c(&quot;Csf3r&quot;,&quot;Npr3&quot;,&quot;Ccl2&quot;,&quot;Lyz2&quot;,&quot;H2-Eb1&quot;,
+           &quot;Pdgfrb&quot;,&quot;Nppa&quot;,&quot;Nppb&quot;,&quot;C1qa&quot;,&quot;Postn&quot;,&quot;Aqp1&quot;,&quot;Mybpc3&quot;)
+DotPlot(harmony_object, group.by = &quot;anno_cell_type_lvl2&quot;,
+        features = genes) +
+  geom_point(aes(size=pct.exp), shape = 21, colour=&quot;black&quot;, stroke=0.75) +
+  scale_colour_viridis(option=&quot;magma&quot;, direction = 1)</code></pre>
+<pre><code>Warning: The following variables were found in both object meta data and the default assay: Npr3
+Returning meta data; if you want the feature, please use the assay&#39;s key (eg. sct_Npr3)</code></pre>
+<pre><code>Scale for colour is already present.
+Adding another scale for colour, which will replace the existing scale.</code></pre>
+<p><img src="figure/molkart.seurat_analysis.Rmd/unnamed-chunk-38-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="save-object-as-seurat-rds" class="section level1">
+<h1>Save object as seurat RDS</h1>
+<pre class="r"><code>saveRDS(harmony_object,
+        file = &quot;./output/molkart/molkart.seurat_object.rds&quot;)</code></pre>
+<pre class="r"><code># ## If the object has already been computed we can load it
+# harmony_object &lt;- readRDS(file
+#                           = &quot;./output/molkart/molkart.seurat_object.rds&quot;)</code></pre>
+</div>
+<div id="save-data-formatted-for-input-to-spatial-anndata-object"
+class="section level1">
+<h1>Save data formatted for input to spatial anndata object</h1>
+<pre class="r"><code>metadata &lt;- harmony_object@meta.data %&gt;%
+  mutate(&quot;liana_cts&quot; = if_else(grepl(&quot;Myeloid_cells&quot;,anno_cell_type_lvl2),&quot;Myeloid_cells&quot;,anno_cell_type_lvl2))
+
+coordinates &lt;- metadata %&gt;% select(X_centroid,Y_centroid)
+counts &lt;- t(as.matrix(harmony_object@assays$SCT@counts))
+
+## Save coordinates
+write.table(coordinates,
+            &quot;./output/molkart/harmony_object.coordinates_anndata.tsv&quot;,
+            sep=&quot;\t&quot;,
+            col.names = FALSE,
+            row.names = FALSE,
+            quote = FALSE)
+
+## Save counts
+write.table(counts,
+            &quot;./output/molkart/harmony_object.counts_anndata.tsv&quot;,
+            sep=&quot;\t&quot;,
+            col.names = TRUE,
+            row.names = FALSE,
+            quote = FALSE)
+
+## Annotation
+write.table(metadata,
+            &quot;./output/molkart/harmony_object.metadata_anndata.tsv&quot;,
+            sep=&quot;\t&quot;,
+            col.names = TRUE,
+            row.names = FALSE,
+            quote = FALSE)</code></pre>
+</div>
+<div id="generate-misty-input" class="section level1">
+<h1>Generate Misty input</h1>
+<pre class="r"><code>misty_in &lt;- harmony_object@meta.data %&gt;%
+  dplyr::select(sample_ID,timepoint,replicate,X_centroid,Y_centroid,Area,anno_cell_type_lvl1,anno_cell_type_lvl2,anno_cell_type_lvl3,nCount_RNA) 
+misty_in$cell_ID &lt;- rownames(misty_in)</code></pre>
+<pre class="r"><code>expression_plot_list &lt;- list()
+
+# final_samples &lt;- c(&quot;sample_control_r1_s1&quot;,&quot;sample_control_r2_s1&quot;,
+#                    &quot;sample_4h_r1_s1&quot;,&quot;sample_4h_r2_s2&quot;,
+#                    &quot;sample_2d_r1_s1&quot;,&quot;sample_2d_r2_s1&quot;,
+#                    &quot;sample_4d_r1_s1&quot;,&quot;sample_4d_r2_s1&quot;)
+
+samples &lt;- c(&quot;sample_control_r1_s1&quot;,&quot;sample_4h_r1_s1&quot;,
+             &quot;sample_2d_r1_s1&quot;,&quot;sample_4d_r1_s1&quot;,
+             &quot;sample_control_r2_s1&quot;,&quot;sample_4h_r2_s2&quot;,
+             &quot;sample_2d_r2_s1&quot;,&quot;sample_4d_r2_s1&quot;)
+
+for(this_sample in samples){
+  pt_size &lt;- 0.2
+  cluster_of_int &lt;- c(16,19)
+  sample_object &lt;- subset(misty_in,sample_ID == this_sample)
+  
+  highlight_plot &lt;- ggplot(sample_object,aes(X_centroid,Y_centroid)) +
+    geom_point(aes(color = anno_cell_type_lvl2),size = pt_size) +
+    theme_classic() +
+    labs(x = &quot;Spatial 1&quot;,
+         y = &quot;Spatial 2&quot;,
+         title = this_sample) +
+    theme(axis.ticks = element_blank(),
+            axis.text = element_blank(),
+            legend.position = &quot;right&quot;) +
+    scale_color_brewer(palette = &quot;Set3&quot;)
+  
+      expression_plot_list[[this_sample]] &lt;- highlight_plot
+  
+}
+
+wrap_plots(expression_plot_list, nrow = 2, ncol = 4)  + plot_layout(guides = &#39;collect&#39;)</code></pre>
+<p><img src="figure/molkart.seurat_analysis.Rmd/unnamed-chunk-43-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>misty_in_lowres &lt;- misty_in %&gt;%
+  mutate(&quot;misty_cts&quot; = anno_cell_type_lvl2)
+
+write.table(misty_in_lowres,
+            file = &quot;./output/molkart/molkart.misty_celltype_table.lowres.tsv&quot;,
+            sep=&quot;\t&quot;,
+            col.names = TRUE,
+            row.names = FALSE,
+            quote = FALSE)
+
+misty_in_highres &lt;- misty_in %&gt;%
+  mutate(&quot;misty_cts&quot; = anno_cell_type_lvl3)
+
+write.table(misty_in_highres,
+            file = &quot;./output/molkart/molkart.misty_celltype_table.highres.tsv&quot;,
+            sep=&quot;\t&quot;,
+            col.names = TRUE,
+            row.names = FALSE,
+            quote = FALSE)</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.3.1 (2023-06-16)
+Platform: aarch64-apple-darwin20 (64-bit)
+Running under: macOS Sonoma 14.1.2
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib 
+LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+time zone: Europe/Berlin
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices datasets  utils     methods   base     
+
+other attached packages:
+ [1] RColorBrewer_1.1-3    ggsci_3.0.0           cowplot_1.1.2        
+ [4] viridis_0.6.4         viridisLite_0.4.2     sfheaders_0.4.4      
+ [7] sf_1.0-15             Matrix_1.6-5          GGally_2.2.0         
+[10] lubridate_1.9.3       forcats_1.0.0         stringr_1.5.1        
+[13] dplyr_1.1.4           purrr_1.0.2           readr_2.1.5          
+[16] tidyr_1.3.0           tibble_3.2.1          tidyverse_2.0.0      
+[19] Nebulosa_1.12.0       patchwork_1.2.0       ggplot2_3.4.4        
+[22] here_1.0.1            harmony_1.2.0         Rcpp_1.0.12          
+[25] data.table_1.14.10    SeuratDisk_0.0.0.9021 SeuratData_0.2.2.9001
+[28] Seurat_5.0.1          SeuratObject_5.0.1    sp_2.1-2             
+[31] workflowr_1.7.1      
+
+loaded via a namespace (and not attached):
+  [1] fs_1.6.3                    matrixStats_1.2.0          
+  [3] spatstat.sparse_3.0-3       bitops_1.0-7               
+  [5] httr_1.4.7                  tools_4.3.1                
+  [7] sctransform_0.4.1           utf8_1.2.4                 
+  [9] R6_2.5.1                    lazyeval_0.2.2             
+ [11] uwot_0.1.16                 withr_2.5.2                
+ [13] gridExtra_2.3               progressr_0.14.0           
+ [15] textshaping_0.3.7           cli_3.6.2                  
+ [17] Biobase_2.62.0              spatstat.explore_3.2-5     
+ [19] fastDummies_1.7.3           labeling_0.4.3             
+ [21] sass_0.4.8                  mvtnorm_1.2-4              
+ [23] spatstat.data_3.0-3         proxy_0.4-27               
+ [25] ggridges_0.5.5              pbapply_1.7-2              
+ [27] systemfonts_1.0.5           parallelly_1.36.0          
+ [29] limma_3.58.1                rstudioapi_0.15.0          
+ [31] generics_0.1.3              ica_1.0-3                  
+ [33] spatstat.random_3.2-2       ggbeeswarm_0.7.2           
+ [35] fansi_1.0.6                 S4Vectors_0.40.2           
+ [37] abind_1.4-5                 lifecycle_1.0.4            
+ [39] whisker_0.4.1               yaml_2.3.8                 
+ [41] SummarizedExperiment_1.32.0 SparseArray_1.2.3          
+ [43] Rtsne_0.17                  glmGamPoi_1.14.0           
+ [45] grid_4.3.1                  promises_1.2.1             
+ [47] crayon_1.5.2                miniUI_0.1.1.1             
+ [49] lattice_0.22-5              pillar_1.9.0               
+ [51] knitr_1.45                  GenomicRanges_1.54.1       
+ [53] future.apply_1.11.1         codetools_0.2-19           
+ [55] leiden_0.4.3.1              glue_1.7.0                 
+ [57] getPass_0.2-4               vctrs_0.6.5                
+ [59] png_0.1-8                   spam_2.10-0                
+ [61] gtable_0.3.4                cachem_1.0.8               
+ [63] ks_1.14.2                   xfun_0.41                  
+ [65] S4Arrays_1.2.0              mime_0.12                  
+ [67] pracma_2.4.4                survival_3.5-7             
+ [69] SingleCellExperiment_1.24.0 units_0.8-5                
+ [71] statmod_1.5.0               ellipsis_0.3.2             
+ [73] fitdistrplus_1.1-11         ROCR_1.0-11                
+ [75] nlme_3.1-164                bit64_4.0.5                
+ [77] RcppAnnoy_0.0.21            GenomeInfoDb_1.38.5        
+ [79] rprojroot_2.0.4             bslib_0.6.1                
+ [81] irlba_2.3.5.1               vipor_0.4.7                
+ [83] KernSmooth_2.23-22          colorspace_2.1-0           
+ [85] BiocGenerics_0.48.1         DBI_1.2.0                  
+ [87] ggrastr_1.0.2               tidyselect_1.2.0           
+ [89] processx_3.8.3              bit_4.0.5                  
+ [91] compiler_4.3.1              git2r_0.33.0               
+ [93] hdf5r_1.3.8                 DelayedArray_0.28.0        
+ [95] plotly_4.10.4               scales_1.3.0               
+ [97] classInt_0.4-10             lmtest_0.9-40              
+ [99] callr_3.7.3                 rappdirs_0.3.3             
+[101] digest_0.6.34               goftest_1.2-3              
+[103] presto_1.0.0                spatstat.utils_3.0-4       
+[105] rmarkdown_2.25              XVector_0.42.0             
+[107] RhpcBLASctl_0.23-42         htmltools_0.5.7            
+[109] pkgconfig_2.0.3             sparseMatrixStats_1.14.0   
+[111] MatrixGenerics_1.14.0       highr_0.10                 
+[113] fastmap_1.1.1               rlang_1.1.3                
+[115] htmlwidgets_1.6.4           shiny_1.8.0                
+[117] DelayedMatrixStats_1.24.0   farver_2.1.1               
+[119] jquerylib_0.1.4             zoo_1.8-12                 
+[121] jsonlite_1.8.8              mclust_6.0.1               
+[123] RCurl_1.98-1.14             magrittr_2.0.3             
+[125] GenomeInfoDbData_1.2.11     dotCall64_1.1-1            
+[127] munsell_0.5.0               reticulate_1.34.0          
+[129] stringi_1.8.3               zlibbioc_1.48.0            
+[131] MASS_7.3-60.0.1             plyr_1.8.9                 
+[133] ggstats_0.5.1               parallel_4.3.1             
+[135] listenv_0.9.0               ggrepel_0.9.5              
+[137] deldir_2.0-2                splines_4.3.1              
+[139] tensor_1.5                  hms_1.1.3                  
+[141] ps_1.7.6                    igraph_1.6.0               
+[143] spatstat.geom_3.2-7         RcppHNSW_0.5.0             
+[145] reshape2_1.4.4              stats4_4.3.1               
+[147] evaluate_0.23               renv_1.0.3                 
+[149] BiocManager_1.30.22         tzdb_0.4.0                 
+[151] httpuv_1.6.14               RANN_2.6.1                 
+[153] polyclip_1.10-6             future_1.33.1              
+[155] scattermore_1.2             xtable_1.8-4               
+[157] e1071_1.7-14                RSpectra_0.16-1            
+[159] later_1.3.2                 class_7.3-22               
+[161] ragg_1.2.7                  beeswarm_0.4.0             
+[163] IRanges_2.36.0              cluster_2.1.6              
+[165] timechange_0.2.0            globals_0.16.2             </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+https://docs.mathjax.org/en/latest/web/configuration.html. This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

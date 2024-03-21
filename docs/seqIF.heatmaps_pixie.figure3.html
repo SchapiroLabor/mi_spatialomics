@@ -9,11 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="FloWuenne" />
+<meta name="author" content="Florian Wuennemann" />
 
-<meta name="date" content="2023-08-21" />
 
-<title>lunaphore.heatmaps_pixie.figure3</title>
+<title>SeqIF - Pixie heatmaps</title>
 
 <script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -37,13 +36,6 @@
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
-<script src="site_libs/htmlwidgets-1.6.3/htmlwidgets.js"></script>
-<script src="site_libs/plotly-binding-4.10.3/plotly.js"></script>
-<script src="site_libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
-<script src="site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
-<link href="site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 
 <link rel="icon" href="https://github.com/workflowr/workflowr-assets/raw/main/img/reproducible.png">
 <!-- Add a small amount of space between sections. -->
@@ -367,9 +359,8 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">lunaphore.heatmaps_pixie.figure3</h1>
-<h4 class="author">FloWuenne</h4>
-<h4 class="date">2023-08-21</h4>
+<h1 class="title toc-ignore">SeqIF - Pixie heatmaps</h1>
+<h4 class="author">Florian Wuennemann</h4>
 
 </div>
 
@@ -398,7 +389,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-12-06
+<strong>Last updated:</strong> 2024-03-21
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -529,15 +520,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510targetblank2dcd178a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstreee6213a5ae03dcd38ce227600f6ad3c4c9a7c5fc0targetblanke6213a5a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510" target="_blank">2dcd178</a>
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/e6213a5ae03dcd38ce227600f6ad3c4c9a7c5fc0" target="_blank">e6213a5</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510targetblank2dcd178a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstreee6213a5ae03dcd38ce227600f6ad3c4c9a7c5fc0targetblanke6213a5a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -547,7 +538,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510" target="_blank">2dcd178</a>.
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/e6213a5ae03dcd38ce227600f6ad3c4c9a7c5fc0" target="_blank">e6213a5</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -563,79 +554,59 @@ were generated:
 <pre><code>
 Ignored files:
     Ignored:    .DS_Store
-    Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    analysis/.DS_Store
-    Ignored:    analysis/.Rhistory
     Ignored:    analysis/deprecated/.DS_Store
     Ignored:    analysis/molecular_cartography_python/.DS_Store
-    Ignored:    analysis/molecular_cartography_python/figures/
     Ignored:    analysis/seqIF_python/.DS_Store
+    Ignored:    analysis/seqIF_python/pixie/.DS_Store
+    Ignored:    analysis/seqIF_python/pixie/cell_clustering/
+    Ignored:    annotations/.DS_Store
+    Ignored:    annotations/SeqIF/.DS_Store
+    Ignored:    annotations/molkart/.DS_Store
+    Ignored:    annotations/molkart/Figure1_regions/.DS_Store
+    Ignored:    annotations/molkart/Supplementary_Figure4_regions/.DS_Store
     Ignored:    data/.DS_Store
     Ignored:    data/140623.calcagno_et_al.seurat_object.rds
     Ignored:    data/Calcagno2022_int_logNorm_annot.h5Seurat
-    Ignored:    data/mol_cart.heart_regions/
+    Ignored:    data/IC_03_IF_CCR2_CD68 cell numbers.xlsx
+    Ignored:    data/Traditional_IF_absolute_cell_counts.csv
+    Ignored:    data/Traditional_IF_relative_cell_counts.csv
     Ignored:    data/pixie.cell_table_size_normalized_cell_labels.csv
     Ignored:    data/results_cts_100.sqm
     Ignored:    data/seqIF_regions_annotations/
     Ignored:    data/seurat/
-    Ignored:    figures/.DS_Store
-    Ignored:    figures/Figure_5.pathway_plot.pdf
-    Ignored:    figures/Figure_5.pca_plot.pdf
-    Ignored:    figures/Figure_5.pca_plot.png
-    Ignored:    figures/Figure_5.volcano_plot.pdf
-    Ignored:    figures/Figure_5.vwf_expression_plot.pdf
-    Ignored:    figures/Figure_5.vwf_specificity_plot.pdf
-    Ignored:    figures/Supplementary_figure_3.segmentation_metrics.eps
-    Ignored:    figures/Supplementary_figure_3.segmentation_metrics.png
-    Ignored:    figures/figures.supplementary_figure4.png
-    Ignored:    figures/mol_cart.Figure_2.gains.pdf
-    Ignored:    figures/mol_cart.Figure_2.misty_gains.pdf
-    Ignored:    figures/mol_cart.Myeloid_distribution.png
-    Ignored:    figures/mol_cart.Nppa_distribution.eps
-    Ignored:    figures/mol_cart.Nppa_distribution.pdf
-    Ignored:    figures/mol_cart.Nppa_distribution.png
-    Ignored:    figures/supplementary_figure4.cell_type_distributions.eps
-    Ignored:    figures/supplementary_figure4.cell_type_distributions.png
     Ignored:    omnipathr-log/
     Ignored:    output/.DS_Store
     Ignored:    output/mol_cart.harmony_object.h5Seurat
-    Ignored:    output/mol_cart/
-    Ignored:    output/molkart_cell_types/
+    Ignored:    output/molkart/
     Ignored:    output/proteomics/
+    Ignored:    output/results_cts.lowres.125.sqm
     Ignored:    output/seqIF/
-    Ignored:    plots/.DS_Store
-    Ignored:    plots/Figure1.umap_plot.pdf
-    Ignored:    plots/Figure3.ccr2_monomacro_regions.pdf
-    Ignored:    plots/Figure3.cell_types_overtimes.pdf
-    Ignored:    plots/Figure3.pixel_clusters_overtimes.pdf
-    Ignored:    plots/mol_cart.Figure_2.ct_percentage.pdf
-    Ignored:    plots/molkart.squidpy.co_occurrence_plot.CMs_Nppa.sample_2d_r1_s1.png
-    Ignored:    plots/molkart.squidpy.co_occurrence_plot.CMs_Nppa.sample_2d_r2_s1.png
-    Ignored:    plots/molkart.squidpy.co_occurrence_plot.CMs_Nppa.sample_control_r1_s1.png
-    Ignored:    plots/molkart.squidpy.co_occurrence_plot.CMs_Nppa.sample_control_r2_s1.png
-    Ignored:    plots/molkart.squidpy.co_occurrence_plot.Endocardial_cells.sample_2d_r1_s1.png
-    Ignored:    plots/molkart.squidpy.co_occurrence_plot.Endocardial_cells.sample_2d_r2_s1.png
-    Ignored:    plots/molkart.squidpy.co_occurrence_plot.Endocardial_cells.sample_control_r1_s1.png
-    Ignored:    plots/molkart.squidpy.co_occurrence_plot.Endocardial_cells.sample_control_r2_s1.png
-    Ignored:    plots/molkart.squidpy.co_occurrence_plot.Myeloid_cells.sample_2d_r1_s1.png
-    Ignored:    plots/molkart.squidpy.co_occurrence_plot.Myeloid_cells.sample_2d_r2_s1.png
-    Ignored:    plots/molkart.squidpy.co_occurrence_plot.Myeloid_cells.sample_control_r1_s1.png
-    Ignored:    plots/molkart.squidpy.co_occurrence_plot.Myeloid_cells.sample_control_r2_s1.png
-    Ignored:    plots/molkart.squidpy.nhood_enrichment_plot.sample_2d_r1_s1.png
-    Ignored:    plots/molkart.squidpy.nhood_enrichment_plot.sample_2d_r2_s1.png
-    Ignored:    plots/molkart.squidpy.nhood_enrichment_plot.sample_control_r1_s1.png
-    Ignored:    plots/molkart.squidpy.nhood_enrichment_plot.sample_control_r2_s1.png
+    Ignored:    pipeline_configs/.DS_Store
+    Ignored:    plots/
     Ignored:    references/.DS_Store
+    Ignored:    renv/.DS_Store
     Ignored:    renv/library/
     Ignored:    renv/staging/
 
+Untracked files:
+    Untracked:  analysis/deprecated/figures.supplementary_figureX.Rmd
+    Untracked:  analysis/deprecated/figures.supplementary_figure_X.MistyR.Rmd
+
 Unstaged changes:
-    Modified:   figures/Figure_5.eps
-    Modified:   figures/Figure_5.pdf
-    Modified:   figures/Figure_5.png
-    Modified:   figures/Figure_5.svg
-    Modified:   plots/Figure1.dotplot.pdf
+    Deleted:    analysis/figures.supplementary_figureX.Rmd
+    Deleted:    analysis/figures.supplementary_figure_X.MistyR.Rmd
+    Deleted:    analysis/figures.supplementary_figure_X.proteomics_qc.Rmd
+    Deleted:    figures/Figure_5.eps
+    Deleted:    figures/Figure_5.pdf
+    Deleted:    figures/Figure_5.png
+    Deleted:    figures/Figure_5.svg
+    Deleted:    figures/Supplementary_Figure_1_Molecular_Cartography_ROIs.png
+    Deleted:    figures/Supplementary_figure_5.segmentation_metrics.poster.eps
+    Modified:   figures/Supplementary_figure_X.proteomics.eps
+    Modified:   figures/Supplementary_figure_X.proteomics.png
+    Modified:   results_cts.lowres.125.sqm
 
 </code></pre>
 <p>
@@ -682,6 +653,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/e6213a5ae03dcd38ce227600f6ad3c4c9a7c5fc0/analysis/seqIF.heatmaps_pixie.figure3.Rmd" target="_blank">e6213a5</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2024-03-21
+</td>
+<td>
+Publish all updated files.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/56559c732914d3853c5fb73bef8b60761246d181/analysis/seqIF.heatmaps_pixie.figure3.Rmd" target="_blank">56559c7</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2024-03-21
+</td>
+<td>
+Cleaned up repository.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/b267494174f51c2ac4b209f854121872e22c533c/docs/seqIF.heatmaps_pixie.figure3.html" target="_blank">b267494</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-12-06
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -764,7 +786,7 @@ library(viridis)</code></pre>
 <pre class="r"><code>library(RColorBrewer)
 library(tidyverse)</code></pre>
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.4
+✔ dplyr     1.1.4     ✔ readr     2.1.5
 ✔ forcats   1.0.0     ✔ stringr   1.5.1
 ✔ ggplot2   3.4.4     ✔ tibble    3.2.1
 ✔ lubridate 1.9.3     ✔ tidyr     1.3.0
@@ -854,7 +876,7 @@ here() starts at /Users/florian_wuennemann/1_Projects/MI_project/mi_spatialomics
 <h1>Pixel cluster</h1>
 <div id="pixel-cluster-maps" class="section level2">
 <h2>Pixel cluster maps</h2>
-<pre class="r"><code>avg_pixel_cluster &lt;- fread(&quot;/Users/florian_wuennemann/1_Projects/MI_project/Lunaphore/pixie/masked_subset/subset_0.05_wseg/pixel_channel_avg_meta_cluster.csv&quot;)
+<pre class="r"><code>avg_pixel_cluster &lt;- fread(&quot;../data/SeqIF/pixie_pixel_masks_0.05/pixel_channel_avg_meta_cluster.csv&quot;)
 avg_pixel_cluster &lt;- avg_pixel_cluster %&gt;%
   subset(pixel_meta_cluster_rename != &quot;background&quot;)</code></pre>
 <pre class="r"><code>mat_rownames &lt;- avg_pixel_cluster$pixel_meta_cluster_rename
@@ -910,12 +932,12 @@ dev.off()</code></pre>
 <div id="pixel-cluster-changes-over-time" class="section level2">
 <h2>Pixel cluster changes over time</h2>
 <pre class="r"><code>## read in pixel cluster counts
-pixel_counts = fread(&quot;/Users/florian_wuennemann/1_Projects/MI_project/Lunaphore/pixie/masked_subset/subset_0.05_wseg/pixel_counts.all_samples.csv&quot;)</code></pre>
+pixel_counts = fread(&quot;../data/SeqIF/pixie_pixel_masks_0.05/pixel_counts.all_samples.csv&quot;)</code></pre>
 <pre class="r"><code>pixel_cluster_counts_stats &lt;- pixel_counts %&gt;%
   subset(Pixel_cluster != &quot;background&quot;) %&gt;%
   separate(&quot;Sample_ID&quot;, into = c(&quot;time&quot;,&quot;sample&quot;)) %&gt;%
   group_by(time,Pixel_cluster) %&gt;%
-  summarise(&quot;n_pixel&quot; = sum(Count)) %&gt;%
+  dplyr::summarise(&quot;n_pixel&quot; = sum(Count)) %&gt;%
   mutate(&quot;percent&quot; = n_pixel / sum(n_pixel)) %&gt;%
   ungroup()</code></pre>
 <pre><code>`summarise()` has grouped output by &#39;time&#39;. You can override using the
@@ -987,7 +1009,7 @@ FloWuenne
 <h1>Cell cluster map</h1>
 <div id="cell-cluster-tissue-maps" class="section level2">
 <h2>Cell cluster tissue maps</h2>
-<pre class="r"><code>avg_cell_cluster &lt;- fread(&quot;/Users/florian_wuennemann/1_Projects/MI_project/Lunaphore/pixie/masked_subset/cell_masks_0.05/cell_meta_cluster_count_avg.csv&quot;)
+<pre class="r"><code>avg_cell_cluster &lt;- fread(&quot;../data/SeqIF/pixie_cell_masks_0.05/cell_meta_cluster_count_avg.csv&quot;)
 colnames(avg_cell_cluster) &lt;- gsub(&quot;pixel_meta_cluster_rename_&quot;,&quot;&quot;,colnames(avg_cell_cluster))
 avg_cell_cluster &lt;- avg_cell_cluster %&gt;%
   subset(cell_meta_cluster_rename != &quot;background&quot;) %&gt;%
@@ -1040,227 +1062,6 @@ pheatmap(mat_dat,
          fontsize = 20,
          width = 8,
          height = 6)</code></pre>
-</div>
-<div id="cell-cluster-changes-over-time" class="section level2">
-<h2>Cell cluster changes over time</h2>
-<pre class="r"><code>cells_over_time &lt;- fread(&quot;/Users/florian_wuennemann/1_Projects/MI_project/Lunaphore/pixie/masked_subset/cell_masks_0.05/cell_table_size_normalized_cell_labels.csv&quot;)
-cell_groups_sample &lt;- cells_over_time %&gt;%
-  separate(&quot;fov&quot;, into = c(&quot;time&quot;,&quot;sample&quot;), remove = FALSE) %&gt;%
-  group_by(fov,time,cell_meta_cluster) %&gt;%
-  tally()
-
-n_cell_plot &lt;- ggplot(cell_groups_sample,aes(cell_meta_cluster,log10(n),color = fov,
-                              label = fov)) +
-  geom_point(size = 3,aes(shape = time)) +
-  coord_flip()
-
-ggplotly(n_cell_plot)</code></pre>
-<div class="plotly html-widget html-fill-item" id="htmlwidget-e67dda8c1ce3fccf5b1a" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-e67dda8c1ce3fccf5b1a">{"x":{"data":[{"x":[4.3736107283129311,4.1848049570192396,3.9315087218666176,3.594834355583318,2.3521825181113627,1.9138138523837167,3.7049222912234017,3.4156409798961542,2.1986570869544226,2.9943171526696366,2.7972675408307164,2.287801729930226],"y":[2,3,4,5,7,6,8,9,10,12,1,11],"text":["cell_meta_cluster: Cardiomyocytes<br />log10(n): 4.373611<br />fov: 24h_83<br />fov: 24h_83<br />time: 24h","cell_meta_cluster: Cardiomyocytes Ankrd1+<br />log10(n): 4.184805<br />fov: 24h_83<br />fov: 24h_83<br />time: 24h","cell_meta_cluster: Endothelial cells<br />log10(n): 3.931509<br />fov: 24h_83<br />fov: 24h_83<br />time: 24h","cell_meta_cluster: Fibroblasts<br />log10(n): 3.594834<br />fov: 24h_83<br />fov: 24h_83<br />time: 24h","cell_meta_cluster: Macrophages Trem2+<br />log10(n): 2.352183<br />fov: 24h_83<br />fov: 24h_83<br />time: 24h","cell_meta_cluster: Macrophages Trem2-<br />log10(n): 1.913814<br />fov: 24h_83<br />fov: 24h_83<br />time: 24h","cell_meta_cluster: Mono / Macros Ccr2+<br />log10(n): 3.704922<br />fov: 24h_83<br />fov: 24h_83<br />time: 24h","cell_meta_cluster: Neutrophils<br />log10(n): 3.415641<br />fov: 24h_83<br />fov: 24h_83<br />time: 24h","cell_meta_cluster: Other Leukocytes<br />log10(n): 2.198657<br />fov: 24h_83<br />fov: 24h_83<br />time: 24h","cell_meta_cluster: Smooth muscle cells<br />log10(n): 2.994317<br />fov: 24h_83<br />fov: 24h_83<br />time: 24h","cell_meta_cluster: background<br />log10(n): 2.797268<br />fov: 24h_83<br />fov: 24h_83<br />time: 24h","cell_meta_cluster: out_of_mask<br />log10(n): 2.287802<br />fov: 24h_83<br />fov: 24h_83<br />time: 24h"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(248,118,109,1)","opacity":1,"size":11.338582677165356,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(248,118,109,1)"}},"hoveron":"points","name":"(24h,24h_83)","legendgroup":"(24h,24h_83)","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[4.6129638927195424,4.0611130539179792,3.9089137400209713,3.5817221599490989,2.0899051114393981,2.2329961103921536,3.3783979009481375,3.3072820470333459,1.9395192526186185,2.9576072870600951,2.5403294747908736,2.3222192947339191],"y":[2,3,4,5,7,6,8,9,10,12,1,11],"text":["cell_meta_cluster: Cardiomyocytes<br />log10(n): 4.612964<br />fov: 24h_86<br />fov: 24h_86<br />time: 24h","cell_meta_cluster: Cardiomyocytes Ankrd1+<br />log10(n): 4.061113<br />fov: 24h_86<br />fov: 24h_86<br />time: 24h","cell_meta_cluster: Endothelial cells<br />log10(n): 3.908914<br />fov: 24h_86<br />fov: 24h_86<br />time: 24h","cell_meta_cluster: Fibroblasts<br />log10(n): 3.581722<br />fov: 24h_86<br />fov: 24h_86<br />time: 24h","cell_meta_cluster: Macrophages Trem2+<br />log10(n): 2.089905<br />fov: 24h_86<br />fov: 24h_86<br />time: 24h","cell_meta_cluster: Macrophages Trem2-<br />log10(n): 2.232996<br />fov: 24h_86<br />fov: 24h_86<br />time: 24h","cell_meta_cluster: Mono / Macros Ccr2+<br />log10(n): 3.378398<br />fov: 24h_86<br />fov: 24h_86<br />time: 24h","cell_meta_cluster: Neutrophils<br />log10(n): 3.307282<br />fov: 24h_86<br />fov: 24h_86<br />time: 24h","cell_meta_cluster: Other Leukocytes<br />log10(n): 1.939519<br />fov: 24h_86<br />fov: 24h_86<br />time: 24h","cell_meta_cluster: Smooth muscle cells<br />log10(n): 2.957607<br />fov: 24h_86<br />fov: 24h_86<br />time: 24h","cell_meta_cluster: background<br />log10(n): 2.540329<br />fov: 24h_86<br />fov: 24h_86<br />time: 24h","cell_meta_cluster: out_of_mask<br />log10(n): 2.322219<br />fov: 24h_86<br />fov: 24h_86<br />time: 24h"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(211,146,0,1)","opacity":1,"size":11.338582677165356,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(211,146,0,1)"}},"hoveron":"points","name":"(24h,24h_86)","legendgroup":"(24h,24h_86)","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[4.5498979189019071,3.9224659452984132,4.0055665711332944,3.7518946880437474,3.3394514413064407,2.3944516808262164,3.7387805584843692,3.2808059283936668,2.6748611407378116,3.0530784434834195,3.5625307688622612,2.7242758696007892],"y":[2,3,4,5,7,6,8,9,10,12,1,11],"text":["cell_meta_cluster: Cardiomyocytes<br />log10(n): 4.549898<br />fov: 48h_76<br />fov: 48h_76<br />time: 48h","cell_meta_cluster: Cardiomyocytes Ankrd1+<br />log10(n): 3.922466<br />fov: 48h_76<br />fov: 48h_76<br />time: 48h","cell_meta_cluster: Endothelial cells<br />log10(n): 4.005567<br />fov: 48h_76<br />fov: 48h_76<br />time: 48h","cell_meta_cluster: Fibroblasts<br />log10(n): 3.751895<br />fov: 48h_76<br />fov: 48h_76<br />time: 48h","cell_meta_cluster: Macrophages Trem2+<br />log10(n): 3.339451<br />fov: 48h_76<br />fov: 48h_76<br />time: 48h","cell_meta_cluster: Macrophages Trem2-<br />log10(n): 2.394452<br />fov: 48h_76<br />fov: 48h_76<br />time: 48h","cell_meta_cluster: Mono / Macros Ccr2+<br />log10(n): 3.738781<br />fov: 48h_76<br />fov: 48h_76<br />time: 48h","cell_meta_cluster: Neutrophils<br />log10(n): 3.280806<br />fov: 48h_76<br />fov: 48h_76<br />time: 48h","cell_meta_cluster: Other Leukocytes<br />log10(n): 2.674861<br />fov: 48h_76<br />fov: 48h_76<br />time: 48h","cell_meta_cluster: Smooth muscle cells<br />log10(n): 3.053078<br />fov: 48h_76<br />fov: 48h_76<br />time: 48h","cell_meta_cluster: background<br />log10(n): 3.562531<br />fov: 48h_76<br />fov: 48h_76<br />time: 48h","cell_meta_cluster: out_of_mask<br />log10(n): 2.724276<br />fov: 48h_76<br />fov: 48h_76<br />time: 48h"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(147,170,0,1)","opacity":1,"size":11.338582677165356,"symbol":"triangle-up","line":{"width":1.8897637795275593,"color":"rgba(147,170,0,1)"}},"hoveron":"points","name":"(48h,48h_76)","legendgroup":"(48h,48h_76)","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[4.367505009418112,4.0364691989154622,4.2387735017206962,3.9286518466536946,3.344195715871435,1.8976270912904414,3.7787299239961119,3.0982975364946976,2.847572659142112,2.9876662649262746,3.0199466816788423,2.1335389083702174],"y":[2,3,4,5,7,6,8,9,10,12,1,11],"text":["cell_meta_cluster: Cardiomyocytes<br />log10(n): 4.367505<br />fov: 48h_79<br />fov: 48h_79<br />time: 48h","cell_meta_cluster: Cardiomyocytes Ankrd1+<br />log10(n): 4.036469<br />fov: 48h_79<br />fov: 48h_79<br />time: 48h","cell_meta_cluster: Endothelial cells<br />log10(n): 4.238774<br />fov: 48h_79<br />fov: 48h_79<br />time: 48h","cell_meta_cluster: Fibroblasts<br />log10(n): 3.928652<br />fov: 48h_79<br />fov: 48h_79<br />time: 48h","cell_meta_cluster: Macrophages Trem2+<br />log10(n): 3.344196<br />fov: 48h_79<br />fov: 48h_79<br />time: 48h","cell_meta_cluster: Macrophages Trem2-<br />log10(n): 1.897627<br />fov: 48h_79<br />fov: 48h_79<br />time: 48h","cell_meta_cluster: Mono / Macros Ccr2+<br />log10(n): 3.778730<br />fov: 48h_79<br />fov: 48h_79<br />time: 48h","cell_meta_cluster: Neutrophils<br />log10(n): 3.098298<br />fov: 48h_79<br />fov: 48h_79<br />time: 48h","cell_meta_cluster: Other Leukocytes<br />log10(n): 2.847573<br />fov: 48h_79<br />fov: 48h_79<br />time: 48h","cell_meta_cluster: Smooth muscle cells<br />log10(n): 2.987666<br />fov: 48h_79<br />fov: 48h_79<br />time: 48h","cell_meta_cluster: background<br />log10(n): 3.019947<br />fov: 48h_79<br />fov: 48h_79<br />time: 48h","cell_meta_cluster: out_of_mask<br />log10(n): 2.133539<br />fov: 48h_79<br />fov: 48h_79<br />time: 48h"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,186,56,1)","opacity":1,"size":11.338582677165356,"symbol":"triangle-up","line":{"width":1.8897637795275593,"color":"rgba(0,186,56,1)"}},"hoveron":"points","name":"(48h,48h_79)","legendgroup":"(48h,48h_79)","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[4.4694390791836076,4.1700562572508,3.7736401932600256,3.3946267642722092,1.9444826721501687,1.5797835966168101,2.5171958979499744,2.7041505168397992,2.271841606536499,2.8413594704548548,3.0530784434834195,2.0492180226701815],"y":[2,3,4,5,7,6,8,9,10,12,1,11],"text":["cell_meta_cluster: Cardiomyocytes<br />log10(n): 4.469439<br />fov: 4h_96<br />fov: 4h_96<br />time: 4h","cell_meta_cluster: Cardiomyocytes Ankrd1+<br />log10(n): 4.170056<br />fov: 4h_96<br />fov: 4h_96<br />time: 4h","cell_meta_cluster: Endothelial cells<br />log10(n): 3.773640<br />fov: 4h_96<br />fov: 4h_96<br />time: 4h","cell_meta_cluster: Fibroblasts<br />log10(n): 3.394627<br />fov: 4h_96<br />fov: 4h_96<br />time: 4h","cell_meta_cluster: Macrophages Trem2+<br />log10(n): 1.944483<br />fov: 4h_96<br />fov: 4h_96<br />time: 4h","cell_meta_cluster: Macrophages Trem2-<br />log10(n): 1.579784<br />fov: 4h_96<br />fov: 4h_96<br />time: 4h","cell_meta_cluster: Mono / Macros Ccr2+<br />log10(n): 2.517196<br />fov: 4h_96<br />fov: 4h_96<br />time: 4h","cell_meta_cluster: Neutrophils<br />log10(n): 2.704151<br />fov: 4h_96<br />fov: 4h_96<br />time: 4h","cell_meta_cluster: Other Leukocytes<br />log10(n): 2.271842<br />fov: 4h_96<br />fov: 4h_96<br />time: 4h","cell_meta_cluster: Smooth muscle cells<br />log10(n): 2.841359<br />fov: 4h_96<br />fov: 4h_96<br />time: 4h","cell_meta_cluster: background<br />log10(n): 3.053078<br />fov: 4h_96<br />fov: 4h_96<br />time: 4h","cell_meta_cluster: out_of_mask<br />log10(n): 2.049218<br />fov: 4h_96<br />fov: 4h_96<br />time: 4h"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,193,159,1)","opacity":1,"size":11.338582677165356,"symbol":"square","line":{"width":1.8897637795275593,"color":"rgba(0,193,159,1)"}},"hoveron":"points","name":"(4h,4h_96)","legendgroup":"(4h,4h_96)","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[4.6570654187095046,3.8333383889393975,3.9856509736909489,3.6118294794983736,2.0791812460476247,2.1398790864012365,2.8733206018153989,3.2260841159758238,2.2095150145426308,3.0881360887005513,2.7708520116421442,2.0718820073061255],"y":[2,3,4,5,7,6,8,9,10,12,1,11],"text":["cell_meta_cluster: Cardiomyocytes<br />log10(n): 4.657065<br />fov: 4h_97<br />fov: 4h_97<br />time: 4h","cell_meta_cluster: Cardiomyocytes Ankrd1+<br />log10(n): 3.833338<br />fov: 4h_97<br />fov: 4h_97<br />time: 4h","cell_meta_cluster: Endothelial cells<br />log10(n): 3.985651<br />fov: 4h_97<br />fov: 4h_97<br />time: 4h","cell_meta_cluster: Fibroblasts<br />log10(n): 3.611829<br />fov: 4h_97<br />fov: 4h_97<br />time: 4h","cell_meta_cluster: Macrophages Trem2+<br />log10(n): 2.079181<br />fov: 4h_97<br />fov: 4h_97<br />time: 4h","cell_meta_cluster: Macrophages Trem2-<br />log10(n): 2.139879<br />fov: 4h_97<br />fov: 4h_97<br />time: 4h","cell_meta_cluster: Mono / Macros Ccr2+<br />log10(n): 2.873321<br />fov: 4h_97<br />fov: 4h_97<br />time: 4h","cell_meta_cluster: Neutrophils<br />log10(n): 3.226084<br />fov: 4h_97<br />fov: 4h_97<br />time: 4h","cell_meta_cluster: Other Leukocytes<br />log10(n): 2.209515<br />fov: 4h_97<br />fov: 4h_97<br />time: 4h","cell_meta_cluster: Smooth muscle cells<br />log10(n): 3.088136<br />fov: 4h_97<br />fov: 4h_97<br />time: 4h","cell_meta_cluster: background<br />log10(n): 2.770852<br />fov: 4h_97<br />fov: 4h_97<br />time: 4h","cell_meta_cluster: out_of_mask<br />log10(n): 2.071882<br />fov: 4h_97<br />fov: 4h_97<br />time: 4h"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(0,185,227,1)","opacity":1,"size":11.338582677165356,"symbol":"square","line":{"width":1.8897637795275593,"color":"rgba(0,185,227,1)"}},"hoveron":"points","name":"(4h,4h_97)","legendgroup":"(4h,4h_97)","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[4.7071271401380859,3.0047511555910011,4.1414497734004669,3.4551495211798278,1.5185139398778875,0.6020599913279624,2.4393326938302629,1.6532125137753437,1.4471580313422192,2.537819095073274,2.9185545305502734,1.146128035678238],"y":[2,3,4,5,7,6,8,9,10,12,1,11],"text":["cell_meta_cluster: Cardiomyocytes<br />log10(n): 4.707127<br />fov: Control_12<br />fov: Control_12<br />time: Control","cell_meta_cluster: Cardiomyocytes Ankrd1+<br />log10(n): 3.004751<br />fov: Control_12<br />fov: Control_12<br />time: Control","cell_meta_cluster: Endothelial cells<br />log10(n): 4.141450<br />fov: Control_12<br />fov: Control_12<br />time: Control","cell_meta_cluster: Fibroblasts<br />log10(n): 3.455150<br />fov: Control_12<br />fov: Control_12<br />time: Control","cell_meta_cluster: Macrophages Trem2+<br />log10(n): 1.518514<br />fov: Control_12<br />fov: Control_12<br />time: Control","cell_meta_cluster: Macrophages Trem2-<br />log10(n): 0.602060<br />fov: Control_12<br />fov: Control_12<br />time: Control","cell_meta_cluster: Mono / Macros Ccr2+<br />log10(n): 2.439333<br />fov: Control_12<br />fov: Control_12<br />time: Control","cell_meta_cluster: Neutrophils<br />log10(n): 1.653213<br />fov: Control_12<br />fov: Control_12<br />time: Control","cell_meta_cluster: Other Leukocytes<br />log10(n): 1.447158<br />fov: Control_12<br />fov: Control_12<br />time: Control","cell_meta_cluster: Smooth muscle cells<br />log10(n): 2.537819<br />fov: Control_12<br />fov: Control_12<br />time: Control","cell_meta_cluster: background<br />log10(n): 2.918555<br />fov: Control_12<br />fov: Control_12<br />time: Control","cell_meta_cluster: out_of_mask<br />log10(n): 1.146128<br />fov: Control_12<br />fov: Control_12<br />time: Control"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(97,156,255,1)","opacity":1,"size":11.338582677165356,"symbol":"cross-thin-open","line":{"width":1.8897637795275593,"color":"rgba(97,156,255,1)"}},"hoveron":"points","name":"(Control,Control_12)","legendgroup":"(Control,Control_12)","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[4.6275809020250271,1.9344984512435677,4.2707952533768481,3.8088184250921242,2.3364597338485296,1.9777236052888478,2.173186268412274,0.90308998699194354,1.9138138523837167,3.0390173219974121,2.6866362692622934,1.6434526764861874],"y":[2,3,4,5,7,6,8,9,10,12,1,11],"text":["cell_meta_cluster: Cardiomyocytes<br />log10(n): 4.627581<br />fov: Control_13<br />fov: Control_13<br />time: Control","cell_meta_cluster: Cardiomyocytes Ankrd1+<br />log10(n): 1.934498<br />fov: Control_13<br />fov: Control_13<br />time: Control","cell_meta_cluster: Endothelial cells<br />log10(n): 4.270795<br />fov: Control_13<br />fov: Control_13<br />time: Control","cell_meta_cluster: Fibroblasts<br />log10(n): 3.808818<br />fov: Control_13<br />fov: Control_13<br />time: Control","cell_meta_cluster: Macrophages Trem2+<br />log10(n): 2.336460<br />fov: Control_13<br />fov: Control_13<br />time: Control","cell_meta_cluster: Macrophages Trem2-<br />log10(n): 1.977724<br />fov: Control_13<br />fov: Control_13<br />time: Control","cell_meta_cluster: Mono / Macros Ccr2+<br />log10(n): 2.173186<br />fov: Control_13<br />fov: Control_13<br />time: Control","cell_meta_cluster: Neutrophils<br />log10(n): 0.903090<br />fov: Control_13<br />fov: Control_13<br />time: Control","cell_meta_cluster: Other Leukocytes<br />log10(n): 1.913814<br />fov: Control_13<br />fov: Control_13<br />time: Control","cell_meta_cluster: Smooth muscle cells<br />log10(n): 3.039017<br />fov: Control_13<br />fov: Control_13<br />time: Control","cell_meta_cluster: background<br />log10(n): 2.686636<br />fov: Control_13<br />fov: Control_13<br />time: Control","cell_meta_cluster: out_of_mask<br />log10(n): 1.643453<br />fov: Control_13<br />fov: Control_13<br />time: Control"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(219,114,251,1)","opacity":1,"size":11.338582677165356,"symbol":"cross-thin-open","line":{"width":1.8897637795275593,"color":"rgba(219,114,251,1)"}},"hoveron":"points","name":"(Control,Control_13)","legendgroup":"(Control,Control_13)","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[4.8371463439090601,1.6812412373755872,3.8608169638645378,3.5504729571065634,2.0374264979406238,2.4638929889859074,1.9030899869919435,0.90308998699194354,1.2041199826559248,3.2008504980910772,2.5024271199844326,2.0606978403536118],"y":[2,3,4,5,7,6,8,9,10,12,1,11],"text":["cell_meta_cluster: Cardiomyocytes<br />log10(n): 4.837146<br />fov: Control_14<br />fov: Control_14<br />time: Control","cell_meta_cluster: Cardiomyocytes Ankrd1+<br />log10(n): 1.681241<br />fov: Control_14<br />fov: Control_14<br />time: Control","cell_meta_cluster: Endothelial cells<br />log10(n): 3.860817<br />fov: Control_14<br />fov: Control_14<br />time: Control","cell_meta_cluster: Fibroblasts<br />log10(n): 3.550473<br />fov: Control_14<br />fov: Control_14<br />time: Control","cell_meta_cluster: Macrophages Trem2+<br />log10(n): 2.037426<br />fov: Control_14<br />fov: Control_14<br />time: Control","cell_meta_cluster: Macrophages Trem2-<br />log10(n): 2.463893<br />fov: Control_14<br />fov: Control_14<br />time: Control","cell_meta_cluster: Mono / Macros Ccr2+<br />log10(n): 1.903090<br />fov: Control_14<br />fov: Control_14<br />time: Control","cell_meta_cluster: Neutrophils<br />log10(n): 0.903090<br />fov: Control_14<br />fov: Control_14<br />time: Control","cell_meta_cluster: Other Leukocytes<br />log10(n): 1.204120<br />fov: Control_14<br />fov: Control_14<br />time: Control","cell_meta_cluster: Smooth muscle cells<br />log10(n): 3.200850<br />fov: Control_14<br />fov: Control_14<br />time: Control","cell_meta_cluster: background<br />log10(n): 2.502427<br />fov: Control_14<br />fov: Control_14<br />time: Control","cell_meta_cluster: out_of_mask<br />log10(n): 2.060698<br />fov: Control_14<br />fov: Control_14<br />time: Control"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(255,97,195,1)","opacity":1,"size":11.338582677165356,"symbol":"cross-thin-open","line":{"width":1.8897637795275593,"color":"rgba(255,97,195,1)"}},"hoveron":"points","name":"(Control,Control_14)","legendgroup":"(Control,Control_14)","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":29.017849730178501,"r":9.2984640929846432,"b":52.204234122042337,"l":207.88709007887093},"font":{"color":"rgba(0,0,0,1)","family":"","size":18.596928185969279},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.39030567369890751,5.0489006615381147],"tickmode":"array","ticktext":["1","2","3","4","5"],"tickvals":[1,2,3,4,5],"categoryorder":"array","categoryarray":["1","2","3","4","5"],"nticks":null,"ticks":"outside","tickcolor":"rgba(0,0,0,1)","ticklen":4.6492320464923198,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"","size":15.940224159402241},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176002,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"y","title":{"text":"<b> log10(n) <\/b>","font":{"color":"rgba(0,0,0,1)","family":"","size":18.596928185969279}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,12.6],"tickmode":"array","ticktext":["background","Cardiomyocytes","Cardiomyocytes Ankrd1+","Endothelial cells","Fibroblasts","Macrophages Trem2-","Macrophages Trem2+","Mono / Macros Ccr2+","Neutrophils","Other Leukocytes","out_of_mask","Smooth muscle cells"],"tickvals":[1,2,3,4.0000000000000009,5,6,7.0000000000000009,8,9,10,11,12],"categoryorder":"array","categoryarray":["background","Cardiomyocytes","Cardiomyocytes Ankrd1+","Endothelial cells","Fibroblasts","Macrophages Trem2-","Macrophages Trem2+","Mono / Macros Ccr2+","Neutrophils","Other Leukocytes","out_of_mask","Smooth muscle cells"],"nticks":null,"ticks":"outside","tickcolor":"rgba(0,0,0,1)","ticklen":4.6492320464923216,"tickwidth":0.66417600664176002,"showticklabels":true,"tickfont":{"color":"rgba(0,0,0,1)","family":"","size":15.940224159402243},"tickangle":-0,"showline":true,"linecolor":"rgba(0,0,0,1)","linewidth":0.66417600664176002,"showgrid":false,"gridcolor":null,"gridwidth":0,"zeroline":false,"anchor":"x","title":{"text":"<b> cell_meta_cluster <\/b>","font":{"color":"rgba(0,0,0,1)","family":"","size":18.596928185969279}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":15.940224159402241},"title":{"text":"time<br />fov","font":{"color":"rgba(0,0,0,1)","family":"","size":18.596928185969279}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"162293fb8042c":{"x":{},"y":{},"colour":{},"label":{},"shape":{},"type":"scatter"}},"cur_data":"162293fb8042c","visdat":{"162293fb8042c":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
-<pre class="r"><code>## Plot distribution of all cell types for a given sample
-unique(cells_over_time$cell_meta_cluster)</code></pre>
-<pre><code> [1] &quot;out_of_mask&quot;            &quot;Fibroblasts&quot;            &quot;Mono / Macros Ccr2+&quot;   
- [4] &quot;Cardiomyocytes&quot;         &quot;Neutrophils&quot;            &quot;background&quot;            
- [7] &quot;Cardiomyocytes Ankrd1+&quot; &quot;Endothelial cells&quot;      &quot;Macrophages Trem2+&quot;    
-[10] &quot;Smooth muscle cells&quot;    &quot;Macrophages Trem2-&quot;     &quot;Other Leukocytes&quot;      </code></pre>
-<pre class="r"><code>unique(cells_over_time$fov)</code></pre>
-<pre><code>[1] &quot;24h_86&quot;     &quot;24h_83&quot;     &quot;Control_13&quot; &quot;Control_12&quot; &quot;4h_97&quot;     
-[6] &quot;4h_96&quot;      &quot;48h_79&quot;     &quot;48h_76&quot;     &quot;Control_14&quot;</code></pre>
-<pre class="r"><code>cells_over_time_sub &lt;- subset(cells_over_time,fov == &quot;48h_79&quot;)
-spatial_plot &lt;- ggplot(cells_over_time_sub,aes(X_centroid,Y_centroid,color = cell_meta_cluster)) +
-  geom_point(size = 0.01) +
-  facet_wrap(~ cell_meta_cluster) +
-  labs(title= unique(cells_over_time_sub$fov))
-
-spatial_plot</code></pre>
-<p><img src="figure/seqIF.heatmaps_pixie.figure3.Rmd/unnamed-chunk-13-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-13-1">
-Past versions of unnamed-chunk-13-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-13-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/FloWuenne/mi_spatialomics/blob/2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510/docs/figure/seqIF.heatmaps_pixie.figure3.Rmd/unnamed-chunk-13-1.png" target="_blank">2dcd178</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-12-06
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>## Plot distribution of 1 cell type over time
-# cells_over_time_sub &lt;- subset(cells_over_time,fov %in% c(&quot;Control_14&quot;,&quot;4h_97&quot;,&quot;24h_86&quot;,&quot;48h_76&quot;))
-cells_over_time_sub &lt;- cells_over_time
-pt_size = 0.001
-
-# cells_over_time_sub$fov &lt;- factor(cells_over_time_sub$fov, 
-#                                   levels = c(&quot;Control_14&quot;,&quot;4h_97&quot;,&quot;24h_86&quot;,&quot;48h_76&quot;))
-
-spatial_plot_monos_macros_ccr2 &lt;- ggplot(cells_over_time_sub,aes(X_centroid,Y_centroid)) +
-    geom_point(data = subset(cells_over_time_sub,cell_meta_cluster == &quot;Cardiomyocytes&quot;),size = pt_size,
-             color = &quot;darkgrey&quot;) +
-  geom_point(data = subset(cells_over_time_sub,cell_meta_cluster == &quot;Cardiomyocytes Ankrd1+&quot;),size = pt_size,
-             color = &quot;blue&quot;) +
-  geom_point(data = subset(cells_over_time_sub,cell_meta_cluster == &quot;Neutrophils&quot; | cell_meta_cluster ==  &quot;Mono / Macros Ccr2+&quot;),size = pt_size,
-             color = &quot;magenta&quot;, alpha = 0.5) +
-    # geom_point(data = subset(cells_over_time_sub,cell_meta_cluster == &quot;Mono / Macros Ccr2+&quot;),size = pt_size,
-    #          color = &quot;yellow&quot;) +
-  facet_wrap(~ fov)
-
-spatial_plot_monos_macros_ccr2</code></pre>
-<p><img src="figure/seqIF.heatmaps_pixie.figure3.Rmd/unnamed-chunk-14-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-14-1">
-Past versions of unnamed-chunk-14-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-14-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/FloWuenne/mi_spatialomics/blob/2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510/docs/figure/seqIF.heatmaps_pixie.figure3.Rmd/unnamed-chunk-14-1.png" target="_blank">2dcd178</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-12-06
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>## Color palette
-cells_over_time_sub &lt;-  cells_over_time %&gt;%
-#  mutate(&quot;cell_type_labels&quot; = if_else(grepl(&quot;Macro|Neutro&quot;,cell_meta_cluster),&quot;Myeloid cells&quot;,cell_meta_cluster))
-  mutate(&quot;cell_type_labels&quot; = cell_meta_cluster)
-
-cells_over_time_sub &lt;- cells_over_time_sub %&gt;%
-  subset(!cell_type_labels %in% c(&quot;background&quot;,&quot;out_of_mask&quot;)) %&gt;%
-  separate(&quot;fov&quot;, into = c(&quot;time&quot;,&quot;sample&quot;)) %&gt;%
-  group_by(time,cell_type_labels) %&gt;%
-  tally() %&gt;%
-  ungroup()
-
-cells_over_time_sub &lt;- cells_over_time_sub %&gt;%
-  group_by(time) %&gt;%
-  mutate(&quot;percent&quot; = n / sum(n)) %&gt;%
-  ungroup()</code></pre>
-<pre class="r"><code>cells_over_time_sub$time &lt;-factor(cells_over_time_sub$time,
-                              levels = c(&quot;Control&quot;,&quot;4h&quot;,&quot;24h&quot;,&quot;48h&quot;))
-
-cells_over_time_sub$time_cont &lt;- as.numeric(cells_over_time_sub$time)
-
-cell_number_distribution_bar &lt;- ggplot(cells_over_time_sub, aes(x=time_cont, y=percent, fill= cell_type_labels)) +
-  #geom_area(aes(fill = cell_type_labels), color = &quot;black&quot;) +
-  geom_bar(stat = &quot;identity&quot;, position = &quot;fill&quot;, color = &quot;black&quot;) +
-  theme(legend.position = &quot;right&quot;,
-        legend.title = element_blank(),
-        axis.line = element_blank(),
-        legend.text=element_text(size=18),
-        axis.text = element_text(size=18)) +
-  labs(y = &quot;% cells&quot;) +
-  scale_fill_manual(values = cell_cluster_colors) +
-  scale_x_discrete(expand = c(0,0.1),
-                   name =&quot;Time&quot;,
-                    limits=c(&quot;Control&quot;,&quot;4h&quot;,&quot;24h&quot;,&quot;48h&quot;)) +
-  guides(fill=guide_legend(nrow=10,byrow=TRUE))
-
-cell_number_distribution_bar</code></pre>
-<p><img src="figure/seqIF.heatmaps_pixie.figure3.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-16-1">
-Past versions of unnamed-chunk-16-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-16-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/FloWuenne/mi_spatialomics/blob/2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510/docs/figure/seqIF.heatmaps_pixie.figure3.Rmd/unnamed-chunk-16-1.png" target="_blank">2dcd178</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-12-06
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>## Continuous plot
-# mat_colors = cell_cluster_color[1:length(mat_rownames)]
-# cell_number_distribution &lt;- ggplot(cells_over_time_sub, aes(x=time_cont, y=percent)) +
-#   geom_area(aes(fill = cell_type_labels), color = &quot;black&quot;) +
-#   theme(legend.position = &quot;none&quot;,
-#         axis.line = element_blank()) +
-#   #scale_fill_manual(values = mat_colors) +
-#   scale_x_discrete(expand = c(0,0.1),
-#                    name =&quot;Time&quot;, 
-#                     limits=c(&quot;Control&quot;,&quot;4h&quot;,&quot;24h&quot;,&quot;48h&quot;)) +
-#   labs(y = &quot;% cells&quot;)
-# cell_number_distribution
-
-save_plot(cell_number_distribution_bar,
-          file = &quot;./plots/Figure3.cell_types_overtimes.pdf&quot;,
-          base_height = 6,
-          base_asp = 1.3)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1288,38 +1089,37 @@ attached base packages:
 [1] stats     graphics  grDevices datasets  utils     methods   base     
 
 other attached packages:
- [1] here_1.0.1         ggsci_3.0.0        cowplot_1.1.1      plotly_4.10.3     
- [5] vroom_1.6.4        pals_1.8           lubridate_1.9.3    forcats_1.0.0     
- [9] stringr_1.5.1      dplyr_1.1.4        purrr_1.0.2        readr_2.1.4       
+ [1] here_1.0.1         ggsci_3.0.0        cowplot_1.1.2      plotly_4.10.4     
+ [5] vroom_1.6.5        pals_1.8           lubridate_1.9.3    forcats_1.0.0     
+ [9] stringr_1.5.1      dplyr_1.1.4        purrr_1.0.2        readr_2.1.5       
 [13] tidyr_1.3.0        tibble_3.2.1       ggplot2_3.4.4      tidyverse_2.0.0   
-[17] RColorBrewer_1.1-3 viridis_0.6.4      viridisLite_0.4.2  data.table_1.14.8 
+[17] RColorBrewer_1.1-3 viridis_0.6.4      viridisLite_0.4.2  data.table_1.14.10
 [21] pheatmap_1.0.12    workflowr_1.7.1   
 
 loaded via a namespace (and not attached):
  [1] tidyselect_1.2.0    farver_2.1.1        fastmap_1.1.1      
- [4] lazyeval_0.2.2      promises_1.2.1      digest_0.6.33      
- [7] timechange_0.2.0    lifecycle_1.0.4     ellipsis_0.3.2     
-[10] processx_3.8.2      magrittr_2.0.3      compiler_4.3.1     
-[13] rlang_1.1.2         sass_0.4.7          tools_4.3.1        
-[16] utf8_1.2.4          yaml_2.3.7          knitr_1.45         
-[19] labeling_0.4.3      htmlwidgets_1.6.3   bit_4.0.5          
-[22] mapproj_1.2.11      withr_2.5.2         grid_4.3.1         
-[25] fansi_1.0.5         git2r_0.33.0        colorspace_2.1-0   
-[28] scales_1.3.0        dichromat_2.0-0.1   cli_3.6.1          
-[31] rmarkdown_2.25      crayon_1.5.2        ragg_1.2.6         
-[34] generics_0.1.3      rstudioapi_0.15.0   httr_1.4.7         
-[37] tzdb_0.4.0          cachem_1.0.8        maps_3.4.1.1       
-[40] BiocManager_1.30.22 vctrs_0.6.5         jsonlite_1.8.8     
-[43] callr_3.7.3         hms_1.1.3           bit64_4.0.5        
-[46] crosstalk_1.2.1     systemfonts_1.0.5   jquerylib_0.1.4    
-[49] glue_1.6.2          ps_1.7.5            stringi_1.8.2      
-[52] gtable_0.3.4        later_1.3.1         munsell_0.5.0      
-[55] pillar_1.9.0        htmltools_0.5.7     R6_2.5.1           
-[58] textshaping_0.3.7   rprojroot_2.0.4     evaluate_0.23      
-[61] highr_0.10          renv_1.0.3          httpuv_1.6.12      
-[64] bslib_0.6.1         Rcpp_1.0.11         gridExtra_2.3      
-[67] whisker_0.4.1       xfun_0.41           fs_1.6.3           
-[70] getPass_0.2-2       pkgconfig_2.0.3    </code></pre>
+ [4] lazyeval_0.2.2      promises_1.2.1      digest_0.6.34      
+ [7] timechange_0.2.0    lifecycle_1.0.4     processx_3.8.3     
+[10] magrittr_2.0.3      compiler_4.3.1      rlang_1.1.3        
+[13] sass_0.4.8          tools_4.3.1         utf8_1.2.4         
+[16] yaml_2.3.8          knitr_1.45          labeling_0.4.3     
+[19] htmlwidgets_1.6.4   bit_4.0.5           mapproj_1.2.11     
+[22] withr_2.5.2         grid_4.3.1          fansi_1.0.6        
+[25] git2r_0.33.0        colorspace_2.1-0    scales_1.3.0       
+[28] dichromat_2.0-0.1   cli_3.6.2           rmarkdown_2.25     
+[31] crayon_1.5.2        ragg_1.2.7          generics_0.1.3     
+[34] rstudioapi_0.15.0   httr_1.4.7          tzdb_0.4.0         
+[37] cachem_1.0.8        maps_3.4.2          BiocManager_1.30.22
+[40] vctrs_0.6.5         jsonlite_1.8.8      callr_3.7.3        
+[43] hms_1.1.3           bit64_4.0.5         systemfonts_1.0.5  
+[46] jquerylib_0.1.4     glue_1.7.0          ps_1.7.6           
+[49] stringi_1.8.3       gtable_0.3.4        later_1.3.2        
+[52] munsell_0.5.0       pillar_1.9.0        htmltools_0.5.7    
+[55] R6_2.5.1            textshaping_0.3.7   rprojroot_2.0.4    
+[58] evaluate_0.23       highr_0.10          renv_1.0.3         
+[61] httpuv_1.6.14       bslib_0.6.1         Rcpp_1.0.12        
+[64] gridExtra_2.3       whisker_0.4.1       xfun_0.41          
+[67] fs_1.6.3            getPass_0.2-4       pkgconfig_2.0.3    </code></pre>
 </div>
 </div>
 </div>

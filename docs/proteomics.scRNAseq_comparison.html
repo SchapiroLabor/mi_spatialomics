@@ -9,11 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="FloWuenne" />
+<meta name="author" content="Florian Wuennemann" />
 
-<meta name="date" content="2023-06-19" />
 
-<title>proteomics.scRNAseq_comparison</title>
+<title>Deep Visual Proteomics - snRNA-seq comparison</title>
 
 <script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -360,9 +359,9 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">proteomics.scRNAseq_comparison</h1>
-<h4 class="author">FloWuenne</h4>
-<h4 class="date">2023-06-19</h4>
+<h1 class="title toc-ignore">Deep Visual Proteomics - snRNA-seq
+comparison</h1>
+<h4 class="author">Florian Wuennemann</h4>
 
 </div>
 
@@ -391,7 +390,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2023-12-06
+<strong>Last updated:</strong> 2024-03-21
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -522,15 +521,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree5dee03d1f3791ef02f4b04f3ffcef6dca79a876btargetblank5dee03da">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstreee6213a5ae03dcd38ce227600f6ad3c4c9a7c5fc0targetblanke6213a5a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/5dee03d1f3791ef02f4b04f3ffcef6dca79a876b" target="_blank">5dee03d</a>
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/e6213a5ae03dcd38ce227600f6ad3c4c9a7c5fc0" target="_blank">e6213a5</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree5dee03d1f3791ef02f4b04f3ffcef6dca79a876btargetblank5dee03da"
+id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstreee6213a5ae03dcd38ce227600f6ad3c4c9a7c5fc0targetblanke6213a5a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -540,7 +539,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/5dee03d1f3791ef02f4b04f3ffcef6dca79a876b" target="_blank">5dee03d</a>.
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/e6213a5ae03dcd38ce227600f6ad3c4c9a7c5fc0" target="_blank">e6213a5</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -556,111 +555,59 @@ were generated:
 <pre><code>
 Ignored files:
     Ignored:    .DS_Store
-    Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    analysis/.DS_Store
-    Ignored:    analysis/.Rhistory
     Ignored:    analysis/deprecated/.DS_Store
     Ignored:    analysis/molecular_cartography_python/.DS_Store
-    Ignored:    analysis/molecular_cartography_python/figures/
     Ignored:    analysis/seqIF_python/.DS_Store
+    Ignored:    analysis/seqIF_python/pixie/.DS_Store
+    Ignored:    analysis/seqIF_python/pixie/cell_clustering/
+    Ignored:    annotations/.DS_Store
+    Ignored:    annotations/SeqIF/.DS_Store
+    Ignored:    annotations/molkart/.DS_Store
+    Ignored:    annotations/molkart/Figure1_regions/.DS_Store
+    Ignored:    annotations/molkart/Supplementary_Figure4_regions/.DS_Store
     Ignored:    data/.DS_Store
     Ignored:    data/140623.calcagno_et_al.seurat_object.rds
     Ignored:    data/Calcagno2022_int_logNorm_annot.h5Seurat
-    Ignored:    data/mol_cart.heart_regions/
+    Ignored:    data/IC_03_IF_CCR2_CD68 cell numbers.xlsx
+    Ignored:    data/Traditional_IF_absolute_cell_counts.csv
+    Ignored:    data/Traditional_IF_relative_cell_counts.csv
     Ignored:    data/pixie.cell_table_size_normalized_cell_labels.csv
     Ignored:    data/results_cts_100.sqm
     Ignored:    data/seqIF_regions_annotations/
     Ignored:    data/seurat/
-    Ignored:    figures/.DS_Store
-    Ignored:    figures/Figure_5.pathway_plot.pdf
-    Ignored:    figures/Figure_5.pca_plot.pdf
-    Ignored:    figures/Figure_5.pca_plot.png
-    Ignored:    figures/Figure_5.volcano_plot.pdf
-    Ignored:    figures/Figure_5.vwf_expression_plot.pdf
-    Ignored:    figures/Figure_5.vwf_specificity_plot.pdf
-    Ignored:    figures/Supplementary_figure_3.segmentation_metrics.eps
-    Ignored:    figures/Supplementary_figure_3.segmentation_metrics.png
-    Ignored:    figures/figures.supplementary_figure4.png
-    Ignored:    figures/mol_cart.Figure_2.gains.pdf
-    Ignored:    figures/mol_cart.Figure_2.misty_gains.pdf
-    Ignored:    figures/mol_cart.Myeloid_distribution.png
-    Ignored:    figures/mol_cart.Nppa_distribution.eps
-    Ignored:    figures/mol_cart.Nppa_distribution.pdf
-    Ignored:    figures/mol_cart.Nppa_distribution.png
-    Ignored:    figures/supplementary_figure4.cell_type_distributions.eps
-    Ignored:    figures/supplementary_figure4.cell_type_distributions.png
     Ignored:    omnipathr-log/
     Ignored:    output/.DS_Store
     Ignored:    output/mol_cart.harmony_object.h5Seurat
-    Ignored:    output/mol_cart/
-    Ignored:    output/molkart_cell_types/
+    Ignored:    output/molkart/
     Ignored:    output/proteomics/
+    Ignored:    output/results_cts.lowres.125.sqm
     Ignored:    output/seqIF/
-    Ignored:    plots/.DS_Store
-    Ignored:    plots/Figure1.umap_plot.pdf
-    Ignored:    plots/Figure3.ccr2_monomacro_regions.pdf
-    Ignored:    plots/Figure3.cell_types_overtimes.pdf
-    Ignored:    plots/Figure3.pixel_clusters_overtimes.pdf
-    Ignored:    plots/mol_cart.Figure_2.ct_percentage.pdf
-    Ignored:    plots/molkart.squidpy.co_occurrence_plot.CMs_Nppa.sample_2d_r1_s1.png
-    Ignored:    plots/molkart.squidpy.co_occurrence_plot.CMs_Nppa.sample_2d_r2_s1.png
-    Ignored:    plots/molkart.squidpy.co_occurrence_plot.CMs_Nppa.sample_control_r1_s1.png
-    Ignored:    plots/molkart.squidpy.co_occurrence_plot.CMs_Nppa.sample_control_r2_s1.png
-    Ignored:    plots/molkart.squidpy.co_occurrence_plot.Endocardial_cells.sample_2d_r1_s1.png
-    Ignored:    plots/molkart.squidpy.co_occurrence_plot.Endocardial_cells.sample_2d_r2_s1.png
-    Ignored:    plots/molkart.squidpy.co_occurrence_plot.Endocardial_cells.sample_control_r1_s1.png
-    Ignored:    plots/molkart.squidpy.co_occurrence_plot.Endocardial_cells.sample_control_r2_s1.png
-    Ignored:    plots/molkart.squidpy.co_occurrence_plot.Myeloid_cells.sample_2d_r1_s1.png
-    Ignored:    plots/molkart.squidpy.co_occurrence_plot.Myeloid_cells.sample_2d_r2_s1.png
-    Ignored:    plots/molkart.squidpy.co_occurrence_plot.Myeloid_cells.sample_control_r1_s1.png
-    Ignored:    plots/molkart.squidpy.co_occurrence_plot.Myeloid_cells.sample_control_r2_s1.png
-    Ignored:    plots/molkart.squidpy.nhood_enrichment_plot.sample_2d_r1_s1.png
-    Ignored:    plots/molkart.squidpy.nhood_enrichment_plot.sample_2d_r2_s1.png
-    Ignored:    plots/molkart.squidpy.nhood_enrichment_plot.sample_control_r1_s1.png
-    Ignored:    plots/molkart.squidpy.nhood_enrichment_plot.sample_control_r2_s1.png
+    Ignored:    pipeline_configs/.DS_Store
+    Ignored:    plots/
     Ignored:    references/.DS_Store
+    Ignored:    renv/.DS_Store
     Ignored:    renv/library/
     Ignored:    renv/staging/
 
 Untracked files:
-    Untracked:  analysis/deprecated/mol_cart.misty_neighbourhood_analysis.Rmd
-    Untracked:  analysis/deprecated/mol_cart.molkart.process_quantifications_seurat.Rmd
-    Untracked:  analysis/molecular_cartography_python/animation.gif
-    Untracked:  analysis/molecular_cartography_python/kuppe_heart19.h5ad
-    Untracked:  analysis/molecular_cartography_python/mol_cart.plot_points_on_mask.ipynb
-    Untracked:  analysis/molecular_cartography_python/mol_cart.spot_animation.ipynb
-    Untracked:  analysis/molecular_cartography_python/molkart.local_analysis_lianaplus.ipynb
-    Untracked:  analysis/plots/
-    Untracked:  pipeline_configs/
+    Untracked:  analysis/deprecated/figures.supplementary_figureX.Rmd
+    Untracked:  analysis/deprecated/figures.supplementary_figure_X.MistyR.Rmd
 
 Unstaged changes:
-    Modified:   analysis/data_processing.Rmd
-    Modified:   analysis/figures.Figure1.Rmd
-    Modified:   analysis/figures.Figure2.Rmd
-    Modified:   analysis/figures.deep_visual_proteomics.Rmd
-    Modified:   analysis/figures.supplementary_figure_X.proteomics_qc.Rmd
-    Modified:   analysis/index.Rmd
-    Deleted:    analysis/mol_cart.misty_neighbourhood_analysis.Rmd
-    Deleted:    analysis/mol_cart.molkart.process_quantifications_seurat.Rmd
-    Modified:   analysis/mol_cart.supplementary_figure4.Rmd
-    Modified:   analysis/seqIF.region_quantification.Rmd
-    Modified:   analysis/spatialMI_functions.py
-    Modified:   code/functions.R
-    Modified:   figures/Figure_5.eps
-    Modified:   figures/Figure_5.pdf
-    Modified:   figures/Figure_5.png
-    Modified:   figures/Figure_5.svg
-    Modified:   figures/Supplementary_figure_2.png
-    Modified:   figures/Supplementary_figure_5.segmentation_metrics.poster.eps
+    Deleted:    analysis/figures.supplementary_figureX.Rmd
+    Deleted:    analysis/figures.supplementary_figure_X.MistyR.Rmd
+    Deleted:    analysis/figures.supplementary_figure_X.proteomics_qc.Rmd
+    Deleted:    figures/Figure_5.eps
+    Deleted:    figures/Figure_5.pdf
+    Deleted:    figures/Figure_5.png
+    Deleted:    figures/Figure_5.svg
+    Deleted:    figures/Supplementary_Figure_1_Molecular_Cartography_ROIs.png
+    Deleted:    figures/Supplementary_figure_5.segmentation_metrics.poster.eps
     Modified:   figures/Supplementary_figure_X.proteomics.eps
     Modified:   figures/Supplementary_figure_X.proteomics.png
-    Modified:   plots/Figure1.dotplot.pdf
-    Modified:   plots/molkart.umap_time.png
-    Modified:   references/mh.all.v2023.1.Mm.symbols.sets.rds
-    Modified:   renv.lock
-    Modified:   renv/activate.R
-    Modified:   renv/settings.json
+    Modified:   results_cts.lowres.125.sqm
 
 </code></pre>
 <p>
@@ -707,6 +654,57 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/56559c732914d3853c5fb73bef8b60761246d181/analysis/proteomics.scRNAseq_comparison.Rmd" target="_blank">56559c7</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2024-03-21
+</td>
+<td>
+Cleaned up repository.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/f35df9defd28d524467c60e2b4e3c7c02934dcb2/analysis/proteomics.scRNAseq_comparison.Rmd" target="_blank">f35df9d</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2024-03-02
+</td>
+<td>
+Updated figures for proteomic results.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510/docs/proteomics.scRNAseq_comparison.html" target="_blank">2dcd178</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-12-06
+</td>
+<td>
+wflow_publish("*")
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -884,7 +882,7 @@ calcagno_et_al &lt;- LoadH5Seurat(&quot;./data/Calcagno2022_int_logNorm_annot.h5
 <pre><code>Adding data that was not associated with an assay</code></pre>
 <pre><code>Warning: Adding a command log without an assay associated with it</code></pre>
 <pre class="r"><code>## Get only control cells for marker calculation
-calcagno_et_al_d0 &lt;- subset(calcagno_et_al,time == &quot;D0&quot;)
+calcagno_et_al_ds &lt;- subset(calcagno_et_al,time == &quot;D0&quot;)
 calcagno_et_al_d1 &lt;- subset(calcagno_et_al,time == &quot;D1&quot;)</code></pre>
 <p>Let’s check the UMAP embedding from our reprocessed object.</p>
 <pre class="r"><code>## UMAP plot
@@ -940,7 +938,7 @@ FloWuenne
 </div>
 <p>Next, let’s quickly verify, that Endocardial cells are expressing the
 proper markers before we compare them to our proteomic data.</p>
-<pre class="r"><code>plot_density(calcagno_et_al_d0, features = &quot;Npr3&quot;)</code></pre>
+<pre class="r"><code>plot_density(calcagno_et_al, features = &quot;Npr3&quot;)</code></pre>
 <p><img src="figure/proteomics.scRNAseq_comparison.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
@@ -990,7 +988,7 @@ FloWuenne
 </table>
 </div>
 </div>
-<pre class="r"><code>VlnPlot(calcagno_et_al_d0, features = &quot;Npr3&quot;)</code></pre>
+<pre class="r"><code>VlnPlot(calcagno_et_al, features = &quot;Npr3&quot;)</code></pre>
 <p><img src="figure/proteomics.scRNAseq_comparison.Rmd/unnamed-chunk-4-2.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-2">
@@ -1014,6 +1012,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510/docs/figure/proteomics.scRNAseq_comparison.Rmd/unnamed-chunk-4-2.png" target="_blank">2dcd178</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-12-06
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/FloWuenne/mi_spatialomics/blob/5dee03d1f3791ef02f4b04f3ffcef6dca79a876b/docs/figure/proteomics.scRNAseq_comparison.Rmd/unnamed-chunk-4-2.png" target="_blank">5dee03d</a>
@@ -1051,1586 +1060,6 @@ class="section level1">
 <p>We will use the snRNAseq data to identify proteins likely
 differentially expressed in endocardial cells. For this, we will first
 identify genes specifically expressed in endocardial cells.</p>
-<div id="check-subclustering-of-endocard-cells-at-d1"
-class="section level2">
-<h2>Check subclustering of endocard cells at d1</h2>
-<pre class="r"><code>endocard_d1 &lt;- subset(calcagno_et_al, level_2 == &quot;Endocardial&quot; &amp; time == &quot;D1&quot;)</code></pre>
-<pre class="r"><code>endocard_d1 &lt;- SCTransform(endocard_d1)</code></pre>
-<pre><code>Running SCTransform on assay: RNA</code></pre>
-<pre><code>vst.flavor=&#39;v2&#39; set. Using model with fixed slope and excluding poisson genes.</code></pre>
-<pre><code>`vst.flavor` is set to &#39;v2&#39; but could not find glmGamPoi installed.
-Please install the glmGamPoi package for much faster estimation.
---------------------------------------------
-install.packages(&#39;BiocManager&#39;)
-BiocManager::install(&#39;glmGamPoi&#39;)
---------------------------------------------
-Falling back to native (slower) implementation.</code></pre>
-<pre><code>Calculating cell attributes from input UMI matrix: log_umi</code></pre>
-<pre><code>Variance stabilizing transformation of count matrix of size 11133 by 645</code></pre>
-<pre><code>Model formula is y ~ log_umi</code></pre>
-<pre><code>Get Negative Binomial regression parameters per gene</code></pre>
-<pre><code>Using 2000 genes, 645 cells</code></pre>
-<pre><code>Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached</code></pre>
-<pre><code>Warning in sqrt(1/i): NaNs produced</code></pre>
-<pre><code>Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached</code></pre>
-<pre><code>Warning in sqrt(1/i): NaNs produced</code></pre>
-<pre><code>Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached</code></pre>
-<pre><code>Warning in glm.nb(formula = as.formula(new_formula), data = data): alternation
-limit reached</code></pre>
-<pre><code>Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached</code></pre>
-<pre><code>Warning in glm.nb(formula = as.formula(new_formula), data = data): alternation
-limit reached</code></pre>
-<pre><code>Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached</code></pre>
-<pre><code>Warning in glm.nb(formula = as.formula(new_formula), data = data): alternation
-limit reached</code></pre>
-<pre><code>Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached</code></pre>
-<pre><code>Warning in glm.nb(formula = as.formula(new_formula), data = data): alternation
-limit reached</code></pre>
-<pre><code>Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached</code></pre>
-<pre><code>Warning in glm.nb(formula = as.formula(new_formula), data = data): alternation
-limit reached</code></pre>
-<pre><code>Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached</code></pre>
-<pre><code>Warning in glm.nb(formula = as.formula(new_formula), data = data): alternation
-limit reached</code></pre>
-<pre><code>Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached</code></pre>
-<pre><code>Warning in sqrt(1/i): NaNs produced</code></pre>
-<pre><code>Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached</code></pre>
-<pre><code>Warning in sqrt(1/i): NaNs produced</code></pre>
-<pre><code>Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached</code></pre>
-<pre><code>Warning in glm.nb(formula = as.formula(new_formula), data = data): alternation
-limit reached</code></pre>
-<pre><code>Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached</code></pre>
-<pre><code>Warning in sqrt(1/i): NaNs produced</code></pre>
-<pre><code>Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached</code></pre>
-<pre><code>Warning in sqrt(1/i): NaNs produced</code></pre>
-<pre><code>Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached
-
-Warning in theta.ml(Y, mu, sum(w), w, limit = control$maxit, trace =
-control$trace &gt; : iteration limit reached</code></pre>
-<pre><code>Warning in glm.nb(formula = as.formula(new_formula), data = data): alternation
-limit reached</code></pre>
-<pre><code>Found 39 outliers - those will be ignored in fitting/regularization step</code></pre>
-<pre><code>Second step: Get residuals using fitted parameters for 11133 genes</code></pre>
-<pre><code>Computing corrected count matrix for 11133 genes</code></pre>
-<pre><code>Calculating gene attributes</code></pre>
-<pre><code>Wall clock passed: Time difference of 36.86647 secs</code></pre>
-<pre><code>Determine variable features</code></pre>
-<pre><code>Centering data matrix</code></pre>
-<pre><code>Place corrected count matrix in counts slot</code></pre>
-<pre><code>Set default assay to SCT</code></pre>
-<pre class="r"><code>endocard_d1 &lt;- RunPCA(endocard_d1, verbose = FALSE)
-endocard_d1 &lt;- RunUMAP(endocard_d1, dims = 1:10, verbose = FALSE)</code></pre>
-<pre><code>Warning: The default method for RunUMAP has changed from calling Python UMAP via reticulate to the R-native UWOT using the cosine metric
-To use Python UMAP via reticulate, set umap.method to &#39;umap-learn&#39; and metric to &#39;correlation&#39;
-This message will be shown once per session</code></pre>
-<pre><code>Found more than one class &quot;dist&quot; in cache; using the first, from namespace &#39;spam&#39;</code></pre>
-<pre><code>Also defined by &#39;BiocGenerics&#39;</code></pre>
-<pre><code>Found more than one class &quot;dist&quot; in cache; using the first, from namespace &#39;spam&#39;</code></pre>
-<pre><code>Also defined by &#39;BiocGenerics&#39;</code></pre>
-<pre class="r"><code>endocard_d1 &lt;- FindNeighbors(endocard_d1, dims = 1:10, verbose = FALSE)
-endocard_d1 &lt;- FindClusters(endocard_d1, verbose = FALSE, resolution = 0.2)</code></pre>
-<pre class="r"><code>DimPlot(endocard_d1, label = TRUE) + NoLegend()</code></pre>
-<p><img src="figure/proteomics.scRNAseq_comparison.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
-Past versions of unnamed-chunk-7-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-7-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/FloWuenne/mi_spatialomics/blob/5dee03d1f3791ef02f4b04f3ffcef6dca79a876b/docs/figure/proteomics.scRNAseq_comparison.Rmd/unnamed-chunk-7-1.png" target="_blank">5dee03d</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-09-04
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/FloWuenne/mi_spatialomics/blob/ed31d8122236ad8d000508580dcbeb6c25acc4fd/docs/figure/proteomics.scRNAseq_comparison.Rmd/unnamed-chunk-7-1.png" target="_blank">ed31d81</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-07-02
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>endo_diff_marker &lt;- FindAllMarkers(endocard_d1, only.pos = TRUE)</code></pre>
-<pre><code>Calculating cluster 0</code></pre>
-<pre><code>For a (much!) faster implementation of the Wilcoxon Rank Sum Test,
-(default method for FindMarkers) please install the presto package
---------------------------------------------
-install.packages(&#39;devtools&#39;)
-devtools::install_github(&#39;immunogenomics/presto&#39;)
---------------------------------------------
-After installation of presto, Seurat will automatically use the more 
-efficient implementation (no further action necessary).
-This message will be shown once per session</code></pre>
-<pre><code>Calculating cluster 1</code></pre>
-<pre><code>Calculating cluster 2</code></pre>
-<pre><code>Calculating cluster 3</code></pre>
-<pre class="r"><code>endo_diff_marker_top &lt;- endo_diff_marker %&gt;%
-  subset(p_val_adj &lt; 0.05)</code></pre>
-<pre class="r"><code>VlnPlot(endocard_d1, features = c(&quot;Npr3&quot;,&quot;Selp&quot;,&quot;Taco1&quot;,&quot;Serpine1&quot;,&quot;Prkg1&quot;,&quot;Nrg1&quot;))</code></pre>
-<p><img src="figure/proteomics.scRNAseq_comparison.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
-Past versions of unnamed-chunk-9-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-9-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/FloWuenne/mi_spatialomics/blob/5dee03d1f3791ef02f4b04f3ffcef6dca79a876b/docs/figure/proteomics.scRNAseq_comparison.Rmd/unnamed-chunk-9-1.png" target="_blank">5dee03d</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-09-04
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/FloWuenne/mi_spatialomics/blob/ed31d8122236ad8d000508580dcbeb6c25acc4fd/docs/figure/proteomics.scRNAseq_comparison.Rmd/unnamed-chunk-9-1.png" target="_blank">ed31d81</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-07-02
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
 <div
 id="correlate-pseudobulk-snrna-seq-expression-in-endocardial-cells-with-proteomic-measurements"
 class="section level2">
@@ -2675,13 +1104,13 @@ corrplot_rna_protein &lt;- ggplot(rna_protein_avg,aes(avg_control,D0, label = ge
   labs(x = &quot;Average protein expression (Control)&quot;,
        y = &quot;Average snRNA-seq expression Control)&quot;)
 corrplot_rna_protein</code></pre>
-<p><img src="figure/proteomics.scRNAseq_comparison.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/proteomics.scRNAseq_comparison.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
-Past versions of unnamed-chunk-12-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
 </button>
 </p>
-<div id="fig-unnamed-chunk-12-1" class="collapse">
+<div id="fig-unnamed-chunk-7-1" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -2700,7 +1129,18 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/FloWuenne/mi_spatialomics/blob/5dee03d1f3791ef02f4b04f3ffcef6dca79a876b/docs/figure/proteomics.scRNAseq_comparison.Rmd/unnamed-chunk-12-1.png" target="_blank">5dee03d</a>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/2dcd17804417f9c9b7879f97bfe4b1fd7b5d5510/docs/figure/proteomics.scRNAseq_comparison.Rmd/unnamed-chunk-7-1.png" target="_blank">2dcd178</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2023-12-06
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/5dee03d1f3791ef02f4b04f3ffcef6dca79a876b/docs/figure/proteomics.scRNAseq_comparison.Rmd/unnamed-chunk-7-1.png" target="_blank">5dee03d</a>
 </td>
 <td>
 FloWuenne
@@ -2711,7 +1151,7 @@ FloWuenne
 </tr>
 <tr>
 <td>
-<a href="https://github.com/FloWuenne/mi_spatialomics/blob/ed31d8122236ad8d000508580dcbeb6c25acc4fd/docs/figure/proteomics.scRNAseq_comparison.Rmd/unnamed-chunk-12-1.png" target="_blank">ed31d81</a>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/ed31d8122236ad8d000508580dcbeb6c25acc4fd/docs/figure/proteomics.scRNAseq_comparison.Rmd/unnamed-chunk-7-1.png" target="_blank">ed31d81</a>
 </td>
 <td>
 FloWuenne
@@ -2750,6 +1190,10 @@ endocard_de &lt;- endocard_de %&gt;%
 </div>
 <div id="get-endocardial-specific-genes" class="section level2">
 <h2>Get endocardial specific genes</h2>
+<p>To get an estimate of which genes are most specifically expressed in
+endocardialc ells in the snRNA-seq data, we will use the FindMarkers
+function from Seurat to get log-fold changes and p-values for the
+comparison of endocardial cells at day 0 to all other cells.</p>
 <pre class="r"><code>endo_marker &lt;- FindMarkers(calcagno_et_al,ident.1 = &quot;Endocardial_D0&quot;,
                            only.pos = TRUE)</code></pre>
 <pre class="r"><code>endo_marker$gene &lt;- rownames(endo_marker)
@@ -2780,83 +1224,13 @@ endo_proteomic_corr &lt;- ggplot(merged_protein_rna,aes(avg_log2FC,logFC,
 endo_proteomic_corr</code></pre>
 <pre><code>Warning: Removed 3236 rows containing missing values (`geom_point()`).</code></pre>
 <pre><code>Warning: Removed 3236 rows containing missing values (`geom_label_repel()`).</code></pre>
-<p><img src="figure/proteomics.scRNAseq_comparison.Rmd/unnamed-chunk-16-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/proteomics.scRNAseq_comparison.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
 <pre class="r"><code>write.table(merged_protein_rna,
             file = &quot;./output/proteomics/proteomics.snRNAseq_comp.tsv&quot;,
             sep = &quot;\t&quot;,
             col.names = TRUE,
             row.names = FALSE,
             quote = FALSE)</code></pre>
-</div>
-<div
-id="check-coagulation-pathway-gene-expression-in-all-cell-types-in-snrna-seq"
-class="section level2">
-<h2>Check coagulation pathway gene expression in all cell-types in
-snRNA-seq</h2>
-<pre class="r"><code>coagulation_mgsea &lt;- readRDS(&quot;./references/mh.all.v2023.1.Mm.symbols.sets.rds&quot;) %&gt;%
-  subset(source == &quot;HALLMARK_COAGULATION&quot;)
-
-coagulation_genes_proteomics &lt;- miiz_vs_remote_signature %&gt;%
-  subset(gene %in% unique(coagulation_mgsea$target)) %&gt;%
-  arrange(desc(logFC)) %&gt;%
-  subset(logFC &gt;1)
-
-miiz_vs_remote_signature &lt;- miiz_vs_remote_signature %&gt;%
-  arrange(desc(logFC)) %&gt;%
-  mutate(&quot;rank&quot; = 1:nrow(miiz_vs_remote_signature))
-
-library(scCustomize)</code></pre>
-<pre><code>scCustomize v2.0.1
-If you find the scCustomize useful please cite.
-See &#39;samuel-marsh.github.io/scCustomize/articles/FAQ.html&#39; for citation info.</code></pre>
-<pre class="r"><code>Idents(calcagno_et_al) &lt;- &quot;level_2&quot;
-
-Clustered_DotPlot(calcagno_et_al,features = coagulation_genes_proteomics$gene, x_lab_rotate = TRUE, cluster_ident = FALSE)</code></pre>
-<pre><code>Warning: The following features were omitted as they were not found:
-ℹ Fgg and Fga</code></pre>
-<p><img src="figure/proteomics.scRNAseq_comparison.Rmd/unnamed-chunk-18-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-18-1">
-Past versions of unnamed-chunk-18-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-18-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/FloWuenne/mi_spatialomics/blob/ed31d8122236ad8d000508580dcbeb6c25acc4fd/docs/figure/proteomics.scRNAseq_comparison.Rmd/unnamed-chunk-18-1.png" target="_blank">ed31d81</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2023-07-02
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>[[1]]</code></pre>
-<p><img src="figure/proteomics.scRNAseq_comparison.Rmd/unnamed-chunk-18-2.png" width="672" style="display: block; margin: auto;" /></p>
-<pre><code>
-[[2]]</code></pre>
-<p><img src="figure/proteomics.scRNAseq_comparison.Rmd/unnamed-chunk-18-3.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -2884,102 +1258,93 @@ attached base packages:
 [1] stats     graphics  grDevices datasets  utils     methods   base     
 
 other attached packages:
- [1] scCustomize_2.0.1     RColorBrewer_1.1-3    ggsci_3.0.0          
- [4] cowplot_1.1.1         SeuratDisk_0.0.0.9021 plotly_4.10.3        
- [7] ggrepel_0.9.4         data.table_1.14.8     Nebulosa_1.12.0      
-[10] patchwork_1.1.3       Libra_1.7             nnls_1.5             
-[13] here_1.0.1            Seurat_5.0.1          SeuratObject_5.0.1   
-[16] sp_2.1-2              lubridate_1.9.3       forcats_1.0.0        
-[19] stringr_1.5.1         dplyr_1.1.4           purrr_1.0.2          
-[22] readr_2.1.4           tidyr_1.3.0           tibble_3.2.1         
-[25] ggplot2_3.4.4         tidyverse_2.0.0       workflowr_1.7.1      
+ [1] RColorBrewer_1.1-3    ggsci_3.0.0           cowplot_1.1.2        
+ [4] SeuratDisk_0.0.0.9021 plotly_4.10.4         ggrepel_0.9.5        
+ [7] data.table_1.14.10    Nebulosa_1.12.0       patchwork_1.2.0      
+[10] Libra_1.7             nnls_1.5              here_1.0.1           
+[13] Seurat_5.0.1          SeuratObject_5.0.1    sp_2.1-2             
+[16] lubridate_1.9.3       forcats_1.0.0         stringr_1.5.1        
+[19] dplyr_1.1.4           purrr_1.0.2           readr_2.1.5          
+[22] tidyr_1.3.0           tibble_3.2.1          ggplot2_3.4.4        
+[25] tidyverse_2.0.0       workflowr_1.7.1      
 
 loaded via a namespace (and not attached):
-  [1] fs_1.6.3                    matrixStats_1.1.0          
-  [3] spatstat.sparse_3.0-3       bitops_1.0-7               
-  [5] httr_1.4.7                  doParallel_1.0.17          
-  [7] tools_4.3.1                 sctransform_0.4.1          
-  [9] utf8_1.2.4                  R6_2.5.1                   
- [11] lazyeval_0.2.2              uwot_0.1.16                
- [13] GetoptLong_1.0.5            withr_2.5.2                
- [15] gridExtra_2.3               progressr_0.14.0           
- [17] cli_3.6.1                   Biobase_2.62.0             
- [19] Cairo_1.6-2                 spatstat.explore_3.2-5     
- [21] fastDummies_1.7.3           labeling_0.4.3             
- [23] sass_0.4.7                  prismatic_1.1.1            
- [25] mvtnorm_1.2-4               spatstat.data_3.0-3        
- [27] ggridges_0.5.4              pbapply_1.7-2              
- [29] parallelly_1.36.0           limma_3.58.1               
- [31] rstudioapi_0.15.0           generics_0.1.3             
- [33] shape_1.4.6                 ica_1.0-3                  
- [35] spatstat.random_3.2-2       Matrix_1.6-4               
- [37] ggbeeswarm_0.7.2            fansi_1.0.5                
- [39] S4Vectors_0.40.2            abind_1.4-5                
- [41] lifecycle_1.0.4             whisker_0.4.1              
- [43] yaml_2.3.7                  snakecase_0.11.1           
- [45] SummarizedExperiment_1.32.0 SparseArray_1.2.2          
- [47] Rtsne_0.16                  paletteer_1.5.0            
- [49] grid_4.3.1                  promises_1.2.1             
- [51] crayon_1.5.2                miniUI_0.1.1.1             
- [53] lattice_0.22-5              magick_2.8.1               
- [55] pillar_1.9.0                knitr_1.45                 
- [57] ComplexHeatmap_2.18.0       GenomicRanges_1.54.1       
- [59] rjson_0.2.21                future.apply_1.11.0        
- [61] codetools_0.2-19            leiden_0.4.3.1             
- [63] glue_1.6.2                  getPass_0.2-2              
- [65] vctrs_0.6.5                 png_0.1-8                  
- [67] spam_2.10-0                 gtable_0.3.4               
- [69] rematch2_2.1.2              cachem_1.0.8               
- [71] ks_1.14.1                   xfun_0.41                  
- [73] S4Arrays_1.2.0              mime_0.12                  
- [75] pracma_2.4.4                survival_3.5-7             
- [77] SingleCellExperiment_1.24.0 iterators_1.0.14           
- [79] statmod_1.5.0               ellipsis_0.3.2             
- [81] fitdistrplus_1.1-11         ROCR_1.0-11                
- [83] nlme_3.1-164                bit64_4.0.5                
- [85] RcppAnnoy_0.0.21            GenomeInfoDb_1.38.1        
- [87] rprojroot_2.0.4             bslib_0.6.1                
- [89] irlba_2.3.5.1               vipor_0.4.5                
- [91] KernSmooth_2.23-22          colorspace_2.1-0           
- [93] BiocGenerics_0.48.1         ggrastr_1.0.2              
- [95] tidyselect_1.2.0            processx_3.8.2             
- [97] bit_4.0.5                   compiler_4.3.1             
- [99] git2r_0.33.0                hdf5r_1.3.8                
-[101] DelayedArray_0.28.0         scales_1.3.0               
-[103] lmtest_0.9-40               callr_3.7.3                
-[105] digest_0.6.33               goftest_1.2-3              
-[107] spatstat.utils_3.0-4        rmarkdown_2.25             
-[109] XVector_0.42.0              htmltools_0.5.7            
-[111] pkgconfig_2.0.3             MatrixGenerics_1.14.0      
-[113] highr_0.10                  fastmap_1.1.1              
-[115] rlang_1.1.2                 GlobalOptions_0.1.2        
-[117] htmlwidgets_1.6.3           shiny_1.8.0                
-[119] farver_2.1.1                jquerylib_0.1.4            
-[121] zoo_1.8-12                  jsonlite_1.8.8             
-[123] mclust_6.0.1                RCurl_1.98-1.13            
-[125] magrittr_2.0.3              GenomeInfoDbData_1.2.11    
-[127] dotCall64_1.1-1             munsell_0.5.0              
-[129] Rcpp_1.0.11                 reticulate_1.34.0          
-[131] stringi_1.8.2               zlibbioc_1.48.0            
-[133] MASS_7.3-60                 plyr_1.8.9                 
-[135] parallel_4.3.1              listenv_0.9.0              
-[137] deldir_2.0-2                splines_4.3.1              
-[139] tensor_1.5                  hms_1.1.3                  
-[141] circlize_0.4.15             ps_1.7.5                   
-[143] igraph_1.5.1                spatstat.geom_3.2-7        
-[145] RcppHNSW_0.5.0              reshape2_1.4.4             
-[147] stats4_4.3.1                evaluate_0.23              
-[149] renv_1.0.3                  BiocManager_1.30.22        
-[151] ggprism_1.0.4               tzdb_0.4.0                 
-[153] foreach_1.5.2               httpuv_1.6.12              
-[155] RANN_2.6.1                  polyclip_1.10-6            
-[157] future_1.33.0               clue_0.3-65                
-[159] scattermore_1.2             janitor_2.2.0              
-[161] xtable_1.8-4                RSpectra_0.16-1            
-[163] later_1.3.1                 viridisLite_0.4.2          
-[165] beeswarm_0.4.0              IRanges_2.36.0             
-[167] cluster_2.1.6               timechange_0.2.0           
-[169] globals_0.16.2             </code></pre>
+  [1] RcppAnnoy_0.0.21            splines_4.3.1              
+  [3] later_1.3.2                 bitops_1.0-7               
+  [5] polyclip_1.10-6             fastDummies_1.7.3          
+  [7] lifecycle_1.0.4             rprojroot_2.0.4            
+  [9] hdf5r_1.3.8                 globals_0.16.2             
+ [11] processx_3.8.3              lattice_0.22-5             
+ [13] MASS_7.3-60.0.1             magrittr_2.0.3             
+ [15] limma_3.58.1                sass_0.4.8                 
+ [17] rmarkdown_2.25              jquerylib_0.1.4            
+ [19] yaml_2.3.8                  httpuv_1.6.14              
+ [21] sctransform_0.4.1           spam_2.10-0                
+ [23] spatstat.sparse_3.0-3       reticulate_1.34.0          
+ [25] pbapply_1.7-2               abind_1.4-5                
+ [27] zlibbioc_1.48.0             Rtsne_0.17                 
+ [29] GenomicRanges_1.54.1        presto_1.0.0               
+ [31] BiocGenerics_0.48.1         RCurl_1.98-1.14            
+ [33] pracma_2.4.4                git2r_0.33.0               
+ [35] GenomeInfoDbData_1.2.11     IRanges_2.36.0             
+ [37] S4Vectors_0.40.2            irlba_2.3.5.1              
+ [39] listenv_0.9.0               spatstat.utils_3.0-4       
+ [41] goftest_1.2-3               RSpectra_0.16-1            
+ [43] spatstat.random_3.2-2       fitdistrplus_1.1-11        
+ [45] parallelly_1.36.0           leiden_0.4.3.1             
+ [47] codetools_0.2-19            DelayedArray_0.28.0        
+ [49] tidyselect_1.2.0            farver_2.1.1               
+ [51] matrixStats_1.2.0           stats4_4.3.1               
+ [53] spatstat.explore_3.2-5      jsonlite_1.8.8             
+ [55] ks_1.14.2                   ellipsis_0.3.2             
+ [57] progressr_0.14.0            ggridges_0.5.5             
+ [59] survival_3.5-7              tools_4.3.1                
+ [61] ica_1.0-3                   Rcpp_1.0.12                
+ [63] glue_1.7.0                  gridExtra_2.3              
+ [65] SparseArray_1.2.3           xfun_0.41                  
+ [67] MatrixGenerics_1.14.0       GenomeInfoDb_1.38.5        
+ [69] withr_2.5.2                 BiocManager_1.30.22        
+ [71] fastmap_1.1.1               fansi_1.0.6                
+ [73] callr_3.7.3                 digest_0.6.34              
+ [75] timechange_0.2.0            R6_2.5.1                   
+ [77] mime_0.12                   colorspace_2.1-0           
+ [79] scattermore_1.2             tensor_1.5                 
+ [81] spatstat.data_3.0-3         utf8_1.2.4                 
+ [83] generics_0.1.3              renv_1.0.3                 
+ [85] httr_1.4.7                  htmlwidgets_1.6.4          
+ [87] S4Arrays_1.2.0              whisker_0.4.1              
+ [89] uwot_0.1.16                 pkgconfig_2.0.3            
+ [91] gtable_0.3.4                lmtest_0.9-40              
+ [93] SingleCellExperiment_1.24.0 XVector_0.42.0             
+ [95] htmltools_0.5.7             dotCall64_1.1-1            
+ [97] scales_1.3.0                Biobase_2.62.0             
+ [99] png_0.1-8                   knitr_1.45                 
+[101] rstudioapi_0.15.0           tzdb_0.4.0                 
+[103] reshape2_1.4.4              nlme_3.1-164               
+[105] cachem_1.0.8                zoo_1.8-12                 
+[107] KernSmooth_2.23-22          vipor_0.4.7                
+[109] parallel_4.3.1              miniUI_0.1.1.1             
+[111] ggrastr_1.0.2               pillar_1.9.0               
+[113] grid_4.3.1                  vctrs_0.6.5                
+[115] RANN_2.6.1                  promises_1.2.1             
+[117] xtable_1.8-4                cluster_2.1.6              
+[119] beeswarm_0.4.0              evaluate_0.23              
+[121] mvtnorm_1.2-4               cli_3.6.2                  
+[123] compiler_4.3.1              rlang_1.1.3                
+[125] crayon_1.5.2                future.apply_1.11.1        
+[127] labeling_0.4.3              mclust_6.0.1               
+[129] ps_1.7.6                    ggbeeswarm_0.7.2           
+[131] getPass_0.2-4               plyr_1.8.9                 
+[133] fs_1.6.3                    stringi_1.8.3              
+[135] viridisLite_0.4.2           deldir_2.0-2               
+[137] munsell_0.5.0               lazyeval_0.2.2             
+[139] spatstat.geom_3.2-7         Matrix_1.6-5               
+[141] RcppHNSW_0.5.0              hms_1.1.3                  
+[143] bit64_4.0.5                 future_1.33.1              
+[145] statmod_1.5.0               shiny_1.8.0                
+[147] highr_0.10                  SummarizedExperiment_1.32.0
+[149] ROCR_1.0-11                 igraph_1.6.0               
+[151] bslib_0.6.1                 bit_4.0.5                  </code></pre>
 </div>
 </div>
 </div>
