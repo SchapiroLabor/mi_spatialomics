@@ -12,7 +12,7 @@
 <meta name="author" content="Florian Wuennemann" />
 
 
-<title>Supplementary Figure 9</title>
+<title>Supplementary Figure 7</title>
 
 <script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -359,7 +359,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Supplementary Figure 9</h1>
+<h1 class="title toc-ignore">Supplementary Figure 7</h1>
 <h4 class="author">Florian Wuennemann</h4>
 
 </div>
@@ -608,12 +608,11 @@ have uncommitted changes.
 <p>
 These are the previous versions of the repository in which changes were
 made to the R Markdown
-(<code>analysis/figures.supplementary_figure_9.proteomics_qc.Rmd</code>)
-and HTML
-(<code>docs/figures.supplementary_figure_9.proteomics_qc.html</code>)
-files. If you’ve configured a remote Git repository (see
-<code>?wflow_git_remote</code>), click on the hyperlinks in the table
-below to view the files as they were in that past version.
+(<code>analysis/figures.supplementary_figure_7.Rmd</code>) and HTML
+(<code>docs/figures.supplementary_figure_7.html</code>) files. If you’ve
+configured a remote Git repository (see <code>?wflow_git_remote</code>),
+click on the hyperlinks in the table below to view the files as they
+were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -642,7 +641,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/FloWuenne/mi_spatialomics/blob/4c4da6682d3248939b4e58577ffa8d41fd295b76/analysis/figures.supplementary_figure_9.proteomics_qc.Rmd" target="_blank">4c4da66</a>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/4c4da6682d3248939b4e58577ffa8d41fd295b76/analysis/figures.supplementary_figure_7.Rmd" target="_blank">4c4da66</a>
 </td>
 <td>
 FloWuenne
@@ -656,27 +655,10 @@ wflow_publish(c("analysis/figures.supplementary_figure_4.segmentation_metrics.Rm
 </tr>
 <tr>
 <td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/a2cf304e74fb46c810972b7e482a90b38cc5c9cb/docs/figures.supplementary_figure_9.proteomics_qc.html" target="_blank">a2cf304</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2024-03-21
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
 Rmd
 </td>
 <td>
-<a href="https://github.com/FloWuenne/mi_spatialomics/blob/e6213a5ae03dcd38ce227600f6ad3c4c9a7c5fc0/analysis/figures.supplementary_figure_9.proteomics_qc.Rmd" target="_blank">e6213a5</a>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/008f74af6a9086e1141d278152da7a14478dcd9e/analysis/figures.supplementary_figure_7.Rmd" target="_blank">008f74a</a>
 </td>
 <td>
 FloWuenne
@@ -685,7 +667,7 @@ FloWuenne
 2024-03-21
 </td>
 <td>
-Publish all updated files.
+Fixed links in data analysis and figures pages.
 </td>
 </tr>
 </tbody>
@@ -695,396 +677,216 @@ Publish all updated files.
 </div>
 </div>
 </div>
-<p>This supplementary figure contains QC plots for the proteomic data
-analysis.</p>
-<pre class="r"><code>## load data
-metadata_counts &lt;- fread(&quot;./output/proteomics/proteomics.protein_missing_stats.tsv&quot;)</code></pre>
-<div id="subfigure-a---total-proteins-identified-per-group"
-class="section level1">
-<h1>Subfigure A - Total proteins identified per group</h1>
-<pre class="r"><code>## Summarize observations across group
-metadata_counts_stat &lt;- data_summary(metadata_counts,
-                                     varname = &quot;wo_cont&quot;, groupnames = c(&quot;group&quot;))</code></pre>
-<pre><code>Loading required package: plyr</code></pre>
-<pre><code>------------------------------------------------------------------------------</code></pre>
-<pre><code>You have loaded plyr after dplyr - this is likely to cause problems.
-If you need functions from both plyr and dplyr, please load plyr first, then dplyr:
-library(plyr); library(dplyr)</code></pre>
-<pre><code>------------------------------------------------------------------------------</code></pre>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.4.4     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.0
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<pre class="r"><code>library(data.table)</code></pre>
 <pre><code>
-Attaching package: &#39;plyr&#39;</code></pre>
-<pre><code>The following objects are masked from &#39;package:plotly&#39;:
+Attaching package: &#39;data.table&#39;
 
-    arrange, mutate, rename, summarise</code></pre>
-<pre><code>The following object is masked from &#39;package:here&#39;:
+The following objects are masked from &#39;package:lubridate&#39;:
 
-    here</code></pre>
-<pre><code>The following objects are masked from &#39;package:dplyr&#39;:
+    hour, isoweek, mday, minute, month, quarter, second, wday, week,
+    yday, year
 
-    arrange, count, desc, failwith, id, mutate, rename, summarise,
-    summarize</code></pre>
-<pre><code>The following object is masked from &#39;package:purrr&#39;:
+The following objects are masked from &#39;package:dplyr&#39;:
 
-    compact</code></pre>
-<pre class="r"><code>avg_proteins &lt;- mean(metadata_counts$wo_cont)
-avg_proteins &lt;- sd(metadata_counts$wo_cont)
+    between, first, last
 
-metadata_counts_stat$group &lt;- factor(metadata_counts_stat$group,
-                                     levels = c(&quot;MI_IZ&quot;,&quot;MI_remote&quot;,&quot;control&quot;))
+The following object is masked from &#39;package:purrr&#39;:
 
-## Barplot to show the number of proteins detected per group (excluding contaminants)
-n_prot_plot &lt;- ggplot(metadata_counts_stat,aes(group,wo_cont)) +
-  geom_bar(aes(fill = group),stat=&quot;identity&quot;, color=&quot;black&quot;, 
-           position=position_dodge()) +
-  geom_point(data = metadata_counts, aes(group,wo_cont),
-             fill = &quot;white&quot;,pch = 21, color= &quot;black&quot;,size = 4) +
-  geom_errorbar(aes(ymin=wo_cont, ymax=wo_cont+sd), width=.2,
-                 position=position_dodge(.9)) + 
-  coord_flip() +
-  scale_fill_manual(values = proteome_palette,
-                    labels = c(&quot;Control&quot;,&quot;MI_remote&quot;,&quot;MI_IZ&quot;)) +
-  labs(x = &quot;&quot;,
-       y = &quot;Proteins detected&quot;) +
-  theme(legend.position = &quot;none&quot;)
+    transpose</code></pre>
+<pre class="r"><code>library(ggbeeswarm)
+library(patchwork)
 
-n_prot_plot</code></pre>
-<p><img src="figure/figures.supplementary_figure_9.proteomics_qc.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-2-1">
-Past versions of unnamed-chunk-2-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-2-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/FloWuenne/mi_spatialomics/blob/a2cf304e74fb46c810972b7e482a90b38cc5c9cb/docs/figure/figures.supplementary_figure_9.proteomics_qc.Rmd/unnamed-chunk-2-1.png" target="_blank">a2cf304</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2024-03-21
-</td>
-</tr>
-</tbody>
-</table>
+source(&quot;./code/functions.R&quot;) </code></pre>
+<pre><code>
+Attaching package: &#39;cowplot&#39;
+
+The following object is masked from &#39;package:patchwork&#39;:
+
+    align_plots
+
+The following object is masked from &#39;package:lubridate&#39;:
+
+    stamp
+
+here() starts at /Users/florian_wuennemann/1_Projects/MI_project/mi_spatialomics</code></pre>
 </div>
-</div>
-</div>
-<div id="subfigure-b---missing-proteins-vs-number-of-nuclei-collected"
+<div id="b-seqif-relative-abundance-of-ccr2-cells"
 class="section level1">
-<h1>Subfigure B - % missing proteins vs number of nuclei collected</h1>
-<pre class="r"><code>metadata_counts$group &lt;- factor(metadata_counts$group,
-                                levels = c(&quot;control&quot;,&quot;MI_remote&quot;,&quot;MI_IZ&quot;))
+<h1>b) SeqIF relative abundance of CCR2+ cells</h1>
+<pre class="r"><code>data_path &lt;- &quot;./data/seqIF_regions_annotations/&quot;
+cell_locations &lt;-
+    list.files(path = paste(data_path,&quot;cell_locations&quot;,sep=&quot;&quot;),pattern = &quot;*.csv&quot;) %&gt;%
+    setNames(., .) %&gt;%
+    map_df(~fread(paste(paste(data_path,&quot;cell_locations&quot;,sep=&quot;&quot;),.,sep=&quot;/&quot;), select= c(&quot;CellID&quot;,&quot;ROI&quot;)),
+           .id = &quot;sample&quot;) %&gt;%
+  mutate(&quot;fov&quot; = gsub(&quot;annotated_|.csv&quot;,&quot;&quot;,sample))
+  
+region_measurements_full &lt;- 
+    list.files(path = paste(data_path,&quot;ROI_measurements&quot;,sep=&quot;&quot;),pattern = &quot;*.txt&quot;) %&gt;% 
+    setNames(., .) %&gt;%
+    map_df(~fread(paste(paste(data_path,&quot;ROI_measurements&quot;,sep=&quot;&quot;),.,sep=&quot;/&quot;)),
+           .id = &quot;sample&quot;) %&gt;%
+  mutate(&quot;fov&quot; = gsub(&quot;.txt&quot;,&quot;&quot;,sample)) 
+colnames(region_measurements_full) &lt;- gsub(&quot; &quot;,&quot;_&quot;,colnames(region_measurements_full))
+colnames(region_measurements_full) &lt;- gsub(&quot;\\^&quot;,&quot;&quot;,colnames(region_measurements_full))
+colnames(region_measurements_full) &lt;- gsub(&quot;\\µ&quot;,&quot;u&quot;,colnames(region_measurements_full))
 
-missingness_plot &lt;- ggplot(metadata_counts,aes(missingness,n_nuclei, label = sample)) +
-  geom_point(pch = 21, size = 5,aes(fill = group)) +
-  scale_fill_manual(values = proteome_palette,
-                    labels = c(&quot;Control&quot;,&quot;MI_remote&quot;,&quot;MI_IZ&quot;)) +
-  geom_label_repel() +
-  labs(x = &quot;% missing values&quot;,
-       y = &quot;# nuclei in tissue collected&quot;,
-       fill = &quot;Group&quot;) +
-  theme(legend.position = &quot;top&quot;)
-missingness_plot</code></pre>
-<p><img src="figure/figures.supplementary_figure_9.proteomics_qc.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
-Past versions of unnamed-chunk-3-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-3-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/FloWuenne/mi_spatialomics/blob/a2cf304e74fb46c810972b7e482a90b38cc5c9cb/docs/figure/figures.supplementary_figure_9.proteomics_qc.Rmd/unnamed-chunk-3-1.png" target="_blank">a2cf304</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2024-03-21
-</td>
-</tr>
-</tbody>
-</table>
+## Sum all individual annotations per sample and region
+region_measurements &lt;- region_measurements_full %&gt;%
+  mutate(&quot;Area_um2&quot; = if_else(fov %in% c(&quot;24h_86&quot;,&quot;4h_97&quot;),Area_um2 * 0.235^2,Area_um2)) %&gt;% ## Images that were post-registered using palom need to be size corrected, as their final pixel resolution is different
+  group_by(fov,Name) %&gt;%
+  summarise(&quot;total_area_um2&quot; = sum(Area_um2)) %&gt;%
+  ungroup()</code></pre>
+<pre><code>`summarise()` has grouped output by &#39;fov&#39;. You can override using the `.groups`
+argument.</code></pre>
+<div id="pixie-output" class="section level2">
+<h2>Pixie output</h2>
+<pre class="r"><code>pixie_cell_out &lt;- fread(&quot;../data/SeqIF/pixie_cell_masks_0.05/cell_table_size_normalized_cell_labels.csv&quot;)
+pixie_cell_out &lt;- pixie_cell_out %&gt;%
+  separate(fov,into = c(&quot;time&quot;,&quot;sample&quot;), remove = FALSE) %&gt;%
+  subset(cell_meta_cluster != &quot;background&quot;) %&gt;%
+  mutate(&quot;CellID&quot; = label)</code></pre>
+</div>
+<div id="merge-data" class="section level2">
+<h2>Merge data</h2>
+<pre class="r"><code>annotated_cells &lt;- left_join(pixie_cell_out,cell_locations, by = c(&quot;fov&quot;,&quot;CellID&quot;))
+annotated_cells &lt;- annotated_cells %&gt;%
+  subset(ROI != &quot;Background&quot;)
+
+## Set factor level for time
+annotated_cells$time &lt;- factor(annotated_cells$time,
+                               levels = c(&quot;Control&quot;,&quot;4h&quot;,&quot;24h&quot;,&quot;48h&quot;))</code></pre>
+<pre class="r"><code>## Let&#39;s plot the number of cells per cell-type per sample
+cells_per_region &lt;- annotated_cells %&gt;%
+  subset(!ROI %in% c(&quot;Unclassified&quot;,&quot;Ignore&quot;)) %&gt;%
+  subset(!ROI %in% c(&quot;PathAnnotationObject&quot;,&quot;papillary_muscle&quot;,&quot;Lumen&quot;,&quot;Background&quot;,
+                     &quot;Ignore&quot;,&quot;RV_ignore&quot;,&quot;myocardium_control&quot;,&quot;remote_endocardium&quot;)) %&gt;%
+  group_by(ROI,fov,time,cell_meta_cluster) %&gt;%
+  tally()
+
+cells_per_region_sub &lt;- cells_per_region %&gt;%
+subset(grepl(&quot;Macro|Mono|Leuko|Neutro&quot;,cell_meta_cluster))
+
+## Normalize cell numbers for area
+region_measurements$ROI &lt;- region_measurements$Name
+cells_per_region_norm &lt;- left_join(cells_per_region_sub,region_measurements, by = c(&quot;fov&quot;,&quot;ROI&quot;))
+cells_per_region_norm &lt;- cells_per_region_norm %&gt;%
+  mutate(&quot;cells_per_mm2&quot; = n / total_area_um2 * 1000000)  ## Normalize to square mm</code></pre>
+<pre class="r"><code>ccr2_monomacro &lt;- cells_per_region_norm %&gt;%
+  subset(cell_meta_cluster == &quot;Mono / Macros Ccr2+&quot;) %&gt;%
+  subset(time %in% c(&quot;4h&quot;,&quot;24h&quot;,&quot;48h&quot;))
+
+ccr2_monomacro$ROI &lt;- gsub(&quot;border_zone&quot;,&quot;Border zone&quot;,ccr2_monomacro$ROI)
+ccr2_monomacro$ROI &lt;- gsub(&quot;infarct_core&quot;,&quot;Infarct core&quot;,ccr2_monomacro$ROI)
+ccr2_monomacro$ROI &lt;- gsub(&quot;Epicardium&quot;,&quot;Epicardium&quot;,ccr2_monomacro$ROI)
+ccr2_monomacro$ROI &lt;- gsub(&quot;Endocardium&quot;,&quot;Endocardium&quot;,ccr2_monomacro$ROI)
+
+ccr2_monomacro$ROI &lt;- factor(ccr2_monomacro$ROI,
+                             levels = c(&quot;Endocardium&quot;,&quot;Infarct core&quot;,&quot;Epicardium&quot;,&quot;Border zone&quot;))
+
+seqIF_ccr2_relquant &lt;- ggplot(ccr2_monomacro,aes(x = time,y = cells_per_mm2)) +
+    stat_summary(
+      fun.y = mean,
+      geom = &quot;bar&quot;,
+      width = 0.9,
+      size = 0.3,
+      color = &quot;black&quot;,
+      fill = &quot;lightgrey&quot;) +
+  geom_beeswarm(size = 2, pch = 21, color = &quot;black&quot;, aes(fill = ROI)) +
+  labs(x = &quot;Time&quot;,
+         y = expression(&quot;Cells /&quot;~mm^2)) + 
+  #expression(paste(&quot;Mo / M&quot;,phi,&quot; per &quot;~mm^2))
+  facet_grid(. ~ ROI) +
+  scale_fill_manual(values = c(&quot;#337272&quot;,&quot;#f0f0f0&quot;,&quot;#b062c2&quot;,&quot;#2c95c5&quot;)) +
+  theme(axis.title = element_text(face=&quot;bold&quot;),
+        legend.position = &quot;none&quot;) +
+  theme(panel.border = element_rect(color = &quot;black&quot;, fill = NA, size = 0.75)) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        axis.title.x = element_blank()) </code></pre>
+<pre><code>Warning: The `fun.y` argument of `stat_summary()` is deprecated as of ggplot2 3.3.0.
+ℹ Please use the `fun` argument instead.
+This warning is displayed once every 8 hours.
+Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+generated.</code></pre>
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.
+This warning is displayed once every 8 hours.
+Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+generated.</code></pre>
+<pre><code>Warning: The `size` argument of `element_rect()` is deprecated as of ggplot2 3.4.0.
+ℹ Please use the `linewidth` argument instead.
+This warning is displayed once every 8 hours.
+Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+generated.</code></pre>
+<pre class="r"><code>seqIF_ccr2_relquant</code></pre>
+<p><img src="figure/figures.supplementary_figure_7.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 </div>
-</div>
-<div id="subfigure-c---variance-explained-by-pcs"
+<div id="c-immunofluorescence-relative-abundance-of-ccr2-cells"
 class="section level1">
-<h1>Subfigure C - % variance explained by PCs</h1>
-<pre class="r"><code>pca_res &lt;- readRDS(&quot;./output/proteomics/proteomics.pca_res.rds&quot;)
+<h1>c) Immunofluorescence relative abundance of CCR2+ cells</h1>
+<pre class="r"><code>if_rel_counts &lt;- fread(&quot;./data/Traditional_IF_relative_cell_counts.csv&quot;)
 
-sdev &lt;- pca_res$sdev[1:5]
-var_explained &lt;- data.frame(PC = paste0(&quot;PC&quot;,1:5),
-                            var_expl = (sdev)^2/sum((sdev)^2)
-                            )
+colnames(if_rel_counts) &lt;- gsub(&quot; &quot;,&quot;_&quot;,colnames(if_rel_counts))
+if_rel_counts &lt;- if_rel_counts %&gt;%
+  pivot_longer(cols = Endo_Pre:BZ_2d,
+               names_to = &quot;sample&quot;,
+               values_to = &quot;cell_count&quot;) %&gt;%
+  separate(sample, into = c(&quot;region&quot;,&quot;timepoint&quot;), sep = &quot;_&quot;)
 
-pca_var &lt;- ggplot(var_explained,aes(PC,var_expl)) +
-  geom_bar(stat = &quot;identity&quot;, color = &quot;black&quot;, fill = &quot;grey30&quot;) +
-  geom_text(aes(label = paste(100*round(var_expl,2),sep = &quot;&quot;)), vjust=1.4, color = &quot;white&quot;, size =6) +
-  labs(x = &quot;Principal components&quot;,
-       y = &quot;% Variance explained&quot;)
+# Replace abbreviations with full labels
+if_rel_counts$region &lt;- gsub(&quot;Endo&quot;,&quot;Endocard&quot;,if_rel_counts$region)
+if_rel_counts$region &lt;- gsub(&quot;Core&quot;,&quot;Infarct core&quot;,if_rel_counts$region)
+if_rel_counts$region &lt;- gsub(&quot;Epi&quot;,&quot;Epicard&quot;,if_rel_counts$region)
+if_rel_counts$region &lt;- gsub(&quot;BZ&quot;,&quot;Border zone&quot;,if_rel_counts$region)
+if_rel_counts$region &lt;- factor(if_rel_counts$region, levels = c(&quot;Endocard&quot;,&quot;Infarct core&quot;,&quot;Epicard&quot;,&quot;Border zone&quot;))
 
-pca_var</code></pre>
-<p><img src="figure/figures.supplementary_figure_9.proteomics_qc.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
-Past versions of unnamed-chunk-4-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-4-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/FloWuenne/mi_spatialomics/blob/a2cf304e74fb46c810972b7e482a90b38cc5c9cb/docs/figure/figures.supplementary_figure_9.proteomics_qc.Rmd/unnamed-chunk-4-1.png" target="_blank">a2cf304</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2024-03-21
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div
-id="subfigure-d---upset-plot-for-shared-proteins-between-conditions"
-class="section level1">
-<h1>Subfigure D - Upset plot for shared proteins between conditions</h1>
-<pre class="r"><code>library(ggplot2)
-library(ComplexUpset)
+if_rel_counts$timepoint &lt;- gsub(&quot;Pre&quot;,&quot;Control&quot;,if_rel_counts$timepoint)
+if_rel_counts$timepoint &lt;- gsub(&quot;1d&quot;,&quot;24h&quot;,if_rel_counts$timepoint)
+if_rel_counts$timepoint &lt;- gsub(&quot;2d&quot;,&quot;2 days&quot;,if_rel_counts$timepoint)
+if_rel_counts$timepoint &lt;- factor(if_rel_counts$timepoint, levels = c(&quot;Control&quot;,&quot;4h&quot;,&quot;24h&quot;,&quot;2 days&quot;))
 
-## Load limma results and subset for significantly differential proteins between conditions
-limma_res &lt;- fread(&quot;./output/proteomics/proteomics.limma.full_statistics.tsv&quot;)
-limma_res_sig &lt;- subset(limma_res,adj.P.Val &lt;= 0.05)
-limma_res_sig &lt;- limma_res_sig %&gt;%
-  select(gene,analysis) %&gt;%
-  mutate(value = 1) %&gt;%
-  # Reshape the data frame so that each gene has 1 row entry for each comparison
-  pivot_wider(names_from = analysis, 
-              values_from = value, 
-              values_fill = list(value = 0)) %&gt;%
-  # Sum rows by gene
-  group_by(gene) %&gt;%
-  summarise_all(sum) %&gt;%
-  ungroup()
-              
-analysis_groups &lt;- c(&quot;MI_IZ_vs_control&quot;,&quot;MI_remote_vs_control&quot;,&quot;MI_IZ_vs_MI_remote&quot;)
-upset_plot &lt;- upset(limma_res_sig, analysis_groups , name=&#39;Comparison&#39;,
-                    width_ratio=0.1,
-                    set_sizes=(
-                      upset_set_size()
-        + theme(axis.text.x=element_text(angle=90))
-    ))
-upset_plot</code></pre>
-<p><img src="figure/figures.supplementary_figure_9.proteomics_qc.Rmd/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-5-1">
-Past versions of unnamed-chunk-5-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-5-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/FloWuenne/mi_spatialomics/blob/a2cf304e74fb46c810972b7e482a90b38cc5c9cb/docs/figure/figures.supplementary_figure_9.proteomics_qc.Rmd/unnamed-chunk-5-1.png" target="_blank">a2cf304</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2024-03-21
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div id="assemble-final-figure" class="section level1">
-<h1>Assemble final figure</h1>
-<pre class="r"><code>supp_figure_X &lt;- n_prot_plot + missingness_plot + pca_var + wrap_elements(upset_plot)
+if_rel_counts &lt;- subset(if_rel_counts,timepoint != &quot;Control&quot;)
 
-supp_figure_X &lt;- supp_figure_X + 
-  plot_layout(nrow = 2,ncol =2 , widths = c(1,2)) +
-  plot_annotation(tag_levels = &#39;a&#39;) &amp; 
-  theme(plot.tag = element_text(size = 25)) &amp;
-  theme(plot.background = element_rect(fill = &quot;white&quot;))
+if_ccr2_relquant &lt;- ggplot(if_rel_counts,aes(timepoint,cell_count)) +
+    stat_summary(
+      fun.y = mean,
+      geom = &quot;bar&quot;,
+      width = 0.9,
+      size = 0.3,
+      color = &quot;black&quot;,
+      fill = &quot;lightgrey&quot;) +
+  labs(x = &quot;Time&quot;,
+         y = expression(&quot;Cells /&quot;~mm^2)) + 
+  geom_beeswarm(size = 2 , pch = 21, color = &quot;black&quot;, aes(fill = region)) +
+  facet_grid(.~ region) +
+  theme(axis.title = element_text(face=&quot;bold&quot;),
+        legend.position = &quot;none&quot;) +
+  scale_fill_manual(values = c(&quot;#337272&quot;,&quot;#f0f0f0&quot;,&quot;#b062c2&quot;,&quot;#2c95c5&quot;)) +
+  theme(panel.border = element_rect(color = &quot;black&quot;, fill = NA, size = 0.75)) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        axis.title.x = element_blank())
 
-supp_figure_X</code></pre>
-<p><img src="figure/figures.supplementary_figure_9.proteomics_qc.Rmd/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-6-1">
-Past versions of unnamed-chunk-6-1.png
-</button>
-</p>
-<div id="fig-unnamed-chunk-6-1" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/FloWuenne/mi_spatialomics/blob/a2cf304e74fb46c810972b7e482a90b38cc5c9cb/docs/figure/figures.supplementary_figure_9.proteomics_qc.Rmd/unnamed-chunk-6-1.png" target="_blank">a2cf304</a>
-</td>
-<td>
-FloWuenne
-</td>
-<td>
-2024-03-21
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre class="r"><code>save_plot(filename = &quot;./figures/Supplementary_figure_X.proteomics.png&quot;,
-          plot = supp_figure_X,
-          base_height = 8)
+## Combine plots
+joined_plot &lt;- seqIF_ccr2_relquant | if_ccr2_relquant
 
-
-save_plot(filename = &quot;./figures/Supplementary_figure_X.proteomics.eps&quot;,
-          plot = supp_figure_X,
-          base_height = 8)</code></pre>
-<!-- # Volcano plot of MI_IZ vs control -->
-<!-- ```{r} -->
-<!-- iz_control <- subset(limma_res, analysis == "MI_IZ_vs_control") -->
-<!-- iz_control <- iz_control %>% -->
-<!--   arrange(desc(logFC)) -->
-<!-- prot_2label <- "" -->
-<!-- prot_2label <- subset(iz_control, adj.P.Val < 0.05)[1:10,]$gene -->
-<!-- prot_2label <- c(prot_2label,tail(subset(iz_control, adj.P.Val < 0.05),1)$gene) -->
-<!-- iz_control <- iz_control %>% -->
-<!--   mutate("label_protein" = if_else(gene %in% prot_2label, gene,"")) -->
-<!-- ## Volcano plot of IZ_remote vs control -->
-<!-- iz_control_volc <- plot_pretty_volcano(iz_control,  -->
-<!--                                       pt_size = 2, -->
-<!--                                       plot_title = "MI_remote vs control", -->
-<!--                                       sig_col = "adj.P.Val", -->
-<!--                                       sig_thresh = 0.05, -->
-<!--                                       col_pos_logFC = proteome_palette[['control']], -->
-<!--                                       col_neg_logFC = proteome_palette[['MI_IZ']]) + -->
-<!--   geom_label_repel(max.overlaps = 10) -->
-<!-- iz_control_volc -->
-<!-- ``` -->
-<!-- # Volcano plot of MI_remote vs control -->
-<!-- ```{r} -->
-<!-- remote_control <- subset(limma_res, analysis == "MI_remote_vs_control") -->
-<!-- remote_control <- remote_control %>% -->
-<!--   arrange(desc(logFC)) -->
-<!-- prot_2label <- subset(remote_control, adj.P.Val < 0.05)[1:13,]$gene -->
-<!-- prot_2label <- c(prot_2label,tail(subset(remote_control, adj.P.Val < 0.05),1)$gene) -->
-<!-- remote_control <- remote_control %>% -->
-<!--   mutate("label_protein" = if_else(gene %in% prot_2label, gene,"")) -->
-<!-- ## Volcano plot of IZ_remote vs control -->
-<!-- remote_control_volc <- plot_pretty_volcano(remote_control,  -->
-<!--                                       pt_size = 2, -->
-<!--                                       plot_title = "MI_remote vs control", -->
-<!--                                       sig_col = "adj.P.Val", -->
-<!--                                       sig_thresh = 0.05, -->
-<!--                                       col_pos_logFC = proteome_palette[['MI_remote']], -->
-<!--                                       col_neg_logFC = proteome_palette[['control']]) + -->
-<!--   geom_label_repel() -->
-<!-- remote_control_volc -->
-<!-- ``` -->
-<!-- # Plot candidate protein expressions -->
-<!-- ```{r} -->
-<!-- vsn_matrix <- fread("./output/proteomics/proteomics.vsn_norm_proteins.tsv") -->
-<!-- protein_sub <- vsn_matrix  %>% -->
-<!--     dplyr::select(1:11,gene) %>% -->
-<!--     pivot_longer(1:11,names_to = "sample", values_to = "exp") %>% -->
-<!--     mutate("group" = if_else(grepl("control",sample),"control", -->
-<!--                                    if_else(grepl("MI_IZ",sample), -->
-<!--                                            "MI_IZ","MI_remote")) -->
-<!--     ) -->
-<!-- protein_sub$group <- factor(protein_sub$group, -->
-<!--                               levels = c("control","MI_remote","MI_IZ")) -->
-<!-- goi <- "Vwf" -->
-<!-- plot_proteomics_boxplot(norm_table = protein_sub, -->
-<!--                         protein = goi) + -->
-<!--   geom_signif(comparisons = list(c("MI_IZ","MI_remote")), -->
-<!--               tip_length = 0, annotation = subset(limma_res, -->
-<!--                                                   analysis == "MI_IZ_vs_MI_remote" & -->
-<!--                                                     gene == goi)$adj.P.Val) -->
-<!-- ``` -->
+save_plot(filename = &quot;./plots/supp_figure_7.tradIF-relative_cell_counts.pdf&quot;,
+          plot = joined_plot,
+          base_asp = 3,
+          base_height = 4)</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1112,42 +914,34 @@ attached base packages:
 [1] stats     graphics  grDevices datasets  utils     methods   base     
 
 other attached packages:
- [1] ComplexUpset_1.3.3  plyr_1.8.9          RColorBrewer_1.1-3 
- [4] ggsci_3.0.0         cowplot_1.1.2       ggbeeswarm_0.7.2   
- [7] ggsignif_0.6.4      heatmaply_1.5.0     plotly_4.10.4      
-[10] viridis_0.6.4       viridisLite_0.4.2   ggVennDiagram_1.5.0
-[13] patchwork_1.2.0     ggrepel_0.9.5       here_1.0.1         
-[16] data.table_1.14.10  lubridate_1.9.3     forcats_1.0.0      
-[19] stringr_1.5.1       dplyr_1.1.4         purrr_1.0.2        
-[22] readr_2.1.5         tidyr_1.3.0         tibble_3.2.1       
-[25] ggplot2_3.4.4       tidyverse_2.0.0     workflowr_1.7.1    
+ [1] RColorBrewer_1.1-3 here_1.0.1         ggsci_3.0.0        cowplot_1.1.2     
+ [5] patchwork_1.2.0    ggbeeswarm_0.7.2   data.table_1.14.10 lubridate_1.9.3   
+ [9] forcats_1.0.0      stringr_1.5.1      dplyr_1.1.4        purrr_1.0.2       
+[13] readr_2.1.5        tidyr_1.3.0        tibble_3.2.1       ggplot2_3.4.4     
+[17] tidyverse_2.0.0    workflowr_1.7.1   
 
 loaded via a namespace (and not attached):
- [1] tidyselect_1.2.0    farver_2.1.1        vipor_0.4.7        
- [4] fastmap_1.1.1       TSP_1.2-4           lazyeval_0.2.2     
- [7] promises_1.2.1      digest_0.6.34       timechange_0.2.0   
-[10] lifecycle_1.0.4     processx_3.8.3      magrittr_2.0.3     
-[13] compiler_4.3.1      rlang_1.1.3         sass_0.4.8         
-[16] tools_4.3.1         utf8_1.2.4          yaml_2.3.8         
-[19] knitr_1.45          labeling_0.4.3      htmlwidgets_1.6.4  
-[22] registry_0.5-1      ca_0.71.1           withr_2.5.2        
-[25] grid_4.3.1          fansi_1.0.6         git2r_0.33.0       
-[28] colorspace_2.1-0    scales_1.3.0        iterators_1.0.14   
-[31] cli_3.6.2           rmarkdown_2.25      ragg_1.2.7         
-[34] generics_0.1.3      rstudioapi_0.15.0   httr_1.4.7         
-[37] tzdb_0.4.0          cachem_1.0.8        assertthat_0.2.1   
-[40] BiocManager_1.30.22 vctrs_0.6.5         webshot_0.5.5      
-[43] jsonlite_1.8.8      seriation_1.5.4     callr_3.7.3        
-[46] hms_1.1.3           beeswarm_0.4.0      systemfonts_1.0.5  
-[49] dendextend_1.17.1   foreach_1.5.2       jquerylib_0.1.4    
-[52] glue_1.7.0          codetools_0.2-19    ps_1.7.6           
-[55] stringi_1.8.3       gtable_0.3.4        later_1.3.2        
-[58] munsell_0.5.0       pillar_1.9.0        htmltools_0.5.7    
-[61] R6_2.5.1            textshaping_0.3.7   rprojroot_2.0.4    
-[64] evaluate_0.23       highr_0.10          renv_1.0.3         
-[67] httpuv_1.6.14       bslib_0.6.1         Rcpp_1.0.12        
-[70] gridExtra_2.3       whisker_0.4.1       xfun_0.41          
-[73] fs_1.6.3            getPass_0.2-4       pkgconfig_2.0.3    </code></pre>
+ [1] gtable_0.3.4        beeswarm_0.4.0      xfun_0.41          
+ [4] bslib_0.6.1         processx_3.8.3      callr_3.7.3        
+ [7] tzdb_0.4.0          vctrs_0.6.5         tools_4.3.1        
+[10] ps_1.7.6            generics_0.1.3      fansi_1.0.6        
+[13] highr_0.10          pkgconfig_2.0.3     lifecycle_1.0.4    
+[16] farver_2.1.1        compiler_4.3.1      git2r_0.33.0       
+[19] textshaping_0.3.7   munsell_0.5.0       getPass_0.2-4      
+[22] vipor_0.4.7         httpuv_1.6.14       htmltools_0.5.7    
+[25] sass_0.4.8          yaml_2.3.8          crayon_1.5.2       
+[28] later_1.3.2         pillar_1.9.0        jquerylib_0.1.4    
+[31] whisker_0.4.1       cachem_1.0.8        tidyselect_1.2.0   
+[34] digest_0.6.34       stringi_1.8.3       labeling_0.4.3     
+[37] rprojroot_2.0.4     fastmap_1.1.1       grid_4.3.1         
+[40] colorspace_2.1-0    cli_3.6.2           magrittr_2.0.3     
+[43] utf8_1.2.4          withr_2.5.2         scales_1.3.0       
+[46] promises_1.2.1      timechange_0.2.0    rmarkdown_2.25     
+[49] httr_1.4.7          ragg_1.2.7          hms_1.1.3          
+[52] evaluate_0.23       knitr_1.45          rlang_1.1.3        
+[55] Rcpp_1.0.12         glue_1.7.0          BiocManager_1.30.22
+[58] renv_1.0.3          rstudioapi_0.15.0   jsonlite_1.8.8     
+[61] R6_2.5.1            systemfonts_1.0.5   fs_1.6.3           </code></pre>
 </div>
 </div>
 
