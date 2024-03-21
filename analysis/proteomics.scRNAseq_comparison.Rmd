@@ -1,7 +1,6 @@
 ---
-title: "proteomics.scRNAseq_comparison"
-author: "FloWuenne"
-date: "2023-06-19"
+title: "Deep Visual Proteomics - snRNA-seq comparison"
+author: "Florian Wuennemann"
 output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
@@ -52,8 +51,8 @@ DimPlot(calcagno_et_al,label = TRUE) + theme(legend.position = "none")
 Next, let's quickly verify, that Endocardial cells are expressing the proper markers before we compare them to our proteomic data.
 
 ```{r}
-plot_density(calcagno_et_al_d0, features = "Npr3")
-VlnPlot(calcagno_et_al_d0, features = "Npr3")
+plot_density(calcagno_et_al, features = "Npr3")
+VlnPlot(calcagno_et_al, features = "Npr3")
 ```
 
 Expression of the endocardial specific marker Npr3 in this dataset fits with the original authors annotation, suggesting that we can use these endocardial single-cell signature to identify endocardial specific genes in our proteomics data.
@@ -62,35 +61,6 @@ Expression of the endocardial specific marker Npr3 in this dataset fits with the
 # Analyze cell-type specific proteins in proteomic data
 
 We will use the snRNAseq data to identify proteins likely differentially expressed in endocardial cells. For this, we will first identify genes specifically expressed in endocardial cells.
-
-## Check subclustering of endocard cells at d1
-
-```{r}
-endocard_d1 <- subset(calcagno_et_al, level_2 == "Endocardial" & time == "D1")
-```
-
-```{r}
-endocard_d1 <- SCTransform(endocard_d1)
-endocard_d1 <- RunPCA(endocard_d1, verbose = FALSE)
-endocard_d1 <- RunUMAP(endocard_d1, dims = 1:10, verbose = FALSE)
-
-endocard_d1 <- FindNeighbors(endocard_d1, dims = 1:10, verbose = FALSE)
-endocard_d1 <- FindClusters(endocard_d1, verbose = FALSE, resolution = 0.2)
-```
-
-```{r}
-DimPlot(endocard_d1, label = TRUE) + NoLegend()
-```
-
-```{r}
-endo_diff_marker <- FindAllMarkers(endocard_d1, only.pos = TRUE)
-endo_diff_marker_top <- endo_diff_marker %>%
-  subset(p_val_adj < 0.05)
-```
-
-```{r}
-VlnPlot(endocard_d1, features = c("Npr3","Selp","Taco1","Serpine1","Prkg1","Nrg1"))
-```
 
 ## Correlate pseudobulk snRNA-seq expression in endocardial cells with proteomic measurements
 
@@ -161,6 +131,8 @@ endocard_de <- endocard_de %>%
 
 ## Get endocardial specific genes
 
+To get an estimate of which genes are most specifically expressed in endocardialc ells in the snRNA-seq data, we will use the FindMarkers function from Seurat to get log-fold changes and p-values for the comparison of endocardial cells at day 0 to all other cells.
+
 ```{r}
 endo_marker <- FindMarkers(calcagno_et_al,ident.1 = "Endocardial_D0",
                            only.pos = TRUE)
@@ -202,26 +174,3 @@ write.table(merged_protein_rna,
             row.names = FALSE,
             quote = FALSE)
 ```
-
-## Check coagulation pathway gene expression in all cell-types in snRNA-seq
-
-```{r}
-coagulation_mgsea <- readRDS("./references/mh.all.v2023.1.Mm.symbols.sets.rds") %>%
-  subset(source == "HALLMARK_COAGULATION")
-
-coagulation_genes_proteomics <- miiz_vs_remote_signature %>%
-  subset(gene %in% unique(coagulation_mgsea$target)) %>%
-  arrange(desc(logFC)) %>%
-  subset(logFC >1)
-
-miiz_vs_remote_signature <- miiz_vs_remote_signature %>%
-  arrange(desc(logFC)) %>%
-  mutate("rank" = 1:nrow(miiz_vs_remote_signature))
-
-library(scCustomize)
-Idents(calcagno_et_al) <- "level_2"
-
-Clustered_DotPlot(calcagno_et_al,features = coagulation_genes_proteomics$gene, x_lab_rotate = TRUE, cluster_ident = FALSE)
-```
-
-

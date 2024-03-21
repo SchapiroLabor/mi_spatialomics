@@ -1,7 +1,6 @@
 ---
-title: "proteomics.bulk_de_analysis"
-author: "FloWuenne"
-date: "2023-06-14"
+title: "Deep Visual Proteomics - Bulk DE analysis"
+author: "Florian Wuennemann"
 output: workflowr::wflow_html
 editor_options: 
   chunk_output_type: console
@@ -256,188 +255,190 @@ plot(venn(limma_venn_df[,1:3]))
 ```
 
 
-# DEPs using proDA
+<!-- The analysis below are a comparison of the results from the limma method with the proDA method, which can handle missing values. The results largely agree and only show minor differences when comparison proteins with missing values. Since we did not use the proDA results in the manuscript, these analysis are commented out here but kept for documentation. -->
 
-## Fit proDA full model and apply contrasts to compare to control
+<!-- # DEPs using proDA -->
 
-We will fit a model on the full vsn matrix and set the control group as the reference level, to compare MI_IZ and MI_remote to the control.
+<!-- ## Fit proDA full model and apply contrasts to compare to control -->
 
-```{r}
-fit_full <- proDA(vsnMatrix,  design = ~ group, 
-             col_data = design_matrix, reference_level = "control")
-```
+<!-- We will fit a model on the full vsn matrix and set the control group as the reference level, to compare MI_IZ and MI_remote to the control. -->
 
-Let's now look at the approximate sample distance matrix based on the proDA model.
+<!-- ```{r} -->
+<!-- fit_full <- proDA(vsnMatrix,  design = ~ group,  -->
+<!--              col_data = design_matrix, reference_level = "control") -->
+<!-- ``` -->
 
-```{r}
-da <- dist_approx(fit_full)
-```
+<!-- Let's now look at the approximate sample distance matrix based on the proDA model. -->
 
-```{r}
-plot_mat <- as.matrix(da$mean)
-pheatmap::pheatmap(plot_mat)
-```
+<!-- ```{r} -->
+<!-- da <- dist_approx(fit_full) -->
+<!-- ``` -->
 
-Now we will extract the test statistics for the different comparisons and visualize them using volcano plots.
+<!-- ```{r} -->
+<!-- plot_mat <- as.matrix(da$mean) -->
+<!-- pheatmap::pheatmap(plot_mat) -->
+<!-- ``` -->
 
-### MI_IZ vs control
+<!-- Now we will extract the test statistics for the different comparisons and visualize them using volcano plots. -->
 
-```{r}
-test_res_miiz <- test_diff(fit_full, "groupMI_IZ", pval_adjust_method = "BH")
-test_res_miiz$gene <- gene_mapping$Genes
-test_res_miiz$protein_ids <- gene_mapping$Protein_Ids
-test_res_miiz <- test_res_miiz %>% 
-  arrange(adj_pval) %>%
-  mutate("logFC" = diff,
-         "analysis" = "MI_IZ_vs_control")
-test_res_miiz$label_protein <- ""
+<!-- ### MI_IZ vs control -->
 
-volc_test_miiz <- plot_pretty_volcano(test_res_miiz, 
-                                      pt_label = "gene", pt_size = 2,
-                                      plot_title = "MI_IZ vs control",
-                                      sig_thresh = 0.05,
-                                      sig_col = "adj_pval") 
-ggplotly(volc_test_miiz)
-```
+<!-- ```{r} -->
+<!-- test_res_miiz <- test_diff(fit_full, "groupMI_IZ", pval_adjust_method = "BH") -->
+<!-- test_res_miiz$gene <- gene_mapping$Genes -->
+<!-- test_res_miiz$protein_ids <- gene_mapping$Protein_Ids -->
+<!-- test_res_miiz <- test_res_miiz %>%  -->
+<!--   arrange(adj_pval) %>% -->
+<!--   mutate("logFC" = diff, -->
+<!--          "analysis" = "MI_IZ_vs_control") -->
+<!-- test_res_miiz$label_protein <- "" -->
 
-### MI_remote vs control
+<!-- volc_test_miiz <- plot_pretty_volcano(test_res_miiz,  -->
+<!--                                       pt_label = "gene", pt_size = 2, -->
+<!--                                       plot_title = "MI_IZ vs control", -->
+<!--                                       sig_thresh = 0.05, -->
+<!--                                       sig_col = "adj_pval")  -->
+<!-- ggplotly(volc_test_miiz) -->
+<!-- ``` -->
 
-```{r}
-test_res_miremote <- test_diff(fit_full, "groupMI_remote", pval_adjust_method = "fdr")
-test_res_miremote$gene <- gene_mapping$Genes
-test_res_miremote$protein_ids <- gene_mapping$Protein_Ids
-test_res_miremote <- test_res_miremote %>% 
-  arrange(adj_pval) %>%
-  mutate("logFC" = diff,
-         "analysis" = "MI_remote_vs_control")
-test_res_miremote$label_protein <- ""
+<!-- ### MI_remote vs control -->
 
-volc_test_miremote <- plot_pretty_volcano(test_res_miremote, 
-                                      pt_label = "gene", pt_size = 2,
-                                      plot_title = "MI_remote vs control",
-                                      sig_thresh = 0.05,
-                                      sig_col = "adj_pval") 
-ggplotly(volc_test_miremote)
-```
+<!-- ```{r} -->
+<!-- test_res_miremote <- test_diff(fit_full, "groupMI_remote", pval_adjust_method = "fdr") -->
+<!-- test_res_miremote$gene <- gene_mapping$Genes -->
+<!-- test_res_miremote$protein_ids <- gene_mapping$Protein_Ids -->
+<!-- test_res_miremote <- test_res_miremote %>%  -->
+<!--   arrange(adj_pval) %>% -->
+<!--   mutate("logFC" = diff, -->
+<!--          "analysis" = "MI_remote_vs_control") -->
+<!-- test_res_miremote$label_protein <- "" -->
 
-### IZ vs remote
+<!-- volc_test_miremote <- plot_pretty_volcano(test_res_miremote,  -->
+<!--                                       pt_label = "gene", pt_size = 2, -->
+<!--                                       plot_title = "MI_remote vs control", -->
+<!--                                       sig_thresh = 0.05, -->
+<!--                                       sig_col = "adj_pval")  -->
+<!-- ggplotly(volc_test_miremote) -->
+<!-- ``` -->
 
-```{r}
-vsnMatrix_sub <- vsnMatrix[,c(mi_iz_idx,mi_remote_idx)]
+<!-- ### IZ vs remote -->
 
-fit_iz_remote <- proDA(vsnMatrix_sub, design = as.factor(c("MI_IZ","MI_IZ","MI_IZ","MI_IZ","MI_remote","MI_remote","MI_remote","MI_remote")))
-```
+<!-- ```{r} -->
+<!-- vsnMatrix_sub <- vsnMatrix[,c(mi_iz_idx,mi_remote_idx)] -->
 
-```{r}
-test_res_iz_remote <- test_diff(fit_iz_remote, MI_IZ - MI_remote, pval_adjust_method = "fdr")
-test_res_iz_remote$gene <- gene_mapping$Genes
-test_res_iz_remote$protein_ids <- gene_mapping$Protein_Ids
-test_res_iz_remote <- test_res_iz_remote %>% 
-  arrange(adj_pval) %>%
-  mutate("logFC" = diff,
-         "analysis" = "MI_IZ_vs_MI_remote")
-test_res_iz_remote$label_protein <- ""
+<!-- fit_iz_remote <- proDA(vsnMatrix_sub, design = as.factor(c("MI_IZ","MI_IZ","MI_IZ","MI_IZ","MI_remote","MI_remote","MI_remote","MI_remote"))) -->
+<!-- ``` -->
 
-volc_test_iz_remote <- plot_pretty_volcano(test_res_iz_remote, 
-                                      pt_label = "gene", pt_size = 2,
-                                      plot_title =  "MI_IZ vs remote",
-                                      sig_thresh = 0.05,
-                                      sig_col = "adj_pval") 
-ggplotly(volc_test_iz_remote)
-```
+<!-- ```{r} -->
+<!-- test_res_iz_remote <- test_diff(fit_iz_remote, MI_IZ - MI_remote, pval_adjust_method = "fdr") -->
+<!-- test_res_iz_remote$gene <- gene_mapping$Genes -->
+<!-- test_res_iz_remote$protein_ids <- gene_mapping$Protein_Ids -->
+<!-- test_res_iz_remote <- test_res_iz_remote %>%  -->
+<!--   arrange(adj_pval) %>% -->
+<!--   mutate("logFC" = diff, -->
+<!--          "analysis" = "MI_IZ_vs_MI_remote") -->
+<!-- test_res_iz_remote$label_protein <- "" -->
 
-### Merge results of proDA analysis
+<!-- volc_test_iz_remote <- plot_pretty_volcano(test_res_iz_remote,  -->
+<!--                                       pt_label = "gene", pt_size = 2, -->
+<!--                                       plot_title =  "MI_IZ vs remote", -->
+<!--                                       sig_thresh = 0.05, -->
+<!--                                       sig_col = "adj_pval")  -->
+<!-- ggplotly(volc_test_iz_remote) -->
+<!-- ``` -->
 
-```{r}
-merged_stats <- rbind(test_res_miiz,test_res_miremote,test_res_iz_remote)
-```
+<!-- ### Merge results of proDA analysis -->
 
-### Venn Diagram of DE genes
+<!-- ```{r} -->
+<!-- merged_stats <- rbind(test_res_miiz,test_res_miremote,test_res_iz_remote) -->
+<!-- ``` -->
 
-```{r}
-test_res_miiz_genes <- subset(test_res_miiz,adj_pval <= 0.05)$gene
-test_res_miremote_genes <- subset(test_res_miremote,adj_pval <= 0.05)$gene
-test_res_iz_remote_genes <- subset(test_res_iz_remote,adj_pval <= 0.05)$gene
-proda_venn_vec <- test_res_miiz$gene
-proda_venn_df <- data.frame("MI_control" = proda_venn_vec %in% test_res_miiz_genes,
-                      "remote_control" = proda_venn_vec %in% test_res_miremote_genes,
-                      "MI_IZ_MI_remote" = proda_venn_vec %in% test_res_iz_remote_genes)
-proda_venn_df$gene <- proda_venn_vec
+<!-- ### Venn Diagram of DE genes -->
 
-## Plot the 3 group Venn diagram
-plot(venn(proda_venn_df[,1:3]))
+<!-- ```{r} -->
+<!-- test_res_miiz_genes <- subset(test_res_miiz,adj_pval <= 0.05)$gene -->
+<!-- test_res_miremote_genes <- subset(test_res_miremote,adj_pval <= 0.05)$gene -->
+<!-- test_res_iz_remote_genes <- subset(test_res_iz_remote,adj_pval <= 0.05)$gene -->
+<!-- proda_venn_vec <- test_res_miiz$gene -->
+<!-- proda_venn_df <- data.frame("MI_control" = proda_venn_vec %in% test_res_miiz_genes, -->
+<!--                       "remote_control" = proda_venn_vec %in% test_res_miremote_genes, -->
+<!--                       "MI_IZ_MI_remote" = proda_venn_vec %in% test_res_iz_remote_genes) -->
+<!-- proda_venn_df$gene <- proda_venn_vec -->
 
-## get proteins that are deferentially expressed between MI vs control and MI_IZ and MI_remote
-MI_IZ_proteins <- subset(proda_venn_df,MI_control == TRUE & remote_control == FALSE &  MI_IZ_MI_remote == TRUE)$gene
+<!-- ## Plot the 3 group Venn diagram -->
+<!-- plot(venn(proda_venn_df[,1:3])) -->
 
-## Get proteins that are found differentially expressed between MI_IZ vs control as well as MI_IZ vs MI_remote. These proteins represent specific differences in MI_IZ layer due to inflammation
-MI_induced_prots_IZ <- subset(proda_venn_df,MI_control == TRUE & remote_control == FALSE &  MI_IZ_MI_remote == TRUE)
-MI_induced_prots_IZ <- subset(test_res_iz_remote,gene %in% MI_induced_prots_IZ$gene)
-```
+<!-- ## get proteins that are deferentially expressed between MI vs control and MI_IZ and MI_remote -->
+<!-- MI_IZ_proteins <- subset(proda_venn_df,MI_control == TRUE & remote_control == FALSE &  MI_IZ_MI_remote == TRUE)$gene -->
 
-```{r}
-mi_iz_unique_genes <- subset(MI_induced_prots_IZ, adj_pval <= 0.05)
-write.table(unique(mi_iz_unique_genes$gene),
-            file = "./output/proteomics/proteomics.mi_iz_specific_proteins.tsv",
-            col.names = FALSE,
-            row.names = FALSE,
-            quote = FALSE)
-```
+<!-- ## Get proteins that are found differentially expressed between MI_IZ vs control as well as MI_IZ vs MI_remote. These proteins represent specific differences in MI_IZ layer due to inflammation -->
+<!-- MI_induced_prots_IZ <- subset(proda_venn_df,MI_control == TRUE & remote_control == FALSE &  MI_IZ_MI_remote == TRUE) -->
+<!-- MI_induced_prots_IZ <- subset(test_res_iz_remote,gene %in% MI_induced_prots_IZ$gene) -->
+<!-- ``` -->
+
+<!-- ```{r} -->
+<!-- mi_iz_unique_genes <- subset(MI_induced_prots_IZ, adj_pval <= 0.05) -->
+<!-- write.table(unique(mi_iz_unique_genes$gene), -->
+<!--             file = "./output/proteomics/proteomics.mi_iz_specific_proteins.tsv", -->
+<!--             col.names = FALSE, -->
+<!--             row.names = FALSE, -->
+<!--             quote = FALSE) -->
+<!-- ``` -->
 
 
-# Compare proDA with limma results
+<!-- # Compare proDA with limma results -->
 
-Finally, let's compare the limma results to the proDA results for one comparison (MI_IZ vs control) to see how they differ.
+<!-- Finally, let's compare the limma results to the proDA results for one comparison (MI_IZ vs control) to see how they differ. -->
 
-```{r}
-merged_tests_mictr <- full_join(test_res_miiz,limma_mi_ctr, by = c("gene","protein_ids"))
+<!-- ```{r} -->
+<!-- merged_tests_mictr <- full_join(test_res_miiz,limma_mi_ctr, by = c("gene","protein_ids")) -->
 
-merged_tstat <- ggplot(merged_tests_mictr,aes(t_statistic,t)) +
-  geom_point() +
-  geom_smooth() +
-  labs(x = "proDA t-statistic",
-       y = "limma t-statistic",
-       title = "Comparison of t-statistics")
-merged_tstat
+<!-- merged_tstat <- ggplot(merged_tests_mictr,aes(t_statistic,t)) + -->
+<!--   geom_point() + -->
+<!--   geom_smooth() + -->
+<!--   labs(x = "proDA t-statistic", -->
+<!--        y = "limma t-statistic", -->
+<!--        title = "Comparison of t-statistics") -->
+<!-- merged_tstat -->
 
-merged_diffs_mictr <- ggplot(merged_tests_mictr,aes(diff,logFC.y,label = gene)) +
-  geom_point() +
-  geom_smooth() +
-  labs(x = "proDA diff",
-       y = "limma logFC",
-       title = "Comparison of diff and log-fold changes")
+<!-- merged_diffs_mictr <- ggplot(merged_tests_mictr,aes(diff,logFC.y,label = gene)) + -->
+<!--   geom_point() + -->
+<!--   geom_smooth() + -->
+<!--   labs(x = "proDA diff", -->
+<!--        y = "limma logFC", -->
+<!--        title = "Comparison of diff and log-fold changes") -->
 
-merged_abundance_mictr <- ggplot(merged_tests_mictr,aes(avg_abundance,AveExpr,
-                                            label = gene)) +
-  geom_point() +
-  geom_smooth() +
-  labs(x = "proDA avg_abundance",
-       y = "limma AveExpr",
-       title = "Comparison of average abundance per protein")
-merged_abundance_mictr
+<!-- merged_abundance_mictr <- ggplot(merged_tests_mictr,aes(avg_abundance,AveExpr, -->
+<!--                                             label = gene)) + -->
+<!--   geom_point() + -->
+<!--   geom_smooth() + -->
+<!--   labs(x = "proDA avg_abundance", -->
+<!--        y = "limma AveExpr", -->
+<!--        title = "Comparison of average abundance per protein") -->
+<!-- merged_abundance_mictr -->
 
-method_corr_mictr <- ggplot(merged_tests_mictr,aes(-log10(pval.x),-log10(P.Value),
-                            label = gene)) +
-  geom_point() +
-  geom_smooth() +
-  geom_vline(xintercept = -log10(0.05), linetype = 2) +
-  geom_hline(yintercept = -log10(0.05), linetype = 2) +
-  labs(x = "proDA -log10(pvalue)",
-       y = "limma -log10(pvalue)",
-       title = "Comparison of adjusted p-values")
-method_corr_mictr
-```
+<!-- method_corr_mictr <- ggplot(merged_tests_mictr,aes(-log10(pval.x),-log10(P.Value), -->
+<!--                             label = gene)) + -->
+<!--   geom_point() + -->
+<!--   geom_smooth() + -->
+<!--   geom_vline(xintercept = -log10(0.05), linetype = 2) + -->
+<!--   geom_hline(yintercept = -log10(0.05), linetype = 2) + -->
+<!--   labs(x = "proDA -log10(pvalue)", -->
+<!--        y = "limma -log10(pvalue)", -->
+<!--        title = "Comparison of adjusted p-values") -->
+<!-- method_corr_mictr -->
+<!-- ``` -->
 
-As we can see, the statistics across both proDA and limma correlate very strongly, suggesting that both methods provide similar results in terms of effect sizes and which genes are statistically significant.
+<!-- As we can see, the statistics across both proDA and limma correlate very strongly, suggesting that both methods provide similar results in terms of effect sizes and which genes are statistically significant. -->
 
-The most significant difference between proDA and limma however, is that proDA can handle situations where all values are missing for one of the groups we want to compare. That means, that real proteins that are induced due to inflammation in MI_IZ samples but missing in controls during homeostasis of the tissue will have test statistics in proDA but not in limma results.
+<!-- The most significant difference between proDA and limma however, is that proDA can handle situations where all values are missing for one of the groups we want to compare. That means, that real proteins that are induced due to inflammation in MI_IZ samples but missing in controls during homeostasis of the tissue will have test statistics in proDA but not in limma results. -->
 
-Let's find these
+<!-- Let's find these -->
 
-```{r}
-## Which proteins could proDA test, that limma couldn't?
-proda_only <- subset(merged_tests_mictr,is.na(adj.P.Val))
-limma_only <- subset(merged_tests_mictr,is.na(adj_pval))
-```
+<!-- ```{r} -->
+<!-- ## Which proteins could proDA test, that limma couldn't? -->
+<!-- proda_only <- subset(merged_tests_mictr,is.na(adj.P.Val)) -->
+<!-- limma_only <- subset(merged_tests_mictr,is.na(adj_pval)) -->
+<!-- ``` -->
 
-All of the proteins that could not be tested by limma contain fully or mostly missing values in the comparison made between control and MI.
+<!-- All of the proteins that could not be tested by limma contain fully or mostly missing values in the comparison made between control and MI. -->

@@ -1,7 +1,6 @@
 ---
-title: "figures.figure_5"
-author: "FloWuenne"
-date: "2023-06-27"
+title: "Figure 4"
+author: "Florian Wuennemann"
 output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
@@ -331,23 +330,6 @@ save_plot(filename = "./figures/Figure_5.expression_plot.pdf",
           base_height = 4)
 ```
 
-```{r}
-## Explore expression of proteins of interest
-goi <- "Slit3"
-plot_proteomics_boxplot(norm_table = protein_sub,
-                                    protein = goi,
-                                    style = "mean") +
-  theme(axis.text.x = element_text(angle = 90, vjust = 1, hjust=1)) +
-  labs(x = "") +
-  ylim(yaxis_limits) + 
-  labs(y = "") +
-  scale_x_discrete(labels=c("Control" = "Control", 
-                            "MI_remote" = "MI remote",
-                             "MI_IZ" = "MI IZ"))
-```
-
-
-
 # Combine plots for figure
 
 ```{r}
@@ -489,78 +471,3 @@ write.table(table3,
             col.names = TRUE)
 
 ```
-
-
-<!-- # Assemble final figure -->
-
-<!-- ```{r} -->
-<!-- final_fig5_top <- plot_spacer()  + pca_plot  + plot_layout(widths = c(1.5, 1)) -->
-<!-- final_fig5_mid <- volc_limma_IZ_remote + plot_spacer() + path_plot  +  -->
-<!--   plot_layout(widths = c(1.5, 0.2, 1)) -->
-<!-- combined_prot_plot <- vwf_plot + cd11_plot + npr3_plot -->
-<!-- final_fig5_bottom <- endo_proteomic_corr + plot_spacer() + combined_prot_plot + plot_layout(widths = c(1, 0.2, 1)) -->
-
-<!-- final_fig5 <- final_fig5_top / final_fig5_mid / final_fig5_bottom +plot_layout(heights= c(1, 1, 0.7))  -->
-
-<!-- final_fig5 <- final_fig5 +  -->
-<!--   #plot_annotation(tag_levels = 'A') &  -->
-<!--   #theme(plot.tag = element_text(size = 25)) + -->
-<!--   theme(plot.background = element_rect(fill = "white")) -->
-
-<!-- final_fig5 -->
-
-<!-- #plot_width  <- 8.5  -->
-<!-- plot_height <- 11 -->
-<!-- plot_asp <- 1.3 -->
-
-<!-- save_plot(filename = "./figures/Figure_5.png", -->
-<!--           plot = final_fig5, -->
-<!--           base_asp = plot_asp, -->
-<!--           base_height = plot_height) -->
-
-
-<!-- save_plot(filename = "./figures/Figure_5.eps", -->
-<!--           plot = final_fig5, -->
-<!--           base_asp = plot_asp, -->
-<!--           base_height = plot_height) -->
-
-<!-- save_plot(filename = "./figures/Figure_5.pdf", -->
-<!--           plot = final_fig5, -->
-<!--           base_asp = plot_asp, -->
-<!--           base_height = plot_height) -->
-
-<!-- save_plot(filename = "./figures/Figure_5.svg", -->
-<!--           plot = final_fig5, -->
-<!--           base_asp = plot_asp, -->
-<!--           base_height = plot_height) -->
-<!-- ``` -->
-
-<!-- ## Figures for poster -->
-
-<!-- ```{r} -->
-<!-- final_fig5_top <- plot_spacer()  + pca_plot  + plot_layout(widths = c(1.5, 1)) -->
-<!-- post_middle <- path_plot + plot_spacer() + endo_proteomic_corr + plot_layout(widths = c(1, 0.2, 1)) -->
-<!-- combined_prot_plot <- vwf_plot + npr3_plot -->
-<!-- final_fig5_bottom <- combined_prot_plot + plot_spacer()  + plot_layout(widths = c(1, 1, 3)) -->
-
-<!-- final_fig5_poster1 <- final_fig5_top / post_middle / post_middle +plot_layout(heights= c(1, 1, 1))  -->
-
-
-<!-- plot_height <- 11 -->
-<!-- plot_asp <- 1.3 -->
-<!-- save_plot(filename = "../results/Rotterdam_poster_proteomics.middle.eps", -->
-<!--           plot = final_fig5_poster1, -->
-<!--           base_asp = plot_asp, -->
-<!--           base_height = plot_height) -->
-
-<!-- final_fig5_poster_2<- final_fig5_top / final_fig5_bottom / final_fig5_bottom +plot_layout(heights= c(1, 1, 1))  -->
-
-
-<!-- plot_height <- 11 -->
-<!-- plot_asp <- 1.3 -->
-<!-- save_plot(filename = "../results/Rotterdam_poster_proteomics.version2.eps", -->
-<!--           plot = final_fig5_poster_2, -->
-<!--           base_asp = plot_asp, -->
-<!--           base_height = plot_height) -->
-<!-- ``` -->
-

@@ -1,5 +1,5 @@
 ---
-title: "Quantification of myeloid cells in different "
+title: "SeqIF - Quantification of myeloid cells in different cardiac regions"
 author: "FloWuenne"
 date: "2023-08-24"
 output: workflowr::wflow_html
@@ -53,7 +53,7 @@ region_measurements <- region_measurements_full %>%
 ## Pixie output
 
 ```{r}
-pixie_cell_out <- fread("../results/SeqIF/pixie_cell_masks_0.05/cell_table_size_normalized_cell_labels.csv")
+pixie_cell_out <- fread("../data/SeqIF/pixie_cell_masks_0.05/cell_table_size_normalized_cell_labels.csv")
 pixie_cell_out <- pixie_cell_out %>%
   separate(fov,into = c("time","sample"), remove = FALSE) %>%
   subset(cell_meta_cluster != "background") %>%

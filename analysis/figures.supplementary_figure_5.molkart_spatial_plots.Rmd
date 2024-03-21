@@ -1,7 +1,6 @@
 ---
-title: "figures.supplementary_figure_5.molkart_spatial_plots"
-author: "FloWuenne"
-date: "2024-02-15"
+title: "Molecular Cartography - Spatial cell type distribution and composition changes in Molecular Cartography samples during acute MI."
+author: "Florian Wuennemann"
 output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console

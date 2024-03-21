@@ -1,7 +1,6 @@
 ---
-title: "Supplementary Figure 2"
-author: "FloWuenne"
-date: "2023-06-12"
+title: "Supplementary Figure 2 : Quality control (QC) of Molecular Cartography data"
+author: "Florian Wuennemann"
 output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console

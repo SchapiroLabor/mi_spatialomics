@@ -1,7 +1,6 @@
 ---
-title: "Filter proteomics data"
-author: "FloWuenne"
-date: "2023-06-12"
+title: "Deep Visual Proteomics - Filter proteomics data"
+author: "Florian Wuennemann"
 output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console

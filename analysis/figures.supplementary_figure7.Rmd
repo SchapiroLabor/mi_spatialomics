@@ -19,7 +19,7 @@ source(here("./code/functions.R"))
 ```
 
 
-# B) 
+# b) SeqIF relative abundance of CCR2+ cells
 
 ```{r}
 data_path <- "./data/seqIF_regions_annotations/"
@@ -51,7 +51,7 @@ region_measurements <- region_measurements_full %>%
 ## Pixie output
 
 ```{r}
-pixie_cell_out <- fread("../results/SeqIF/pixie_cell_masks_0.05/cell_table_size_normalized_cell_labels.csv")
+pixie_cell_out <- fread("../data/SeqIF/pixie_cell_masks_0.05/cell_table_size_normalized_cell_labels.csv")
 pixie_cell_out <- pixie_cell_out %>%
   separate(fov,into = c("time","sample"), remove = FALSE) %>%
   subset(cell_meta_cluster != "background") %>%

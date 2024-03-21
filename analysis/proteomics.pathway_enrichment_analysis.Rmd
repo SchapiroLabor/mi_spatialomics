@@ -1,7 +1,6 @@
 ---
-title: "proteomics.pathway_enrichment_analysis"
-author: "FloWuenne"
-date: "2023-06-19"
+title: "Deep Visual Proteomics - Pathway enrichment analysis"
+author: "Florian Wuennemann"
 output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
@@ -38,7 +37,7 @@ mi_signature <- subset(limma_res,analysis == "MI_IZ_vs_MI_remote")
 mi_signature <- mi_signature %>%
   dplyr::select(t,gene) %>%
   filter(!is.na(t)) %>% 
-  arrange(desc(t)) %>%
+  dplyr::arrange(desc(t)) %>%
   column_to_rownames(var = "gene") %>%
   as.matrix()
 
@@ -79,7 +78,7 @@ We will focus on the comparison between the MI_IZ region versus the MI_remote re
 mi_ulm <- run_ulm(mat=mi_signature, .target = gene , .source = term, .mor= NULL,
                          net=mh_gsea, minsize = 3)
 sig_pathways_mi <- subset(mi_ulm,p_value <= 0.05) %>%
-  arrange(desc(score)) %>%
+  dplyr::arrange(desc(score)) %>%
   dplyr::select(-statistic,-condition)
 
 write.table(mi_ulm,

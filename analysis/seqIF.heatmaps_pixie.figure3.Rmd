@@ -1,7 +1,6 @@
 ---
-title: "lunaphore.heatmaps_pixie.figure3"
-author: "FloWuenne"
-date: "2023-08-21"
+title: "SeqIF - Pixie heatmaps"
+author: "Florian Wuennemann"
 output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
@@ -40,7 +39,7 @@ source("./code/functions.R")
 ## Pixel cluster maps
 
 ```{r}
-avg_pixel_cluster <- fread("/Users/florian_wuennemann/1_Projects/MI_project/Lunaphore/pixie/masked_subset/subset_0.05_wseg/pixel_channel_avg_meta_cluster.csv")
+avg_pixel_cluster <- fread("../data/SeqIF/pixie_pixel_masks_0.05/pixel_channel_avg_meta_cluster.csv")
 avg_pixel_cluster <- avg_pixel_cluster %>%
   subset(pixel_meta_cluster_rename != "background")
 ```
@@ -104,7 +103,7 @@ dev.off()
 
 ```{r}
 ## read in pixel cluster counts
-pixel_counts = fread("/Users/florian_wuennemann/1_Projects/MI_project/Lunaphore/pixie/masked_subset/subset_0.05_wseg/pixel_counts.all_samples.csv")
+pixel_counts = fread("../data/SeqIF/pixie_pixel_masks_0.05/pixel_counts.all_samples.csv")
 ```
 
 ```{r}
@@ -154,7 +153,7 @@ save_plot(pixel_number_distribution,
 ## Cell cluster tissue maps
 
 ```{r}
-avg_cell_cluster <- fread("/Users/florian_wuennemann/1_Projects/MI_project/Lunaphore/pixie/masked_subset/cell_masks_0.05/cell_meta_cluster_count_avg.csv")
+avg_cell_cluster <- fread("../data/SeqIF/pixie_cell_masks_0.05/cell_meta_cluster_count_avg.csv")
 colnames(avg_cell_cluster) <- gsub("pixel_meta_cluster_rename_","",colnames(avg_cell_cluster))
 avg_cell_cluster <- avg_cell_cluster %>%
   subset(cell_meta_cluster_rename != "background") %>%
@@ -219,59 +218,6 @@ pheatmap(mat_dat,
 ## Cell cluster changes over time
 
 ```{r}
-cells_over_time <- fread("/Users/florian_wuennemann/1_Projects/MI_project/Lunaphore/pixie/masked_subset/cell_masks_0.05/cell_table_size_normalized_cell_labels.csv")
-cell_groups_sample <- cells_over_time %>%
-  separate("fov", into = c("time","sample"), remove = FALSE) %>%
-  group_by(fov,time,cell_meta_cluster) %>%
-  tally()
-
-n_cell_plot <- ggplot(cell_groups_sample,aes(cell_meta_cluster,log10(n),color = fov,
-                              label = fov)) +
-  geom_point(size = 3,aes(shape = time)) +
-  coord_flip()
-
-ggplotly(n_cell_plot)
-```
-
-```{r}
-## Plot distribution of all cell types for a given sample
-unique(cells_over_time$cell_meta_cluster)
-unique(cells_over_time$fov)
-cells_over_time_sub <- subset(cells_over_time,fov == "48h_79")
-spatial_plot <- ggplot(cells_over_time_sub,aes(X_centroid,Y_centroid,color = cell_meta_cluster)) +
-  geom_point(size = 0.01) +
-  facet_wrap(~ cell_meta_cluster) +
-  labs(title= unique(cells_over_time_sub$fov))
-
-spatial_plot
-```
-
-```{r}
-## Plot distribution of 1 cell type over time
-# cells_over_time_sub <- subset(cells_over_time,fov %in% c("Control_14","4h_97","24h_86","48h_76"))
-cells_over_time_sub <- cells_over_time
-pt_size = 0.001
-
-# cells_over_time_sub$fov <- factor(cells_over_time_sub$fov, 
-#                                   levels = c("Control_14","4h_97","24h_86","48h_76"))
-
-spatial_plot_monos_macros_ccr2 <- ggplot(cells_over_time_sub,aes(X_centroid,Y_centroid)) +
-    geom_point(data = subset(cells_over_time_sub,cell_meta_cluster == "Cardiomyocytes"),size = pt_size,
-             color = "darkgrey") +
-  geom_point(data = subset(cells_over_time_sub,cell_meta_cluster == "Cardiomyocytes Ankrd1+"),size = pt_size,
-             color = "blue") +
-  geom_point(data = subset(cells_over_time_sub,cell_meta_cluster == "Neutrophils" | cell_meta_cluster ==  "Mono / Macros Ccr2+"),size = pt_size,
-             color = "magenta", alpha = 0.5) +
-    # geom_point(data = subset(cells_over_time_sub,cell_meta_cluster == "Mono / Macros Ccr2+"),size = pt_size,
-    #          color = "yellow") +
-  facet_wrap(~ fov)
-
-spatial_plot_monos_macros_ccr2
-```
-
-
-
-```{r}
 ## Color palette
 cells_over_time_sub <-  cells_over_time %>%
 #  mutate("cell_type_labels" = if_else(grepl("Macro|Neutro",cell_meta_cluster),"Myeloid cells",cell_meta_cluster))
@@ -289,7 +235,6 @@ cells_over_time_sub <- cells_over_time_sub %>%
   mutate("percent" = n / sum(n)) %>%
   ungroup()
 ```
-
 
 ```{r}
 cells_over_time_sub$time <-factor(cells_over_time_sub$time,
@@ -313,19 +258,6 @@ cell_number_distribution_bar <- ggplot(cells_over_time_sub, aes(x=time_cont, y=p
   guides(fill=guide_legend(nrow=10,byrow=TRUE))
 
 cell_number_distribution_bar
-
-## Continuous plot
-# mat_colors = cell_cluster_color[1:length(mat_rownames)]
-# cell_number_distribution <- ggplot(cells_over_time_sub, aes(x=time_cont, y=percent)) +
-#   geom_area(aes(fill = cell_type_labels), color = "black") +
-#   theme(legend.position = "none",
-#         axis.line = element_blank()) +
-#   #scale_fill_manual(values = mat_colors) +
-#   scale_x_discrete(expand = c(0,0.1),
-#                    name ="Time", 
-#                     limits=c("Control","4h","24h","48h")) +
-#   labs(y = "% cells")
-# cell_number_distribution
 
 save_plot(cell_number_distribution_bar,
           file = "./plots/Figure3.cell_types_overtimes.pdf",

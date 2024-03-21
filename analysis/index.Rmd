@@ -1,18 +1,20 @@
 ---
-title: "Highly-multiplexed imaging of immune cell infiltration routes in myocardial infarction"
+title: "Spatial omics of acute myocardial infarction reveals a novel mode of immune cell infiltration"
 site: workflowr::wflow_site
 output:
   workflowr::wflow_html:
     toc: true
 editor_options:
   chunk_output_type: console
----
+---   
 
 # Introduction
 
+This repository contains the code required to reproduce the results from the manuscript 'Spatial omics of acute myocardial infarction reveals a novel mode of immune cell infiltration'. The repository is organized as follows:
+
 # Data setup
 
-All scripts in this repository assume that this repository is in the same folder as the `/data` directory, containing all the data on Synapse. Data directory structure can be set up using the Synapse command-line interface with the following command, which will download all of the raw data.
+All scripts in this repository assume that this repository is in the same parent folder as the `/data` directory, containing all the data on Synapse. Data directory structure can be set up using the Synapse command-line interface with the following command, which will download all of the raw data to your local drive.
 
 ```         
 `synapse get -r syn51449054 `
@@ -23,14 +25,14 @@ For more options to download the data within Synapse, you can select Download Op
 You can then clone this repository alongside the data repository from Synapse:
 
 ```         
-git clone https://github.com/SchapiroLabor/MI_infiltration_imaging.git
+git clone https://github.com/FloWuenne/mi_spatialomics.git
 ```
 
 # Data processing
 
 ## Pipelines used to process the imaging data
 
-Imaging data in this study was processed using nextflow based pipelines designed for the specific data type. Links to the original pipeline repositories is provided below. Config files and specifications for running each pipeline to process the data is provided in this repository under : `./pipeline_configs`
+Imaging data in this study was processed using Nextflow pipelines designed for each specific data type (nf-core/molkart -> Molecular Cartography, MCMICRO -> SeqIF). Links to the original pipeline repositories is provided below. Config files and specifications for running each pipeline to process the data is provided in this repository under : `./pipeline_configs`
 
 -   Processing of Molecular Cartography was done using [nf-core/molkart](https://nf-co.re/molkart).
 -   Processing of SeqIF (Lunaphore COMET) data was done using [MCMICRO](https://mcmicro.org/).
@@ -39,8 +41,10 @@ For more details on data processing, go to [Data processing](./analysis/data_pro
 
 # Data availability
 
-All raw images and processed data is available from Synapse: [Highly-multiplexed imaging of immune cell infiltration routes in myocardial infarction](https://www.synapse.org/#!Synapse:syn51449054/wiki/622109).
+All raw images and processed data is available from Synapse: [Spatial omics of acute myocardial infarction reveals immune cell infiltration via the endocardial layer](https://www.synapse.org/#!Synapse:syn51449054/wiki/622109).
 
 # Citation
 
-Please cite our preprint if using any of the data used in study:
+Please cite our manuscript if you are using any of the data produced in this study:
+
+[Add preprint link here]

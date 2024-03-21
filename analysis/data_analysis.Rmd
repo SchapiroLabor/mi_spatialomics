@@ -1,7 +1,6 @@
 ---
 title: "Data analysis"
 author: "Florian Wuennemann"
-date: "2023-06-12"
 output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
@@ -11,10 +10,10 @@ editor_options:
 
 These scripts were used to analyze Molecular Cartography data following processing with the nf-Molkart pipeline.
 
-## Raw spot analysis
+## Raw RNA spot analysis
 
-- [Quantification of RNA spots on tissue](./molecular_cartography_python/mol_cart.count_spots_on_tissue.ipynb)
-- [QC RNA spots](./molkart.QC_spots.html)
+- [Quantification of RNA spots on tissue](./molecular_cartography_python/molkart.count_spots_on_tissue.ipynb)
+- [QC RNA spots](./molkart.QC_spots.html)   
 
 ## Cell type calling
 
@@ -32,7 +31,7 @@ These scripts were used to analyze SeqIF data from the Lunaphore COMET platform 
 4) [SeqIF Jupyter notebook to create image views](./seqIF.figure_3.infiltration_screenshots.ipynb)
 
 
-# Laser-microdissection coupled with high-sensitivity proteomics
+# Laser-microdissection coupled with high-sensitivity proteomics (Deep Visual Proteomics)
 
 1) [Filter proteomic data](./proteomics.filter_proteomic_data.html)
 2) [Identification of differentially expressed proteins (DEPs)](./proteomics.bulk_de_analysis.html)

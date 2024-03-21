@@ -1,6 +1,6 @@
 ---
-title: "figures.Figure3"
-author: "FloWuenne"
+title: "Figure 3"
+author: "Florian Wuennemann"
 date: "2024-03-08"
 output: workflowr::wflow_html
 editor_options:
@@ -26,7 +26,8 @@ abs_counts <- abs_counts %>%
   pivot_longer(cols = Endo_Pre:BZ_2d,
                names_to = "sample",
                values_to = "cell_count") %>%
-  separate(sample, into = c("region","timepoint"), sep = "_")
+  separate(sample, into = c("region","timepoint"), sep = "_") %>%
+  subset(timepoint != "Pre")
 
 # Replace abbreviations with full labels
 abs_counts$region <- gsub("Endo","Endocard",abs_counts$region)
@@ -56,31 +57,9 @@ abs_plot <- ggplot(abs_counts,aes(timepoint,cell_count)) +
   theme(panel.border = element_rect(color = "black", fill = NA, size = 0.75)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1),
         axis.title.x = element_blank())
-
+  
 save_plot(filename = "./figures/Figure_3.tradIF-absolute_cell_counts.pdf",
           plot = abs_plot,
           base_asp = 1.8,
           base_height = 3)
 ```
-
-```{r}
-# ggplot(abs_counts,aes(region,cell_count)) +
-#     stat_summary(
-#       fun.y = mean,
-#       geom = "bar",
-#       width = 0.9,
-#       size = 0.3,
-#       color = "black",
-#       fill = "lightgrey") +
-#     labs(x = "",
-#          y = "Absolute cell number") +
-#   geom_beeswarm(size = 3.5, pch = 21, color = "black", aes(fill = timepoint)) +
-#   facet_grid(.~ timepoint) +
-#   theme(axis.title = element_text(face="bold"),
-#         legend.position = "none") +
-#     scale_fill_manual(values = time_palette) +
-#   theme(panel.border = element_rect(color = "black", fill = NA, size = 0.75)) +
-#   # rotate the x axis labels by 45 degrees
-#   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-```
-

@@ -1,0 +1,7 @@
+process{
+  executor = 'slurm'
+  queue = 'single'
+  cpus     = 8
+  time     = '1h'
+  memory   = '120GB'
+}

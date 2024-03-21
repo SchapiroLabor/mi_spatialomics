@@ -1,7 +1,6 @@
 ---
 title: "Data processing"
-author: "FloWuenne"
-date: "2023-06-12"
+author: "Florian Wuennemann"
 output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
@@ -11,12 +10,12 @@ editor_options:
 
 ## Processing of raw data
 
-The raw Molecular Cartography data was processed using the [nf-core/molkart](https://nf-co.re/molkart) pipeline (revision: 81eafe9f9993d4daf16371ba3804ce9ae08053ad). The configurations, parameters and models used to reproduce the processing can be found in Synapse in the following location:
+The raw Molecular Cartography data was processed using the [nf-core/molkart](https://nf-co.re/molkart) pipeline (revision: 81eafe9f9993d4daf16371ba3804ce9ae08053ad). The configurations, parameters and models used to reproduce the processing can be found in :  `./pipeline_configs/nf-core_molkart`.
 
-[/Molecular_Cartography/nfcore_molkart](https://www.synapse.org/#!Synapse:syn53251662)
+All downstream processing after nf-core/molkart was performed in R and Python using scripts provided and documented in this repository. See [Data analysis](./analysis/data_analysis.Rmd) - Molecular Cartography for more details.
 
-All downstream processing after nf-core/molkart was performed in R and python using scripts provided and documented in this repository. See [Data processing](./analysis/data_processing.Rmd) for details.
+# Sequential Immunofluorescence
 
-# Lunaphore
+Raw Lunaphore images were processed using [MCMICRO](https://mcmicro.org/). The configurations, parameters and commands used can be found in : `./pipeline_configs/mcmicro`.
 
-Raw Lunaphore images were processed using [MCMICRO](https://mcmicro.org/). The configurations, parameters and commands used can be found in the following files:
+Downstream processing after MCMICRO was performed in R and Python using scripts provided and documented in this repository. See [Data analysis](./analysis/data_analysis.Rmd) - SeqIF for more details.

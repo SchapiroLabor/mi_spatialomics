@@ -2,11 +2,11 @@
 
 # Introduction
 
-Add Abstract text.
+This repository contains the code required to reproduce the results from the manuscript 'Spatial omics of acute myocardial infarction reveals a novel mode of immune cell infiltration'.
 
 # Repository contents
 
-This repository was created using [workflowR](https://workflowr.github.io/workflowr/index.html) to ensure reproducibility and accessibility. The repository contains description and links for processing of raw imaging data using nextflow pipelines. For downstream, data analysis, the repo contains a mix of Rmarkdown scripts, as well as Jupyter notebooks for data analysis. Since WorkflowR is geared towards Rmarkdown, the Jupyter notebooks can be viewed directly on Github
+This repository was created using [workflowR](https://workflowr.github.io/workflowr/index.html) to ensure reproducibility and accessibility. The repository contains description and links for processing of raw imaging data stored on Synapse using nextflow pipelines. For downstream, data analysis, the repo contains a mix of Rmarkdown scripts, as well as Jupyter notebooks for data analysis.
 
 # Website
 

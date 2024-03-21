@@ -1,7 +1,6 @@
 ---
-title: "molkart.QC_spots"
-author: "FloWuenne"
-date: "2023-06-12"
+title: "Molecular Cartography - QC RNA spots"
+author: "Florian Wuennemann"
 output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
@@ -32,7 +31,7 @@ Here we will use the deduplicated RNA spot tables to calculate the transcript ab
 
 ```{r}
 ## This script will take the Molecular Cartography spot count tables transform them from tsv
-data_dir <- "../results/nf-core_molkart/mindagap"
+data_dir <- "../data/nf-core_molkart/mindagap"
 
 all_samples <- list()
 
@@ -76,7 +75,7 @@ merge_tx_sums <- full_join(slide1,slide2, by = c("gene","sample_ID","time"), suf
 
 ```{r}
 vroom_write(merge_tx_sums,
-            file = here("./output/tx_abundances_per_slide.tsv"))
+            file = here("./output/molkart/tx_abundances_per_slide.tsv"))
 ```
 
 
