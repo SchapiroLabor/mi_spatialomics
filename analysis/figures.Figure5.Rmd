@@ -1,5 +1,5 @@
 ---
-title: "Figure 4"
+title: "Figure 5"
 author: "Florian Wuennemann"
 output: workflowr::wflow_html
 editor_options:
