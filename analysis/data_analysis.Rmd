@@ -17,18 +17,16 @@ These scripts were used to analyze Molecular Cartography data following processi
 
 ## Cell type calling
 
-- [Seurat analysis of Molkart output](./molkart.process_quantifications_seurat.Rmd)
+- [Seurat analysis of Molkart output](./molkart.seurat_analysis.Rmd)
 - [Misty spatial analysis](./molkart.misty_analysis.Rmd)
 - [Liana bivariate cell-type analysis](./molecular_cartography_python/molkart.local_analysis_lianaplus.ipynb)
 
 # Lunaphore
 
-These scripts were used to analyze SeqIF data from the Lunaphore COMET platform processed using MCMICRO.
+These scripts were used to analyze SeqIF data from the Lunaphore COMET platform processed using MCMICRO and pixie.
 
 1) [Pixie : Marker images, pixel and cell clusters using Napari](./seqIF_python/seqIF.figure_3.create_pixie_images.ipynb)
 2) [Pixie : Heatmaps for pixel and cell clustering and cell cluster changes over time](./seqIF.heatmaps_pixie.figure3.Rmd)
-3) [SeqIF region quantifications for Figure 3](./seqIF.region_quantification.Rmd)
-4) [SeqIF Jupyter notebook to create image views](./seqIF.figure_3.infiltration_screenshots.ipynb)
 
 
 # Laser-microdissection coupled with high-sensitivity proteomics (Deep Visual Proteomics)
