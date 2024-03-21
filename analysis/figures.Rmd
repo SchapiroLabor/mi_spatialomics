@@ -9,16 +9,16 @@ editor_options:
 
 # Figures
 
-- [Figure 1](./figures.Figure1.Rmd)
-- [Figure 2]()
-- [Figure 3]()
-- [Figure 4]()
-- [Figure 5]()
+- [Figure 1](./figures.Figure1.html)
+- [Figure 2](./figures.Figure2.html)
+- [Figure 3](./figures.Figure3.html)
+- [Figure 5](./figures.Figure5.html)
 
 # Supplementary Figures
 
-- [Supplementary Figure 1](../figures/Supplementary_Figure_1_Molecular_Cartography_ROIs.png)
-- [Supplementary Figure 2](./analysis/Supplementary_Figure_2.Rmd)
-- [Supplementary Figure 3]()
-- Supplementary Figure 4
-- [Supplementary Figure 5](./figures.supplementary_figure_5.html)
+- [Supplementary Figure 2](./figures.supplementary_figure_2.QC_spots.html.html)
+- [Supplementary Figure 4](./figures.supplementary_figure_4.segmentation_metrics.html)
+- [Supplementary Figure 5](./figures.supplementary_figure_5.molkart_spatial_plots.html)
+- [Supplementary Figure 6](./figures.supplementary_figure_6.pixie.html)
+- [Supplementary Figure 7](./figures.supplementary_figure_7.html)
+- [Supplementary Figure 9](./figures.supplementary_figure_9.proteomics_qc.html)
