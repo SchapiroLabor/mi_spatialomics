@@ -12,7 +12,7 @@ These scripts were used to analyze Molecular Cartography data following processi
 
 ## Raw RNA spot analysis
 
-- [Quantification of RNA spots on tissue](./molecular_cartography_python/molkart.count_spots_on_tissue.ipynb)
+- [Quantification of RNA spots on tissue](./analysis/molecular_cartography_python/molkart.count_spots_on_tissue.ipynb)
 - [QC RNA spots](./molkart.QC_spots.html)   
 
 ## Cell type calling
@@ -27,7 +27,6 @@ These scripts were used to analyze SeqIF data from the Lunaphore COMET platform 
 
 1) [Pixie : Marker images, pixel and cell clusters using Napari](./seqIF_python/seqIF.figure_3.create_pixie_images.ipynb)
 2) [Pixie : Heatmaps for pixel and cell clustering and cell cluster changes over time](./seqIF.heatmaps_pixie.figure3.html)
-
 
 # Laser-microdissection coupled with high-sensitivity proteomics (Deep Visual Proteomics)
 
