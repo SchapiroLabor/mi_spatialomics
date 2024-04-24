@@ -12,4 +12,4 @@ This repository was created using [workflowR](https://workflowr.github.io/workfl
 
 The rendered website containing all of the code for this project can be accessed here:
 
-### [https://flowuenne.github.io/mi_spatialomics/](https://schapirolabor.github.io/mi_spatialomics/)
+### [https://schapirolabor.github.io/mi_spatialomics/](https://schapirolabor.github.io/mi_spatialomics/)
