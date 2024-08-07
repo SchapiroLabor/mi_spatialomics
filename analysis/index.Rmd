@@ -43,8 +43,10 @@ For more details on data processing, go to [Data processing](./analysis/data_pro
 
 All raw images and processed data is available from Synapse: [Spatial omics of acute myocardial infarction reveals immune cell infiltration via the endocardial layer](https://www.synapse.org/#!Synapse:syn51449054/wiki/622109).
 
-# Citation
+# Preprint (bioRxiv)
 
-Please cite our manuscript if you are using any of the data produced in this study:
+Please cite our preprint if you are using any of the data produced in this study:
+  
+[Spatial omics of acute myocardial infarction reveals a novel mode of immune cell infiltration](https://www.biorxiv.org/content/10.1101/2024.05.20.594955v1.abstract)
 
-[Add preprint link here]
+doi: https://doi.org/10.1101/2024.05.20.594955
