@@ -12,10 +12,10 @@ editor_options:
 
 The raw Molecular Cartography data was processed using the [nf-core/molkart](https://nf-co.re/molkart) pipeline (revision: 81eafe9f9993d4daf16371ba3804ce9ae08053ad). The configurations, parameters and models used to reproduce the processing can be found in :  `./pipeline_configs/nf-core_molkart`.
 
-All downstream processing after nf-core/molkart was performed in R and Python using scripts provided and documented in this repository. See [Data analysis](./analysis/data_analysis.Rmd) - Molecular Cartography for more details.
+All downstream processing after nf-core/molkart was performed in R and Python using scripts provided and documented in this repository. See [Data analysis](./data_analysis.html) - Molecular Cartography for more details.
 
 # Sequential Immunofluorescence
 
 Raw Lunaphore images were processed using [MCMICRO](https://mcmicro.org/). The configurations, parameters and commands used can be found in : `./pipeline_configs/mcmicro`.
 
-Downstream processing after MCMICRO was performed in R and Python using scripts provided and documented in this repository. See [Data analysis](./analysis/data_analysis.Rmd) - SeqIF for more details.
+Downstream processing after MCMICRO was performed in R and Python using scripts provided and documented in this repository. See [Data analysis](./data_analysis.html) - SeqIF for more details.
