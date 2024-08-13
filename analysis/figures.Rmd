@@ -16,7 +16,7 @@ editor_options:
 
 # Supplementary Figures
 
-- [Supplementary Figure 2](./figures.supplementary_figure_2.QC_spots.html.html)
+- [Supplementary Figure 2](./figures.supplementary_figure_2.QC_spots.html)
 - [Supplementary Figure 4](./figures.supplementary_figure_4.segmentation_metrics.html)
 - [Supplementary Figure 5](./figures.supplementary_figure_5.molkart_spatial_plots.html)
 - [Supplementary Figure 6](./figures.supplementary_figure_6.pixie.html)
