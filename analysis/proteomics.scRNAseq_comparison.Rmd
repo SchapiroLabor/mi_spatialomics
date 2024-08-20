@@ -131,7 +131,7 @@ endocard_de <- endocard_de %>%
 
 ## Get endocardial specific genes
 
-To get an estimate of which genes are most specifically expressed in endocardialc ells in the snRNA-seq data, we will use the FindMarkers function from Seurat to get log-fold changes and p-values for the comparison of endocardial cells at day 0 to all other cells.
+To get an estimate of which genes are most specifically expressed in endocardialc ells in the snRNA-seq data, we will use the FindMarkers function from Seurat to get log-fold changes and p-values for the comparison of endocardial cells from Sham controls to all other cells.
 
 ```{r}
 endo_marker <- FindMarkers(calcagno_et_al,ident.1 = "Endocardial_D0",
