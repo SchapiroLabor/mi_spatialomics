@@ -345,6 +345,7 @@ save_plot(filename = "./plots/Figure_5.expression_plot.pdf",
 
 # Subfigure H - human CITE-seq umap
 
+We first read in the rds object for the human CITE-Seq data from [Amrute et al. 2022](https://www.biorxiv.org/content/10.1101/2022.10.17.512579v1).
 
 ```{r}
 library(Seurat)
@@ -352,6 +353,8 @@ library(SCpubr)
 
 human_citeseq <- readRDS("../public_data/Amrute_et_al/final_global_annotated.rds")
 ```
+
+We then plot the UMAP of their SCT data to highlight the endocardial cell cluster.
 
 ```{r}
 DefaultAssay(human_citeseq) <- "SCT"
@@ -402,6 +405,8 @@ save_plot(human_cite_umap,
 
 # Subfigure I - Violin plot for vWF
 
+We want to find out, whether vWF is differentially expressed between Donor and AMI samples in the human endocardial cell cluster. To do so, we will generate pseudobulk data for the endocardial cluster per sample and then compare Donor vs AMI groups. This way, we are basically performing a DE analysis at the pseudobulk level, taking biological replicates into account, while not inflating the test statistics with single-cell measurements.
+
 ```{r}
 sub_human_cite <- subset(human_endocardium,HF.etiology %in% c("Donor","AMI"))
 sub_human_cite$disease_group <- sub_human_cite$HF.etiology
@@ -416,20 +421,25 @@ sub_human_cite_pb_de <- FindMarkers(object = sub_human_cite_pb,
                          ident.1 = "Donor",
                          ident.2 = "AMI",
                          test.use = "DESeq2",
+                         assay = "RNA",
+                         slot = "counts",
                          min.pct = 0.1)
 
 sub_human_cite_pb_de$gene <- rownames(sub_human_cite_pb_de)
 sub_human_cite_pb_vwf <- subset(sub_human_cite_pb_de,gene == "VWF")
+
+## We will fetch the p-value for vWF as we are specifically looking at this one gene
 pvalue <- sub_human_cite_pb_vwf$p_val
 pvalue
 ```
 
+Finally, let's plot a violin plot for all cells across all samples in the endocardial cluster. First, we will plot a version with only two violins, one for each group.
 
 ```{r}
 Idents(sub_human_cite) <- sub_human_cite$disease_group
 vwf_vlnpot <- SCpubr::do_ViolinPlot(sample = sub_human_cite, 
                       features = "VWF",
-                      group.by = "disease_group",
+                      group.by = "disease_gro up",
                       line_width = 1,
                       legend.position = "none",
                       legend.title = "",
@@ -441,11 +451,26 @@ vwf_vlnpot <- SCpubr::do_ViolinPlot(sample = sub_human_cite,
                                      "ICM" = "white",
                                      "NICM" = "white"))
 
- vwf_vlnpot <- vwf_vlnpot + theme(plot.margin = margin(t=10, r=10, b=-25, l=10, unit="pt"))
+vwf_vlnpot <- vwf_vlnpot + theme(plot.margin = margin(t=10, r=10, b=-25, l=10, unit="pt"))
+
+vwf_vlnpot
 
 save_plot(vwf_vlnpot,
           file = "./plots/Figure4.human_citeseq_vlnplot.pdf",
           base_height = 4)
+```
+
+As a second visualization option, we will plot a boxplot to show the pseudobulk values that were used in the statistical tests. Here, each dot represents the pseudobulk value for 1 sample for each group (Donor n=6, AMI n=4).
+
+```{r}
+Idents(sub_human_cite_pb) <- sub_human_cite_pb$disease_group
+sub_human_cite_pb$disease_group <- factor(sub_human_cite_pb$disease_group, levels = c("Donor","AMI"))
+VlnPlot(sub_human_cite_pb,
+        features = "VWF",
+        group.by = "disease_group",
+        pt.size = 4,
+        cols = c("#008000", "#CD1076"))
+
 ```
 
 
