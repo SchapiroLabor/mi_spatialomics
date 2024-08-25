@@ -438,7 +438,7 @@ Finally, let's plot a violin plot for all cells across all samples in the endoca
 Idents(sub_human_cite) <- sub_human_cite$disease_group
 vwf_vlnpot <- SCpubr::do_ViolinPlot(sample = sub_human_cite, 
                       features = "VWF",
-                      group.by = "disease_gro up",
+                      group.by = "disease_group",
                       line_width = 1,
                       legend.position = "none",
                       legend.title = "",
