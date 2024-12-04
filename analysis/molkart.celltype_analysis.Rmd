@@ -1,0 +1,273 @@
+---
+title: "molkart.celltype_analysis"
+author: "FloWuenne"
+date: "2024-09-08"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: inline
+---
+
+```{r}
+library(Seurat)
+library(here)
+library(patchwork)
+library(Nebulosa)
+library(here)
+library(reactable)
+library(ggdark)
+
+source("../code/functions.R")
+```
+
+# Introduction
+
+In this analsysis, we will perform more granular analysis of the cell types we identified in Molecular Cartography and describe what kind of cells are present in the tissue.
+
+# Load data
+
+First we load our processed Seurat object that contains all cells and cell-type annotations.
+
+```{r}
+seurat_object <- readRDS(file = "../output/molkart/molkart.seurat_object.rds")
+
+immune_cells <- subset(seurat_object,
+                       anno_cell_type_lvl2 %in% c("Myeloid_cells","Lymphoid_cells"))
+```
+
+Next, let's plot a UMAP plot for all three levels of cell-type annotation we did.
+
+```{r}
+celltypes_lvl3 <- DimPlot(seurat_object, reduction = "umap", label = TRUE, repel = TRUE,raster=FALSE, group.by = "anno_cell_type_lvl3") + NoLegend() +
+  labs (title = "Level 3 cell type annotations")
+
+celltypes_lvl3
+```
+
+# Subcluster immune cells
+
+```{r}
+# Identify variable features
+immune_cells <-  SCTransform(immune_cells,verbose = FALSE)
+
+# Rerun PCA and UMAP 
+immune_cells <- RunPCA(immune_cells, approx=FALSE)
+
+# Run UMAP
+immune_cells <- RunUMAP(immune_cells, dims = 1:25)
+
+# Subcluster the cells in immune_cells
+immune_cells <- FindNeighbors(immune_cells, dims = 1:25, verbose = FALSE)
+immune_cells <- FindClusters(immune_cells, verbose = FALSE, resolution = 0.2)
+
+# Plot the UMAP with the new clusters
+DimPlot(immune_cells, reduction = "umap", label = TRUE, repel = TRUE)
+
+subcluster_umap <- DimPlot(immune_cells, reduction = "umap", label = TRUE, repel = TRUE, group.by = "anno_cell_type_lvl3")
+```
+
+```{r}
+immune_cells <- PrepSCTFindMarkers(immune_cells)
+finegrained_markers <- FindAllMarkers(immune_cells, only.pos = TRUE, min.pct = 0.25, logfc.threshold = 0.25)
+top3_markers_immunecells <- finegrained_markers %>% 
+  group_by(cluster) %>% 
+  top_n(2, avg_log2FC)
+```
+
+```{r}
+# Show marker table using an interactive table viewer like reactable
+reactable::reactable(finegrained_markers,sortable = TRUE,
+                     searchable = TRUE, defaultPageSize = 10)
+```
+
+Let's visualize expression of "marker genes" for different immune cell types using Nebulosa:
+
+```{r}
+## Plot defined markers for each cell type (Let's make two separate plots for nicer rendering in workflowR pages)
+plot_density(immune_cells, c("Csf3r","Ccl2","C1qa","Arg1"))
+```
+
+```{r}
+plot_density(immune_cells,c("Cd3e","Ighm","Cd74"))
+```
+
+
+Let's also plot a heatmap for markers for these more fine grained cell types:
+
+```{r}
+library(viridis)
+immune_cells_dotplot <- DotPlot(immune_cells, 
+        features = c("Csf3r","Ccl2","C1qa","Arg1","Cd3e","Ighm","Cd74"),
+        group.by = "anno_cell_type_lvl3") + 
+  RotatedAxis() +
+  scale_colour_viridis(option="magma") +
+  geom_point(aes(size=pct.exp), shape = 21, colour="black", stroke=0.5) +
+  guides(size=guide_legend(override.aes=list(shape=21, colour="black", fill="black")))
+immune_cells_dotplot
+```
+
+# Spatial plot of subclustering results for immune cells
+
+```{r}
+## Perform similar rotation correction on images as in main Supplementary Figure 5
+metadata <- immune_cells@meta.data
+
+## Set sample order for patchwork
+sample_names <- c("sample_4h_r1_s1",
+             "sample_2d_r1_s1",
+             "sample_4h_r2_s2",
+             "sample_2d_r2_s1")
+
+new_metadata <- data.frame()
+# For each sample in sample_names, apply a rotation function to x and y positions in metadata
+for(sample in sample_names){
+  meta_sub <- subset(metadata,sample_ID == sample)
+  if(sample == "sample_control_r1_s1"){ # rotate 90 degrees counter clockwise
+    y_orig <- meta_sub$Y_centroid
+    x_orig <- meta_sub$X_centroid 
+    meta_sub$X_centroid <- y_orig * -1
+    meta_sub$Y_centroid <- x_orig
+  }else if(sample == "sample_control_r2_s1"){ # rotate 90 degrees counter clockwise
+    meta_sub$X_centroid <- meta_sub$X_centroid * -1
+    meta_sub$Y_centroid <- meta_sub$Y_centroid *  1
+  }else if(sample == "sample_4h_r1_s1"){ # rotate 90 degrees counter clockwise
+    meta_sub$X_centroid <- meta_sub$X_centroid * -1
+    meta_sub$Y_centroid <- meta_sub$Y_centroid *  1
+  }else if(sample == "sample_4h_r2_s2"){ # rotate 90 degrees counter clockwise
+    y_orig <- meta_sub$Y_centroid
+    x_orig <- meta_sub$X_centroid 
+    meta_sub$X_centroid <- y_orig * -1
+    meta_sub$Y_centroid <- x_orig
+  }else if(sample == "sample_2d_r1_s1"){ # rotate 90 degrees counter clockwise
+    meta_sub$X_centroid <- meta_sub$X_centroid * -1
+    meta_sub$Y_centroid <- meta_sub$Y_centroid * -1
+  }else if(sample == "sample_4d_r2_s1"){ # rotate 90 degrees counter clockwise
+    y_orig <- meta_sub$Y_centroid 
+    meta_sub$Y_centroid <- meta_sub$X_centroid * -1
+    meta_sub$X_centroid <- y_orig * 1
+  }
+  new_metadata <- rbind(new_metadata,meta_sub)
+}
+new_metadata
+```
+
+
+```{r}
+## Make a spatial plot for each sample and organize them using patchwork
+sample_plots <- lapply(sample_names, function(sample) {
+  meta_sub <- subset(new_metadata,sample_ID == sample)
+  meta_sub$anno_cell_type_lvl3 <- gsub("_"," ",meta_sub$anno_cell_type_lvl3)
+  
+  # Generate the plot
+  ## Add a line of blank space on top of the plot
+  p <- ggplot(meta_sub, aes(x = X_centroid, 
+                            y = Y_centroid,
+                            color = anno_cell_type_lvl3)) +
+    dark_theme_void() +
+    geom_point(size = 0.6) +
+    theme(legend.position = "right",
+          legend.title = element_text(size = 20),
+          legend.text = element_text(size = 16)) + # Hide legend or adjust as needed
+    guides(color = guide_legend(title = "Cell types",override.aes = list(size = 6))) +
+    labs(title = "")
+  
+  ## Manually add tags and titles to plots for visual improvements
+  if(sample == "sample_control_r1_s1"){
+    p <- p + 
+      labs(tag = "a",
+           title = "Control",
+           y = "Replicate 1") + 
+      theme(plot.tag = element_text(size = 20, face = "bold"),
+            plot.title = element_text(hjust=0.5, size = 20, face = "bold"),
+            axis.title.y = element_text(size = 20,angle = 90, face = "bold")
+            )
+  } else if(sample == "sample_4h_r1_s1"){
+    p <- p + 
+      labs(title = "4 hours") + 
+      theme(plot.tag = element_text(size = 20, face = "bold"),
+            plot.title = element_text(hjust=0.5, size = 20, face = "bold"))
+  } else if(sample == "sample_2d_r1_s1"){
+    p <- p + 
+      labs(title = "2 days") + 
+      theme(plot.tag = element_text(size = 20, face = "bold"),
+            plot.title = element_text(hjust=0.5, size = 20, face = "bold"))
+  } else if(sample == "sample_4d_r1_s1"){
+    p <- p + 
+      labs(title = "4 days") + 
+      theme(plot.tag = element_text(size = 20, face = "bold"),
+            plot.title = element_text(hjust=0.5, size = 20, face = "bold"))
+  } else if (sample == "sample_control_r2_s1"){
+    p <- p +
+      labs(y = "Replicate 2") + 
+      theme(axis.title.y = element_text(size = 20,angle = 90, face = "bold")
+            )
+  }
+  
+  
+  # Return the plot
+  return(p)
+})
+
+spatial_plot_immune_cells <- wrap_plots(sample_plots,ncol = 2, nrows = 2) + plot_layout(guides = "collect") & theme(legend.position = 'right')
+spatial_plot_immune_cells
+```
+# Temporal changes in immune cell subclusters (R3-8)
+
+```{r}
+cell_type_proportions_per_sample <- seurat_object@meta.data %>%
+  group_by(anno_cell_type_lvl3,timepoint,sample_ID) %>%
+  tally() %>%
+  ungroup() %>%
+  group_by(timepoint,sample_ID) %>%
+  mutate("percent" = n / sum(n) * 100) %>%
+  ungroup()
+
+## Check that percentage sum up to 100 per sample
+percent_check <- cell_type_proportions_per_sample %>%
+  group_by(sample_ID) %>%
+  summarise("sum" = sum(percent))
+
+## Replace underscores in cell names with spaces
+cell_type_proportions_per_sample$anno_cell_type_lvl3 <- gsub("_"," ",cell_type_proportions_per_sample$anno_cell_type_lvl3)
+
+## Set order of cell types in plot from most abundant to least abundant
+mean_percent <- cell_type_proportions_per_sample %>%
+  group_by(timepoint,anno_cell_type_lvl3) %>%
+  summarise("mean_percent" = mean(percent)) %>%
+  ungroup() %>%
+  group_by(timepoint) %>%
+  arrange(desc(mean_percent))
+
+cell_type_proportions_per_sample$anno_cell_type_lvl3 <- factor(cell_type_proportions_per_sample$anno_cell_type_lvl3,
+       levels = subset(mean_percent,timepoint == "control")$anno_cell_type_lvl3)
+
+## Calculate mean cell number per timepoint
+mean_percent <- cell_type_proportions_per_sample %>%
+  mutate("anno_cell_type_lvl3" = if_else(grepl("Myeloid cells",anno_cell_type_lvl3),"Myeloid_cells",anno_cell_type_lvl3)) %>% ## Merge myeloid cells into one group for calculations
+  group_by(timepoint,anno_cell_type_lvl3) %>%
+  summarise("mean_percent" = mean(percent)) %>%
+  ungroup()
+
+## Subset for only immune cells
+cell_type_proportions_per_sample <- cell_type_proportions_per_sample %>%
+  filter(anno_cell_type_lvl3 %in% c("DC Cd74","Lymphoid cells Cd3e","Mono/Macros Arg1+","Mono/Macros C1qa","Mono/Macros Ccl2",
+                                    "Neutrophils Csf3r"))
+
+ct_time_barplot <- ggplot(cell_type_proportions_per_sample,aes(timepoint,percent,fill = anno_cell_type_lvl3)) +
+  geom_bar(position='dodge', stat='summary', fun='mean', color = "black") +
+  # Add points for each fill group on top of bars
+  geom_point(position=position_dodge(width=0.9), aes(group=anno_cell_type_lvl3), size=2.5, shape=21, fill="white", color="black") +
+  #scale_fill_manual(values = named_colors, name = "Cell types") +
+  labs(x = " Timepoint",
+       y = "% total cells",
+       fill = "Cell types") +
+  theme_minimal() +
+  theme(legend.text=element_text(size=18),
+        legend.title = element_text(size=20),
+        legend.position = "right",
+        axis.title = element_text(size=18),
+        axis.text  = element_text(size=18))
+
+
+ct_time_barplot <- ct_time_barplot + theme(plot.tag = element_text(size = 20, face = "bold"))
+ct_time_barplot
+```
