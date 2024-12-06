@@ -1,0 +1,29 @@
+---
+title: "figures.supplementary_figure_10.seqif_region_quantification"
+author: "FloWuenne"
+date: "2024-12-03"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+```{r}
+library(data.table)
+```
+
+```{r}
+seqif_quants <- fread("./review/all_cell_types_per_region_final.csv")
+```
+
+```{r}
+ggplot(seqif_quants,aes(timepoint,mean_count)) +
+  geom_bar(stat = "identity") +
+  # Add error bars
+  geom_errorbar(aes(ymin = mean_count - se_count, ymax = mean_count + se_count),
+                width = 0.2) +
+  facet_grid(final_cell_type ~ region_name,
+             scales = "free_y")
+```
+
