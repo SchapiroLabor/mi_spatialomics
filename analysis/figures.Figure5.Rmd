@@ -473,8 +473,7 @@ vwf_vlnpot_pseudobulk <- VlnPlot(sub_human_cite_pb,
 save_plot(vwf_vlnpot_pseudobulk,
           file = "./plots/Figure5.human_citeseq_vlnplot.pdf",
           base_height = 4,
-          base_asp = 2.5)
-
+          base_asp = 2.25)
 ```
 
 
