@@ -17,30 +17,26 @@ library(ggbeeswarm)
 source("./code/functions.R")
 ```
 
-# Load data
-
 ```{r}
-abs_counts <- fread("./data/Traditional_IF_absolute_cell_counts.csv")
-colnames(abs_counts) <- gsub(" ","_",colnames(abs_counts))
-abs_counts <- abs_counts %>%
-  pivot_longer(cols = Endo_Pre:BZ_2d,
-               names_to = "sample",
-               values_to = "cell_count") %>%
-  separate(sample, into = c("region","timepoint"), sep = "_") %>%
-  subset(timepoint != "Pre")
+## Read in quantified data
+all_cell_types_quantified <- fread("./review/all_cell_types_per_region_counts_perctentages_20241212.csv")
 
-# Replace abbreviations with full labels
-abs_counts$region <- gsub("Endo","Endocard",abs_counts$region)
-abs_counts$region <- gsub("Core","Infarct core",abs_counts$region)
-abs_counts$region <- gsub("Epi","Epicard",abs_counts$region)
-abs_counts$region <- gsub("BZ","Border zone",abs_counts$region)
-abs_counts$region <- factor(abs_counts$region, levels = c("Endocard","Infarct core","Epicard","Border zone"))
+ccr2_monomacro <- all_cell_types_quantified %>%
+  subset(final_cell_type == "Mono / Macros Ccr2+") %>%
+  subset(timepoint %in% c("4h","24h","48h")) %>%
+  subset(region_name %in% c("border_zone","infarct_core","epicardial_region","endocardial_region"))
 
-abs_counts$timepoint <- gsub("1d","24h",abs_counts$timepoint)
-abs_counts$timepoint <- gsub("2d","2 days",abs_counts$timepoint)
-abs_counts$timepoint <- factor(abs_counts$timepoint, levels = c("Pre","4h","24h","2 days"))
+ccr2_monomacro$region_name <- gsub("border_zone","Border zone",ccr2_monomacro$region_name)
+ccr2_monomacro$region_name <- gsub("infarct_core","Infarct core",ccr2_monomacro$region_name)
+ccr2_monomacro$region_name <- gsub("epicardial_region","Epicardium",ccr2_monomacro$region_name)
+ccr2_monomacro$region_name <- gsub("endocardial_region","Endocardium",ccr2_monomacro$region_name)
 
-abs_plot <- ggplot(abs_counts,aes(timepoint,cell_count)) +
+ccr2_monomacro$region_name <- factor(ccr2_monomacro$region_name,
+                             levels = c("Endocardium","Infarct core","Epicardium","Border zone"))
+ccr2_monomacro$timepoint <- factor(ccr2_monomacro$timepoint,
+                             levels = c("4h","24h","48h"))
+
+seqIF_ccr2_relquant <- ggplot(ccr2_monomacro,aes(x = timepoint,y = count_per_mm2)) +
     stat_summary(
       fun.y = mean,
       geom = "bar",
@@ -48,18 +44,69 @@ abs_plot <- ggplot(abs_counts,aes(timepoint,cell_count)) +
       size = 0.3,
       color = "black",
       fill = "lightgrey") +
-    labs(y = "Absolute cell number") +
-  geom_beeswarm(size = 2 , pch = 21, color = "black", aes(fill = region)) +
-  facet_grid(.~ region) +
+  geom_beeswarm(size = 2, pch = 21, color = "black", aes(fill = region_name)) +
+  labs(x = "Time",
+         y = expression("Cells /"~mm^2)) + 
+  #expression(paste("Mo / M",phi," per "~mm^2))
+  facet_grid(. ~ region_name) +
+  scale_fill_manual(values = c("#337272","#f0f0f0","#b062c2","#2c95c5")) +
   theme(axis.title = element_text(face="bold"),
         legend.position = "none") +
-  scale_fill_manual(values = c("#337272","#f0f0f0","#b062c2","#2c95c5")) +
   theme(panel.border = element_rect(color = "black", fill = NA, size = 0.75)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1),
-        axis.title.x = element_blank())
-  
-save_plot(filename = "./plots/Figure_3.tradIF-absolute_cell_counts.pdf",
-          plot = abs_plot,
-          base_asp = 1.8,
-          base_height = 3)
+        axis.title.x = element_blank()) 
+seqIF_ccr2_relquant
+
+save_plot(filename = "./plots/Figure_3.SeqIF-absolute_cell_counts.pdf",
+           plot = seqIF_ccr2_relquant,
+           base_asp = 1.8,
+           base_height = 3)
+```
+
+
+
+
+<!-- # ```{r} -->
+<!-- # abs_counts <- fread("./data/Traditional_IF_absolute_cell_counts.csv") -->
+<!-- # colnames(abs_counts) <- gsub(" ","_",colnames(abs_counts)) -->
+<!-- # abs_counts <- abs_counts %>% -->
+<!-- #   pivot_longer(cols = Endo_Pre:BZ_2d, -->
+<!-- #                names_to = "sample", -->
+<!-- #                values_to = "cell_count") %>% -->
+<!-- #   separate(sample, into = c("region","timepoint"), sep = "_") %>% -->
+<!-- #   subset(timepoint != "Pre") -->
+<!-- #  -->
+<!-- # # Replace abbreviations with full labels -->
+<!-- # abs_counts$region <- gsub("Endo","Endocard",abs_counts$region) -->
+<!-- # abs_counts$region <- gsub("Core","Infarct core",abs_counts$region) -->
+<!-- # abs_counts$region <- gsub("Epi","Epicard",abs_counts$region) -->
+<!-- # abs_counts$region <- gsub("BZ","Border zone",abs_counts$region) -->
+<!-- # abs_counts$region <- factor(abs_counts$region, levels = c("Endocard","Infarct core","Epicard","Border zone")) -->
+<!-- #  -->
+<!-- # abs_counts$timepoint <- gsub("1d","24h",abs_counts$timepoint) -->
+<!-- # abs_counts$timepoint <- gsub("2d","2 days",abs_counts$timepoint) -->
+<!-- # abs_counts$timepoint <- factor(abs_counts$timepoint, levels = c("Pre","4h","24h","2 days")) -->
+<!-- #  -->
+<!-- # abs_plot <- ggplot(abs_counts,aes(timepoint,cell_count)) + -->
+<!-- #     stat_summary( -->
+<!-- #       fun.y = mean, -->
+<!-- #       geom = "bar", -->
+<!-- #       width = 0.9, -->
+<!-- #       size = 0.3, -->
+<!-- #       color = "black", -->
+<!-- #       fill = "lightgrey") + -->
+<!-- #     labs(y = "Absolute cell number") + -->
+<!-- #   geom_beeswarm(size = 2 , pch = 21, color = "black", aes(fill = region)) + -->
+<!-- #   facet_grid(.~ region) + -->
+<!-- #   theme(axis.title = element_text(face="bold"), -->
+<!-- #         legend.position = "none") + -->
+<!-- #   scale_fill_manual(values = c("#337272","#f0f0f0","#b062c2","#2c95c5")) + -->
+<!-- #   theme(panel.border = element_rect(color = "black", fill = NA, size = 0.75)) + -->
+<!-- #   theme(axis.text.x = element_text(angle = 45, hjust = 1), -->
+<!-- #         axis.title.x = element_blank()) -->
+<!-- #    -->
+<!-- # save_plot(filename = "./plots/Figure_3.tradIF-absolute_cell_counts.pdf", -->
+<!-- #           plot = abs_plot, -->
+<!-- #           base_asp = 1.8, -->
+<!-- #           base_height = 3) -->
 ```

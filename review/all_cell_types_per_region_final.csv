@@ -1,0 +1,397 @@
+final_cell_type,region_name,timepoint,mean_count,se_count
+Cardiomyocytes,All,Control,2766.182822745041,211.76770709274467
+Cardiomyocytes,All,4h,2398.677543351754,166.17041719996584
+Cardiomyocytes,All,24h,1881.700507983594,295.12850372512924
+Cardiomyocytes,All,48h,1391.945677457304,113.75149259181477
+Cardiomyocytes,"Near-Infarct
+Endocardial Region",Control,3543.7502762411677,298.6926302628546
+Cardiomyocytes,"Near-Infarct
+Endocardial Region",4h,3166.182766758962,172.23992632429005
+Cardiomyocytes,"Near-Infarct
+Endocardial Region",24h,2652.6773902843315,165.59144599225462
+Cardiomyocytes,"Near-Infarct
+Endocardial Region",48h,2319.0010457457647,387.3989656361293
+Cardiomyocytes,"Remote
+Endocardial Region",Control,3543.7502762411677,298.6926302628546
+Cardiomyocytes,"Remote
+Endocardial Region",4h,5290.592783948997,88.44820269118645
+Cardiomyocytes,"Remote
+Endocardial Region",24h,4069.7549058952945,332.4852191611578
+Cardiomyocytes,"Remote
+Endocardial Region",48h,3569.539808836306,744.9379150062673
+Cardiomyocytes,Infarct Core,Control,2531.4555419607273,158.0403238177466
+Cardiomyocytes,Infarct Core,4h,1524.4106961830544,575.0573323010161
+Cardiomyocytes,Infarct Core,24h,484.1210698325119,375.9244835900313
+Cardiomyocytes,Infarct Core,48h,62.764353757944576,19.466878427433787
+Cardiomyocytes,Border zone,Control,2488.3449331382276,180.4353398397135
+Cardiomyocytes,Border zone,4h,1801.7247704163342,253.92765866656111
+Cardiomyocytes,Border zone,24h,1161.485419993659,150.1085138033546
+Cardiomyocytes,Border zone,48h,604.5999432603792,48.47870428281254
+Cardiomyocytes,"Near-Infarct
+Epicardial Region",Control,3497.227287429357,96.13461425345379
+Cardiomyocytes,"Near-Infarct
+Epicardial Region",4h,3116.51900434212,864.5605666149992
+Cardiomyocytes,"Near-Infarct
+Epicardial Region",24h,2445.5858974413604,392.68077505614156
+Cardiomyocytes,"Near-Infarct
+Epicardial Region",48h,393.88224055416015,20.294241206273597
+Cardiomyocytes Ankrd1+,All,Control,20.542948541971388,17.272677326547985
+Cardiomyocytes Ankrd1+,All,4h,743.8995676672047,370.6435972612261
+Cardiomyocytes Ankrd1+,All,24h,817.095944154433,210.0820333409424
+Cardiomyocytes Ankrd1+,All,48h,743.3669591004123,53.509437644004144
+Cardiomyocytes Ankrd1+,"Near-Infarct
+Endocardial Region",Control,21.25952057529774,16.02930331535508
+Cardiomyocytes Ankrd1+,"Near-Infarct
+Endocardial Region",4h,238.44231759588422,177.16278577412191
+Cardiomyocytes Ankrd1+,"Near-Infarct
+Endocardial Region",24h,190.56284471750416,114.18699549591645
+Cardiomyocytes Ankrd1+,"Near-Infarct
+Endocardial Region",48h,143.70193085495117,20.23477705103265
+Cardiomyocytes Ankrd1+,"Remote
+Endocardial Region",Control,21.25952057529774,16.02930331535508
+Cardiomyocytes Ankrd1+,"Remote
+Endocardial Region",4h,21.63575049334648,4.560877688342724
+Cardiomyocytes Ankrd1+,"Remote
+Endocardial Region",24h,25.91237454414174,2.984040559472715
+Cardiomyocytes Ankrd1+,"Remote
+Endocardial Region",48h,0.0,0.0
+Cardiomyocytes Ankrd1+,Infarct Core,Control,10.436803916124875,7.9748687689206
+Cardiomyocytes Ankrd1+,Infarct Core,4h,1556.4470785627632,637.5263087371828
+Cardiomyocytes Ankrd1+,Infarct Core,24h,2559.9310089731816,371.8100618186049
+Cardiomyocytes Ankrd1+,Infarct Core,48h,2214.8483666606508,474.52772760284796
+Cardiomyocytes Ankrd1+,Border zone,Control,10.67076592936323,8.798135132615164
+Cardiomyocytes Ankrd1+,Border zone,4h,1267.238578406937,571.748676505978
+Cardiomyocytes Ankrd1+,Border zone,24h,1488.217498642845,97.05128505763217
+Cardiomyocytes Ankrd1+,Border zone,48h,1468.7229644605545,67.66361260019926
+Cardiomyocytes Ankrd1+,"Near-Infarct
+Epicardial Region",Control,59.488206786825394,35.3526344852786
+Cardiomyocytes Ankrd1+,"Near-Infarct
+Epicardial Region",4h,1156.8442762918296,935.173931483081
+Cardiomyocytes Ankrd1+,"Near-Infarct
+Epicardial Region",24h,1737.36959376351,469.2078890305836
+Cardiomyocytes Ankrd1+,"Near-Infarct
+Epicardial Region",48h,2919.830856885488,909.446136430349
+Endocardial cells,All,Control,29.850805731512292,3.0084689249009657
+Endocardial cells,All,4h,32.9247302712768,2.1583201022733713
+Endocardial cells,All,24h,43.58262638508211,5.299937621979026
+Endocardial cells,All,48h,50.75201317265421,7.531379009058077
+Endocardial cells,"Near-Infarct
+Endocardial Region",Control,623.2008354883427,131.4525762558767
+Endocardial cells,"Near-Infarct
+Endocardial Region",4h,366.03730123545745,7.4760355829031075
+Endocardial cells,"Near-Infarct
+Endocardial Region",24h,536.5376251582583,66.82615244549388
+Endocardial cells,"Near-Infarct
+Endocardial Region",48h,540.2906937608384,12.842155280716554
+Endocardial cells,"Remote
+Endocardial Region",Control,623.2008354883427,131.4525762558767
+Endocardial cells,"Remote
+Endocardial Region",4h,509.9414834722355,48.91991773713414
+Endocardial cells,"Remote
+Endocardial Region",24h,472.834841980172,20.124338690212113
+Endocardial cells,"Remote
+Endocardial Region",48h,388.4153034403312,48.45645613871479
+Endocardial cells,Infarct Core,Control,3.723262733152041,0.0
+Endocardial cells,Infarct Core,4h,0.0,0.0
+Endocardial cells,Infarct Core,24h,0.0,0.0
+Endocardial cells,Infarct Core,48h,1.923537594979611,0.0
+Endocardial cells,Border zone,Control,33.63191430820273,13.848069683978233
+Endocardial cells,Border zone,4h,39.76165382287171,0.1894690722129084
+Endocardial cells,Border zone,24h,15.74417449916523,5.966224864174639
+Endocardial cells,Border zone,48h,31.521041907638242,0.5188648647318548
+Endocardial cells,"Near-Infarct
+Epicardial Region",Control,0.0,0.0
+Endocardial cells,"Near-Infarct
+Epicardial Region",4h,0.0,0.0
+Endocardial cells,"Near-Infarct
+Epicardial Region",24h,0.0,0.0
+Endocardial cells,"Near-Infarct
+Epicardial Region",48h,0.0,0.0
+Endothelial cells,All,Control,700.6511222601393,212.62866014547683
+Endothelial cells,All,4h,463.59354026093933,57.552975393365415
+Endothelial cells,All,24h,480.502729188884,73.95294191316964
+Endothelial cells,All,48h,814.4191068507431,271.18152772899487
+Endothelial cells,"Near-Infarct
+Endocardial Region",Control,530.2844473771587,216.7981886380764
+Endothelial cells,"Near-Infarct
+Endocardial Region",4h,403.71026537909614,79.80416860692407
+Endothelial cells,"Near-Infarct
+Endocardial Region",24h,360.6861405920717,93.37066831651468
+Endothelial cells,"Near-Infarct
+Endocardial Region",48h,919.0256588536154,346.1380652034334
+Endothelial cells,"Remote
+Endocardial Region",Control,530.2844473771587,216.7981886380764
+Endothelial cells,"Remote
+Endocardial Region",4h,490.334561779103,158.51060481103974
+Endothelial cells,"Remote
+Endocardial Region",24h,449.816485362995,214.8010620201375
+Endothelial cells,"Remote
+Endocardial Region",48h,912.5110362754788,277.5878949915775
+Endothelial cells,Infarct Core,Control,621.719289767218,142.54188727489765
+Endothelial cells,Infarct Core,4h,239.09735315374303,45.27926514289857
+Endothelial cells,Infarct Core,24h,137.11655918067302,0.8340882784897302
+Endothelial cells,Infarct Core,48h,455.9469712393095,141.44857446014313
+Endothelial cells,Border zone,Control,644.466636509317,185.42706143752014
+Endothelial cells,Border zone,4h,365.2662218478569,42.36230071645138
+Endothelial cells,Border zone,24h,370.7649989456832,92.936361041123
+Endothelial cells,Border zone,48h,743.0083824152414,212.97678180946178
+Endothelial cells,"Near-Infarct
+Epicardial Region",Control,729.4697028436245,183.9451783881445
+Endothelial cells,"Near-Infarct
+Epicardial Region",4h,593.566326917386,33.39937449527821
+Endothelial cells,"Near-Infarct
+Epicardial Region",24h,697.5909324571401,110.17403892284068
+Endothelial cells,"Near-Infarct
+Epicardial Region",48h,1093.6315647456713,260.62493289041714
+Fibroblasts,All,Control,233.46950402616957,70.01820240401037
+Fibroblasts,All,4h,215.51325181158774,21.32339702284403
+Fibroblasts,All,24h,244.16087265663194,32.95960733654633
+Fibroblasts,All,48h,443.53955604589123,109.69794224942827
+Fibroblasts,"Near-Infarct
+Endocardial Region",Control,514.76586921681,93.19566165497507
+Fibroblasts,"Near-Infarct
+Endocardial Region",4h,287.41046601768414,51.08599547395517
+Fibroblasts,"Near-Infarct
+Endocardial Region",24h,246.4924148124752,39.9170197684787
+Fibroblasts,"Near-Infarct
+Endocardial Region",48h,642.3939816815606,123.83193570510285
+Fibroblasts,"Remote
+Endocardial Region",Control,514.76586921681,93.19566165497507
+Fibroblasts,"Remote
+Endocardial Region",4h,800.3279952624252,151.48282867228244
+Fibroblasts,"Remote
+Endocardial Region",24h,465.9787227278762,179.37454791951336
+Fibroblasts,"Remote
+Endocardial Region",48h,1207.0051997337491,337.1105022266719
+Fibroblasts,Infarct Core,Control,179.14721098708958,76.52136136817492
+Fibroblasts,Infarct Core,4h,117.50019602008933,11.314726213740753
+Fibroblasts,Infarct Core,24h,107.22213763622514,26.86434602856328
+Fibroblasts,Infarct Core,48h,401.16833787876715,90.9979006883049
+Fibroblasts,Border zone,Control,235.04001346454308,66.16648111786965
+Fibroblasts,Border zone,4h,171.8717145403034,23.187638611174066
+Fibroblasts,Border zone,24h,185.8756920779835,43.92683703208566
+Fibroblasts,Border zone,48h,390.1110718221983,31.72182892554423
+Fibroblasts,"Near-Infarct
+Epicardial Region",Control,538.2830785001153,137.7708139616415
+Fibroblasts,"Near-Infarct
+Epicardial Region",4h,287.0476415583088,26.43520914802332
+Fibroblasts,"Near-Infarct
+Epicardial Region",24h,341.87775631363564,42.41366936300869
+Fibroblasts,"Near-Infarct
+Epicardial Region",48h,652.1673351675498,172.83949672569958
+Macrophages Trem2+,All,Control,6.548146289915624,3.206054790915073
+Macrophages Trem2+,All,4h,6.562999876112368,0.43738790612741724
+Macrophages Trem2+,All,24h,11.184374380838033,4.775818552653377
+Macrophages Trem2+,All,48h,132.63636185596187,4.251281330907602
+Macrophages Trem2+,"Near-Infarct
+Endocardial Region",Control,3.505537173872143,0.0
+Macrophages Trem2+,"Near-Infarct
+Endocardial Region",4h,9.70900600549485,3.8728601177079662
+Macrophages Trem2+,"Near-Infarct
+Endocardial Region",24h,13.022646695712893,5.385061773554123
+Macrophages Trem2+,"Near-Infarct
+Endocardial Region",48h,46.89063174242358,17.258514829483133
+Macrophages Trem2+,"Remote
+Endocardial Region",Control,3.505537173872143,0.0
+Macrophages Trem2+,"Remote
+Endocardial Region",4h,27.52214775307559,16.13889921640642
+Macrophages Trem2+,"Remote
+Endocardial Region",24h,10.548152680103001,0.9160143122315132
+Macrophages Trem2+,"Remote
+Endocardial Region",48h,137.88151132852238,42.89300987660012
+Macrophages Trem2+,Infarct Core,Control,6.728372911741453,3.494495536079664
+Macrophages Trem2+,Infarct Core,4h,2.831458900263079,0.8577512830447037
+Macrophages Trem2+,Infarct Core,24h,2.903060646257525,0.18827038924192085
+Macrophages Trem2+,Infarct Core,48h,68.69233878188285,14.981546599730224
+Macrophages Trem2+,Border zone,Control,6.86337263700518,1.432958195427713
+Macrophages Trem2+,Border zone,4h,5.767233107146622,1.2366933973947587
+Macrophages Trem2+,Border zone,24h,8.70946247781573,3.9890729988547564
+Macrophages Trem2+,Border zone,48h,187.8258539250741,8.860088953692566
+Macrophages Trem2+,"Near-Infarct
+Epicardial Region",Control,22.082754666663963,4.957908032168239
+Macrophages Trem2+,"Near-Infarct
+Epicardial Region",4h,4.696577199103317,1.7010319989850933
+Macrophages Trem2+,"Near-Infarct
+Epicardial Region",24h,64.10761812910738,14.69872054211024
+Macrophages Trem2+,"Near-Infarct
+Epicardial Region",48h,154.4949982838975,68.88108176667349
+Macrophages Trem2-,All,Control,6.406074572062274,3.8483268290949377
+Macrophages Trem2-,All,4h,5.236652378347652,2.2931764966665713
+Macrophages Trem2-,All,24h,7.380477252144256,1.7264178721181507
+Macrophages Trem2-,All,48h,7.5083325491321915,2.289742046406962
+Macrophages Trem2-,"Near-Infarct
+Endocardial Region",Control,12.279466272096439,5.268391924352153
+Macrophages Trem2-,"Near-Infarct
+Endocardial Region",4h,9.910705724747729,1.7615860508260397
+Macrophages Trem2-,"Near-Infarct
+Endocardial Region",24h,2.9320467010545266,0.8867457600248585
+Macrophages Trem2-,"Near-Infarct
+Endocardial Region",48h,4.93868615215674,0.0
+Macrophages Trem2-,"Remote
+Endocardial Region",Control,12.279466272096439,5.268391924352153
+Macrophages Trem2-,"Remote
+Endocardial Region",4h,14.423833662230987,3.040585125561816
+Macrophages Trem2-,"Remote
+Endocardial Region",24h,17.196250488501768,0.0
+Macrophages Trem2-,"Remote
+Endocardial Region",48h,24.996974066295323,0.0
+Macrophages Trem2-,Infarct Core,Control,7.523517487160493,3.5776093287682977
+Macrophages Trem2-,Infarct Core,4h,1.778195342184094,0.9887122952967438
+Macrophages Trem2-,Infarct Core,24h,1.0859161028062414,0.0
+Macrophages Trem2-,Infarct Core,48h,0.0,0.0
+Macrophages Trem2-,Border zone,Control,8.093536333052548,2.0478959810687933
+Macrophages Trem2-,Border zone,4h,5.7463122473181105,0.8435636941391443
+Macrophages Trem2-,Border zone,24h,4.372115873015362,0.6854442830142528
+Macrophages Trem2-,Border zone,48h,2.4401231394003493,0.6092713238363436
+Macrophages Trem2-,"Near-Infarct
+Epicardial Region",Control,7.293619657295879,2.218498868900915
+Macrophages Trem2-,"Near-Infarct
+Epicardial Region",4h,11.982180800472896,0.0
+Macrophages Trem2-,"Near-Infarct
+Epicardial Region",24h,0.0,0.0
+Macrophages Trem2-,"Near-Infarct
+Epicardial Region",48h,0.0,0.0
+Mono / Macros Ccr2+,All,Control,9.320883263900091,3.5540219024256885
+Mono / Macros Ccr2+,All,4h,33.873421615871365,8.893653322685978
+Mono / Macros Ccr2+,All,24h,244.14373201735629,115.35424603164532
+Mono / Macros Ccr2+,All,48h,410.369987791625,16.09878481008951
+Mono / Macros Ccr2+,"Near-Infarct
+Endocardial Region",Control,3.507554406580931,0.0020172327087881747
+Mono / Macros Ccr2+,"Near-Infarct
+Endocardial Region",4h,111.93583591611846,22.295519502979875
+Mono / Macros Ccr2+,"Near-Infarct
+Endocardial Region",24h,1163.8637291337218,419.1991992232416
+Mono / Macros Ccr2+,"Near-Infarct
+Endocardial Region",48h,808.2470438409803,31.32960202566568
+Mono / Macros Ccr2+,"Remote
+Endocardial Region",Control,3.507554406580931,0.0020172327087881747
+Mono / Macros Ccr2+,"Remote
+Endocardial Region",4h,8.732209393896401,0.0
+Mono / Macros Ccr2+,"Remote
+Endocardial Region",24h,332.0727760687881,274.7519411071155
+Mono / Macros Ccr2+,"Remote
+Endocardial Region",48h,289.85974311191796,229.86700535280917
+Mono / Macros Ccr2+,Infarct Core,Control,9.940119847438652,3.047760055602147
+Mono / Macros Ccr2+,Infarct Core,4h,30.054706134126874,18.21246043081662
+Mono / Macros Ccr2+,Infarct Core,24h,153.24025139261693,53.87892798584586
+Mono / Macros Ccr2+,Infarct Core,48h,676.9666467130246,31.138899198620148
+Mono / Macros Ccr2+,Border zone,Control,12.092840507485425,7.140162932940596
+Mono / Macros Ccr2+,Border zone,4h,62.86251337038672,11.379107577751908
+Mono / Macros Ccr2+,Border zone,24h,312.5536830672868,99.12464448283706
+Mono / Macros Ccr2+,Border zone,48h,807.0038651889871,96.63336075015285
+Mono / Macros Ccr2+,"Near-Infarct
+Epicardial Region",Control,19.16088556764815,7.095269209939924
+Mono / Macros Ccr2+,"Near-Infarct
+Epicardial Region",4h,41.04963839837396,21.85681080410873
+Mono / Macros Ccr2+,"Near-Infarct
+Epicardial Region",24h,370.21265020572287,134.1479172900699
+Mono / Macros Ccr2+,"Near-Infarct
+Epicardial Region",48h,798.5960711261203,66.98623906984238
+Neutrophils,All,Control,1.0895489177815476,0.7556340177979244
+Neutrophils,All,4h,67.92240369552218,29.259450222630143
+Neutrophils,All,24h,148.0044039621702,35.57359995893058
+Neutrophils,All,48h,118.267883680665,35.77401073373927
+Neutrophils,"Near-Infarct
+Endocardial Region",Control,4.096452405649356,0.0
+Neutrophils,"Near-Infarct
+Endocardial Region",4h,213.90725468503933,2.030143163075408
+Neutrophils,"Near-Infarct
+Endocardial Region",24h,338.2658780215104,13.06302839779309
+Neutrophils,"Near-Infarct
+Endocardial Region",48h,88.58911775995483,10.184605283179968
+Neutrophils,"Remote
+Endocardial Region",Control,4.096452405649356,0.0
+Neutrophils,"Remote
+Endocardial Region",4h,0.0,0.0
+Neutrophils,"Remote
+Endocardial Region",24h,19.264276735742975,0.0
+Neutrophils,"Remote
+Endocardial Region",48h,0.0,0.0
+Neutrophils,Infarct Core,Control,1.3447734560432882,0.9547020633410342
+Neutrophils,Infarct Core,4h,79.65052192693477,51.623873762433846
+Neutrophils,Infarct Core,24h,393.5053948812221,22.665045772890664
+Neutrophils,Infarct Core,48h,312.8583496798767,45.40052738507583
+Neutrophils,Border zone,Control,0.4829253482914923,0.0
+Neutrophils,Border zone,4h,142.17652274246024,55.68440101083376
+Neutrophils,Border zone,24h,232.10868603093866,15.307940675802469
+Neutrophils,Border zone,48h,228.4268946475872,6.837563652387502
+Neutrophils,"Near-Infarct
+Epicardial Region",Control,9.252228359570022,0.0
+Neutrophils,"Near-Infarct
+Epicardial Region",4h,98.85299160390136,0.0
+Neutrophils,"Near-Infarct
+Epicardial Region",24h,585.203379426466,124.05366861449264
+Neutrophils,"Near-Infarct
+Epicardial Region",48h,401.42259901198247,152.3639327800581
+Other Leukocytes,All,Control,2.2731086818964017,1.1712733858154387
+Other Leukocytes,All,4h,11.628965566084105,2.451986624660521
+Other Leukocytes,All,24h,7.782567171138935,3.453981217014211
+Other Leukocytes,All,48h,43.31854895635716,2.712095477937158
+Other Leukocytes,"Near-Infarct
+Endocardial Region",Control,7.306531963632892,3.210079557983535
+Other Leukocytes,"Near-Infarct
+Endocardial Region",4h,15.343452174028855,3.671160398455086
+Other Leukocytes,"Near-Infarct
+Endocardial Region",24h,21.339755170321542,17.52096270924216
+Other Leukocytes,"Near-Infarct
+Endocardial Region",48h,93.37418742267835,24.232581292483964
+Other Leukocytes,"Remote
+Endocardial Region",Control,7.306531963632892,3.210079557983535
+Other Leukocytes,"Remote
+Endocardial Region",4h,5.691624268334585,0.0
+Other Leukocytes,"Remote
+Endocardial Region",24h,4.816069183935744,0.0
+Other Leukocytes,"Remote
+Endocardial Region",48h,15.031363936768699,0.033179496991504465
+Other Leukocytes,Infarct Core,Control,2.2942177423336494,1.3050053622278897
+Other Leukocytes,Infarct Core,4h,10.794557605293933,3.416137238678368
+Other Leukocytes,Infarct Core,24h,6.688953604648987,4.517121399036503
+Other Leukocytes,Infarct Core,48h,76.77024090138102,22.430303843207003
+Other Leukocytes,Border zone,Control,3.1857208628058653,1.6077381120315477
+Other Leukocytes,Border zone,4h,25.08642694063486,1.2730768251941633
+Other Leukocytes,Border zone,24h,12.853096923159676,4.761000673512291
+Other Leukocytes,Border zone,48h,90.66648992673126,20.636407981408034
+Other Leukocytes,"Near-Infarct
+Epicardial Region",Control,11.571487452362364,6.95608593897486
+Other Leukocytes,"Near-Infarct
+Epicardial Region",4h,42.67571358978182,27.697987589190703
+Other Leukocytes,"Near-Infarct
+Epicardial Region",24h,9.43019444322723,1.549560576105467
+Other Leukocytes,"Near-Infarct
+Epicardial Region",48h,48.18229912385776,6.2992841143756975
+Smooth muscle cells,All,Control,52.57532279558226,16.631232742167498
+Smooth muscle cells,All,4h,63.389091282196596,8.49724375895483
+Smooth muscle cells,All,24h,60.00856127177526,9.414699470317435
+Smooth muscle cells,All,48h,64.65702334368119,0.49512216273895143
+Smooth muscle cells,"Near-Infarct
+Endocardial Region",Control,24.560949776901666,14.044338255285238
+Smooth muscle cells,"Near-Infarct
+Endocardial Region",4h,10.112405444000608,7.396032219360044
+Smooth muscle cells,"Near-Infarct
+Endocardial Region",24h,6.886743872623887,0.7508410495348826
+Smooth muscle cells,"Near-Infarct
+Endocardial Region",48h,10.284448366482298,0.4070760621688185
+Smooth muscle cells,"Remote
+Endocardial Region",Control,24.560949776901666,14.044338255285238
+Smooth muscle cells,"Remote
+Endocardial Region",4h,7.211916831115493,1.520292562780908
+Smooth muscle cells,"Remote
+Endocardial Region",24h,31.644458040308997,2.7480429366945387
+Smooth muscle cells,"Remote
+Endocardial Region",48h,30.062727873537398,0.0663589939830107
+Smooth muscle cells,Infarct Core,Control,54.825635030600445,16.22033441249202
+Smooth muscle cells,Infarct Core,4h,77.48964445836923,3.672979574401992
+Smooth muscle cells,Infarct Core,24h,51.63386274524947,4.396512273177971
+Smooth muscle cells,Infarct Core,48h,60.40593660527396,0.666382035328688
+Smooth muscle cells,Border zone,Control,61.89089756853614,22.86186363414752
+Smooth muscle cells,Border zone,4h,53.874111131097024,24.219669394539366
+Smooth muscle cells,Border zone,24h,77.73448728554231,34.91381129782491
+Smooth muscle cells,Border zone,48h,40.4434066644578,0.29304623184133405
+Smooth muscle cells,"Near-Infarct
+Epicardial Region",Control,44.075802199680155,28.850439834495262
+Smooth muscle cells,"Near-Infarct
+Epicardial Region",4h,48.131982600817565,41.73437340272915
+Smooth muscle cells,"Near-Infarct
+Epicardial Region",24h,71.21347170817641,27.294451630845625
+Smooth muscle cells,"Near-Infarct
+Epicardial Region",48h,22.506214997421402,14.723131677673765
