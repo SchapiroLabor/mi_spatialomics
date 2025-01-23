@@ -378,7 +378,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+workflowr <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -389,8 +389,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> </a>
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -399,13 +399,13 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-01-20
+<strong>Last updated:</strong> 2025-01-22
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>mi_spatialomics/</code> <span
@@ -428,21 +428,18 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
+<div id="strongRMarkdownfilestronguptodate"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown file has unstaged changes. To know which version of
-the R Markdown file created these results, you’ll want to first commit
-it to the Git repo. If you’re still working on the analysis, you can
-ignore this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
@@ -533,15 +530,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree39f7f2644ababca7fcaeccb9e31efd1594a34ceftargetblank39f7f26a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstreef62b2bf29bc140cbd63897e3e69ed2fe1995139ctargetblankf62b2bfa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/39f7f2644ababca7fcaeccb9e31efd1594a34cef" target="_blank">39f7f26</a>
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/f62b2bf29bc140cbd63897e3e69ed2fe1995139c" target="_blank">f62b2bf</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree39f7f2644ababca7fcaeccb9e31efd1594a34ceftargetblank39f7f26a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstreef62b2bf29bc140cbd63897e3e69ed2fe1995139ctargetblankf62b2bfa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -551,7 +548,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/39f7f2644ababca7fcaeccb9e31efd1594a34cef" target="_blank">39f7f26</a>.
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/f62b2bf29bc140cbd63897e3e69ed2fe1995139c" target="_blank">f62b2bf</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -583,34 +580,6 @@ Ignored files:
     Ignored:    renv/.DS_Store
     Ignored:    renv/library/
     Ignored:    renv/staging/
-
-Untracked files:
-    Untracked:  analysis/SeqIF.lumen_distance_calculations.Rmd
-    Untracked:  review/cell_table_final_lumen_bins_plot.csv
-    Untracked:  review/cell_table_final_lumen_bins_plot_grouped.csv
-
-Unstaged changes:
-    Deleted:    analysis/deprecated/figures.supplementary_figureX.Rmd
-    Deleted:    analysis/deprecated/figures.supplementary_figure_X.MistyR.Rmd
-    Deleted:    analysis/deprecated/molkart.mesmer_seg.misty_analysis.Rmd
-    Deleted:    analysis/deprecated/molkart.misty_neighbourhood_analysis.Rmd
-    Deleted:    analysis/deprecated/molkart.molkart.plot_spots_figure1.ipynb
-    Deleted:    analysis/deprecated/molkart.molkart.process_quantifications_seurat.Rmd
-    Deleted:    analysis/deprecated/molkart.process_mesmer_quant.Rmd
-    Deleted:    analysis/deprecated/molkart.supplementary_figure4.Rmd
-    Deleted:    analysis/deprecated/molkart.test_giotto.Rmd
-    Deleted:    analysis/deprecated/napari_points.ipynb
-    Deleted:    analysis/deprecated/proteomics.bayesPrism_deconv.Rmd
-    Deleted:    analysis/deprecated/proteomics.impute_proteins.Rmd
-    Deleted:    analysis/deprecated/roi.csv
-    Deleted:    analysis/deprecated/roi2.csv
-    Deleted:    analysis/deprecated/seqIF.region_quantification.Rmd
-    Deleted:    analysis/deprecated/test_construct_spatialdata.ipynb
-    Modified:   analysis/endocardial_cell_definition.Rmd
-    Modified:   analysis/figures.supplementary_figure_7.Rmd
-    Modified:   analysis/index.Rmd
-    Modified:   analysis/molkart.celltype_analysis.Rmd
-    Modified:   renv.lock
 
 </code></pre>
 <p>
@@ -657,6 +626,42 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/f62b2bf29bc140cbd63897e3e69ed2fe1995139c/analysis/molkart.celltype_analysis.Rmd" target="_blank">f62b2bf</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2025-01-22
+</td>
+<td>
+wflow_publish(c("analysis/endocardial_cell_definition.Rmd",
+"analysis/molkart.celltype_analysis.Rmd",
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/f62b2bf29bc140cbd63897e3e69ed2fe1995139c/docs/molkart.celltype_analysis.html" target="_blank">f62b2bf</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2025-01-22
+</td>
+<td>
+wflow_publish(c("analysis/endocardial_cell_definition.Rmd",
+"analysis/molkart.celltype_analysis.Rmd",
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -755,6 +760,43 @@ annotation we did.</p>
 
 celltypes_lvl3</code></pre>
 <p><img src="figure/molkart.celltype_analysis.Rmd/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-3-1">
+Past versions of unnamed-chunk-3-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-3-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/f62b2bf29bc140cbd63897e3e69ed2fe1995139c/docs/figure/molkart.celltype_analysis.Rmd/unnamed-chunk-3-1.png" target="_blank">f62b2bf</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2025-01-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="subcluster-immune-cells" class="section level1">
 <h1>Subcluster immune cells</h1>
@@ -1057,20 +1099,20 @@ immune_cells &lt;- RunUMAP(immune_cells, dims = 1:25)</code></pre>
 <pre><code>Warning: The default method for RunUMAP has changed from calling Python UMAP via reticulate to the R-native UWOT using the cosine metric
 To use Python UMAP via reticulate, set umap.method to &#39;umap-learn&#39; and metric to &#39;correlation&#39;
 This message will be shown once per session</code></pre>
-<pre><code>23:25:29 UMAP embedding parameters a = 0.9922 b = 1.112</code></pre>
-<pre><code>23:25:29 Read 9751 rows and found 25 numeric columns</code></pre>
-<pre><code>23:25:29 Using Annoy for neighbor search, n_neighbors = 30</code></pre>
-<pre><code>23:25:29 Building Annoy index with metric = cosine, n_trees = 50</code></pre>
+<pre><code>21:24:27 UMAP embedding parameters a = 0.9922 b = 1.112</code></pre>
+<pre><code>21:24:27 Read 9751 rows and found 25 numeric columns</code></pre>
+<pre><code>21:24:27 Using Annoy for neighbor search, n_neighbors = 30</code></pre>
+<pre><code>21:24:27 Building Annoy index with metric = cosine, n_trees = 50</code></pre>
 <pre><code>0%   10   20   30   40   50   60   70   80   90   100%</code></pre>
 <pre><code>[----|----|----|----|----|----|----|----|----|----|</code></pre>
 <pre><code>**************************************************|
-23:25:29 Writing NN index file to temp file /var/folders/ph/m6mhj3s541799cykzbp3dx0m0000gn/T//RtmpqHNBUF/file927363c88ec0
-23:25:30 Searching Annoy index using 1 thread, search_k = 3000
-23:25:31 Annoy recall = 100%
-23:25:32 Commencing smooth kNN distance calibration using 1 thread with target n_neighbors = 30
-23:25:33 Initializing from normalized Laplacian + noise (using RSpectra)
-23:25:33 Commencing optimization for 500 epochs, with 425118 positive edges
-23:25:44 Optimization finished</code></pre>
+21:24:27 Writing NN index file to temp file /var/folders/ph/m6mhj3s541799cykzbp3dx0m0000gn/T//RtmpmpPp2W/file9ad71981f28c
+21:24:27 Searching Annoy index using 1 thread, search_k = 3000
+21:24:29 Annoy recall = 100%
+21:24:30 Commencing smooth kNN distance calibration using 1 thread with target n_neighbors = 30
+21:24:30 Initializing from normalized Laplacian + noise (using RSpectra)
+21:24:31 Commencing optimization for 500 epochs, with 425118 positive edges
+21:24:41 Optimization finished</code></pre>
 <pre class="r"><code># Subcluster the cells in immune_cells
 immune_cells &lt;- FindNeighbors(immune_cells, dims = 1:25, verbose = FALSE)
 immune_cells &lt;- FindClusters(immune_cells, verbose = FALSE, resolution = 0.2)
@@ -1078,6 +1120,43 @@ immune_cells &lt;- FindClusters(immune_cells, verbose = FALSE, resolution = 0.2)
 # Plot the UMAP with the new clusters
 DimPlot(immune_cells, reduction = &quot;umap&quot;, label = TRUE, repel = TRUE)</code></pre>
 <p><img src="figure/molkart.celltype_analysis.Rmd/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-4-1">
+Past versions of unnamed-chunk-4-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-4-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/f62b2bf29bc140cbd63897e3e69ed2fe1995139c/docs/figure/molkart.celltype_analysis.Rmd/unnamed-chunk-4-1.png" target="_blank">f62b2bf</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2025-01-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>subcluster_umap &lt;- DimPlot(immune_cells, reduction = &quot;umap&quot;, label = TRUE, repel = TRUE, group.by = &quot;anno_cell_type_lvl3&quot;)</code></pre>
 <pre class="r"><code>immune_cells &lt;- PrepSCTFindMarkers(immune_cells)</code></pre>
 <pre><code>Only one SCT model is stored - skipping recalculating corrected counts</code></pre>
@@ -1112,8 +1191,82 @@ cell types using Nebulosa:</p>
 <pre class="r"><code>## Plot defined markers for each cell type (Let&#39;s make two separate plots for nicer rendering in workflowR pages)
 plot_density(immune_cells, c(&quot;Csf3r&quot;,&quot;Ccl2&quot;,&quot;C1qa&quot;,&quot;Arg1&quot;))</code></pre>
 <p><img src="figure/molkart.celltype_analysis.Rmd/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-7-1">
+Past versions of unnamed-chunk-7-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-7-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/f62b2bf29bc140cbd63897e3e69ed2fe1995139c/docs/figure/molkart.celltype_analysis.Rmd/unnamed-chunk-7-1.png" target="_blank">f62b2bf</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2025-01-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>plot_density(immune_cells,c(&quot;Cd3e&quot;,&quot;Ighm&quot;,&quot;Cd74&quot;))</code></pre>
 <p><img src="figure/molkart.celltype_analysis.Rmd/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-8-1">
+Past versions of unnamed-chunk-8-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-8-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/f62b2bf29bc140cbd63897e3e69ed2fe1995139c/docs/figure/molkart.celltype_analysis.Rmd/unnamed-chunk-8-1.png" target="_blank">f62b2bf</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2025-01-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Let’s also plot a heatmap for markers for these more fine grained
 cell types:</p>
 <pre class="r"><code>library(viridis)</code></pre>
@@ -1129,6 +1282,43 @@ cell types:</p>
 Adding another scale for colour, which will replace the existing scale.</code></pre>
 <pre class="r"><code>immune_cells_dotplot</code></pre>
 <p><img src="figure/molkart.celltype_analysis.Rmd/unnamed-chunk-9-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-9-1">
+Past versions of unnamed-chunk-9-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-9-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/f62b2bf29bc140cbd63897e3e69ed2fe1995139c/docs/figure/molkart.celltype_analysis.Rmd/unnamed-chunk-9-1.png" target="_blank">f62b2bf</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2025-01-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="spatial-plot-of-subclustering-results-for-immune-cells"
 class="section level1">
@@ -31542,8 +31732,48 @@ sample_plots &lt;- lapply(sample_names, function(sample) {
 To change them back, use invert_geom_defaults().</code></pre>
 <pre class="r"><code>spatial_plot_immune_cells &lt;- wrap_plots(sample_plots,ncol = 2, nrows = 2) + plot_layout(guides = &quot;collect&quot;) &amp; theme(legend.position = &#39;right&#39;)
 spatial_plot_immune_cells</code></pre>
-<p><img src="figure/molkart.celltype_analysis.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" />
-# Temporal changes in immune cell subclusters (R3-8)</p>
+<p><img src="figure/molkart.celltype_analysis.Rmd/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-11-1">
+Past versions of unnamed-chunk-11-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-11-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/f62b2bf29bc140cbd63897e3e69ed2fe1995139c/docs/figure/molkart.celltype_analysis.Rmd/unnamed-chunk-11-1.png" target="_blank">f62b2bf</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2025-01-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="temporal-changes-in-immune-cell-subclusters-r3-8"
+class="section level1">
+<h1>Temporal changes in immune cell subclusters (R3-8)</h1>
 <pre class="r"><code>cell_type_proportions_per_sample &lt;- seurat_object@meta.data %&gt;%
   group_by(anno_cell_type_lvl3,timepoint,sample_ID) %&gt;%
   tally() %&gt;%
@@ -31604,6 +31834,43 @@ ct_time_barplot &lt;- ggplot(cell_type_proportions_per_sample,aes(timepoint,perc
 ct_time_barplot &lt;- ct_time_barplot + theme(plot.tag = element_text(size = 20, face = &quot;bold&quot;))
 ct_time_barplot</code></pre>
 <p><img src="figure/molkart.celltype_analysis.Rmd/unnamed-chunk-12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-unnamed-chunk-12-1">
+Past versions of unnamed-chunk-12-1.png
+</button>
+</p>
+<div id="fig-unnamed-chunk-12-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/f62b2bf29bc140cbd63897e3e69ed2fe1995139c/docs/figure/molkart.celltype_analysis.Rmd/unnamed-chunk-12-1.png" target="_blank">f62b2bf</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2025-01-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">

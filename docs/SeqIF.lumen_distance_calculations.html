@@ -370,7 +370,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
+workflowr <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -381,8 +381,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> </a>
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -391,13 +391,13 @@ aria-hidden="true"></span> </a>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-01-20
+<strong>Last updated:</strong> 2025-01-22
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 1
+aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>mi_spatialomics/</code> <span
@@ -420,21 +420,18 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
-<span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
-changes </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
+<span class="glyphicon glyphicon-ok text-success"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
+</a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguncommittedchanges"
+<div id="strongRMarkdownfilestronguptodate"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R
-Markdown file created these results, you’ll want to first commit it to
-the Git repo. If you’re still working on the analysis, you can ignore
-this warning. When you’re finished, you can run
-<code>wflow_publish</code> to commit the R Markdown file and build the
-HTML.</p>
+<p>Great! Since the R Markdown file has been committed to the Git
+repository, you know the exact version of the code that produced these
+results.</p>
 </div>
 </div>
 </div>
@@ -525,15 +522,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree39f7f2644ababca7fcaeccb9e31efd1594a34ceftargetblank39f7f26a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstreef62b2bf29bc140cbd63897e3e69ed2fe1995139ctargetblankf62b2bfa">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/39f7f2644ababca7fcaeccb9e31efd1594a34cef" target="_blank">39f7f26</a>
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/f62b2bf29bc140cbd63897e3e69ed2fe1995139c" target="_blank">f62b2bf</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree39f7f2644ababca7fcaeccb9e31efd1594a34ceftargetblank39f7f26a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstreef62b2bf29bc140cbd63897e3e69ed2fe1995139ctargetblankf62b2bfa"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -543,7 +540,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/39f7f2644ababca7fcaeccb9e31efd1594a34cef" target="_blank">39f7f26</a>.
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/f62b2bf29bc140cbd63897e3e69ed2fe1995139c" target="_blank">f62b2bf</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -576,34 +573,6 @@ Ignored files:
     Ignored:    renv/library/
     Ignored:    renv/staging/
 
-Untracked files:
-    Untracked:  analysis/SeqIF.lumen_distance_calculations.Rmd
-    Untracked:  review/cell_table_final_lumen_bins_plot.csv
-    Untracked:  review/cell_table_final_lumen_bins_plot_grouped.csv
-
-Unstaged changes:
-    Deleted:    analysis/deprecated/figures.supplementary_figureX.Rmd
-    Deleted:    analysis/deprecated/figures.supplementary_figure_X.MistyR.Rmd
-    Deleted:    analysis/deprecated/molkart.mesmer_seg.misty_analysis.Rmd
-    Deleted:    analysis/deprecated/molkart.misty_neighbourhood_analysis.Rmd
-    Deleted:    analysis/deprecated/molkart.molkart.plot_spots_figure1.ipynb
-    Deleted:    analysis/deprecated/molkart.molkart.process_quantifications_seurat.Rmd
-    Deleted:    analysis/deprecated/molkart.process_mesmer_quant.Rmd
-    Deleted:    analysis/deprecated/molkart.supplementary_figure4.Rmd
-    Deleted:    analysis/deprecated/molkart.test_giotto.Rmd
-    Deleted:    analysis/deprecated/napari_points.ipynb
-    Deleted:    analysis/deprecated/proteomics.bayesPrism_deconv.Rmd
-    Deleted:    analysis/deprecated/proteomics.impute_proteins.Rmd
-    Deleted:    analysis/deprecated/roi.csv
-    Deleted:    analysis/deprecated/roi2.csv
-    Deleted:    analysis/deprecated/seqIF.region_quantification.Rmd
-    Deleted:    analysis/deprecated/test_construct_spatialdata.ipynb
-    Modified:   analysis/endocardial_cell_definition.Rmd
-    Modified:   analysis/figures.supplementary_figure_7.Rmd
-    Modified:   analysis/index.Rmd
-    Modified:   analysis/molkart.celltype_analysis.Rmd
-    Modified:   renv.lock
-
 </code></pre>
 <p>
 Note that any generated files, e.g. HTML, png, CSS, etc., are not
@@ -617,10 +586,77 @@ have uncommitted changes.
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with
-<code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were
+made to the R Markdown
+(<code>analysis/SeqIF.lumen_distance_calculations.Rmd</code>) and HTML
+(<code>docs/SeqIF.lumen_distance_calculations.html</code>) files. If
+you’ve configured a remote Git repository (see
+<code>?wflow_git_remote</code>), click on the hyperlinks in the table
+below to view the files as they were in that past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/f62b2bf29bc140cbd63897e3e69ed2fe1995139c/analysis/SeqIF.lumen_distance_calculations.Rmd" target="_blank">f62b2bf</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2025-01-22
+</td>
+<td>
+wflow_publish(c("analysis/endocardial_cell_definition.Rmd",
+"analysis/molkart.celltype_analysis.Rmd",
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/f62b2bf29bc140cbd63897e3e69ed2fe1995139c/docs/SeqIF.lumen_distance_calculations.html" target="_blank">f62b2bf</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2025-01-22
+</td>
+<td>
+wflow_publish(c("analysis/endocardial_cell_definition.Rmd",
+"analysis/molkart.celltype_analysis.Rmd",
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
@@ -635,9 +671,58 @@ There are no past versions. Publish this analysis with
 <h2>Load data</h2>
 <pre class="r"><code>library(data.table)</code></pre>
 <pre><code>Warning: package &#39;data.table&#39; was built under R version 4.3.3</code></pre>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::between()     masks data.table::between()
+✖ dplyr::filter()      masks stats::filter()
+✖ dplyr::first()       masks data.table::first()
+✖ lubridate::hour()    masks data.table::hour()
+✖ lubridate::isoweek() masks data.table::isoweek()
+✖ dplyr::lag()         masks stats::lag()
+✖ dplyr::last()        masks data.table::last()
+✖ lubridate::mday()    masks data.table::mday()
+✖ lubridate::minute()  masks data.table::minute()
+✖ lubridate::month()   masks data.table::month()
+✖ lubridate::quarter() masks data.table::quarter()
+✖ lubridate::second()  masks data.table::second()
+✖ purrr::transpose()   masks data.table::transpose()
+✖ lubridate::wday()    masks data.table::wday()
+✖ lubridate::week()    masks data.table::week()
+✖ lubridate::yday()    masks data.table::yday()
+✖ lubridate::year()    masks data.table::year()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 <pre class="r"><code>## Read in distances calculated from SeqIF
 distances_lumen_grouped &lt;- fread(&quot;./review/cell_table_final_lumen_bins_plot_grouped.csv&quot;)
-distances_lumen &lt;- fread(&quot;./review/cell_table_final_lumen_bins_plot.csv&quot;)</code></pre>
+distances_lumen_grouped_long &lt;- distances_lumen_grouped %&gt;%
+  pivot_longer(4:ncol(distances_lumen_grouped), names_to = &quot;group&quot;, values_to = &quot;distance&quot;)
+distances_lumen_grouped_long$timepoint &lt;- factor(distances_lumen_grouped_long$timepoint,
+                                             levels = c(&quot;Control&quot;,&quot;4h&quot;,&quot;24h&quot;,&quot;48h&quot;)) 
+distances_lumen_grouped_long &lt;- distances_lumen_grouped_long %&gt;%
+  subset(group %in% c(&quot;endothelial_mean&quot;,&quot;mono_mean&quot;))
+
+distances_lumen &lt;- fread(&quot;./review/cell_table_final_lumen_bins_plot.csv&quot;)
+distances_lumen_long &lt;- distances_lumen %&gt;%
+  select(timepoint,lumen_bin,mono_per_mm2,endothelial_per_mm2) %&gt;%
+  pivot_longer(3:4, names_to = &quot;group&quot;, values_to = &quot;density&quot;)
+
+distances_lumen_long$group &lt;- gsub(&quot;mono_per_mm2&quot;,&quot;Mono / Macro Ccr2+&quot;,distances_lumen_long$group)
+distances_lumen_long$group &lt;- gsub(&quot;endothelial_per_mm2&quot;,&quot;Endothelial (Cd31+ vasculature)&quot;,distances_lumen_long$group)</code></pre>
+<pre class="r"><code>ggplot(distances_lumen_long, aes(lumen_bin, density)) +
+  facet_grid(~ timepoint) +
+  geom_bar(aes(fill = group),color = &quot;black&quot;, stat = &quot;summary&quot;, fun = &quot;mean&quot;, position = position_dodge(width = 0.9)) +
+  geom_point(position = position_dodge(width = 0.9),pch =21,
+             aes(fill = group),color = &quot;black&quot;,
+             size = 2) +
+  scale_fill_manual(values = c(&quot;#a8dadc&quot;,&quot;#ffd166&quot;)) +
+  # Change y-axis title to cell density in mm2 with superscript
+  ylab(expression(paste(&quot;Cell density mm&quot;^&quot;2&quot;)))</code></pre>
+<p><img src="figure/SeqIF.lumen_distance_calculations.Rmd/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -665,24 +750,30 @@ attached base packages:
 [1] stats     graphics  grDevices datasets  utils     methods   base     
 
 other attached packages:
-[1] data.table_1.16.2 workflowr_1.7.1  
+ [1] lubridate_1.9.3   forcats_1.0.0     stringr_1.5.1     dplyr_1.1.4      
+ [5] purrr_1.0.2       readr_2.1.5       tidyr_1.3.1       tibble_3.2.1     
+ [9] ggplot2_3.5.1     tidyverse_2.0.0   data.table_1.16.2 workflowr_1.7.1  
 
 loaded via a namespace (and not attached):
- [1] jsonlite_1.8.9      compiler_4.3.1      BiocManager_1.30.25
- [4] renv_1.0.3          promises_1.3.2      Rcpp_1.0.13-1      
- [7] stringr_1.5.1       git2r_0.35.0        callr_3.7.6        
-[10] later_1.4.1         jquerylib_0.1.4     yaml_2.3.10        
-[13] fastmap_1.2.0       R6_2.5.1            knitr_1.49         
-[16] tibble_3.2.1        rprojroot_2.0.4     bslib_0.8.0        
-[19] pillar_1.9.0        rlang_1.1.4         utf8_1.2.4         
-[22] cachem_1.1.0        stringi_1.8.4       httpuv_1.6.15      
-[25] xfun_0.49           getPass_0.2-4       fs_1.6.5           
-[28] sass_0.4.9          cli_3.6.3           magrittr_2.0.3     
-[31] ps_1.8.1            digest_0.6.37       processx_3.8.4     
-[34] rstudioapi_0.17.1   lifecycle_1.0.4     vctrs_0.6.5        
-[37] evaluate_1.0.1      glue_1.8.0          whisker_0.4.1      
-[40] fansi_1.0.6         rmarkdown_2.29      httr_1.4.7         
-[43] tools_4.3.1         pkgconfig_2.0.3     htmltools_0.5.8.1  </code></pre>
+ [1] sass_0.4.9          utf8_1.2.4          generics_0.1.3     
+ [4] renv_1.0.3          stringi_1.8.4       hms_1.1.3          
+ [7] digest_0.6.37       magrittr_2.0.3      timechange_0.3.0   
+[10] evaluate_1.0.1      grid_4.3.1          fastmap_1.2.0      
+[13] rprojroot_2.0.4     jsonlite_1.8.9      processx_3.8.4     
+[16] whisker_0.4.1       ps_1.8.1            promises_1.3.2     
+[19] BiocManager_1.30.25 httr_1.4.7          fansi_1.0.6        
+[22] scales_1.3.0        jquerylib_0.1.4     cli_3.6.3          
+[25] rlang_1.1.4         munsell_0.5.1       withr_3.0.2        
+[28] cachem_1.1.0        yaml_2.3.10         tools_4.3.1        
+[31] tzdb_0.4.0          colorspace_2.1-1    httpuv_1.6.15      
+[34] vctrs_0.6.5         R6_2.5.1            lifecycle_1.0.4    
+[37] git2r_0.35.0        fs_1.6.5            pkgconfig_2.0.3    
+[40] callr_3.7.6         pillar_1.9.0        bslib_0.8.0        
+[43] later_1.4.1         gtable_0.3.6        glue_1.8.0         
+[46] Rcpp_1.0.13-1       xfun_0.49           tidyselect_1.2.1   
+[49] rstudioapi_0.17.1   knitr_1.49          farver_2.1.2       
+[52] htmltools_0.5.8.1   labeling_0.4.3      rmarkdown_2.29     
+[55] compiler_4.3.1      getPass_0.2-4      </code></pre>
 </div>
 </div>
 </div>
