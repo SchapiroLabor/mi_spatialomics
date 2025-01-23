@@ -19,6 +19,8 @@ In this markdown, we will calculate the
 library(data.table)
 library(tidyverse)
 
+source("./code/functions.R")
+
 ## Read in distances calculated from SeqIF
 distances_lumen_grouped <- fread("./review/cell_table_final_lumen_bins_plot_grouped.csv")
 distances_lumen_grouped_long <- distances_lumen_grouped %>%
@@ -38,15 +40,29 @@ distances_lumen_long$group <- gsub("endothelial_per_mm2","Endothelial (Cd31+ vas
 ```
 
 ```{r}
-ggplot(distances_lumen_long, aes(lumen_bin, density)) +
+distances_lumen_long$timepoint <- factor(distances_lumen_long$timepoint,
+                                             levels = c("Control","4h","24h","48h")) 
+
+
+lumen_distance_plot <- ggplot(distances_lumen_long, aes(lumen_bin, density)) +
   facet_grid(~ timepoint) +
   geom_bar(aes(fill = group),color = "black", stat = "summary", fun = "mean", position = position_dodge(width = 0.9)) +
   geom_point(position = position_dodge(width = 0.9),pch =21,
              aes(fill = group),color = "black",
-             size = 2) +
+             size = 3) +
   scale_fill_manual(values = c("#a8dadc","#ffd166")) +
   # Change y-axis title to cell density in mm2 with superscript
-  ylab(expression(paste("Cell density mm"^"2")))
+  ylab(expression(paste("Cell density / mm"^"2"))) + 
+  #Change legend title to Cell type
+  labs(x = "Distance to lumen (bin)",
+       fill = "Cell type") +
+  theme_cowplot_custom
+
+save_plot(lumen_distance_plot,
+          file = "./plots/Supplementary_figure_X.lumen_distance.pdf",
+          base_height = 4,
+          base_asp = 4,
+          dpi = 300)
 ```
 
 
