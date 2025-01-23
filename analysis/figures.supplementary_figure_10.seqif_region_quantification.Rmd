@@ -11,18 +11,27 @@ editor_options:
 
 ```{r}
 library(data.table)
+library(tidyverse)
 ```
 
 ```{r}
 seqif_quants <- fread("./review/all_cell_types_per_region_final.csv")
+seqif_quants_filtered <- seqif_quants %>%
+  subset(region_name != "All")
+
+immune_cells <- seqif_quants_filtered %>%
+  subset(final_cell_type %in% c("Macrophages Trem2+","Macrophages Trem2-","Mono / Macros Ccr2+","Neutrophils","Other Leukocytes","Smooth muscle cells"))
+
+non_immune <- seqif_quants_filtered %>%
+  subset(!final_cell_type %in% immune_cells$final_cell_type)
 ```
 
 ```{r}
-ggplot(seqif_quants,aes(timepoint,mean_count)) +
-  geom_bar(stat = "identity") +
-  # Add error bars
-  geom_errorbar(aes(ymin = mean_count - se_count, ymax = mean_count + se_count),
-                width = 0.2) +
+ggplot(immune_cells,aes(timepoint,mean_count)) +
+  geom_bar(aes(fill = final_cell_type),color = "black", stat = "summary", fun = "mean", position = position_dodge(width = 0.9)) +
+  geom_point(position = position_dodge(width = 0.9),pch =21,
+             aes(fill = final_cell_type),color = "black",
+             size = 2) +
   facet_grid(final_cell_type ~ region_name,
              scales = "free_y")
 ```

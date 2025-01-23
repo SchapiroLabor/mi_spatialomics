@@ -41,7 +41,7 @@ colnames(region_measurements_full) <- gsub("\\µ","u",colnames(region_measuremen
 
 ## Sum all individual annotations per sample and region
 region_measurements <- region_measurements_full %>%
-  mutate("Area_um2" = if_else(fov %in% c("24h_86","4h_97"),Area_um2 * 0.235^2,Area_um2)) %>% ## Images that were post-registered using palom need to be size corrected, as their final pixel resolution is different
+  mutate("Area_um2" = if_else(fov %in% c("24h_86","4h_97"),Area_um2 * 0.23^2,Area_um2)) %>% ## Images that were post-registered using palom need to be size corrected, as their final pixel resolution is different
   group_by(fov,Name) %>%
   summarise("total_area_um2" = sum(Area_um2)) %>%
   ungroup()
