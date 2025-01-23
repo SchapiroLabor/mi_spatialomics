@@ -64,11 +64,8 @@ if_ccr2_relquant <- ggplot(if_rel_counts,aes(timepoint,cell_count)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1),
         axis.title.x = element_blank())
 
-## Combine plots
-joined_plot <- seqIF_ccr2_relquant | if_ccr2_relquant
-
 save_plot(filename = "./plots/supp_figure_7.tradIF-relative_cell_counts.pdf",
-          plot = joined_plot,
+          plot = if_ccr2_relquant,
           base_asp = 3,
           base_height = 4)
 ```

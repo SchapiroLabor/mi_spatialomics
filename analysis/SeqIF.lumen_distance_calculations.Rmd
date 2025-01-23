@@ -1,0 +1,53 @@
+---
+title: "SeqIF.lumen_distance_calculations"
+author: "FloWuenne"
+date: "2025-01-20"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+In this markdown, we will calculate the 
+
+# Process data
+
+## Load data
+
+```{r}
+library(data.table)
+library(tidyverse)
+
+## Read in distances calculated from SeqIF
+distances_lumen_grouped <- fread("./review/cell_table_final_lumen_bins_plot_grouped.csv")
+distances_lumen_grouped_long <- distances_lumen_grouped %>%
+  pivot_longer(4:ncol(distances_lumen_grouped), names_to = "group", values_to = "distance")
+distances_lumen_grouped_long$timepoint <- factor(distances_lumen_grouped_long$timepoint,
+                                             levels = c("Control","4h","24h","48h")) 
+distances_lumen_grouped_long <- distances_lumen_grouped_long %>%
+  subset(group %in% c("endothelial_mean","mono_mean"))
+
+distances_lumen <- fread("./review/cell_table_final_lumen_bins_plot.csv")
+distances_lumen_long <- distances_lumen %>%
+  select(timepoint,lumen_bin,mono_per_mm2,endothelial_per_mm2) %>%
+  pivot_longer(3:4, names_to = "group", values_to = "density")
+
+distances_lumen_long$group <- gsub("mono_per_mm2","Mono / Macro Ccr2+",distances_lumen_long$group)
+distances_lumen_long$group <- gsub("endothelial_per_mm2","Endothelial (Cd31+ vasculature)",distances_lumen_long$group)
+```
+
+```{r}
+ggplot(distances_lumen_long, aes(lumen_bin, density)) +
+  facet_grid(~ timepoint) +
+  geom_bar(aes(fill = group),color = "black", stat = "summary", fun = "mean", position = position_dodge(width = 0.9)) +
+  geom_point(position = position_dodge(width = 0.9),pch =21,
+             aes(fill = group),color = "black",
+             size = 2) +
+  scale_fill_manual(values = c("#a8dadc","#ffd166")) +
+  # Change y-axis title to cell density in mm2 with superscript
+  ylab(expression(paste("Cell density mm"^"2")))
+```
+
+
+

@@ -16,7 +16,7 @@ library(here)
 library(reactable)
 library(ggdark)
 
-source("../code/functions.R")
+source("./code/functions.R")
 ```
 
 # Introduction
@@ -28,7 +28,7 @@ In this analsysis, we will perform more granular analysis of the cell types we i
 First we load our processed Seurat object that contains all cells and cell-type annotations.
 
 ```{r}
-seurat_object <- readRDS(file = "../output/molkart/molkart.seurat_object.rds")
+seurat_object <- readRDS(file = "./output/molkart/molkart.seurat_object.rds")
 
 immune_cells <- subset(seurat_object,
                        anno_cell_type_lvl2 %in% c("Myeloid_cells","Lymphoid_cells"))
