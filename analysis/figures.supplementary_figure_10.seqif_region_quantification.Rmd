@@ -12,12 +12,16 @@ editor_options:
 ```{r}
 library(data.table)
 library(tidyverse)
+library(patchwork)
 ```
 
 ```{r}
-seqif_quants <- fread("./review/all_cell_types_per_region_final.csv")
+seqif_quants <- fread("./review/all_cell_types_per_region_counts_perctentages_20241212.csv")
 seqif_quants_filtered <- seqif_quants %>%
-  subset(region_name != "All")
+  subset(!region_name %in% c("all","remote_endocardial_region","other_cardiac_tissue"))
+
+seqif_quants_filtered$timepoint <- factor(seqif_quants_filtered$timepoint,
+                                          levels = c("Control","4h", "24h", "48h"))
 
 immune_cells <- seqif_quants_filtered %>%
   subset(final_cell_type %in% c("Macrophages Trem2+","Macrophages Trem2-","Mono / Macros Ccr2+","Neutrophils","Other Leukocytes","Smooth muscle cells"))
@@ -27,12 +31,30 @@ non_immune <- seqif_quants_filtered %>%
 ```
 
 ```{r}
-ggplot(immune_cells,aes(timepoint,mean_count)) +
+immune_barplot <- ggplot(immune_cells,aes(timepoint,count_per_mm2)) +
   geom_bar(aes(fill = final_cell_type),color = "black", stat = "summary", fun = "mean", position = position_dodge(width = 0.9)) +
   geom_point(position = position_dodge(width = 0.9),pch =21,
              aes(fill = final_cell_type),color = "black",
              size = 2) +
-  facet_grid(final_cell_type ~ region_name,
-             scales = "free_y")
+  facet_grid(region_name ~ final_cell_type) +
+  labs(x = "Timepoint", y = "count_per_mm2")
+
+save_plot(filename = "./plots/supp_figure_X.immune_cells_regions.pdf",
+          plot = immune_barplot,
+          base_asp = 2,
+          base_height = 8)
+
+non_immune_plot <- ggplot(non_immune,aes(timepoint,count_per_mm2)) +
+  geom_bar(aes(fill = final_cell_type),color = "black", stat = "summary", fun = "mean", position = position_dodge(width = 0.9)) +
+  geom_point(position = position_dodge(width = 0.9),pch =21,
+             aes(fill = final_cell_type),color = "black",
+             size = 2) +
+  facet_grid(region_name ~ final_cell_type) +
+  labs(x = "Timepoint", y = "count_per_mm2")
+
+save_plot(filename = "./plots/supp_figure_X.NONimmune_cells_regions.pdf",
+          plot = non_immune_plot,
+          base_asp = 3,
+          base_height = 4)
 ```
 
