@@ -1,6 +1,6 @@
 ---
 title: "endocardial_cell_definition"
-author: "FloWuenne"wflow_status()
+author: "FloWuenne"
 date: "2024-12-15"
 output: workflowr::wflow_html
 editor_options:

@@ -14,7 +14,7 @@
 
 <title>Supplementary Figure 7</title>
 
-<script src="site_libs/header-attrs-2.25/header-attrs.js"></script>
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
@@ -368,7 +368,7 @@ div.tocify {
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
 <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
-workflowr <span class="glyphicon glyphicon-ok text-success"
+workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger"
 aria-hidden="true"></span>
 </button>
 </p>
@@ -379,8 +379,8 @@ aria-hidden="true"></span>
 </li>
 <li>
 <a data-toggle="tab" href="#checks"> Checks <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
-</a>
+class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -389,13 +389,13 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2024-03-21
+<strong>Last updated:</strong> 2025-01-20
 </p>
 <p>
 <strong>Checks:</strong> <span
-class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7
+class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6
 <span class="glyphicon glyphicon-exclamation-sign text-danger"
-aria-hidden="true"></span> 0
+aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>mi_spatialomics/</code> <span
@@ -418,18 +418,21 @@ versions</em> tab lists the development history.
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate">
-<span class="glyphicon glyphicon-ok text-success"
-aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date
-</a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges">
+<span class="glyphicon glyphicon-exclamation-sign text-danger"
+aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted
+changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate"
+<div id="strongRMarkdownfilestronguncommittedchanges"
 class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git
-repository, you know the exact version of the code that produced these
-results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of
+the R Markdown file created these results, you’ll want to first commit
+it to the Git repo. If you’re still working on the analysis, you can
+ignore this warning. When you’re finished, you can run
+<code>wflow_publish</code> to commit the R Markdown file and build the
+HTML.</p>
 </div>
 </div>
 </div>
@@ -520,15 +523,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree4c4da6682d3248939b4e58577ffa8d41fd295b76targetblank4c4da66a">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree39f7f2644ababca7fcaeccb9e31efd1594a34ceftargetblank39f7f26a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/4c4da6682d3248939b4e58577ffa8d41fd295b76" target="_blank">4c4da66</a>
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/39f7f2644ababca7fcaeccb9e31efd1594a34cef" target="_blank">39f7f26</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree4c4da6682d3248939b4e58577ffa8d41fd295b76targetblank4c4da66a"
+id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree39f7f2644ababca7fcaeccb9e31efd1594a34ceftargetblank39f7f26a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -538,7 +541,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/4c4da6682d3248939b4e58577ffa8d41fd295b76" target="_blank">4c4da66</a>.
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/39f7f2644ababca7fcaeccb9e31efd1594a34cef" target="_blank">39f7f26</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -553,43 +556,32 @@ were generated:
 </p>
 <pre><code>
 Ignored files:
-    Ignored:    .DS_Store
-    Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    analysis/.DS_Store
-    Ignored:    analysis/deprecated/.DS_Store
-    Ignored:    analysis/molecular_cartography_python/.DS_Store
-    Ignored:    analysis/seqIF_python/.DS_Store
-    Ignored:    analysis/seqIF_python/pixie/.DS_Store
-    Ignored:    analysis/seqIF_python/pixie/cell_clustering/
-    Ignored:    annotations/.DS_Store
-    Ignored:    annotations/SeqIF/.DS_Store
-    Ignored:    annotations/molkart/.DS_Store
-    Ignored:    annotations/molkart/Figure1_regions/.DS_Store
-    Ignored:    annotations/molkart/Supplementary_Figure4_regions/.DS_Store
     Ignored:    data/.DS_Store
-    Ignored:    data/140623.calcagno_et_al.seurat_object.rds
-    Ignored:    data/Calcagno2022_int_logNorm_annot.h5Seurat
-    Ignored:    data/IC_03_IF_CCR2_CD68 cell numbers.xlsx
     Ignored:    data/Traditional_IF_absolute_cell_counts.csv
     Ignored:    data/Traditional_IF_relative_cell_counts.csv
-    Ignored:    data/pixie.cell_table_size_normalized_cell_labels.csv
-    Ignored:    data/results_cts_100.sqm
     Ignored:    data/seqIF_regions_annotations/
-    Ignored:    data/seurat/
-    Ignored:    omnipathr-log/
     Ignored:    output/.DS_Store
     Ignored:    output/mol_cart.harmony_object.h5Seurat
     Ignored:    output/molkart/
     Ignored:    output/proteomics/
     Ignored:    output/results_cts.lowres.125.sqm
     Ignored:    output/seqIF/
-    Ignored:    pipeline_configs/.DS_Store
     Ignored:    plots/
-    Ignored:    references/.DS_Store
     Ignored:    renv/.DS_Store
     Ignored:    renv/library/
     Ignored:    renv/staging/
+
+Untracked files:
+    Untracked:  analysis/SeqIF.lumen_distance_calculations.Rmd
+    Untracked:  review/cell_table_final_lumen_bins_plot.csv
+    Untracked:  review/cell_table_final_lumen_bins_plot_grouped.csv
+
+Unstaged changes:
+    Modified:   analysis/endocardial_cell_definition.Rmd
+    Modified:   analysis/figures.supplementary_figure_7.Rmd
+    Modified:   analysis/index.Rmd
 
 </code></pre>
 <p>
@@ -641,6 +633,40 @@ Message
 Rmd
 </td>
 <td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/5e3046c04947c06d0ae7e5e564088d4b3676022c/analysis/figures.supplementary_figure_7.Rmd" target="_blank">5e3046c</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2024-12-15
+</td>
+<td>
+Updated Figure 3 and Supp Figure 7 with new region quantifications.
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/f3b03edb6c9ea041eceb97621af666bdf46c4437/docs/figures.supplementary_figure_7.html" target="_blank">f3b03ed</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2024-03-21
+</td>
+<td>
+Build site.
+</td>
+</tr>
+<tr>
+<td>
+Rmd
+</td>
+<td>
 <a href="https://github.com/FloWuenne/mi_spatialomics/blob/4c4da6682d3248939b4e58577ffa8d41fd295b76/analysis/figures.supplementary_figure_7.Rmd" target="_blank">4c4da66</a>
 </td>
 <td>
@@ -683,14 +709,15 @@ Fixed links in data analysis and figures pages.
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.4     ✔ readr     2.1.5
 ✔ forcats   1.0.0     ✔ stringr   1.5.1
-✔ ggplot2   3.4.4     ✔ tibble    3.2.1
-✔ lubridate 1.9.3     ✔ tidyr     1.3.0
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
 ✔ purrr     1.0.2     
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
 ✖ dplyr::lag()    masks stats::lag()
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 <pre class="r"><code>library(data.table)</code></pre>
+<pre><code>Warning: package &#39;data.table&#39; was built under R version 4.3.3</code></pre>
 <pre><code>
 Attaching package: &#39;data.table&#39;
 
@@ -707,9 +734,9 @@ The following object is masked from &#39;package:purrr&#39;:
 
     transpose</code></pre>
 <pre class="r"><code>library(ggbeeswarm)
-library(patchwork)
-
-source(&quot;./code/functions.R&quot;) </code></pre>
+library(patchwork)</code></pre>
+<pre><code>Warning: package &#39;patchwork&#39; was built under R version 4.3.3</code></pre>
+<pre class="r"><code>source(&quot;./code/functions.R&quot;) </code></pre>
 <pre><code>
 Attaching package: &#39;cowplot&#39;
 
@@ -719,125 +746,15 @@ The following object is masked from &#39;package:patchwork&#39;:
 
 The following object is masked from &#39;package:lubridate&#39;:
 
-    stamp
-
-here() starts at /Users/florian_wuennemann/1_Projects/MI_project/mi_spatialomics</code></pre>
+    stamp</code></pre>
+<pre><code>Warning: package &#39;ggsci&#39; was built under R version 4.3.3</code></pre>
+<pre><code>here() starts at /Users/florian_wuennemann/1_Projects/MI_project/1_Manuscript/Review_NCVR/mi_spatialomics</code></pre>
 </div>
-<div id="b-seqif-relative-abundance-of-ccr2-cells"
+<div
+id="new-b-immunofluorescence-relative-abundance-of-ccr2-cells-in-traditional-if"
 class="section level1">
-<h1>b) SeqIF relative abundance of CCR2+ cells</h1>
-<pre class="r"><code>data_path &lt;- &quot;./data/seqIF_regions_annotations/&quot;
-cell_locations &lt;-
-    list.files(path = paste(data_path,&quot;cell_locations&quot;,sep=&quot;&quot;),pattern = &quot;*.csv&quot;) %&gt;%
-    setNames(., .) %&gt;%
-    map_df(~fread(paste(paste(data_path,&quot;cell_locations&quot;,sep=&quot;&quot;),.,sep=&quot;/&quot;), select= c(&quot;CellID&quot;,&quot;ROI&quot;)),
-           .id = &quot;sample&quot;) %&gt;%
-  mutate(&quot;fov&quot; = gsub(&quot;annotated_|.csv&quot;,&quot;&quot;,sample))
-  
-region_measurements_full &lt;- 
-    list.files(path = paste(data_path,&quot;ROI_measurements&quot;,sep=&quot;&quot;),pattern = &quot;*.txt&quot;) %&gt;% 
-    setNames(., .) %&gt;%
-    map_df(~fread(paste(paste(data_path,&quot;ROI_measurements&quot;,sep=&quot;&quot;),.,sep=&quot;/&quot;)),
-           .id = &quot;sample&quot;) %&gt;%
-  mutate(&quot;fov&quot; = gsub(&quot;.txt&quot;,&quot;&quot;,sample)) 
-colnames(region_measurements_full) &lt;- gsub(&quot; &quot;,&quot;_&quot;,colnames(region_measurements_full))
-colnames(region_measurements_full) &lt;- gsub(&quot;\\^&quot;,&quot;&quot;,colnames(region_measurements_full))
-colnames(region_measurements_full) &lt;- gsub(&quot;\\µ&quot;,&quot;u&quot;,colnames(region_measurements_full))
-
-## Sum all individual annotations per sample and region
-region_measurements &lt;- region_measurements_full %&gt;%
-  mutate(&quot;Area_um2&quot; = if_else(fov %in% c(&quot;24h_86&quot;,&quot;4h_97&quot;),Area_um2 * 0.235^2,Area_um2)) %&gt;% ## Images that were post-registered using palom need to be size corrected, as their final pixel resolution is different
-  group_by(fov,Name) %&gt;%
-  summarise(&quot;total_area_um2&quot; = sum(Area_um2)) %&gt;%
-  ungroup()</code></pre>
-<pre><code>`summarise()` has grouped output by &#39;fov&#39;. You can override using the `.groups`
-argument.</code></pre>
-<div id="pixie-output" class="section level2">
-<h2>Pixie output</h2>
-<pre class="r"><code>pixie_cell_out &lt;- fread(&quot;../data/SeqIF/pixie_cell_masks_0.05/cell_table_size_normalized_cell_labels.csv&quot;)
-pixie_cell_out &lt;- pixie_cell_out %&gt;%
-  separate(fov,into = c(&quot;time&quot;,&quot;sample&quot;), remove = FALSE) %&gt;%
-  subset(cell_meta_cluster != &quot;background&quot;) %&gt;%
-  mutate(&quot;CellID&quot; = label)</code></pre>
-</div>
-<div id="merge-data" class="section level2">
-<h2>Merge data</h2>
-<pre class="r"><code>annotated_cells &lt;- left_join(pixie_cell_out,cell_locations, by = c(&quot;fov&quot;,&quot;CellID&quot;))
-annotated_cells &lt;- annotated_cells %&gt;%
-  subset(ROI != &quot;Background&quot;)
-
-## Set factor level for time
-annotated_cells$time &lt;- factor(annotated_cells$time,
-                               levels = c(&quot;Control&quot;,&quot;4h&quot;,&quot;24h&quot;,&quot;48h&quot;))</code></pre>
-<pre class="r"><code>## Let&#39;s plot the number of cells per cell-type per sample
-cells_per_region &lt;- annotated_cells %&gt;%
-  subset(!ROI %in% c(&quot;Unclassified&quot;,&quot;Ignore&quot;)) %&gt;%
-  subset(!ROI %in% c(&quot;PathAnnotationObject&quot;,&quot;papillary_muscle&quot;,&quot;Lumen&quot;,&quot;Background&quot;,
-                     &quot;Ignore&quot;,&quot;RV_ignore&quot;,&quot;myocardium_control&quot;,&quot;remote_endocardium&quot;)) %&gt;%
-  group_by(ROI,fov,time,cell_meta_cluster) %&gt;%
-  tally()
-
-cells_per_region_sub &lt;- cells_per_region %&gt;%
-subset(grepl(&quot;Macro|Mono|Leuko|Neutro&quot;,cell_meta_cluster))
-
-## Normalize cell numbers for area
-region_measurements$ROI &lt;- region_measurements$Name
-cells_per_region_norm &lt;- left_join(cells_per_region_sub,region_measurements, by = c(&quot;fov&quot;,&quot;ROI&quot;))
-cells_per_region_norm &lt;- cells_per_region_norm %&gt;%
-  mutate(&quot;cells_per_mm2&quot; = n / total_area_um2 * 1000000)  ## Normalize to square mm</code></pre>
-<pre class="r"><code>ccr2_monomacro &lt;- cells_per_region_norm %&gt;%
-  subset(cell_meta_cluster == &quot;Mono / Macros Ccr2+&quot;) %&gt;%
-  subset(time %in% c(&quot;4h&quot;,&quot;24h&quot;,&quot;48h&quot;))
-
-ccr2_monomacro$ROI &lt;- gsub(&quot;border_zone&quot;,&quot;Border zone&quot;,ccr2_monomacro$ROI)
-ccr2_monomacro$ROI &lt;- gsub(&quot;infarct_core&quot;,&quot;Infarct core&quot;,ccr2_monomacro$ROI)
-ccr2_monomacro$ROI &lt;- gsub(&quot;Epicardium&quot;,&quot;Epicardium&quot;,ccr2_monomacro$ROI)
-ccr2_monomacro$ROI &lt;- gsub(&quot;Endocardium&quot;,&quot;Endocardium&quot;,ccr2_monomacro$ROI)
-
-ccr2_monomacro$ROI &lt;- factor(ccr2_monomacro$ROI,
-                             levels = c(&quot;Endocardium&quot;,&quot;Infarct core&quot;,&quot;Epicardium&quot;,&quot;Border zone&quot;))
-
-seqIF_ccr2_relquant &lt;- ggplot(ccr2_monomacro,aes(x = time,y = cells_per_mm2)) +
-    stat_summary(
-      fun.y = mean,
-      geom = &quot;bar&quot;,
-      width = 0.9,
-      size = 0.3,
-      color = &quot;black&quot;,
-      fill = &quot;lightgrey&quot;) +
-  geom_beeswarm(size = 2, pch = 21, color = &quot;black&quot;, aes(fill = ROI)) +
-  labs(x = &quot;Time&quot;,
-         y = expression(&quot;Cells /&quot;~mm^2)) + 
-  #expression(paste(&quot;Mo / M&quot;,phi,&quot; per &quot;~mm^2))
-  facet_grid(. ~ ROI) +
-  scale_fill_manual(values = c(&quot;#337272&quot;,&quot;#f0f0f0&quot;,&quot;#b062c2&quot;,&quot;#2c95c5&quot;)) +
-  theme(axis.title = element_text(face=&quot;bold&quot;),
-        legend.position = &quot;none&quot;) +
-  theme(panel.border = element_rect(color = &quot;black&quot;, fill = NA, size = 0.75)) +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1),
-        axis.title.x = element_blank()) </code></pre>
-<pre><code>Warning: The `fun.y` argument of `stat_summary()` is deprecated as of ggplot2 3.3.0.
-ℹ Please use the `fun` argument instead.
-This warning is displayed once every 8 hours.
-Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-generated.</code></pre>
-<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-ℹ Please use `linewidth` instead.
-This warning is displayed once every 8 hours.
-Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-generated.</code></pre>
-<pre><code>Warning: The `size` argument of `element_rect()` is deprecated as of ggplot2 3.4.0.
-ℹ Please use the `linewidth` argument instead.
-This warning is displayed once every 8 hours.
-Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-generated.</code></pre>
-<pre class="r"><code>seqIF_ccr2_relquant</code></pre>
-<p><img src="figure/figures.supplementary_figure_7.Rmd/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
-</div>
-</div>
-<div id="c-immunofluorescence-relative-abundance-of-ccr2-cells"
-class="section level1">
-<h1>c) Immunofluorescence relative abundance of CCR2+ cells</h1>
+<h1>New b) Immunofluorescence relative abundance of CCR2+ cells in
+traditional IF</h1>
 <pre class="r"><code>if_rel_counts &lt;- fread(&quot;./data/Traditional_IF_relative_cell_counts.csv&quot;)
 
 colnames(if_rel_counts) &lt;- gsub(&quot; &quot;,&quot;_&quot;,colnames(if_rel_counts))
@@ -878,13 +795,24 @@ if_ccr2_relquant &lt;- ggplot(if_rel_counts,aes(timepoint,cell_count)) +
   scale_fill_manual(values = c(&quot;#337272&quot;,&quot;#f0f0f0&quot;,&quot;#b062c2&quot;,&quot;#2c95c5&quot;)) +
   theme(panel.border = element_rect(color = &quot;black&quot;, fill = NA, size = 0.75)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1),
-        axis.title.x = element_blank())
-
-## Combine plots
-joined_plot &lt;- seqIF_ccr2_relquant | if_ccr2_relquant
-
-save_plot(filename = &quot;./plots/supp_figure_7.tradIF-relative_cell_counts.pdf&quot;,
-          plot = joined_plot,
+        axis.title.x = element_blank())</code></pre>
+<pre><code>Warning: The `fun.y` argument of `stat_summary()` is deprecated as of ggplot2 3.3.0.
+ℹ Please use the `fun` argument instead.
+This warning is displayed once every 8 hours.
+Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+generated.</code></pre>
+<pre><code>Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+ℹ Please use `linewidth` instead.
+This warning is displayed once every 8 hours.
+Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+generated.</code></pre>
+<pre><code>Warning: The `size` argument of `element_rect()` is deprecated as of ggplot2 3.4.0.
+ℹ Please use the `linewidth` argument instead.
+This warning is displayed once every 8 hours.
+Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+generated.</code></pre>
+<pre class="r"><code>save_plot(filename = &quot;./plots/supp_figure_7.tradIF-relative_cell_counts.pdf&quot;,
+          plot = if_ccr2_relquant,
           base_asp = 3,
           base_height = 4)</code></pre>
 <br>
@@ -907,41 +835,41 @@ LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlap
 locale:
 [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
 
-time zone: Europe/Berlin
+time zone: America/Toronto
 tzcode source: internal
 
 attached base packages:
 [1] stats     graphics  grDevices datasets  utils     methods   base     
 
 other attached packages:
- [1] RColorBrewer_1.1-3 here_1.0.1         ggsci_3.0.0        cowplot_1.1.2     
- [5] patchwork_1.2.0    ggbeeswarm_0.7.2   data.table_1.14.10 lubridate_1.9.3   
+ [1] RColorBrewer_1.1-3 here_1.0.1         ggsci_3.2.0        cowplot_1.1.3     
+ [5] patchwork_1.3.0    ggbeeswarm_0.7.2   data.table_1.16.2  lubridate_1.9.3   
  [9] forcats_1.0.0      stringr_1.5.1      dplyr_1.1.4        purrr_1.0.2       
-[13] readr_2.1.5        tidyr_1.3.0        tibble_3.2.1       ggplot2_3.4.4     
+[13] readr_2.1.5        tidyr_1.3.1        tibble_3.2.1       ggplot2_3.5.1     
 [17] tidyverse_2.0.0    workflowr_1.7.1   
 
 loaded via a namespace (and not attached):
- [1] gtable_0.3.4        beeswarm_0.4.0      xfun_0.41          
- [4] bslib_0.6.1         processx_3.8.3      callr_3.7.3        
+ [1] gtable_0.3.6        beeswarm_0.4.0      xfun_0.49          
+ [4] bslib_0.8.0         processx_3.8.4      callr_3.7.6        
  [7] tzdb_0.4.0          vctrs_0.6.5         tools_4.3.1        
-[10] ps_1.7.6            generics_0.1.3      fansi_1.0.6        
-[13] highr_0.10          pkgconfig_2.0.3     lifecycle_1.0.4    
-[16] farver_2.1.1        compiler_4.3.1      git2r_0.33.0       
-[19] textshaping_0.3.7   munsell_0.5.0       getPass_0.2-4      
-[22] vipor_0.4.7         httpuv_1.6.14       htmltools_0.5.7    
-[25] sass_0.4.8          yaml_2.3.8          crayon_1.5.2       
-[28] later_1.3.2         pillar_1.9.0        jquerylib_0.1.4    
-[31] whisker_0.4.1       cachem_1.0.8        tidyselect_1.2.0   
-[34] digest_0.6.34       stringi_1.8.3       labeling_0.4.3     
-[37] rprojroot_2.0.4     fastmap_1.1.1       grid_4.3.1         
-[40] colorspace_2.1-0    cli_3.6.2           magrittr_2.0.3     
-[43] utf8_1.2.4          withr_2.5.2         scales_1.3.0       
-[46] promises_1.2.1      timechange_0.2.0    rmarkdown_2.25     
-[49] httr_1.4.7          ragg_1.2.7          hms_1.1.3          
-[52] evaluate_0.23       knitr_1.45          rlang_1.1.3        
-[55] Rcpp_1.0.12         glue_1.7.0          BiocManager_1.30.22
-[58] renv_1.0.3          rstudioapi_0.15.0   jsonlite_1.8.8     
-[61] R6_2.5.1            systemfonts_1.0.5   fs_1.6.3           </code></pre>
+[10] ps_1.8.1            generics_0.1.3      fansi_1.0.6        
+[13] pkgconfig_2.0.3     lifecycle_1.0.4     compiler_4.3.1     
+[16] farver_2.1.2        git2r_0.35.0        textshaping_0.4.0  
+[19] munsell_0.5.1       getPass_0.2-4       vipor_0.4.7        
+[22] httpuv_1.6.15       htmltools_0.5.8.1   sass_0.4.9         
+[25] yaml_2.3.10         crayon_1.5.3        later_1.4.1        
+[28] pillar_1.9.0        jquerylib_0.1.4     whisker_0.4.1      
+[31] cachem_1.1.0        tidyselect_1.2.1    digest_0.6.37      
+[34] stringi_1.8.4       labeling_0.4.3      rprojroot_2.0.4    
+[37] fastmap_1.2.0       grid_4.3.1          colorspace_2.1-1   
+[40] cli_3.6.3           magrittr_2.0.3      utf8_1.2.4         
+[43] withr_3.0.2         scales_1.3.0        promises_1.3.2     
+[46] timechange_0.3.0    rmarkdown_2.29      httr_1.4.7         
+[49] ragg_1.3.3          hms_1.1.3           evaluate_1.0.1     
+[52] knitr_1.49          rlang_1.1.4         Rcpp_1.0.13-1      
+[55] glue_1.8.0          BiocManager_1.30.25 renv_1.0.3         
+[58] rstudioapi_0.17.1   jsonlite_1.8.9      R6_2.5.1           
+[61] systemfonts_1.1.0   fs_1.6.5           </code></pre>
 </div>
 </div>
 
