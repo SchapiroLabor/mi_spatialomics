@@ -17,7 +17,6 @@ library(patchwork)
 source("./code/functions.R") 
 ```
 
-
 # New b) Immunofluorescence relative abundance of CCR2+ cells in traditional IF
 
 

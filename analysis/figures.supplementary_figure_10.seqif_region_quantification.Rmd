@@ -1,0 +1,76 @@
+---
+title: "figures.supplementary_figure_10.seqif_region_quantification"
+author: "FloWuenne"
+date: "2024-12-03"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+```{r}
+library(data.table)
+library(tidyverse)
+library(patchwork)
+```
+
+```{r}
+seqif_quants <- fread("./review/all_cell_types_per_region_counts_perctentages_20241212.csv")
+seqif_quants_filtered <- seqif_quants %>%
+  subset(!region_name %in% c("all","remote_endocardial_region","other_cardiac_tissue"))
+
+seqif_quants_filtered$timepoint <- factor(seqif_quants_filtered$timepoint,
+                                          levels = c("Control","4h", "24h", "48h"))
+
+seqif_quants_filtered$region_name <- gsub("border_zone","Border zone",seqif_quants_filtered$region_name)
+seqif_quants_filtered$region_name <- gsub("endocardial_region","Endocardial zone",seqif_quants_filtered$region_name)
+seqif_quants_filtered$region_name <- gsub("epicardial_region","Epicardial region",seqif_quants_filtered$region_name)
+seqif_quants_filtered$region_name <- gsub("infarct_core","Infarct core",seqif_quants_filtered$region_name)
+seqif_quants_filtered$region_name <- factor(seqif_quants_filtered$region_name,
+                                            levels = c("Endocardial zone","Infarct core","Epicardial region","Border zone"))
+
+
+immune_cells <- seqif_quants_filtered %>%
+  subset(final_cell_type %in% c("Macrophages Trem2+","Macrophages Trem2-","Mono / Macros Ccr2+","Neutrophils","Other Leukocytes","Smooth muscle cells"))
+
+non_immune <- seqif_quants_filtered %>%
+  subset(!final_cell_type %in% immune_cells$final_cell_type)
+```
+
+```{r}
+immune_barplot <- ggplot(immune_cells,aes(timepoint,count_per_mm2)) +
+  geom_bar(aes(fill = final_cell_type),color = "black", stat = "summary", fun = "mean", position = position_dodge(width = 0.9)) +
+  geom_point(position = position_dodge(width = 0.9),pch =21,
+             aes(fill = final_cell_type),color = "black",
+             size = 2) +
+  facet_grid(region_name ~ final_cell_type) +
+  labs(x = "Timepoint") +
+  ylab(expression(paste("Cell density / mm"^"2"))) +
+  #remove legend for points
+  theme(legend.position = "none")
+
+immune_barplot
+
+save_plot(filename = "./plots/supp_figure_X.immune_cells_regions.png",
+          plot = immune_barplot,
+          base_asp = 1.8,
+          base_height = 7)
+
+non_immune_plot <- ggplot(non_immune,aes(timepoint,count_per_mm2)) +
+  geom_bar(aes(fill = final_cell_type),color = "black", stat = "summary", fun = "mean", position = position_dodge(width = 0.9)) +
+  geom_point(position = position_dodge(width = 0.9),pch =21,
+             aes(fill = final_cell_type),color = "black",
+             size = 2) +
+  facet_grid(region_name ~ final_cell_type) +
+  labs(x = "Timepoint") +
+  ylab(expression(paste("Cell density / mm"^"2"))) +
+  #remove legend for points
+  theme(legend.position = "none")
+
+save_plot(filename = "./plots/supp_figure_X.NONimmune_cells_regions.png",
+          plot = non_immune_plot,
+          base_asp = 1.8,
+          base_height = 7)
+```
+
