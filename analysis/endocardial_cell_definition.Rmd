@@ -1,0 +1,179 @@
+---
+title: "endocardial_cell_definition"
+author: "FloWuenne"
+date: "2024-12-15"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+```{r}
+library(Seurat)
+library(SeuratData)
+#library(SeuratDisk)
+library(data.table)
+library(harmony)
+library(here)
+library(tidyverse)
+library(Matrix)
+library(sf)
+library(sfheaders)
+library(viridis)
+
+source("./code/functions.R")
+
+## Load annotated Seurat object
+seurat_object <- readRDS("./output/molkart/molkart.seurat_object.rds")
+```
+
+## Use manual tissue annotation to improve endocardial cell labeling
+
+Endocardial cells are very small and thin and form a monolayer at the inner lining of the heart. We noticed that our RNA marker Npr3 does not always reliably label endocardial cells and therefore will use manual annotation of the endocardial tissue regions to improve annotation of endocardial cells.
+
+```{r}
+## Function to use GeoJson mask from QuPath with Seurat metadata to check cell overlap to manual annotation region
+check_mask_overlap <- function(polygon_sf,metadata,img_height,anno_name){
+  points_sf <- st_as_sf(metadata, coords = c("X_centroid", "Y_centroid"), crs = NA)
+  polygon_sf <- st_set_crs(polygon_sf, NA)
+  
+  mirrored_geometries <- st_geometry(polygon_sf) %>% 
+    st_coordinates() %>%
+    as.data.frame() %>%
+    mutate("Y" = img_height - Y) %>%
+    select(X,Y,L2)
+  mirrored_geometries <- as.data.frame(mirrored_geometries)
+  
+  polygon_list <- split(mirrored_geometries[,c("X", "Y")], mirrored_geometries$L2)
+  closed_polys <- list()
+  # Iterate over polygons in polygon_list and add the first row to the end of each polygon
+  for (i in 1:length(polygon_list)) {
+    closed_polys[[i]] <- as.matrix(rbind(polygon_list[[i]], polygon_list[[i]][1,]))
+  }
+  
+  # Convert the list of polygons to sf objects
+  sf_objects <- lapply(closed_polys, function(polygon) {
+    st_polygon(list(polygon))
+  })
+  
+  # Create a MULTIPOLYGON object
+  multipolygon <- st_multipolygon(sf_objects)
+  
+  ## Check which points fall withing the annotation
+  points_within_polygons <- st_within(points_sf, multipolygon, sparse = FALSE)
+  metadata[anno_name] <- points_within_polygons
+  return(metadata)
+}
+```
+
+```{r}
+## Check which cells fall in the spatial endocardial region for each sample
+all_vals <- list()
+for(sample_id in unique(seurat_object@meta.data$sample_ID)){
+  print(sample_id)
+  image_sizes <- fread("./references/molkart.image_dimensions.csv")
+  img_height <- subset(image_sizes,sample_ID == sample_id)$height
+  
+  polygon_sf <- st_read(paste("./annotations/molkart/heart_regions_r/",sample_id,".stack.geojson",sep=""))
+  sample_meta <- subset(seurat_object@meta.data,sample_ID == sample_id)
+  sample_vals <- list(polygon_sf,sample_meta,img_height)
+  all_vals <- append(all_vals,list(sample_vals))
+  #
+}
+#test <- check_mask_overlap(polygon_sf,sample_meta,img_height)
+meta_list <- Map(function(x) check_mask_overlap(x[[1]], x[[2]], x[[3]],"in_endo"), all_vals)
+
+# Combine all data frames into one
+new_full_meta <- do.call(rbind, meta_list)
+```
+
+```{r}
+## Which seurat cluster corresponds to endocardial cells (Npr3 positive)?
+endocardial_cluster <- 15
+
+## How many cells are in the endocardial cluster?
+n_endo <- nrow(subset(new_full_meta,seurat_clusters == endocardial_cluster))
+
+## How many of the transcriptionally defined endocardial cell cluster are spatially within the endocardium?
+n_endo_spatial <- nrow(subset(new_full_meta,seurat_clusters == endocardial_cluster & in_endo == TRUE))
+
+## How many segmented cells are total in the annotated regions?
+anno_region_cells <- nrow(subset(new_full_meta, in_endo == TRUE))
+
+## Let's classify cells that are Pecam1 positive within the endocardial region as endocardial (even if they are not Npr3 positive)
+## add Pecam1 expression 
+pecam1_exp <- seurat_object@assays$SCT@data["Pecam1",]
+new_full_meta$Pecam1 <- pecam1_exp
+npr3_exp <- seurat_object@assays$SCT@data["Npr3",]
+new_full_meta$Npr3 <- npr3_exp
+
+## How many cells are Pecam1 positive within the endocardial region?
+pecam1_pos <- subset(new_full_meta,Pecam1 > 0 & in_endo == TRUE)
+
+## Add another annotation column to metadata to classify all cells with Pecam1 > 0 within the endocardial region as endocardial cells
+new_full_meta <- new_full_meta %>%
+  mutate("spatial_endoc" = if_else((in_endo == TRUE & Pecam1 > 2) | (in_endo == TRUE & seurat_clusters == endocardial_cluster), TRUE,FALSE))
+
+seurat_object@meta.data <- new_full_meta
+```
+
+### Plot results of spatial annotation for endocardial cells 
+
+```{r}
+## Plot cells that are transcriptionally labeled as endocardial cells
+ggplot(new_full_meta,aes(X_centroid,Y_centroid)) +
+  geom_point(color = "darkgrey") +
+  geom_point(data = subset(new_full_meta,seurat_clusters == endocardial_cluster),color = "red") +
+  facet_wrap(~ sample_ID)
+
+## Plot cells that are in cluster 15 but don't express Npr3
+ggplot(new_full_meta,aes(X_centroid,Y_centroid)) +
+  geom_point(color = "darkgrey") +
+  geom_point(data = subset(new_full_meta,seurat_clusters == endocardial_cluster & Npr3 == 0),color = "red") +
+  geom_point(data = subset(new_full_meta,seurat_clusters == endocardial_cluster & Npr3 >  0),color = "blue") +
+  facet_wrap(~ sample_ID)
+
+## Plot 
+## 1: blue - originally transcriptionally labeled endocardial cells but not in endocardial region. 
+## 2: red - transcriptionally labeled endocardial cells that were in endocardial region
+## 3: purple - Cells that were not clustered with Npr3 positive cells but spatially fall within endocardium and are Pecam1 or Npr3 positive.
+endocardial_spatial_annotation <- ggplot(new_full_meta,aes(X_centroid,Y_centroid)) +
+  geom_point(color = "darkgrey", size = 0.5) +
+  geom_point(data = subset(new_full_meta,spatial_endoc == TRUE & seurat_clusters == endocardial_cluster),color = "yellow", size = 0.5) +
+  geom_point(data = subset(new_full_meta,spatial_endoc == TRUE & seurat_clusters != endocardial_cluster),color = "purple", size = 0.5) +
+  geom_point(data = subset(new_full_meta,spatial_endoc == FALSE & seurat_clusters == endocardial_cluster),color = "blue", size = 0.5) +
+  facet_wrap(~ sample_ID)
+
+save_plot(endocardial_spatial_annotation,
+          file = "./plots/molkart.endocardial_spatial_annotation.png",
+          base_height = 6)
+```
+
+```{r}
+new_seurat_object <- seurat_object
+new_seurat_object@meta.data <- new_seurat_object@meta.data %>%
+  mutate("anno_cell_type_lvl2" = if_else(spatial_endoc == TRUE & anno_cell_type_lvl2 == "Endocardial_cells","Endocardial_cells",
+                                         if_else(spatial_endoc == TRUE & anno_cell_type_lvl2 != "Endocardial_cells","Endocardial_cells",
+                                          if_else(spatial_endoc == FALSE & anno_cell_type_lvl2 == "Endocardial_cells","Endothelial_cells",anno_cell_type_lvl2))),
+         "anno_cell_type_lvl3" = if_else(spatial_endoc == TRUE & anno_cell_type_lvl3 == "Endocardial_cells_Npr3","Endocardial_cells_Npr3",
+                                         if_else(spatial_endoc == TRUE & anno_cell_type_lvl3 != "Endocardial_cells_Npr3","Endocardial_cells_Npr3",
+                                         if_else(spatial_endoc == FALSE & anno_cell_type_lvl3 == "Endocardial_cells_Npr3","Lymphatic_endothelial_cells_Lyve1",anno_cell_type_lvl3))))
+
+## Plot a dotplot of Npr3 across all cell types
+library(viridis)
+endocardial_cells_dotplot <- DotPlot(new_seurat_object, 
+        features = c("Npr3"),
+        group.by = "anno_cell_type_lvl2") + 
+  RotatedAxis() +
+  scale_colour_viridis(option="magma") +
+  geom_point(aes(size=pct.exp), shape = 21, colour="black", stroke=0.5) +
+  guides(size=guide_legend(override.aes=list(shape=21, colour="black", fill="black"))) + 
+  labs(tags = "c") + theme(plot.tag = element_text(size = 20, face = "bold"))
+endocardial_cells_dotplot
+
+save_plot(endocardial_cells_dotplot,
+          file = "./plots/molkart.endocardial_dotplot.png",
+          base_height = 4)
+```
+

@@ -454,9 +454,9 @@ vwf_vlnpot <- vwf_vlnpot + theme(plot.margin = margin(t=10, r=10, b=-25, l=10, u
 
 vwf_vlnpot
 
-save_plot(vwf_vlnpot,
-          file = "./plots/Figure4.human_citeseq_vlnplot.pdf",
-          base_height = 4)
+# save_plot(vwf_vlnpot,
+#           file = "./plots/Figure4.human_citeseq_vlnplot.pdf",
+#           base_height = 4)
 ```
 
 As a second visualization option, we will plot a boxplot to show the pseudobulk values that were used in the statistical tests. Here, each dot represents the pseudobulk value for 1 sample for each group (Donor n=6, AMI n=4).
@@ -464,12 +464,16 @@ As a second visualization option, we will plot a boxplot to show the pseudobulk 
 ```{r}
 Idents(sub_human_cite_pb) <- sub_human_cite_pb$disease_group
 sub_human_cite_pb$disease_group <- factor(sub_human_cite_pb$disease_group, levels = c("Donor","AMI"))
-VlnPlot(sub_human_cite_pb,
+vwf_vlnpot_pseudobulk <- VlnPlot(sub_human_cite_pb,
         features = "VWF",
         group.by = "disease_group",
         pt.size = 4,
         cols = c("#008000", "#CD1076"))
 
+save_plot(vwf_vlnpot_pseudobulk,
+          file = "./plots/Figure5.human_citeseq_vlnplot.pdf",
+          base_height = 4,
+          base_asp = 2.25)
 ```
 
 
