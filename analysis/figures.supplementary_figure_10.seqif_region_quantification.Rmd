@@ -74,3 +74,33 @@ save_plot(filename = "./plots/supp_figure_X.NONimmune_cells_regions.png",
           base_height = 7)
 ```
 
+
+## R3-6 plot - Mono/Macro CCr2+ vs Trem2+/Trem2-
+
+```{r}
+mono_macro  <- immune_cells %>%
+  subset(final_cell_type %in% c("Mono / Macros Ccr2+","Macrophages Trem2+","Macrophages Trem2-"))
+
+mono_macro$region_name <- gsub("Endocardial zone","Endocardial infarct zone",mono_macro$region_name)
+mono_macro$region_name <- factor(mono_macro$region_name,
+                                 levels = c("Endocardial infarct zone","Infarct core","Epicardial region","Border zone"))
+
+mono_macro_density <- ggplot(mono_macro,aes(timepoint,count_per_mm2)) +
+  geom_bar(aes(fill = final_cell_type),color = "black", stat = "summary", fun = "mean", position = position_dodge(width = 0.9)) +
+  geom_point(position = position_dodge(width = 0.9),pch =21,
+             aes(fill = final_cell_type),color = "black",
+             size = 2, show.legend = FALSE) +
+  facet_wrap(~ region_name) +
+  labs(x = "Timepoint") +
+  ylab(expression(paste("Cell density / mm"^"2"))) +
+  theme(legend.position = "top")
+
+mono_macro_density
+
+save_plot(mono_macro_density,
+          file = "./plots/R3-6_mono_macro_region_quant.png",
+          base_height = 6,
+          dpi = 300)
+```
+
+
