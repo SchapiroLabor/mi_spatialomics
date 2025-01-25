@@ -25,7 +25,7 @@ For more options to download the data within Synapse, you can select Download Op
 You can then clone this repository alongside the data repository from Synapse:
 
 ```         
-git clone https://github.com/FloWuenne/mi_spatialomics.git
+git clone https://github.com/schapirolabor/mi_spatialomics.git
 ```
 
 # Data processing
