@@ -19,6 +19,8 @@ In this markdown, we will calculate the
 library(data.table)
 library(tidyverse)
 
+source("./code/functions.R")
+
 ## Read in distances calculated from SeqIF
 distances_lumen_grouped <- fread("./review/cell_table_final_lumen_bins_plot_grouped.csv")
 distances_lumen_grouped_long <- distances_lumen_grouped %>%
@@ -26,27 +28,50 @@ distances_lumen_grouped_long <- distances_lumen_grouped %>%
 distances_lumen_grouped_long$timepoint <- factor(distances_lumen_grouped_long$timepoint,
                                              levels = c("Control","4h","24h","48h")) 
 distances_lumen_grouped_long <- distances_lumen_grouped_long %>%
+  #subset(group %in% c("endothelial_mean","mono_mean","endocardial_mean"))
   subset(group %in% c("endothelial_mean","mono_mean"))
 
 distances_lumen <- fread("./review/cell_table_final_lumen_bins_plot.csv")
 distances_lumen_long <- distances_lumen %>%
-  select(timepoint,lumen_bin,mono_per_mm2,endothelial_per_mm2) %>%
+  select(timepoint,lumen_bin,mono_per_mm2,endothelial_per_mm2,endocardial_per_mm2) %>%
   pivot_longer(3:4, names_to = "group", values_to = "density")
 
 distances_lumen_long$group <- gsub("mono_per_mm2","Mono / Macro Ccr2+",distances_lumen_long$group)
 distances_lumen_long$group <- gsub("endothelial_per_mm2","Endothelial (Cd31+ vasculature)",distances_lumen_long$group)
+#distances_lumen_long$group <- gsub("endocardial_per_mm2","Endocardial",distances_lumen_long$group)
+
+## Filter endocardial cells for bin 1 only to avoid contamination in other bins
+# distances_lumen_long <- distances_lumen_long %>%
+#   subset(!(group == "Endocardial" & lumen_bin != 1))
 ```
 
 ```{r}
-ggplot(distances_lumen_long, aes(lumen_bin, density)) +
+distances_lumen_long$timepoint <- factor(distances_lumen_long$timepoint,
+                                             levels = c("Control","4h","24h","48h")) 
+
+
+lumen_distance_plot <- ggplot(distances_lumen_long, aes(lumen_bin, density)) +
   facet_grid(~ timepoint) +
-  geom_bar(aes(fill = group),color = "black", stat = "summary", fun = "mean", position = position_dodge(width = 0.9)) +
-  geom_point(position = position_dodge(width = 0.9),pch =21,
-             aes(fill = group),color = "black",
-             size = 2) +
-  scale_fill_manual(values = c("#a8dadc","#ffd166")) +
-  # Change y-axis title to cell density in mm2 with superscript
-  ylab(expression(paste("Cell density mm"^"2")))
+  geom_bar(aes(fill = group), color = "black", stat = "summary", fun = "mean", 
+          position = position_dodge(width = 0.9)) +
+  geom_point(position = position_dodge(width = 0.9), pch = 21,
+             aes(fill = group), color = "black",
+             size = 2, show.legend = FALSE) +
+  scale_fill_manual(values = c("#ffd166","#a379d9"),
+                   guide = guide_legend(override.aes = list(shape = 22, size = 3))) +
+  ylab(expression(paste("Cell density / mm"^"2"))) + 
+  labs(x = "Distance to lumen (bin)",
+       fill = "Cell type") +
+  theme_cowplot_custom +
+  theme(legend.position = "top")
+
+lumen_distance_plot
+
+save_plot(lumen_distance_plot,
+          file = "./plots/Supplementary_figure_X.lumen_distance.pdf",
+          base_height = 4,
+          base_asp = 2,
+          dpi = 300)
 ```
 
 
