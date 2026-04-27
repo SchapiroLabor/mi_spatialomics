@@ -1,0 +1,11 @@
+region_id,region_name
+1,lumen
+2,endocardial_region
+3,remote_endocardial_region
+4,background
+5,border_zone
+7,epicardial_region
+8,ignore
+10,infarct_core
+0,other_cardiac_tissue
+
