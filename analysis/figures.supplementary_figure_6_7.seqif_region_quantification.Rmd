@@ -13,6 +13,7 @@ editor_options:
 library(data.table)
 library(tidyverse)
 library(patchwork)
+library(cowplot)
 ```
 
 ```{r}
@@ -24,21 +25,39 @@ seqif_quants_filtered$timepoint <- factor(seqif_quants_filtered$timepoint,
                                           levels = c("Control","4h", "24h", "48h"))
 
 seqif_quants_filtered$region_name <- gsub("border_zone","Border zone",seqif_quants_filtered$region_name)
-seqif_quants_filtered$region_name <- gsub("endocardial_region","Endocardial zone",seqif_quants_filtered$region_name)
+seqif_quants_filtered$region_name <- gsub("endocardial_region","Endocardial \ninfarct zone",seqif_quants_filtered$region_name)
 seqif_quants_filtered$region_name <- gsub("epicardial_region","Epicardial region",seqif_quants_filtered$region_name)
 seqif_quants_filtered$region_name <- gsub("infarct_core","Infarct core",seqif_quants_filtered$region_name)
 seqif_quants_filtered$region_name <- factor(seqif_quants_filtered$region_name,
-                                            levels = c("Endocardial zone","Infarct core","Epicardial region","Border zone"))
+                                            levels = c("Endocardial \ninfarct zone","Infarct core","Epicardial region","Border zone"))
 
 
 immune_cells <- seqif_quants_filtered %>%
-  subset(final_cell_type %in% c("Macrophages Trem2+","Macrophages Trem2-","Mono / Macros Ccr2+","Neutrophils","Other Leukocytes","Smooth muscle cells"))
+  subset(final_cell_type %in% c("Macrophages Trem2+","Macrophages Trem2-","Mono / Macros Ccr2+","Neutrophils","Other Leukocytes"))
 
 non_immune <- seqif_quants_filtered %>%
   subset(!final_cell_type %in% immune_cells$final_cell_type)
+
+non_immune$final_cell_type <- gsub("Fibroblasts","Cardiac fibroblasts",non_immune$final_cell_type)
 ```
 
 ```{r}
+
+## Set color palette to be the same as in Figure 1
+non_immune_colors <- c("Cardiac fibroblasts" = "#782AB5",
+                  "Cardiomyocytes" = "#1869ff",
+                  "Cardiomyocytes Ankrd1+" = "#ffa235",
+                   "Endothelial cells" = "#B33E15",
+                  "Smooth muscle cells" = "#d21820")
+
+immune_cells_colors <- c("Macrophages Trem2+" = "#aafb00",
+                    "Macrophages Trem2-" = "magenta",
+                    "Mono / Macros Ccr2+" = "#008a00",
+                    "Neutrophils" = "#f36dff",
+                    "Other Leukocytes" = "#710079"
+                    
+                    )
+
 immune_barplot <- ggplot(immune_cells,aes(timepoint,count_per_mm2)) +
   geom_bar(aes(fill = final_cell_type),color = "black", stat = "summary", fun = "mean", position = position_dodge(width = 0.9)) +
   geom_point(position = position_dodge(width = 0.9),pch =21,
@@ -48,7 +67,10 @@ immune_barplot <- ggplot(immune_cells,aes(timepoint,count_per_mm2)) +
   labs(x = "Timepoint") +
   ylab(expression(paste("Cell density / mm"^"2"))) +
   #remove legend for points
-  theme(legend.position = "none")
+  theme(legend.position = "none") +
+  scale_fill_manual(values = immune_cells_colors)
+immune_barplot
+
 
 immune_barplot
 
@@ -66,7 +88,8 @@ non_immune_plot <- ggplot(non_immune,aes(timepoint,count_per_mm2)) +
   labs(x = "Timepoint") +
   ylab(expression(paste("Cell density / mm"^"2"))) +
   #remove legend for points
-  theme(legend.position = "none")
+  theme(legend.position = "none") +
+  scale_fill_manual(values = non_immune_colors)
 
 save_plot(filename = "./plots/supp_figure_X.NONimmune_cells_regions.png",
           plot = non_immune_plot,
@@ -81,11 +104,23 @@ save_plot(filename = "./plots/supp_figure_X.NONimmune_cells_regions.png",
 mono_macro  <- immune_cells %>%
   subset(final_cell_type %in% c("Mono / Macros Ccr2+","Macrophages Trem2+","Macrophages Trem2-"))
 
-mono_macro$region_name <- gsub("Endocardial zone","Endocardial infarct zone",mono_macro$region_name)
-mono_macro$region_name <- factor(mono_macro$region_name,
-                                 levels = c("Endocardial infarct zone","Infarct core","Epicardial region","Border zone"))
+ccr2_pos <- mono_macro %>% subset(final_cell_type == "Mono / Macros Ccr2+") %>% select(fov,timepoint,region_name,final_cell_type,count_per_mm2)
+ccr2_neg <- mono_macro %>% subset(final_cell_type != "Mono / Macros Ccr2+")
 
-mono_macro_density <- ggplot(mono_macro,aes(timepoint,count_per_mm2)) +
+ccr2_neg <- ccr2_neg %>%
+  group_by(fov,timepoint,region_name,final_cell_type) %>%
+  summarise(count_per_mm2 = sum(count_per_mm2)) %>%
+  ungroup()
+ccr2_neg$final_cell_type <- "Mono / Macros Ccr2-"
+
+
+mono_macro_proc <- rbind(ccr2_pos,ccr2_neg)
+
+mono_macro_proc$region_name <- gsub("Endocardial zone","Endocardial \ninfarct zone",mono_macro_proc$region_name)
+mono_macro_proc$region_name <- factor(mono_macro_proc$region_name,
+                                 levels = c("Endocardial \ninfarct zone","Infarct core","Epicardial region","Border zone"))
+
+mono_macro_density <- ggplot(mono_macro_proc,aes(timepoint,count_per_mm2)) +
   geom_bar(aes(fill = final_cell_type),color = "black", stat = "summary", fun = "mean", position = position_dodge(width = 0.9)) +
   geom_point(position = position_dodge(width = 0.9),pch =21,
              aes(fill = final_cell_type),color = "black",

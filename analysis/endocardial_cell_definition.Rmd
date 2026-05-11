@@ -164,16 +164,19 @@ new_seurat_object@meta.data <- new_seurat_object@meta.data %>%
 library(viridis)
 endocardial_cells_dotplot <- DotPlot(new_seurat_object, 
         features = c("Npr3"),
-        group.by = "anno_cell_type_lvl2") + 
+        group.by = "anno_cell_type_lvl3") + 
   RotatedAxis() +
   scale_colour_viridis(option="magma") +
   geom_point(aes(size=pct.exp), shape = 21, colour="black", stroke=0.5) +
-  guides(size=guide_legend(override.aes=list(shape=21, colour="black", fill="black"))) + 
-  labs(tags = "c") + theme(plot.tag = element_text(size = 20, face = "bold"))
+  guides(size=guide_legend(override.aes=list(shape=21, colour="black", fill="black"))) + theme(plot.tag = element_text(size = 20, face = "bold"))
 endocardial_cells_dotplot
 
 save_plot(endocardial_cells_dotplot,
           file = "./plots/molkart.endocardial_dotplot.png",
+          base_height = 4)
+
+save_plot(endocardial_cells_dotplot,
+          file = "./plots/molkart.endocardial_dotplot.pdf",
           base_height = 4)
 ```
 

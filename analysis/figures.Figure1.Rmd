@@ -104,15 +104,27 @@ umap_plot <- SCpubr::do_DimPlot(sample = seurat_object,
 
 umap_plot
 
-# save_plot(umap_plot,
-#           file = "./plots/Figure1.umap_plot.pdf",
-#           base_height = 6)
-# 
-# 
-# save_plot(umap_plot,
-#           file = "./plots/Figure1.umap_plot.png",
-#           base_height = 6)
+save_plot(umap_plot,
+          file = "./plots/Figure1.umap_plot.pdf",
+          base_height = 6)
+
+
+save_plot(umap_plot,
+          file = "./plots/Figure1.umap_plot.png",
+          base_height = 6)
 ```
+
+```{r}
+#### Source data
+## Export UMAP mappings for Extended data source
+umap_embeddings <- as.data.frame(seurat_object@reductions$umap@cell.embeddings)
+cell_type_annotation <- seurat_object$anno_cell_type_lvl2
+umap_embeddings$cell_types <- cell_type_annotation
+umap_embeddings$cellID <- rownames(umap_embeddings)
+
+write.csv(umap_embeddings, file = "./source_data/Figure1C.umap_embeddings.csv", row.names = FALSE)
+```
+
 
 ```{r}
 ## UMAP split by time
@@ -276,3 +288,16 @@ save_plot(cell_type_views,
           base_height = 5,
           base_asp = 1.3)
 ```
+
+```{r}
+#### Source data
+## Export spatial coordinates for Extended data source
+spatial_coordinates <- meta_sample 
+spatial_coordinates$cellID <- rownames(spatial_coordinates)
+spatial_coordinates <- spatial_coordinates %>%
+  
+  select(cellID, X_centroid, Y_centroid, anno_cell_type_lvl2)
+
+write.csv(spatial_coordinates, file = "./source_data/Figure1F.spatial_coordinates.csv", row.names = FALSE)
+```
+

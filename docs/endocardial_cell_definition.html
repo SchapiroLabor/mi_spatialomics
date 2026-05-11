@@ -391,7 +391,7 @@ class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2025-01-22
+<strong>Last updated:</strong> 2025-08-04
 </p>
 <p>
 <strong>Checks:</strong> <span
@@ -522,15 +522,15 @@ project makes it easier to run your code on other machines.</p>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstreef62b2bf29bc140cbd63897e3e69ed2fe1995139ctargetblankf62b2bfa">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree5dca9b393cf23bcfb654287e56d4d24e1b935c48targetblank5dca9b3a">
 <span class="glyphicon glyphicon-ok text-success"
 aria-hidden="true"></span> <strong>Repository version:</strong>
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/f62b2bf29bc140cbd63897e3e69ed2fe1995139c" target="_blank">f62b2bf</a>
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/5dca9b393cf23bcfb654287e56d4d24e1b935c48" target="_blank">5dca9b3</a>
 </a>
 </p>
 </div>
 <div
-id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstreef62b2bf29bc140cbd63897e3e69ed2fe1995139ctargetblankf62b2bfa"
+id="strongRepositoryversionstrongahrefhttpsgithubcomFloWuennemispatialomicstree5dca9b393cf23bcfb654287e56d4d24e1b935c48targetblank5dca9b3a"
 class="panel-collapse collapse">
 <div class="panel-body">
 <p>
@@ -540,7 +540,7 @@ reproducibility.
 </p>
 <p>
 The results in this page were generated with repository version
-<a href="https://github.com/FloWuenne/mi_spatialomics/tree/f62b2bf29bc140cbd63897e3e69ed2fe1995139c" target="_blank">f62b2bf</a>.
+<a href="https://github.com/FloWuenne/mi_spatialomics/tree/5dca9b393cf23bcfb654287e56d4d24e1b935c48" target="_blank">5dca9b3</a>.
 See the <em>Past versions</em> tab to see a history of the changes made
 to the R Markdown and HTML files.
 </p>
@@ -556,6 +556,7 @@ were generated:
 <pre><code>
 Ignored files:
     Ignored:    .DS_Store
+    Ignored:    .Rhistory
     Ignored:    .Rproj.user/
     Ignored:    analysis/.DS_Store
     Ignored:    data/.DS_Store
@@ -568,6 +569,7 @@ Ignored files:
     Ignored:    output/proteomics/
     Ignored:    output/results_cts.lowres.125.sqm
     Ignored:    output/seqIF/
+    Ignored:    pipeline_configs/.DS_Store
     Ignored:    plots/
     Ignored:    renv/.DS_Store
     Ignored:    renv/library/
@@ -618,6 +620,41 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/FloWuenne/mi_spatialomics/blob/d969082ed203b4f1fa8848111a734565e5176bc4/analysis/endocardial_cell_definition.Rmd" target="_blank">d969082</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2025-08-04
+</td>
+<td>
+Updated SeqIF lumena distance, endocardial definition and supp figure
+6+7
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/FloWuenne/mi_spatialomics/606b1adba619f91fafad32a86300c4a0d557bd56/docs/endocardial_cell_definition.html" target="_blank">606b1ad</a>
+</td>
+<td>
+FloWuenne
+</td>
+<td>
+2025-01-22
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -1026,12 +1063,11 @@ new_seurat_object@meta.data &lt;- new_seurat_object@meta.data %&gt;%
 library(viridis)
 endocardial_cells_dotplot &lt;- DotPlot(new_seurat_object, 
         features = c(&quot;Npr3&quot;),
-        group.by = &quot;anno_cell_type_lvl2&quot;) + 
+        group.by = &quot;anno_cell_type_lvl3&quot;) + 
   RotatedAxis() +
   scale_colour_viridis(option=&quot;magma&quot;) +
   geom_point(aes(size=pct.exp), shape = 21, colour=&quot;black&quot;, stroke=0.5) +
-  guides(size=guide_legend(override.aes=list(shape=21, colour=&quot;black&quot;, fill=&quot;black&quot;))) + 
-  labs(tags = &quot;c&quot;) + theme(plot.tag = element_text(size = 20, face = &quot;bold&quot;))</code></pre>
+  guides(size=guide_legend(override.aes=list(shape=21, colour=&quot;black&quot;, fill=&quot;black&quot;))) + theme(plot.tag = element_text(size = 20, face = &quot;bold&quot;))</code></pre>
 <pre><code>Warning: The following variables were found in both object meta data and the default assay: Npr3
 Returning meta data; if you want the feature, please use the assay&#39;s key (eg. sct_Npr3)</code></pre>
 <pre><code>Scale for colour is already present.
@@ -1077,6 +1113,10 @@ FloWuenne
 </div>
 <pre class="r"><code>save_plot(endocardial_cells_dotplot,
           file = &quot;./plots/molkart.endocardial_dotplot.png&quot;,
+          base_height = 4)
+
+save_plot(endocardial_cells_dotplot,
+          file = &quot;./plots/molkart.endocardial_dotplot.pdf&quot;,
           base_height = 4)</code></pre>
 <br>
 <p>
@@ -1152,7 +1192,7 @@ loaded via a namespace (and not attached):
 [100] scattermore_1.2        xfun_0.49              matrixStats_1.4.1     
 [103] stringi_1.8.4          lazyeval_0.2.2         yaml_2.3.10           
 [106] evaluate_1.0.1         codetools_0.2-19       BiocManager_1.30.25   
-[109] cli_3.6.3              uwot_0.2.2             systemfonts_1.1.0     
+[109] cli_3.6.3              uwot_0.2.2             systemfonts_1.2.3     
 [112] xtable_1.8-4           reticulate_1.40.0      munsell_0.5.1         
 [115] processx_3.8.4         jquerylib_0.1.4        globals_0.16.3        
 [118] spatstat.random_3.3-2  png_0.1-8              spatstat.univar_3.1-1 
